@@ -1,0 +1,185 @@
+fileFormatVersion: 2
+guid: 41f58192ebeabc240a546f38836dc051
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: BaseModulo2
+    100004: BotonesCuadradosDerecha
+    100006: BotonesCuadradosIzquierda
+    100008: BotonRojo
+    100010: BotonRojo_001
+    100012: BotonVerde
+    100014: BotonVerde_001
+    100016: Cylinder
+    100018: EntradaPlugAnaranjado1
+    100020: EntradaPlugAnaranjado2
+    100022: EntradaPlugAnaranjado3
+    100024: EntradaPlugAnaranjado4
+    100026: EntradaPlugAnaranjado5
+    100028: EntradaPlugAnaranjado6
+    100030: PisoModulo2
+    100032: PlanoConectorDerecho
+    100034: PlanoConectorIzquierdo
+    400000: //RootNode
+    400002: BaseModulo2
+    400004: BotonesCuadradosDerecha
+    400006: BotonesCuadradosIzquierda
+    400008: BotonRojo
+    400010: BotonRojo_001
+    400012: BotonVerde
+    400014: BotonVerde_001
+    400016: Cylinder
+    400018: EntradaPlugAnaranjado1
+    400020: EntradaPlugAnaranjado2
+    400022: EntradaPlugAnaranjado3
+    400024: EntradaPlugAnaranjado4
+    400026: EntradaPlugAnaranjado5
+    400028: EntradaPlugAnaranjado6
+    400030: PisoModulo2
+    400032: PlanoConectorDerecho
+    400034: PlanoConectorIzquierdo
+    2100000: EnchufesAnaranjados
+    2100002: FondoEnchufe
+    2100004: ParteMetalicaInternaEnchufe
+    2100006: CajaBotonesCuadrados
+    2100008: BotonVerdeCuadrado
+    2100010: SombraBotonVerdeCuadrado
+    2100012: BotonRojoCuadrado
+    2100014: Lestras
+    2100016: unnamed
+    2100018: Madera
+    2300000: BaseModulo2
+    2300002: BotonesCuadradosDerecha
+    2300004: BotonesCuadradosIzquierda
+    2300006: BotonRojo
+    2300008: BotonRojo_001
+    2300010: BotonVerde
+    2300012: BotonVerde_001
+    2300014: Cylinder
+    2300016: EntradaPlugAnaranjado1
+    2300018: EntradaPlugAnaranjado2
+    2300020: EntradaPlugAnaranjado3
+    2300022: EntradaPlugAnaranjado4
+    2300024: EntradaPlugAnaranjado5
+    2300026: EntradaPlugAnaranjado6
+    2300028: PisoModulo2
+    2300030: PlanoConectorDerecho
+    2300032: PlanoConectorIzquierdo
+    3300000: BaseModulo2
+    3300002: BotonesCuadradosDerecha
+    3300004: BotonesCuadradosIzquierda
+    3300006: BotonRojo
+    3300008: BotonRojo_001
+    3300010: BotonVerde
+    3300012: BotonVerde_001
+    3300014: Cylinder
+    3300016: EntradaPlugAnaranjado1
+    3300018: EntradaPlugAnaranjado2
+    3300020: EntradaPlugAnaranjado3
+    3300022: EntradaPlugAnaranjado4
+    3300024: EntradaPlugAnaranjado5
+    3300026: EntradaPlugAnaranjado6
+    3300028: PisoModulo2
+    3300030: PlanoConectorDerecho
+    3300032: PlanoConectorIzquierdo
+    4300000: EntradaPlugAnaranjado6
+    4300002: EntradaPlugAnaranjado4
+    4300004: EntradaPlugAnaranjado5
+    4300006: BotonesCuadradosDerecha
+    4300008: BotonVerde
+    4300010: BotonRojo
+    4300012: PlanoConectorDerecho
+    4300014: PlanoConectorIzquierdo
+    4300016: BotonesCuadradosIzquierda
+    4300018: BotonRojo_001
+    4300020: Cylinder
+    4300022: BotonVerde_001
+    4300024: EntradaPlugAnaranjado2
+    4300026: EntradaPlugAnaranjado1
+    4300028: PisoModulo2
+    4300030: EntradaPlugAnaranjado3
+    4300032: BaseModulo2
+    7400000: Default Take
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

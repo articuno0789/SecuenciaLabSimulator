@@ -1,0 +1,216 @@
+fileFormatVersion: 2
+guid: a76eaf78cf2721b4cb493c2b427277f0
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: BaseModulo20
+    100004: BezierCircle
+    100006: EntradaPlugAnaranjado1
+    100008: EntradaPlugAnaranjado2
+    100010: EntradaPlugAnaranjado3
+    100012: EntradaPlugAnaranjado4
+    100014: EntradaPlugAnaranjado5
+    100016: EntradaPlugAnaranjado6
+    100018: EntradaPlugAnaranjado7
+    100020: EntradaPlugAnaranjado8
+    100022: EntradaPlugAnaranjado9
+    100024: PisoModulo20
+    100026: Plane
+    100028: Plane_002
+    100030: Text_009
+    100032: Texto-1
+    100034: Texto-2
+    100036: Texto-3
+    100038: Texto-4
+    100040: Texto-5
+    100042: Texto-6
+    100044: Texto-7
+    100046: Texto-8
+    100048: Texto-9
+    400000: //RootNode
+    400002: BaseModulo20
+    400004: BezierCircle
+    400006: EntradaPlugAnaranjado1
+    400008: EntradaPlugAnaranjado2
+    400010: EntradaPlugAnaranjado3
+    400012: EntradaPlugAnaranjado4
+    400014: EntradaPlugAnaranjado5
+    400016: EntradaPlugAnaranjado6
+    400018: EntradaPlugAnaranjado7
+    400020: EntradaPlugAnaranjado8
+    400022: EntradaPlugAnaranjado9
+    400024: PisoModulo20
+    400026: Plane
+    400028: Plane_002
+    400030: Text_009
+    400032: Texto-1
+    400034: Texto-2
+    400036: Texto-3
+    400038: Texto-4
+    400040: Texto-5
+    400042: Texto-6
+    400044: Texto-7
+    400046: Texto-8
+    400048: Texto-9
+    2100000: unnamed
+    2100002: Enchufes
+    2100004: FondoEnchufe
+    2100006: ParteMetalicaInternaEnchufe
+    2100008: Lestras
+    2100010: Madera
+    2300000: BaseModulo20
+    2300002: BezierCircle
+    2300004: EntradaPlugAnaranjado1
+    2300006: EntradaPlugAnaranjado2
+    2300008: EntradaPlugAnaranjado3
+    2300010: EntradaPlugAnaranjado4
+    2300012: EntradaPlugAnaranjado5
+    2300014: EntradaPlugAnaranjado6
+    2300016: EntradaPlugAnaranjado7
+    2300018: EntradaPlugAnaranjado8
+    2300020: EntradaPlugAnaranjado9
+    2300022: PisoModulo20
+    2300024: Plane
+    2300026: Plane_002
+    2300028: Text_009
+    2300030: Texto-1
+    2300032: Texto-2
+    2300034: Texto-3
+    2300036: Texto-4
+    2300038: Texto-5
+    2300040: Texto-6
+    2300042: Texto-7
+    2300044: Texto-8
+    2300046: Texto-9
+    3300000: BaseModulo20
+    3300002: BezierCircle
+    3300004: EntradaPlugAnaranjado1
+    3300006: EntradaPlugAnaranjado2
+    3300008: EntradaPlugAnaranjado3
+    3300010: EntradaPlugAnaranjado4
+    3300012: EntradaPlugAnaranjado5
+    3300014: EntradaPlugAnaranjado6
+    3300016: EntradaPlugAnaranjado7
+    3300018: EntradaPlugAnaranjado8
+    3300020: EntradaPlugAnaranjado9
+    3300022: PisoModulo20
+    3300024: Plane
+    3300026: Plane_002
+    3300028: Text_009
+    3300030: Texto-1
+    3300032: Texto-2
+    3300034: Texto-3
+    3300036: Texto-4
+    3300038: Texto-5
+    3300040: Texto-6
+    3300042: Texto-7
+    3300044: Texto-8
+    3300046: Texto-9
+    4300000: PisoModulo20
+    4300002: EntradaPlugAnaranjado3
+    4300004: EntradaPlugAnaranjado2
+    4300006: Texto-3
+    4300008: Texto-2
+    4300010: Texto-1
+    4300012: EntradaPlugAnaranjado1
+    4300014: EntradaPlugAnaranjado7
+    4300016: Texto-7
+    4300018: Texto-8
+    4300020: Texto-9
+    4300022: EntradaPlugAnaranjado8
+    4300024: EntradaPlugAnaranjado9
+    4300026: EntradaPlugAnaranjado6
+    4300028: EntradaPlugAnaranjado5
+    4300030: BezierCircle
+    4300032: Plane_002
+    4300034: Plane
+    4300036: Text_009
+    4300038: Texto-6
+    4300040: Texto-5
+    4300042: Texto-4
+    4300044: BaseModulo20
+    4300046: EntradaPlugAnaranjado4
+    7400000: Default Take
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

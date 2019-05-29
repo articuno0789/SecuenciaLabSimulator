@@ -1,0 +1,228 @@
+fileFormatVersion: 2
+guid: d0ae01b8e3427d149a54b578500800fd
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: BaseModulo9
+    100004: BotonCircularAzul1
+    100006: BotonCircularAzul2
+    100008: BotonCircularAzul3
+    100010: BotonCircularAzul4
+    100012: BotonCircularAzul4_001
+    100014: BotonCircularAzul4_002
+    100016: BotonCircularAzul5
+    100018: BotonCircularAzul6
+    100020: CamaraTarget
+    100022: Cylinder_000
+    100024: Cylinder_001
+    100026: Cylinder_002
+    100028: EntradaPlugAnaranjado1
+    100030: EntradaPlugAnaranjado10
+    100032: EntradaPlugAnaranjado11
+    100034: EntradaPlugAnaranjado12
+    100036: EntradaPlugAnaranjado2
+    100038: EntradaPlugAnaranjado3
+    100040: EntradaPlugAnaranjado4
+    100042: EntradaPlugAnaranjado5
+    100044: EntradaPlugAnaranjado6
+    100046: EntradaPlugAnaranjado7
+    100048: EntradaPlugAnaranjado8
+    100050: EntradaPlugAnaranjado9
+    100052: PisoModulo9
+    400000: //RootNode
+    400002: BaseModulo9
+    400004: BotonCircularAzul1
+    400006: BotonCircularAzul2
+    400008: BotonCircularAzul3
+    400010: BotonCircularAzul4
+    400012: BotonCircularAzul4_001
+    400014: BotonCircularAzul4_002
+    400016: BotonCircularAzul5
+    400018: BotonCircularAzul6
+    400020: CamaraTarget
+    400022: Cylinder_000
+    400024: Cylinder_001
+    400026: Cylinder_002
+    400028: EntradaPlugAnaranjado1
+    400030: EntradaPlugAnaranjado10
+    400032: EntradaPlugAnaranjado11
+    400034: EntradaPlugAnaranjado12
+    400036: EntradaPlugAnaranjado2
+    400038: EntradaPlugAnaranjado3
+    400040: EntradaPlugAnaranjado4
+    400042: EntradaPlugAnaranjado5
+    400044: EntradaPlugAnaranjado6
+    400046: EntradaPlugAnaranjado7
+    400048: EntradaPlugAnaranjado8
+    400050: EntradaPlugAnaranjado9
+    400052: PisoModulo9
+    2100000: BotonAzul_001
+    2100002: CajaBotonesCirculares
+    2100004: EnchufesAnaranjados
+    2100006: FondoEnchufe
+    2100008: ParteMetalicaInternaEnchufe
+    2100010: unnamed
+    2100012: Madera
+    2100014: CajaBotonesCirculares_001
+    2100016: CajaBotonesCirculares_002
+    2100018: BotonAzul_002
+    2100020: BotonAzul_003
+    2300000: BaseModulo9
+    2300002: BotonCircularAzul1
+    2300004: BotonCircularAzul2
+    2300006: BotonCircularAzul3
+    2300008: BotonCircularAzul4
+    2300010: BotonCircularAzul4_001
+    2300012: BotonCircularAzul4_002
+    2300014: BotonCircularAzul5
+    2300016: BotonCircularAzul6
+    2300018: Cylinder_000
+    2300020: Cylinder_001
+    2300022: Cylinder_002
+    2300024: EntradaPlugAnaranjado1
+    2300026: EntradaPlugAnaranjado10
+    2300028: EntradaPlugAnaranjado11
+    2300030: EntradaPlugAnaranjado12
+    2300032: EntradaPlugAnaranjado2
+    2300034: EntradaPlugAnaranjado3
+    2300036: EntradaPlugAnaranjado4
+    2300038: EntradaPlugAnaranjado5
+    2300040: EntradaPlugAnaranjado6
+    2300042: EntradaPlugAnaranjado7
+    2300044: EntradaPlugAnaranjado8
+    2300046: EntradaPlugAnaranjado9
+    2300048: PisoModulo9
+    3300000: BaseModulo9
+    3300002: BotonCircularAzul1
+    3300004: BotonCircularAzul2
+    3300006: BotonCircularAzul3
+    3300008: BotonCircularAzul4
+    3300010: BotonCircularAzul4_001
+    3300012: BotonCircularAzul4_002
+    3300014: BotonCircularAzul5
+    3300016: BotonCircularAzul6
+    3300018: Cylinder_000
+    3300020: Cylinder_001
+    3300022: Cylinder_002
+    3300024: EntradaPlugAnaranjado1
+    3300026: EntradaPlugAnaranjado10
+    3300028: EntradaPlugAnaranjado11
+    3300030: EntradaPlugAnaranjado12
+    3300032: EntradaPlugAnaranjado2
+    3300034: EntradaPlugAnaranjado3
+    3300036: EntradaPlugAnaranjado4
+    3300038: EntradaPlugAnaranjado5
+    3300040: EntradaPlugAnaranjado6
+    3300042: EntradaPlugAnaranjado7
+    3300044: EntradaPlugAnaranjado8
+    3300046: EntradaPlugAnaranjado9
+    3300048: PisoModulo9
+    4300000: Cylinder_001
+    4300002: BotonCircularAzul1
+    4300004: BotonCircularAzul2
+    4300006: BotonCircularAzul3
+    4300008: BotonCircularAzul6
+    4300010: BotonCircularAzul5
+    4300012: EntradaPlugAnaranjado6
+    4300014: EntradaPlugAnaranjado12
+    4300016: EntradaPlugAnaranjado11
+    4300018: EntradaPlugAnaranjado5
+    4300020: EntradaPlugAnaranjado3
+    4300022: EntradaPlugAnaranjado9
+    4300024: EntradaPlugAnaranjado10
+    4300026: EntradaPlugAnaranjado4
+    4300028: EntradaPlugAnaranjado2
+    4300030: EntradaPlugAnaranjado8
+    4300032: EntradaPlugAnaranjado7
+    4300034: BotonCircularAzul4
+    4300036: EntradaPlugAnaranjado1
+    4300038: PisoModulo9
+    4300040: BaseModulo9
+    4300042: BotonCircularAzul4_001
+    4300044: BotonCircularAzul4_002
+    4300046: Cylinder_000
+    4300048: Cylinder_002
+    7400000: Default Take
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

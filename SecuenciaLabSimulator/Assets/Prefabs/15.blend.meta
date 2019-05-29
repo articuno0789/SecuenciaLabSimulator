@@ -1,0 +1,187 @@
+fileFormatVersion: 2
+guid: a47ec56129d97e946afd77c9e7644519
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: BaseModulo15
+    100004: EntradaPlugAnaranjado1
+    100006: EntradaPlugAnaranjado2
+    100008: EntradaPlugAnaranjado3
+    100010: EntradaPlugAnaranjado4
+    100012: EntradaPlugAnaranjado5
+    100014: EntradaPlugAnaranjado6
+    100016: LuzRoja1
+    100018: LuzRoja2
+    100020: LuzRoja3
+    100022: PisoModulo15
+    100024: Plano1
+    100026: Plano2
+    100028: Plano3
+    100030: Texto-220V
+    100032: Texto-L1
+    100034: Texto-L2
+    100036: Texto-L3
+    400000: //RootNode
+    400002: BaseModulo15
+    400004: EntradaPlugAnaranjado1
+    400006: EntradaPlugAnaranjado2
+    400008: EntradaPlugAnaranjado3
+    400010: EntradaPlugAnaranjado4
+    400012: EntradaPlugAnaranjado5
+    400014: EntradaPlugAnaranjado6
+    400016: LuzRoja1
+    400018: LuzRoja2
+    400020: LuzRoja3
+    400022: PisoModulo15
+    400024: Plano1
+    400026: Plano2
+    400028: Plano3
+    400030: Texto-220V
+    400032: Texto-L1
+    400034: Texto-L2
+    400036: Texto-L3
+    2100000: Lestras
+    2100002: EnchufesAnaranjados
+    2100004: FondoEnchufe
+    2100006: ParteMetalicaInternaEnchufe
+    2100008: PlasticoTraslucidoRojo
+    2100010: unnamed
+    2100012: Madera
+    2300000: BaseModulo15
+    2300002: EntradaPlugAnaranjado1
+    2300004: EntradaPlugAnaranjado2
+    2300006: EntradaPlugAnaranjado3
+    2300008: EntradaPlugAnaranjado4
+    2300010: EntradaPlugAnaranjado5
+    2300012: EntradaPlugAnaranjado6
+    2300014: LuzRoja1
+    2300016: LuzRoja2
+    2300018: LuzRoja3
+    2300020: PisoModulo15
+    2300022: Plano1
+    2300024: Plano2
+    2300026: Plano3
+    2300028: Texto-220V
+    2300030: Texto-L1
+    2300032: Texto-L2
+    2300034: Texto-L3
+    3300000: BaseModulo15
+    3300002: EntradaPlugAnaranjado1
+    3300004: EntradaPlugAnaranjado2
+    3300006: EntradaPlugAnaranjado3
+    3300008: EntradaPlugAnaranjado4
+    3300010: EntradaPlugAnaranjado5
+    3300012: EntradaPlugAnaranjado6
+    3300014: LuzRoja1
+    3300016: LuzRoja2
+    3300018: LuzRoja3
+    3300020: PisoModulo15
+    3300022: Plano1
+    3300024: Plano2
+    3300026: Plano3
+    3300028: Texto-220V
+    3300030: Texto-L1
+    3300032: Texto-L2
+    3300034: Texto-L3
+    4300000: Plano3
+    4300002: EntradaPlugAnaranjado5
+    4300004: Texto-L3
+    4300006: LuzRoja3
+    4300008: EntradaPlugAnaranjado6
+    4300010: EntradaPlugAnaranjado4
+    4300012: LuzRoja2
+    4300014: Texto-L2
+    4300016: EntradaPlugAnaranjado3
+    4300018: Plano2
+    4300020: Plano1
+    4300022: EntradaPlugAnaranjado1
+    4300024: Texto-L1
+    4300026: Texto-220V
+    4300028: LuzRoja1
+    4300030: PisoModulo15
+    4300032: EntradaPlugAnaranjado2
+    4300034: BaseModulo15
+    7400000: Default Take
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

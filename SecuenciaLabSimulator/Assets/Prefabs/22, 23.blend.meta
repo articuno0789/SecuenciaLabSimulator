@@ -1,0 +1,177 @@
+fileFormatVersion: 2
+guid: c12b23a4b19125b4f9e8676c03753526
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: BaseModulo22
+    100004: BezierCurve
+    100006: EntradaPlugAnaranjado0_
+    100008: EntradaPlugAnaranjado100_
+    100010: EntradaPlugAnaranjado65_
+    100012: EntradaPlugAnaranjado85_
+    100014: PisoModulo22
+    100016: Plano0_
+    100018: Plano100_
+    100020: Plano65_
+    100022: Plano85_
+    100024: Text
+    100026: Text_001
+    100028: Text_002
+    100030: Text_003
+    100032: Text_004
+    400000: //RootNode
+    400002: BaseModulo22
+    400004: BezierCurve
+    400006: EntradaPlugAnaranjado0_
+    400008: EntradaPlugAnaranjado100_
+    400010: EntradaPlugAnaranjado65_
+    400012: EntradaPlugAnaranjado85_
+    400014: PisoModulo22
+    400016: Plano0_
+    400018: Plano100_
+    400020: Plano65_
+    400022: Plano85_
+    400024: Text
+    400026: Text_001
+    400028: Text_002
+    400030: Text_003
+    400032: Text_004
+    2100000: Lestras
+    2100002: EnchufesAnaranjados
+    2100004: FondoEnchufe
+    2100006: ParteMetalicaInternaEnchufe
+    2100008: unnamed
+    2100010: Madera
+    2300000: BaseModulo22
+    2300002: BezierCurve
+    2300004: EntradaPlugAnaranjado0_
+    2300006: EntradaPlugAnaranjado100_
+    2300008: EntradaPlugAnaranjado65_
+    2300010: EntradaPlugAnaranjado85_
+    2300012: PisoModulo22
+    2300014: Plano0_
+    2300016: Plano100_
+    2300018: Plano65_
+    2300020: Plano85_
+    2300022: Text
+    2300024: Text_001
+    2300026: Text_002
+    2300028: Text_003
+    2300030: Text_004
+    3300000: BaseModulo22
+    3300002: BezierCurve
+    3300004: EntradaPlugAnaranjado0_
+    3300006: EntradaPlugAnaranjado100_
+    3300008: EntradaPlugAnaranjado65_
+    3300010: EntradaPlugAnaranjado85_
+    3300012: PisoModulo22
+    3300014: Plano0_
+    3300016: Plano100_
+    3300018: Plano65_
+    3300020: Plano85_
+    3300022: Text
+    3300024: Text_001
+    3300026: Text_002
+    3300028: Text_003
+    3300030: Text_004
+    4300000: Text_004
+    4300002: BezierCurve
+    4300004: Text_003
+    4300006: Text_002
+    4300008: Text_001
+    4300010: Text
+    4300012: Plano85_
+    4300014: Plano65_
+    4300016: Plano0_
+    4300018: EntradaPlugAnaranjado0_
+    4300020: EntradaPlugAnaranjado100_
+    4300022: Plano100_
+    4300024: EntradaPlugAnaranjado85_
+    4300026: PisoModulo22
+    4300028: EntradaPlugAnaranjado65_
+    4300030: BaseModulo22
+    7400000: Default Take
+    9500000: //RootNode
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
