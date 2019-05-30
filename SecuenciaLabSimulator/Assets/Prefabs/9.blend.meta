@@ -30,6 +30,12 @@ ModelImporter:
     100048: EntradaPlugAnaranjado8
     100050: EntradaPlugAnaranjado9
     100052: PisoModulo9
+    100054: Cylinder
+    100056: Cylinder_006
+    100058: Cylinder_009
+    100060: Cylinder_018
+    100062: Cylinder_020
+    100064: Cylinder_022
     400000: //RootNode
     400002: BaseModulo9
     400004: BotonCircularAzul1
@@ -57,6 +63,12 @@ ModelImporter:
     400048: EntradaPlugAnaranjado8
     400050: EntradaPlugAnaranjado9
     400052: PisoModulo9
+    400054: Cylinder
+    400056: Cylinder_006
+    400058: Cylinder_009
+    400060: Cylinder_018
+    400062: Cylinder_020
+    400064: Cylinder_022
     2100000: BotonAzul_001
     2100002: CajaBotonesCirculares
     2100004: EnchufesAnaranjados
@@ -68,6 +80,7 @@ ModelImporter:
     2100016: CajaBotonesCirculares_002
     2100018: BotonAzul_002
     2100020: BotonAzul_003
+    2100022: BotonAzul
     2300000: BaseModulo9
     2300002: BotonCircularAzul1
     2300004: BotonCircularAzul2
@@ -93,6 +106,12 @@ ModelImporter:
     2300044: EntradaPlugAnaranjado8
     2300046: EntradaPlugAnaranjado9
     2300048: PisoModulo9
+    2300050: Cylinder
+    2300052: Cylinder_006
+    2300054: Cylinder_009
+    2300056: Cylinder_018
+    2300058: Cylinder_020
+    2300060: Cylinder_022
     3300000: BaseModulo9
     3300002: BotonCircularAzul1
     3300004: BotonCircularAzul2
@@ -118,6 +137,12 @@ ModelImporter:
     3300044: EntradaPlugAnaranjado8
     3300046: EntradaPlugAnaranjado9
     3300048: PisoModulo9
+    3300050: Cylinder
+    3300052: Cylinder_006
+    3300054: Cylinder_009
+    3300056: Cylinder_018
+    3300058: Cylinder_020
+    3300060: Cylinder_022
     4300000: Cylinder_001
     4300002: BotonCircularAzul1
     4300004: BotonCircularAzul2
@@ -143,9 +168,40 @@ ModelImporter:
     4300044: BotonCircularAzul4_002
     4300046: Cylinder_000
     4300048: Cylinder_002
+    4300050: Cylinder_022
+    4300052: Cylinder_020
+    4300054: Cylinder_018
+    4300056: Cylinder_009
+    4300058: Cylinder_006
+    4300060: Cylinder
     7400000: Default Take
     9500000: //RootNode
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BotonAzul
+    second: {fileID: 2100000, guid: 0b9ada22244c4d443beb410b0d59647b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CajaBotonesCirculares
+    second: {fileID: 2100000, guid: a93ac4159efe35346b26b25ad941c10d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ParteMetalicaInternaEnchufe
+    second: {fileID: 2100000, guid: f1c79b8647c71d14e8fb499da3996ae1, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

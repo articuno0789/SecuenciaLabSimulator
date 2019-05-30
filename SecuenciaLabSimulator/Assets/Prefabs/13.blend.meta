@@ -1748,10 +1748,235 @@ ModelImporter:
     7400000: Default Take
     9500000: //RootNode
     2186277476908879412: ImportLogs
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados_001
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados_002
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados_003
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados_004
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados_005
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados_006
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados_007
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados_008
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados_009
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados_010
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados_011
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados_012
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados_013
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados_018
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados_019
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados_020
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesObscuros
+    second: {fileID: 2100000, guid: 9021e7ac2acf15b48bfff1a908cf7516, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe_001
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe_002
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe_003
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe_004
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe_005
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe_006
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe_007
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe_008
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe_009
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe_010
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe_011
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe_012
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe_013
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe_018
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe_019
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe_020
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_001
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_002
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_003
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_004
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_005
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_006
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_007
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_008
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_009
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
   materials:
     importMaterials: 1
-    materialName: 0
+    materialName: 2
     materialSearch: 1
     materialLocation: 1
   animations:
