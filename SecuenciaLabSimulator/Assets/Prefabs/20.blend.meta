@@ -131,6 +131,29 @@ ModelImporter:
     4300042: Texto-4
     4300044: BaseModulo20
     4300046: EntradaPlugAnaranjado4
+    6400000: BaseModulo20
+    6400002: BezierCircle
+    6400004: EntradaPlugAnaranjado1
+    6400006: EntradaPlugAnaranjado2
+    6400008: EntradaPlugAnaranjado3
+    6400010: EntradaPlugAnaranjado4
+    6400012: EntradaPlugAnaranjado5
+    6400014: EntradaPlugAnaranjado6
+    6400016: EntradaPlugAnaranjado7
+    6400018: EntradaPlugAnaranjado8
+    6400020: EntradaPlugAnaranjado9
+    6400022: Plane
+    6400024: Plane_002
+    6400026: Text_009
+    6400028: Texto-1
+    6400030: Texto-2
+    6400032: Texto-3
+    6400034: Texto-4
+    6400036: Texto-5
+    6400038: Texto-6
+    6400040: Texto-7
+    6400042: Texto-8
+    6400044: Texto-9
     7400000: Default Take
     9500000: //RootNode
   externalObjects:
@@ -186,7 +209,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -197,7 +220,7 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
-    preserveHierarchy: 0
+    preserveHierarchy: 1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001

@@ -489,6 +489,76 @@ ModelImporter:
     4300162: bezierCurve10
     4300164: entradaPlugAnaranjado10
     4300166: LuzRoja1
+    6400000: aparato
+    6400002: baseModulo_14_16
+    6400004: BezierCirce_000
+    6400006: BezierCircle_000
+    6400008: BezierCircle_001
+    6400010: BezierCircle_002
+    6400012: BezierCircle_003
+    6400014: BezierCircle_004
+    6400016: BezierCircle_005
+    6400018: BezierCircle_006
+    6400020: BezierCircle_007
+    6400022: BezierCircle_008
+    6400024: BezierCircle_009
+    6400026: bezierCurve1
+    6400028: bezierCurve10
+    6400030: bezierCurve11
+    6400032: bezierCurve12
+    6400034: bezierCurve13
+    6400036: bezierCurve2
+    6400038: bezierCurve3
+    6400040: bezierCurve4
+    6400042: bezierCurve5
+    6400044: bezierCurve8
+    6400046: bezierCurve9
+    6400048: bolt1
+    6400050: bolt10
+    6400052: bolt11
+    6400054: bolt12
+    6400056: bolt13
+    6400058: bolt2
+    6400060: bolt3
+    6400062: bolt4
+    6400064: bolt5
+    6400066: bolt6
+    6400068: bolt7
+    6400070: bolt8
+    6400072: bolt9
+    6400074: circle
+    6400076: Cube_001
+    6400078: Cube_002
+    6400080: Cube_003
+    6400082: Cube_004
+    6400084: Cube_005
+    6400086: Cube_006
+    6400088: Cube_007
+    6400090: Cube_008
+    6400092: Cube_009
+    6400094: Cube_010
+    6400096: Cube_011
+    6400098: entradaPlugAnaranjado1
+    6400100: entradaPlugAnaranjado10
+    6400102: entradaPlugAnaranjado2
+    6400104: entradaPlugAnaranjado3
+    6400106: entradaPlugAnaranjado4
+    6400108: entradaPlugAnaranjado5
+    6400110: entradaPlugAnaranjado6
+    6400112: entradaPlugAnaranjado7
+    6400114: entradaPlugAnaranjado8
+    6400116: entradaPlugAnaranjado9
+    6400118: entradaPlugNegro1
+    6400120: LuzRoja1
+    6400122: plane1
+    6400124: plane2
+    6400126: plane3
+    6400128: plane4
+    6400130: plane5
+    6400132: plane6
+    6400134: plane8
+    6400136: plane8_001
+    6400138: ranuraCentral
     7400000: Default Take
     9500000: //RootNode
     2186277476908879412: ImportLogs
@@ -835,7 +905,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -846,7 +916,7 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
-    preserveHierarchy: 0
+    preserveHierarchy: 1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001

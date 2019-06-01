@@ -249,6 +249,52 @@ ModelImporter:
     4300088: EntradaPlug1
     4300090: PisoModulo3
     4300092: BaseModulo3
+    6400000: BaseModulo3
+    6400002: BotonCircularRojo1
+    6400004: BotonCircularRojo2
+    6400006: BotonCircularVerde1
+    6400008: Cylinder_006
+    6400010: Cylinder_008
+    6400012: Cylinder_010
+    6400014: EntradaPlug1
+    6400016: EntradaPlug10
+    6400018: EntradaPlug11
+    6400020: EntradaPlug12
+    6400022: EntradaPlug2
+    6400024: EntradaPlug3
+    6400026: EntradaPlug4
+    6400028: EntradaPlug5
+    6400030: EntradaPlug6
+    6400032: EntradaPlug7
+    6400034: EntradaPlug8
+    6400036: EntradaPlug9
+    6400038: Plane
+    6400040: Plane_002
+    6400042: Plane_003
+    6400044: Plane_004
+    6400046: Plane_005
+    6400048: Plane_006
+    6400050: Plane_007
+    6400052: Plane_008
+    6400054: Plane_009
+    6400056: Plane_010
+    6400058: Plane_011
+    6400060: Plane_012
+    6400062: Plane_013
+    6400064: Plane_014
+    6400066: Plane_015
+    6400068: Plane_016
+    6400070: Plane_017
+    6400072: Plane_018
+    6400074: Plane_019
+    6400076: Plane_020
+    6400078: Plane_021
+    6400080: Plane_022
+    6400082: Plane_023
+    6400084: Plane_024
+    6400086: Plane_025
+    6400088: Plane_026
+    6400090: Plane_027
     7400000: Default Take
     9500000: //RootNode
   externalObjects:
@@ -329,7 +375,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -340,7 +386,7 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
-    preserveHierarchy: 0
+    preserveHierarchy: 1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001

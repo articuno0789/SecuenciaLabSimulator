@@ -266,6 +266,46 @@ ModelImporter:
     4300078: Base_Principal_Madera
     4300080: CTRL_Hole
     4300082: Window
+    6400000: Asesor
+    6400002: Base_Principal_Madera
+    6400004: Baseboard1
+    6400006: BaseInferiorMaQUINA
+    6400008: Cabinet1_Door
+    6400010: Cajon1
+    6400012: Countertop1
+    6400014: CTRL_Hole
+    6400016: Cube
+    6400018: Cylinder
+    6400020: ElaboradoPor
+    6400022: Entrepano1
+    6400024: Estante
+    6400026: Gabinete1
+    6400028: Handle
+    6400030: Libro0
+    6400032: Libro1
+    6400034: Libro10
+    6400036: Libro11
+    6400038: Libro12
+    6400040: Libro13
+    6400042: Libro2
+    6400044: Libro3
+    6400046: Libro4
+    6400048: Libro5
+    6400050: Libro6
+    6400052: Libro7
+    6400054: Libro8
+    6400056: Libro9
+    6400058: ManijaCajon
+    6400060: NombreAsesor
+    6400062: NombreElaborado
+    6400064: NombreMaquina
+    6400066: ParteSuperiorMaquina
+    6400068: Piso
+    6400070: Plane
+    6400072: Text
+    6400074: UDG
+    6400076: VidrioMaquina1
+    6400078: Window
     7400000: Default Take
     9500000: //RootNode
     2186277476908879412: ImportLogs
@@ -547,7 +587,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -558,7 +598,7 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
-    preserveHierarchy: 0
+    preserveHierarchy: 1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001

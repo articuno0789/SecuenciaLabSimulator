@@ -342,6 +342,52 @@ ModelImporter:
     4300124: EntradaPlugAnaranjado3
     4300126: BaseModulo_10_17_18_19
     4300128: LuzRoja1
+    6400000: BaseModulo_10_17_18_19
+    6400002: BezierCircle
+    6400004: BezierCurve
+    6400006: BezierCurve_001
+    6400008: BezierCurve_002
+    6400010: BezierCurve_003
+    6400012: BezierCurve_005
+    6400014: BezierCurve_006
+    6400016: BezierCurve_007
+    6400018: BezierCurve_008
+    6400020: Bolt_000
+    6400022: Bolt_001
+    6400024: Bolt_002
+    6400026: Bolt_003
+    6400028: Bolt_004
+    6400030: Bolt_005
+    6400032: Bolt_006
+    6400034: Bolt_007
+    6400036: Bolt_008
+    6400038: Bolt_009
+    6400040: Circle
+    6400042: Cosa
+    6400044: Cube_010
+    6400046: Cube_011
+    6400048: Cube_012
+    6400050: Cube_013
+    6400052: Cube_014
+    6400054: Cube_015
+    6400056: Cube_016
+    6400058: Cube_017
+    6400060: Cylinder
+    6400062: EntradaPlugAnaranjado1
+    6400064: EntradaPlugAnaranjado2
+    6400066: EntradaPlugAnaranjado3
+    6400068: EntradaPlugAnaranjado4
+    6400070: EntradaPlugAnaranjado5
+    6400072: EntradaPlugAnaranjado6
+    6400074: EntradaPlugAnaranjado7
+    6400076: EntradaPlugNegro1
+    6400078: LuzRoja1
+    6400080: Plane
+    6400082: Plane_002
+    6400084: Plane_003
+    6400086: Plane_004
+    6400088: Plane_005
+    6400090: Plane_006
     7400000: Default Take
     9500000: //RootNode
     2186277476908879412: ImportLogs
@@ -423,7 +469,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -434,7 +480,7 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
-    preserveHierarchy: 0
+    preserveHierarchy: 1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001

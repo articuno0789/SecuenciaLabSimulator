@@ -124,6 +124,23 @@ ModelImporter:
     4300032: Text_001
     4300034: Text_002
     4300036: PerillaPotenciometro
+    6400000: baseModulo_6
+    6400002: Cylinder
+    6400004: entradaPlugAnaranjado1_001
+    6400006: entradaPlugAnaranjado1_002
+    6400008: perilla
+    6400010: PerillaPotenciometro
+    6400012: plane1
+    6400014: plane1_001
+    6400016: plane1_002
+    6400018: plane1_003
+    6400020: plane1_004
+    6400022: plane1_005
+    6400024: plane1_006
+    6400026: plane1_007
+    6400028: Text
+    6400030: Text_001
+    6400032: Text_002
     7400000: Default Take
     9500000: //RootNode
   externalObjects:
@@ -274,7 +291,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -285,7 +302,7 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
-    preserveHierarchy: 0
+    preserveHierarchy: 1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
