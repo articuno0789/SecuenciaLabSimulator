@@ -44,6 +44,11 @@ public class MenuManager : MonoBehaviour {
             eventSystem.SetSelectedGameObject(selectedObject);
             buttonSelected = true;
         }
+        /*string levelName = Application.loadedLevelName;
+        if(levelName == "MainMenu")
+        {
+            Debug.Log("Esta en main menu");
+        }*/
     }
 
     private void OnDisable()
