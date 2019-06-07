@@ -3,7 +3,21 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 6
+  - 9
+  - 10, 17, 18, 19
+  - 13
+  - 14, 16
+  - 15
+  - 20
+  - 21
+  - 22, 23
+  - Potenciometro
   layers:
   - Default
   - TransparentFX
@@ -14,7 +28,7 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
+  - Paredes
   - 
   - 
   - 
