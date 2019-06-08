@@ -54,7 +54,7 @@ public class OpenCloseChangeModule : MonoBehaviour
         Vector3 targetPosition = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
         panel.transform.LookAt(targetPosition);
         panel.transform.rotation = player.transform.rotation;
-        Vector3 menuPosition = new Vector3(module.transform.position.x, module.transform.position.y + 4, module.transform.position.z + 1);
+        Vector3 menuPosition = new Vector3(module.transform.position.x, module.transform.position.y + 4, module.transform.position.z + 4);
         panel.transform.position = menuPosition;
 
         if (padreTotal != null && currentModuleSelected != null)

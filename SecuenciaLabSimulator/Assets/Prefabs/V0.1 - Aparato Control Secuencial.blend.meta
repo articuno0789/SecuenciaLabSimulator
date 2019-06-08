@@ -47,6 +47,26 @@ ModelImporter:
     100082: //RootNode
     100084: VidrioMaquina1
     100086: Window
+    100088: 9999999
+    100090: Cube_001
+    100092: ParedIzquierdaSuperior
+    100094: ParedIzquierdaSuperior_001
+    100096: ParedIzquierdaSuperior_002
+    100098: ParedIzquierdaSuperior_003
+    100100: ParedIzquierdaSuperior_004
+    100102: ParedIzquierdaSuperior_005
+    100104: ParedIzquierdaSuperior_006
+    100106: ParedIzquierdaSuperior_007
+    100108: ParedIzquierdaSuperior_008
+    100110: ParedIzquierdaSuperior_009
+    100112: ParedIzquierdaSuperior_010
+    100114: ManijaInferiorDerecha
+    100116: ManijaInferiorIzquierda
+    100118: ParedDerechoSuperior
+    100120: ParedSuperioruperior
+    100122: ParedTraseroSuperior
+    100124: PuertaDerecha
+    100126: PuertaIzquierda
     400000: Asesor
     400002: Base_Principal_Madera
     400004: Baseboard1
@@ -91,6 +111,26 @@ ModelImporter:
     400082: //RootNode
     400084: VidrioMaquina1
     400086: Window
+    400088: 9999999
+    400090: Cube_001
+    400092: ParedIzquierdaSuperior
+    400094: ParedIzquierdaSuperior_001
+    400096: ParedIzquierdaSuperior_002
+    400098: ParedIzquierdaSuperior_003
+    400100: ParedIzquierdaSuperior_004
+    400102: ParedIzquierdaSuperior_005
+    400104: ParedIzquierdaSuperior_006
+    400106: ParedIzquierdaSuperior_007
+    400108: ParedIzquierdaSuperior_008
+    400110: ParedIzquierdaSuperior_009
+    400112: ParedIzquierdaSuperior_010
+    400114: ManijaInferiorDerecha
+    400116: ManijaInferiorIzquierda
+    400118: ParedDerechoSuperior
+    400120: ParedSuperioruperior
+    400122: ParedTraseroSuperior
+    400124: PuertaDerecha
+    400126: PuertaIzquierda
     2100000: Letras
     2100002: Chapa
     2100004: unnamed
@@ -140,6 +180,8 @@ ModelImporter:
     2100092: Plastic
     2100094: Glass
     2100096: Marble
+    2100098: Handle_material_001
+    2100100: Handle_material_002
     2300000: Asesor
     2300002: Base_Principal_Madera
     2300004: Baseboard1
@@ -182,6 +224,26 @@ ModelImporter:
     2300078: UDG
     2300080: VidrioMaquina1
     2300082: Window
+    2300084: 9999999
+    2300086: Cube_001
+    2300088: ParedIzquierdaSuperior
+    2300090: ParedIzquierdaSuperior_001
+    2300092: ParedIzquierdaSuperior_002
+    2300094: ParedIzquierdaSuperior_003
+    2300096: ParedIzquierdaSuperior_004
+    2300098: ParedIzquierdaSuperior_005
+    2300100: ParedIzquierdaSuperior_006
+    2300102: ParedIzquierdaSuperior_007
+    2300104: ParedIzquierdaSuperior_008
+    2300106: ParedIzquierdaSuperior_009
+    2300108: ParedIzquierdaSuperior_010
+    2300110: ManijaInferiorDerecha
+    2300112: ManijaInferiorIzquierda
+    2300114: ParedDerechoSuperior
+    2300116: ParedSuperioruperior
+    2300118: ParedTraseroSuperior
+    2300120: PuertaDerecha
+    2300122: PuertaIzquierda
     3300000: Asesor
     3300002: Base_Principal_Madera
     3300004: Baseboard1
@@ -224,6 +286,26 @@ ModelImporter:
     3300078: UDG
     3300080: VidrioMaquina1
     3300082: Window
+    3300084: 9999999
+    3300086: Cube_001
+    3300088: ParedIzquierdaSuperior
+    3300090: ParedIzquierdaSuperior_001
+    3300092: ParedIzquierdaSuperior_002
+    3300094: ParedIzquierdaSuperior_003
+    3300096: ParedIzquierdaSuperior_004
+    3300098: ParedIzquierdaSuperior_005
+    3300100: ParedIzquierdaSuperior_006
+    3300102: ParedIzquierdaSuperior_007
+    3300104: ParedIzquierdaSuperior_008
+    3300106: ParedIzquierdaSuperior_009
+    3300108: ParedIzquierdaSuperior_010
+    3300110: ManijaInferiorDerecha
+    3300112: ManijaInferiorIzquierda
+    3300114: ParedDerechoSuperior
+    3300116: ParedSuperioruperior
+    3300118: ParedTraseroSuperior
+    3300120: PuertaDerecha
+    3300122: PuertaIzquierda
     4300000: Text
     4300002: Plane
     4300004: Tornillo1_001
@@ -266,6 +348,26 @@ ModelImporter:
     4300078: Base_Principal_Madera
     4300080: CTRL_Hole
     4300082: Window
+    4300084: 9999999
+    4300086: Cube_001
+    4300088: ParedIzquierdaSuperior
+    4300090: ParedIzquierdaSuperior_001
+    4300092: ParedIzquierdaSuperior_002
+    4300094: ParedIzquierdaSuperior_003
+    4300096: ParedIzquierdaSuperior_004
+    4300098: ParedIzquierdaSuperior_005
+    4300100: ParedIzquierdaSuperior_006
+    4300102: ParedIzquierdaSuperior_007
+    4300104: ParedIzquierdaSuperior_008
+    4300106: ParedIzquierdaSuperior_009
+    4300108: ParedIzquierdaSuperior_010
+    4300110: PuertaDerecha
+    4300112: ParedDerechoSuperior
+    4300114: ParedTraseroSuperior
+    4300116: ParedSuperioruperior
+    4300118: PuertaIzquierda
+    4300120: ManijaInferiorIzquierda
+    4300122: ManijaInferiorDerecha
     6400000: Asesor
     6400002: Base_Principal_Madera
     6400004: Baseboard1
@@ -306,6 +408,26 @@ ModelImporter:
     6400074: UDG
     6400076: VidrioMaquina1
     6400078: Window
+    6400080: 9999999
+    6400082: Cube_001
+    6400084: ParedIzquierdaSuperior
+    6400086: ParedIzquierdaSuperior_001
+    6400088: ParedIzquierdaSuperior_002
+    6400090: ParedIzquierdaSuperior_003
+    6400092: ParedIzquierdaSuperior_004
+    6400094: ParedIzquierdaSuperior_005
+    6400096: ParedIzquierdaSuperior_006
+    6400098: ParedIzquierdaSuperior_007
+    6400100: ParedIzquierdaSuperior_008
+    6400102: ParedIzquierdaSuperior_009
+    6400104: ParedIzquierdaSuperior_010
+    6400106: ManijaInferiorDerecha
+    6400108: ManijaInferiorIzquierda
+    6400110: ParedDerechoSuperior
+    6400112: ParedSuperioruperior
+    6400114: ParedTraseroSuperior
+    6400116: PuertaDerecha
+    6400118: PuertaIzquierda
     7400000: Default Take
     9500000: //RootNode
     2186277476908879412: ImportLogs
