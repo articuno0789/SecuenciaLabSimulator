@@ -418,10 +418,395 @@ ModelImporter:
     4300134: BezierCircle_007
     4300136: BezierCircle_008
     4300138: BezierCircle_009
+    6400000: aparato
+    6400002: baseModulo_14_16
+    6400004: BezierCirce_000
+    6400006: BezierCircle_000
+    6400008: BezierCircle_001
+    6400010: BezierCircle_002
+    6400012: BezierCircle_003
+    6400014: BezierCircle_004
+    6400016: BezierCircle_005
+    6400018: BezierCircle_006
+    6400020: BezierCircle_007
+    6400022: BezierCircle_008
+    6400024: BezierCircle_009
+    6400026: bezierCurve1
+    6400028: bezierCurve10
+    6400030: bezierCurve11
+    6400032: bezierCurve12
+    6400034: bezierCurve13
+    6400036: bezierCurve2
+    6400038: bezierCurve3
+    6400040: bezierCurve4
+    6400042: bezierCurve5
+    6400044: bezierCurve8
+    6400046: bezierCurve9
+    6400048: bolt1
+    6400050: bolt10
+    6400052: bolt11
+    6400054: bolt12
+    6400056: bolt13
+    6400058: bolt2
+    6400060: bolt3
+    6400062: bolt4
+    6400064: bolt5
+    6400066: bolt6
+    6400068: bolt7
+    6400070: bolt8
+    6400072: bolt9
+    6400074: circle
+    6400076: Cube_001
+    6400078: Cube_002
+    6400080: Cube_003
+    6400082: Cube_004
+    6400084: Cube_005
+    6400086: Cube_006
+    6400088: Cube_007
+    6400090: Cube_008
+    6400092: Cube_009
+    6400094: Cube_010
+    6400096: Cube_011
+    6400098: entradaPlugAnaranjado1
+    6400100: entradaPlugAnaranjado10
+    6400102: entradaPlugAnaranjado2
+    6400104: entradaPlugAnaranjado3
+    6400106: entradaPlugAnaranjado4
+    6400108: entradaPlugAnaranjado5
+    6400110: entradaPlugAnaranjado6
+    6400112: entradaPlugAnaranjado7
+    6400114: entradaPlugAnaranjado8
+    6400116: entradaPlugAnaranjado9
+    6400118: entradaPlugNegro1
+    6400120: LuzRoja1
+    6400122: plane1
+    6400124: plane2
+    6400126: plane3
+    6400128: plane4
+    6400130: plane5
+    6400132: plane6
+    6400134: plane8
+    6400136: plane8_001
+    6400138: ranuraCentral
     7400000: Default Take
     9500000: //RootNode
     2186277476908879412: ImportLogs
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados_001
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados_002
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados_003
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados_004
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados_005
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesObscuros
+    second: {fileID: 2100000, guid: 9021e7ac2acf15b48bfff1a908cf7516, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe_001
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe_002
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe_003
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe_004
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe_005
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_001
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_002
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_003
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_004
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_005
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_006
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_007
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_008
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_009
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_010
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_011
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_012
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_013
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_014
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_015
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_016
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Madera
+    second: {fileID: 2100000, guid: ba5dc86cb17d41641a00b1d22241d996, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos
+    second: {fileID: 2100000, guid: f1c79b8647c71d14e8fb499da3996ae1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_001
+    second: {fileID: 2100000, guid: f1c79b8647c71d14e8fb499da3996ae1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_002
+    second: {fileID: 2100000, guid: f1c79b8647c71d14e8fb499da3996ae1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_003
+    second: {fileID: 2100000, guid: f1c79b8647c71d14e8fb499da3996ae1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_004
+    second: {fileID: 2100000, guid: f1c79b8647c71d14e8fb499da3996ae1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_005
+    second: {fileID: 2100000, guid: f1c79b8647c71d14e8fb499da3996ae1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_006
+    second: {fileID: 2100000, guid: f1c79b8647c71d14e8fb499da3996ae1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_007
+    second: {fileID: 2100000, guid: f1c79b8647c71d14e8fb499da3996ae1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_008
+    second: {fileID: 2100000, guid: f1c79b8647c71d14e8fb499da3996ae1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_009
+    second: {fileID: 2100000, guid: f1c79b8647c71d14e8fb499da3996ae1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_010
+    second: {fileID: 2100000, guid: f1c79b8647c71d14e8fb499da3996ae1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos
+    second: {fileID: 2100000, guid: 92e516c38840f43439846063aa1df964, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_002
+    second: {fileID: 2100000, guid: 92e516c38840f43439846063aa1df964, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_003
+    second: {fileID: 2100000, guid: 92e516c38840f43439846063aa1df964, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_004
+    second: {fileID: 2100000, guid: 92e516c38840f43439846063aa1df964, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_005
+    second: {fileID: 2100000, guid: 92e516c38840f43439846063aa1df964, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_006
+    second: {fileID: 2100000, guid: 92e516c38840f43439846063aa1df964, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_007
+    second: {fileID: 2100000, guid: 92e516c38840f43439846063aa1df964, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_008
+    second: {fileID: 2100000, guid: 92e516c38840f43439846063aa1df964, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_009
+    second: {fileID: 2100000, guid: 92e516c38840f43439846063aa1df964, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_010
+    second: {fileID: 2100000, guid: 92e516c38840f43439846063aa1df964, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_011
+    second: {fileID: 2100000, guid: 92e516c38840f43439846063aa1df964, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_012
+    second: {fileID: 2100000, guid: 92e516c38840f43439846063aa1df964, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ParteMetalicaInternaEnchufe
+    second: {fileID: 2100000, guid: f1c79b8647c71d14e8fb499da3996ae1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ParteMetalicaInternaEnchufe_001
+    second: {fileID: 2100000, guid: f1c79b8647c71d14e8fb499da3996ae1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ParteMetalicaInternaEnchufe_002
+    second: {fileID: 2100000, guid: f1c79b8647c71d14e8fb499da3996ae1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ParteMetalicaInternaEnchufe_003
+    second: {fileID: 2100000, guid: f1c79b8647c71d14e8fb499da3996ae1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ParteMetalicaInternaEnchufe_004
+    second: {fileID: 2100000, guid: f1c79b8647c71d14e8fb499da3996ae1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ParteMetalicaInternaEnchufe_005
+    second: {fileID: 2100000, guid: f1c79b8647c71d14e8fb499da3996ae1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PlasticoGrisClaro
+    second: {fileID: 2100000, guid: 0913550fcadb9c8498f177f779c66c69, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PlasticoGrisClaro2
+    second: {fileID: 2100000, guid: 7a3f952ea69596046b128b521ff6594d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PlasticoTraslucidoRojo
+    second: {fileID: 2100000, guid: 7840a46c2883627468d2616150ec4317, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -454,7 +839,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -465,7 +850,7 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
-    preserveHierarchy: 0
+    preserveHierarchy: 1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001

@@ -175,6 +175,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Madera
+    second: {fileID: 2100000, guid: ba5dc86cb17d41641a00b1d22241d996, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: ParteMetalicaInternaEnchufe
     second: {fileID: 2100000, guid: f1c79b8647c71d14e8fb499da3996ae1, type: 2}
   materials:
