@@ -5767,6 +5767,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: AparatoVerde
+    second: {fileID: 2100000, guid: 8de7c38a866f45d49adbb33d67838200, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: EnchufesAnaranjados
     second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
   - first:
@@ -5938,7 +5943,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Lestras_007
-    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+    second: {fileID: 2100000, guid: 839b910fa282205409916132b97c32d9, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -6123,7 +6128,267 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Madera
-    second: {fileID: 2100000, guid: 34a8b6dc6e349704e922bfbd80ce3af6, type: 2}
+    second: {fileID: 2100000, guid: ba5dc86cb17d41641a00b1d22241d996, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 5d7e532f26f7a7d43b1e04714e2ce0fd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_001
+    second: {fileID: 2100000, guid: 7cac79a4e51aac14588ecd8986688bbe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_002
+    second: {fileID: 2100000, guid: df3643d0387315f48860acb676f71d6d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_003
+    second: {fileID: 2100000, guid: e1550e8eca8cd9c4fb74174f4c74fa0e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_004
+    second: {fileID: 2100000, guid: 4b5dd7a0c24cabc47bd99275546b61a5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_005
+    second: {fileID: 2100000, guid: be2ee4d5eab9ffb4c9a74fd094afa197, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_006
+    second: {fileID: 2100000, guid: be2ee4d5eab9ffb4c9a74fd094afa197, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_007
+    second: {fileID: 2100000, guid: be2ee4d5eab9ffb4c9a74fd094afa197, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_008
+    second: {fileID: 2100000, guid: 127cf1ab1b7ada240a59e3e15c9f0900, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_009
+    second: {fileID: 2100000, guid: be2ee4d5eab9ffb4c9a74fd094afa197, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_010
+    second: {fileID: 2100000, guid: 96894f497713b6a43b76c957330d1373, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_011
+    second: {fileID: 2100000, guid: 9bcfa3fcee3451a4da8345d4fd4bf623, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_001
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_002
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_003
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_004
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_005
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_006
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_007
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_008
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_009
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_010
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_011
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_012
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBaseTornillos_013
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_001
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_002
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_003
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_005
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_006
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_007
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_008
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_009
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_010
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_011
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_012
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_013
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_014
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_015
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_016
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_017
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_018
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_019
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_020
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_021
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_022
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_023
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_024
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_025
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTornillos_026
+    second: {fileID: 2100000, guid: e901a2432735001449c60ceba11407e3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -6285,7 +6550,7 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
-    tangentImportMode: 3
+    tangentImportMode: 2
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
     blendShapeNormalImportMode: 1
