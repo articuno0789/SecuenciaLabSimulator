@@ -10,26 +10,38 @@ namespace UnityStandardAssets.Characters.FirstPerson
     [RequireComponent(typeof (AudioSource))]
     public class FirstPersonController : MonoBehaviour
     {
+        //Volar y caminar
+        [SerializeField] private bool m_IsFlyingCamara;
+
         [SerializeField] private bool m_IsWalking;
         [SerializeField] private float m_WalkSpeed;
         [SerializeField] private float m_RunSpeed;
         [SerializeField] [Range(0f, 1f)] private float m_RunstepLenghten;
+
+        //Solo caminar
         [SerializeField] private float m_JumpSpeed;
         [SerializeField] private float m_StickToGroundForce;
         [SerializeField] private float m_GravityMultiplier;
+
+        //Volar y caminar
         [SerializeField] private MouseLook m_MouseLook;
         [SerializeField] private bool m_UseFovKick;
         [SerializeField] private FOVKick m_FovKick = new FOVKick();
+        //Solo caminar
         [SerializeField] private bool m_UseHeadBob;
         [SerializeField] private CurveControlledBob m_HeadBob = new CurveControlledBob();
         [SerializeField] private LerpControlledBob m_JumpBob = new LerpControlledBob();
+        //Volar y caminar
         [SerializeField] private float m_StepInterval;
+        //Solo caminar
         [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
-
+        //Volar y caminar
         private Camera m_Camera;
+        //Solo caminar
         private bool m_Jump;
+        //Volar y caminar
         private float m_YRotation;
         private Vector2 m_Input;
         private Vector3 m_MoveDir = Vector3.zero;
@@ -39,7 +51,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private Vector3 m_OriginalCameraPosition;
         private float m_StepCycle;
         private float m_NextStep;
+        //Solo caminar
         private bool m_Jumping;
+        //Volar y caminar
         private AudioSource m_AudioSource;
 
         // Use this for initialization
@@ -94,19 +108,43 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void FixedUpdate()
         {
+            float flyDirection = 0;
+            if (Input.GetKey("e"))
+            {
+                flyDirection = 1;
+            }else if (Input.GetKey("q"))
+            {
+                flyDirection = -1;
+            }
+
+
             float speed;
             GetInput(out speed);
             // always move along the camera forward as it is the direction that it being aimed at
+
             Vector3 desiredMove = transform.forward*m_Input.y + transform.right*m_Input.x;
+            if (m_IsFlyingCamara)
+            {
+                desiredMove = m_Camera.transform.forward * m_Input.y + m_Camera.transform.right * m_Input.x;
+                //Debug.Log("desiredMove:" + desiredMove);
+                //Debug.Log("desiredMove.x: " + desiredMove.x);
+                //Debug.Log("desiredMove.y: " + desiredMove.y);
+                //Debug.Log("desiredMove:.z: " + desiredMove.z);
+            }
 
             // get a normal for the surface that is being touched to move along it
             RaycastHit hitInfo;
             Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
                                m_CharacterController.height/2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
             desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
-
-            m_MoveDir.x = desiredMove.x*speed;
-            m_MoveDir.z = desiredMove.z*speed;
+            
+            m_MoveDir.x = desiredMove.x * speed;
+            m_MoveDir.z = desiredMove.z * speed;
+            m_MoveDir.y = flyDirection * speed;
+            if (m_IsFlyingCamara)
+            {
+                m_MoveDir.y = desiredMove.y * speed;
+            }
 
 
             if (m_CharacterController.isGrounded)
