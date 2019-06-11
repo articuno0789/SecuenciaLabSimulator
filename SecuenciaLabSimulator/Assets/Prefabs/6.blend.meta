@@ -5977,6 +5977,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Lestras_014
+    second: {fileID: 2100000, guid: d0477f225988f7f4cbabdf5c8fa9ce27, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Lestras_015
     second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
   - first:
