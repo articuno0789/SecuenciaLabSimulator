@@ -296,7 +296,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 978515823}
+      - m_Target: {fileID: 978515828}
         m_MethodName: Navigate
         m_Mode: 3
         m_Arguments:
@@ -464,7 +464,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -20, y: 10}
+  m_AnchoredPosition: {x: 230, y: 10}
   m_SizeDelta: {x: 226.7, y: 107.6}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &738997241
@@ -775,6 +775,7 @@ GameObject:
   - component: {fileID: 978515825}
   - component: {fileID: 978515824}
   - component: {fileID: 978515823}
+  - component: {fileID: 978515828}
   m_Layer: 5
   m_Name: MenuCanvas
   m_TagString: Untagged
@@ -789,7 +790,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 978515822}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b87f472a8687453eac1a8091330b6d5, type: 3}
   m_Name: 
@@ -1033,22 +1034,6 @@ MonoBehaviour:
       type: 3}
     particlePosition: {x: -5, y: 1, z: -2}
     particleRotation: {x: 0, y: 90, z: 0}
-  - title: Sand Swirls
-    description: This uses a billboard with scale over lifetime and the noise module
-      to simulate a windy sand effect.
-    isWeaponEffect: 0
-    particleSystemGO: {fileID: 1000010715882420, guid: 14d81e2c407975245973a11cdfbeb902,
-      type: 3}
-    particlePosition: {x: -5, y: 1, z: -2}
-    particleRotation: {x: 0, y: 90, z: 0}
-  - title: Sand Swirls
-    description: This uses a billboard with scale over lifetime and the noise module
-      to simulate a windy sand effect.
-    isWeaponEffect: 0
-    particleSystemGO: {fileID: 1000010715882420, guid: 14d81e2c407975245973a11cdfbeb902,
-      type: 3}
-    particlePosition: {x: -5, y: 1, z: -2}
-    particleRotation: {x: 0, y: 90, z: 0}
   gunGameObject: {fileID: 1547811597}
   spawnLocation: {fileID: 1562416774}
   title: {fileID: 1385382695}
@@ -1135,6 +1120,122 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &978515828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978515822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14a77b06c04d70d459c1f22cd3d7a13a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelSystems:
+  - title: Modulo 1
+    description: "Descipc\xF3n del modulo. Aqui va a ir una descripcion de que es
+      cada modulo y como funciona."
+    isWeaponEffect: 0
+    modelSystemGO: {fileID: 100000, guid: ccc8c32bf918fd84cb219a97cf65d793, type: 3}
+    modelPosition: {x: 3, y: 3, z: 10}
+    modelRotation: {x: 0, y: 0, z: 0}
+  - title: Modulo 2
+    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
+      es cada modulo y como funciona."
+    isWeaponEffect: 0
+    modelSystemGO: {fileID: 100000, guid: 41f58192ebeabc240a546f38836dc051, type: 3}
+    modelPosition: {x: 3, y: 3, z: 10}
+    modelRotation: {x: 0, y: 0, z: 0}
+  - title: Modulo 3
+    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
+      es cada modulo y como funciona."
+    isWeaponEffect: 0
+    modelSystemGO: {fileID: 100000, guid: e8b67ee3dc661b343b11f8122a323d89, type: 3}
+    modelPosition: {x: 3, y: 3, z: 10}
+    modelRotation: {x: 0, y: 0, z: 0}
+  - title: Modulo 4
+    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
+      es cada modulo y como funciona."
+    isWeaponEffect: 0
+    modelSystemGO: {fileID: 100000, guid: a03e1fe6515a0b244b7506429e42cf78, type: 3}
+    modelPosition: {x: 3, y: 3, z: 10}
+    modelRotation: {x: 0, y: 0, z: 0}
+  - title: Modulo 6
+    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
+      es cada modulo y como funciona."
+    isWeaponEffect: 0
+    modelSystemGO: {fileID: 100000, guid: a634cffc3990c524ea02433dc0b4e5eb, type: 3}
+    modelPosition: {x: 3, y: 3, z: 10}
+    modelRotation: {x: 0, y: 0, z: 0}
+  - title: Modulo 9
+    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
+      es cada modulo y como funciona."
+    isWeaponEffect: 0
+    modelSystemGO: {fileID: 100000, guid: d0ae01b8e3427d149a54b578500800fd, type: 3}
+    modelPosition: {x: 3, y: 3, z: 10}
+    modelRotation: {x: 0, y: 0, z: 0}
+  - title: Modulo 10, 17, 18, 19
+    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
+      es cada modulo y como funciona."
+    isWeaponEffect: 0
+    modelSystemGO: {fileID: 100000, guid: 6adf574545f4218488b6b94249e71008, type: 3}
+    modelPosition: {x: 3, y: 3, z: 10}
+    modelRotation: {x: 0, y: 0, z: 0}
+  - title: Modulo 13
+    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
+      es cada modulo y como funciona."
+    isWeaponEffect: 0
+    modelSystemGO: {fileID: 100000, guid: 1c78066f0cc3d5b47bb1a3b2246e2322, type: 3}
+    modelPosition: {x: 3, y: 3, z: 10}
+    modelRotation: {x: 0, y: 0, z: 0}
+  - title: Modulo 14, 16
+    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
+      es cada modulo y como funciona."
+    isWeaponEffect: 0
+    modelSystemGO: {fileID: 100000, guid: 2134c314f5c8b56468f17c94c3e7dbd7, type: 3}
+    modelPosition: {x: 3, y: 3, z: 10}
+    modelRotation: {x: 0, y: 0, z: 0}
+  - title: Modulo 15
+    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
+      es cada modulo y como funciona."
+    isWeaponEffect: 0
+    modelSystemGO: {fileID: 100000, guid: a47ec56129d97e946afd77c9e7644519, type: 3}
+    modelPosition: {x: 3, y: 3, z: 10}
+    modelRotation: {x: 0, y: 0, z: 0}
+  - title: Modulo 20
+    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
+      es cada modulo y como funciona."
+    isWeaponEffect: 0
+    modelSystemGO: {fileID: 100000, guid: a76eaf78cf2721b4cb493c2b427277f0, type: 3}
+    modelPosition: {x: 3, y: 3, z: 10}
+    modelRotation: {x: 0, y: 0, z: 0}
+  - title: Modulo 21
+    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
+      es cada modulo y como funciona."
+    isWeaponEffect: 0
+    modelSystemGO: {fileID: 100000, guid: 9fe14597492278c45921a089e0d14854, type: 3}
+    modelPosition: {x: 3, y: 3, z: 10}
+    modelRotation: {x: 0, y: 0, z: 0}
+  - title: Modulo 22, 23
+    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
+      es cada modulo y como funciona."
+    isWeaponEffect: 0
+    modelSystemGO: {fileID: 100000, guid: c12b23a4b19125b4f9e8676c03753526, type: 3}
+    modelPosition: {x: 3, y: 3, z: 10}
+    modelRotation: {x: 0, y: 0, z: 0}
+  - title: Potenciometro
+    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
+      es cada modulo y como funciona."
+    isWeaponEffect: 0
+    modelSystemGO: {fileID: 100030, guid: bb38d14ba55496e42871b676bb4f4a60, type: 3}
+    modelPosition: {x: 3, y: 3, z: 10}
+    modelRotation: {x: 0, y: 0, z: 0}
+  gunGameObject: {fileID: 1547811597}
+  spawnLocation: {fileID: 2002168963}
+  title: {fileID: 1385382695}
+  description: {fileID: 190732357}
+  navigationDetails: {fileID: 1227804492}
 --- !u!1 &1015100561
 GameObject:
   m_ObjectHideFlags: 0
@@ -2255,7 +2356,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 978515823}
+      - m_Target: {fileID: 978515828}
         m_MethodName: Navigate
         m_Mode: 3
         m_Arguments:

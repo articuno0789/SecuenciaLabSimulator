@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,9 +29,16 @@ public class ParticleMenu : MonoBehaviour {
 	// setting up the first menu item and resetting the currentIndex to ensure it's at zero
 	void Start()
 	{
-		Navigate (0);
+        //string ruta = "Assets/Prefabs/1.blend";
+        //GameObject prueba = (GameObject)AssetDatabase.LoadAssetAtPath(ruta, typeof(GameObject));
+        //particleSystems[0].particleSystemGO = prueba;
+        //particleSystems[0].particlePosition.y = 3f;
+        //particleSystems[0].particleRotation.x = 0f;
+        //particleSystems[0].title = "Si puedo cambiar las cosas dinamicamente";
+        Navigate (0);
 		currentIndex = 0;
-	}
+        
+    }
 
 
 	// our public function that gets called by our menu's buttons

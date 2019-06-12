@@ -117,7 +117,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 flyDirection = -1;
             }
 
-
             float speed;
             GetInput(out speed);
             // always move along the camera forward as it is the direction that it being aimed at
