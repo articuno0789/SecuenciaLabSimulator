@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.IO;
+using UnityStandardAssets.Characters.FirstPerson;
 //using UnityStandardAssets.ImageEffects;
 /// <summary>
 ///  Copyright (c) 2016 Eric Zhu 
@@ -275,12 +276,13 @@ namespace GreatArcStudios
         //Boolean for if the blur effect was originally enabled
         //public Boolean blurBool;
 
+        GameObject player;
         /// <summary>
         /// The start method; you will need to place all of your inital value getting/setting here. 
         /// </summary>
         public void Start()
         {
-
+            player = GameObject.Find("Player");
             readUseSimpleTerrain = useSimpleTerrain;
             if (useSimpleTerrain)
             {
@@ -425,7 +427,8 @@ namespace GreatArcStudios
         /// </summary>
         public void returnToMenu()
         {
-            SceneManager.LoadScene(mainMenu);
+            SceneManager.LoadScene("MainMenu");
+            //SceneManager.LoadScene("MainMenuPrueba");
             //Application.LoadLevel(mainMenu);
             uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
         }
@@ -454,17 +457,20 @@ namespace GreatArcStudios
 
             if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.active == false)
             {
-
                 uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
                 mainPanel.SetActive(true);
                 vidPanel.SetActive(false);
                 audioPanel.SetActive(false);
                 TitleTexts.SetActive(true);
                 mask.SetActive(true);
-                Time.timeScale = 0;
                 for (int i = 0; i < otherUIElements.Length; i++)
                 {
                     otherUIElements[i].gameObject.SetActive(false);
+                }
+                if (player != null)
+                {
+                    FirstPersonController playerController = player.GetComponent<FirstPersonController>();
+                    playerController.m_rotateViewPermission = false;
                 }
                 /* if (blurBool == false)
                   {
@@ -482,6 +488,11 @@ namespace GreatArcStudios
                 for (int i = 0; i < otherUIElements.Length; i++)
                 {
                     otherUIElements[i].gameObject.SetActive(true);
+                }
+                if(player != null)
+                {
+                    FirstPersonController playerController = player.GetComponent<FirstPersonController>();
+                    playerController.m_rotateViewPermission = true;
                 }
             }
 

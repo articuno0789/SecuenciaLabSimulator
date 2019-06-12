@@ -11,6 +11,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
     public class FirstPersonController : MonoBehaviour
     {
         //Volar y caminar
+        [SerializeField] public bool m_rotateViewPermission;
         [SerializeField] private bool m_IsFlyingCamara;
 
         [SerializeField] private bool m_IsWalking;
@@ -69,13 +70,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
+            m_rotateViewPermission = true;
         }
 
 
         // Update is called once per frame
         private void Update()
         {
-            RotateView();
+            if (m_rotateViewPermission)
+            {
+                RotateView();
+            }
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)
             {
