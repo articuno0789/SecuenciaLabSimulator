@@ -384,6 +384,11 @@ namespace GreatArcStudios
             {
                 otherUIElements[i].gameObject.SetActive(true);
             }
+            if (player != null)
+            {
+                FirstPersonController playerController = player.GetComponent<FirstPersonController>();
+                playerController.m_rotateViewPermission = true;
+            }
             /* if (blurBool == false)
              {
                  blurEffect.enabled = false;
