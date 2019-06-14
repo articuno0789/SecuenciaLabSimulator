@@ -13,6 +13,10 @@ public class ModelsMenu : MonoBehaviour
     // the gun GameObject
     public GameObject gunGameObject;
 
+    public GameObject BackgroundImage;
+
+    public bool hideBackgroundImage;
+
     // a private integer to store the current position in the array
     private int currentIndex;
 
@@ -34,6 +38,20 @@ public class ModelsMenu : MonoBehaviour
         currentIndex = 0;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && hideBackgroundImage)
+        {
+            if (BackgroundImage.activeSelf)
+            {
+                BackgroundImage.SetActive(false);
+            }
+            else
+            {
+                BackgroundImage.SetActive(true);
+            }
+        }
+    }
 
     // our public function that gets called by our menu's buttons
     public void Navigate(int i)

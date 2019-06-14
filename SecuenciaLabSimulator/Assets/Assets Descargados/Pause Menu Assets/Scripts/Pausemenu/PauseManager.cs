@@ -17,6 +17,7 @@ namespace GreatArcStudios
     /// </summary>
     public class PauseManager : MonoBehaviour
     {
+        public String currentLevelName;
         /// <summary>
         /// This is the main panel holder, which holds the main panel and should be called "main panel"
         /// </summary> 
@@ -29,6 +30,8 @@ namespace GreatArcStudios
         /// This is the audio panel holder, which holds all of the silders for the audio panel and should be called "audio panel"
         /// </summary>
         public GameObject audioPanel;
+
+        public GameObject goLevelPanel;
         /// <summary>
         /// These are the game objects with the title texts like "Pause menu" and "Game Title" 
         /// </summary>
@@ -322,16 +325,20 @@ namespace GreatArcStudios
             fovINI = mainCam.fieldOfView;
             msaaINI = QualitySettings.antiAliasing;
             vsyncINI = QualitySettings.vSyncCount;
-            //enable titles
-            TitleTexts.SetActive(true);
+            
             //Find terrain
             terrain = Terrain.activeTerrain;
-            //Disable other panels
-            mainPanel.SetActive(false);
-            vidPanel.SetActive(false);
-            audioPanel.SetActive(false);
-            //Enable mask
-            mask.SetActive(false);
+            if (currentLevelName != "MainMenu")
+            {
+                //enable titles
+                TitleTexts.SetActive(true);
+                //Disable other panels
+                mainPanel.SetActive(false);
+                vidPanel.SetActive(false);
+                audioPanel.SetActive(false);
+                //Enable mask
+                mask.SetActive(false);
+            }
             //set last texture limit
             lastTexLimit = QualitySettings.masterTextureLimit;
             //set last shadow cascade 
@@ -363,7 +370,7 @@ namespace GreatArcStudios
         /// </summary>
         public void Restart()
         {
-            SceneManager.LoadScene("Main");
+            SceneManager.LoadScene(currentLevelName);
             //SceneManager.LoadScene(Application.loadedLevel);
             //Application.LoadLevel(Application.loadedLevel);
             uiEventSystem.firstSelectedGameObject = defualtSelectedMain;
@@ -375,6 +382,10 @@ namespace GreatArcStudios
         {
             Time.timeScale = timeScale;
 
+            if (goLevelPanel != null)
+            {
+                goLevelPanel.SetActive(false);
+            }
             mainPanel.SetActive(false);
             vidPanel.SetActive(false);
             audioPanel.SetActive(false);
@@ -406,10 +417,49 @@ namespace GreatArcStudios
         {
             vidPanel.SetActive(false);
             audioPanel.SetActive(false);
+            if (goLevelPanel != null)
+            {
+                goLevelPanel.SetActive(false);
+            }
             quitPanelAnimator.enabled = true;
             quitPanelAnimator.Play("QuitPanelIn");
-
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void goLevelOptions()
+        {
+            vidPanel.SetActive(false);
+            audioPanel.SetActive(false);
+            if (goLevelPanel != null)
+            {
+                goLevelPanel.SetActive(true);
+            }
+            //quitPanelAnimator.enabled = true;
+            //quitPanelAnimator.Play("QuitPanelIn");
+        }
+
+        public void closeGoLevelOptions()
+        {
+            if (goLevelPanel != null)
+            {
+                goLevelPanel.SetActive(false);
+            }
+        }
+
+        public void goSimulator()
+        {
+            SceneManager.LoadScene("Main");
+            uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
+        }
+
+        public void goCredits()
+        {
+            SceneManager.LoadScene("Credits");
+            uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
+        }
+
         /// <summary>
         /// Method to quit the game. Call methods such as auto saving before qutting here.
         /// </summary>
@@ -457,47 +507,50 @@ namespace GreatArcStudios
             }
             else if (mainPanel.active == true)
             {
-                pauseMenu.text = "Pause Menu";
+                //pauseMenu.text = "Pause Menu";
             }
 
-            if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.active == false)
+            if(currentLevelName != "MainMenu")
             {
-                uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
-                mainPanel.SetActive(true);
-                vidPanel.SetActive(false);
-                audioPanel.SetActive(false);
-                TitleTexts.SetActive(true);
-                mask.SetActive(true);
-                for (int i = 0; i < otherUIElements.Length; i++)
+                if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.active == false)
                 {
-                    otherUIElements[i].gameObject.SetActive(false);
+                    uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
+                    mainPanel.SetActive(true);
+                    vidPanel.SetActive(false);
+                    audioPanel.SetActive(false);
+                    TitleTexts.SetActive(true);
+                    mask.SetActive(true);
+                    for (int i = 0; i < otherUIElements.Length; i++)
+                    {
+                        otherUIElements[i].gameObject.SetActive(false);
+                    }
+                    if (player != null)
+                    {
+                        FirstPersonController playerController = player.GetComponent<FirstPersonController>();
+                        playerController.m_rotateViewPermission = false;
+                    }
+                    /* if (blurBool == false)
+                      {
+                         blurEffect.enabled = true;
+                     }  */
                 }
-                if (player != null)
+                else if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.active == true)
                 {
-                    FirstPersonController playerController = player.GetComponent<FirstPersonController>();
-                    playerController.m_rotateViewPermission = false;
-                }
-                /* if (blurBool == false)
-                  {
-                     blurEffect.enabled = true;
-                 }  */
-            }
-            else if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.active == true)
-            {
-                Time.timeScale = timeScale;
-                mainPanel.SetActive(false);
-                vidPanel.SetActive(false);
-                audioPanel.SetActive(false);
-                TitleTexts.SetActive(false);
-                mask.SetActive(false);
-                for (int i = 0; i < otherUIElements.Length; i++)
-                {
-                    otherUIElements[i].gameObject.SetActive(true);
-                }
-                if(player != null)
-                {
-                    FirstPersonController playerController = player.GetComponent<FirstPersonController>();
-                    playerController.m_rotateViewPermission = true;
+                    Time.timeScale = timeScale;
+                    mainPanel.SetActive(false);
+                    vidPanel.SetActive(false);
+                    audioPanel.SetActive(false);
+                    TitleTexts.SetActive(false);
+                    mask.SetActive(false);
+                    for (int i = 0; i < otherUIElements.Length; i++)
+                    {
+                        otherUIElements[i].gameObject.SetActive(true);
+                    }
+                    if (player != null)
+                    {
+                        FirstPersonController playerController = player.GetComponent<FirstPersonController>();
+                        playerController.m_rotateViewPermission = true;
+                    }
                 }
             }
 
@@ -527,6 +580,10 @@ namespace GreatArcStudios
             mainPanel.SetActive(false);
             vidPanel.SetActive(false);
             audioPanel.SetActive(true);
+            if (goLevelPanel != null)
+            {
+                goLevelPanel.SetActive(false);
+            }
             audioPanelAnimator.enabled = true;
             audioIn();
             pauseMenu.text = "Audio Menu";
@@ -696,6 +753,10 @@ namespace GreatArcStudios
             mainPanel.SetActive(false);
             vidPanel.SetActive(true);
             audioPanel.SetActive(false);
+            if (goLevelPanel != null)
+            {
+                goLevelPanel.SetActive(false);
+            }
             vidPanelAnimator.enabled = true;
             videoIn();
             pauseMenu.text = "Video Menu";
