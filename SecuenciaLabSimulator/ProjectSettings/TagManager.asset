@@ -18,6 +18,7 @@ TagManager:
   - 21
   - 22, 23
   - Potenciometro
+  - 5
   layers:
   - Default
   - TransparentFX
