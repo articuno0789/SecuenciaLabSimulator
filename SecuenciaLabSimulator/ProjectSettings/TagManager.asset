@@ -21,6 +21,7 @@ TagManager:
   - 5
   - 7
   - ModuloVacio
+  - 8, 11
   layers:
   - Default
   - TransparentFX
