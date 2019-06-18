@@ -10,5 +10,5 @@ public class ModelsExamples
     public string description;
     public bool isWeaponEffect;
     public GameObject modelSystemGO;
-    public Vector3 modelPosition, modelRotation;
+    public Vector3 modelPosition, modelRotation, modelScale;
 }
