@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Mod2PushButton : MonoBehaviour
 {
-    private Animation ani;
+    private Animation animation;
+
     // Start is called before the first frame update
     void Start()
     {
-        ani = GetComponent<Animation>();
+        animation = GetComponent<Animation>();
     }
 
     // Update is called once per frame
@@ -21,11 +22,11 @@ public class Mod2PushButton : MonoBehaviour
     {
         if (name.Contains("BotonCuadradoRojo")) {
             Debug.Log("Entra a presionar boton rojo cuadrado");
-            ani.Play("Mod2PresBotonCuadradoRojo");
+            animation.Play("Mod2PresBotonCuadradoRojo");
         }else if (name.Contains("BotonCuadradoVerde"))
         {
             Debug.Log("Entra a presionar boton verde cuadrado");
-            ani.Play("Mod2PresBotonCuadradoVerde");
+            animation.Play("Mod2PresBotonCuadradoVerde");
         }
     }
 }

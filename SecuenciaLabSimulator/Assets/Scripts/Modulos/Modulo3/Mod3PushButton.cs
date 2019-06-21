@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Mod3PushButton : MonoBehaviour
 {
-    private Animation ani;
+    private Animation animation;
 
     // Start is called before the first frame update
     void Start()
     {
-        ani = GetComponent<Animation>();
+        animation = GetComponent<Animation>();
     }
 
     // Update is called once per frame
@@ -21,6 +21,6 @@ public class Mod3PushButton : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log("Entra a presionar boton");
-        ani.Play("Mod3PresBotonCircular");
+        animation.Play("Mod3PresBotonCircular");
     }
 }
