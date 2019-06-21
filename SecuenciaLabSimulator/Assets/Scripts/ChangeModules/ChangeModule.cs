@@ -102,8 +102,107 @@ public class ChangeModule : MonoBehaviour
             Debug.Log("No hay más objetos con ma misma tag");
         }
         newModule.name = m_Message + terminacion;
-        //newModule.tag = m_Message;
+        newModule = asignarLogicaModulo(newModule, m_Message);
+        newModule.tag = m_Message;
         return newModule;
+    }
+
+    private GameObject asignarLogicaModulo(GameObject module, string nameModule)
+    {
+        if(nameModule == "1")
+        {
+            module.AddComponent<Modulo1>();
+        }else
+        if (nameModule == "2")
+        {
+            module.AddComponent<Modulo2>();
+        }
+        else
+        if (nameModule == "3")
+        {
+            module.AddComponent<Modulo3>();
+        }
+        else
+        if (nameModule == "4")
+        {
+            module.AddComponent<Modulo4>();
+        }
+        else
+        if (nameModule == "5")
+        {
+            module.AddComponent<Modulo5>();
+        }
+        else
+        if (nameModule == "6")
+        {
+            module.AddComponent<Modulo6>();
+        }
+        else
+        if (nameModule == "7")
+        {
+            module.AddComponent<Modulo7>();
+        }
+        else
+        if (nameModule == "8, 11")
+        {
+            module.AddComponent<Modulo8_11>();
+        }
+        else
+        if (nameModule == "9")
+        {
+            module.AddComponent<Modulo9>();
+        }
+        else
+        if (nameModule == "10, 17, 18, 19")
+        {
+            module.AddComponent<Modulo10_17_18_19>();
+        }
+        else
+        if (nameModule == "13")
+        {
+            module.AddComponent<Modulo13>();
+        }
+        else
+        if (nameModule == "14, 16")
+        {
+            module.AddComponent<Modulo14_16>();
+        }
+        else
+        if (nameModule == "15")
+        {
+            module.AddComponent<Modulo15>();
+        }
+        else
+        if (nameModule == "20")
+        {
+            module.AddComponent<Modulo20>();
+        }
+        else
+        if (nameModule == "21")
+        {
+            module.AddComponent<Modulo21>();
+        }
+        else
+        if (nameModule == "22, 23")
+        {
+            module.AddComponent<Modulo22_23>();
+        }
+        else
+        if (nameModule == "22")
+        {
+            module.AddComponent<Modulo22_23>();
+        }
+        else
+        if (nameModule == "23")
+        {
+            module.AddComponent<Modulo22_23>();
+        }
+        else
+        if (nameModule == "Potenciometro")
+        {
+            module.AddComponent<Potenciometro>();
+        }
+        return module;
     }
 
     private void EncontrarPadreTotal(GameObject nodo)
