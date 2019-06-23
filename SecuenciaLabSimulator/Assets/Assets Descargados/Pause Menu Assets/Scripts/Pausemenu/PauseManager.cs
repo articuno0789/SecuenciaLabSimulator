@@ -482,8 +482,8 @@ namespace GreatArcStudios
         /// </summary>
         public void returnToMenu()
         {
-            SceneManager.LoadScene("MainMenu");
-            //SceneManager.LoadScene("MainMenuPrueba");
+            //SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("MainMenuPrueba");
             //Application.LoadLevel(mainMenu);
             uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
         }

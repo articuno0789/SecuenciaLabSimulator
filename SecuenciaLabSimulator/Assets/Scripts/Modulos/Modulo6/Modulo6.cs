@@ -36,16 +36,16 @@ public class Modulo6 : MonoBehaviour
     public void RotarPerillaPrueba()
     {
         Vector3 perillaRotation = UnityEditor.TransformUtils.GetInspectorRotation(perilla.gameObject.transform);
-        Debug.Log("perillaRotation: " + perillaRotation);
+        //Debug.Log("perillaRotation: " + perillaRotation);
         if (perillaRotation.z >= limiteGiroSuperiorPerilla && puederotar)
         {
-            Debug.Log("if (perillaRotation.z >= limiteGiroInferiorPerilla && puederotar)");
+            //Debug.Log("if (perillaRotation.z >= limiteGiroInferiorPerilla && puederotar)");
             perilla.transform.Rotate(Vector3.back, velocidadRotacion * Time.deltaTime);
         }
         else
         if (perillaRotation.z >= limiteGiroInferiorPerilla && perillaRotation.z <= limiteGiroSuperiorPerilla && puederotar)
         {
-            Debug.Log("---if (perillaRotation.z <= limiteGiroInferiorPerilla && perillaRotation.z >= limiteGiroSuperiorPerilla && puederotar)");
+            //Debug.Log("---if (perillaRotation.z <= limiteGiroInferiorPerilla && perillaRotation.z >= limiteGiroSuperiorPerilla && puederotar)");
             perilla.transform.Rotate(Vector3.forward, velocidadRotacion * Time.deltaTime);
         }
         else

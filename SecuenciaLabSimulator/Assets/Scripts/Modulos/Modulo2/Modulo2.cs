@@ -11,10 +11,10 @@ public class Modulo2 : MonoBehaviour
     [SerializeField] public GameObject botonCuadradoRojoIzquierdo;
     [SerializeField] public GameObject botonCuadradoVerdeDerecho;
     [SerializeField] public GameObject botonCuadradoRojoDerecho;
-    [SerializeField] private string rutaAnimacionBotonCuadradoVerde = "Assets/Animation/Modulos/Modulo2/Mod2PresBotonCuadradoVerde.anim";
-    [SerializeField] private string rutaAnimacionBotonCuadradoRojo = "Assets/Animation/Modulos/Modulo2/Mod2PresBotonCuadradoRojo.anim";
-    [SerializeField] private string nombreAnimacionBotonCuadradoVerde = "Mod2PresBotonCuadradoVerde";
-    [SerializeField] private string nombreAnimacionBotonCuadradoRojo = "Mod2PresBotonCuadradoRojo";
+    private string rutaAnimacionBotonCuadradoVerde = "Assets/Animation/Modulos/Modulo2/Mod2PresBotonCuadradoVerde.anim";
+    private string rutaAnimacionBotonCuadradoRojo = "Assets/Animation/Modulos/Modulo2/Mod2PresBotonCuadradoRojo.anim";
+    private string nombreAnimacionBotonCuadradoVerde = "Mod2PresBotonCuadradoVerde";
+    private string nombreAnimacionBotonCuadradoRojo = "Mod2PresBotonCuadradoRojo";
 
     // Start is called before the first frame update
     void Start()

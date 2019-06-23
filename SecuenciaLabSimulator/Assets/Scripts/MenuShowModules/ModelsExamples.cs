@@ -6,6 +6,7 @@ using UnityEngine;
 public class ModelsExamples
 {
     public string title;
+    public string nameModel;
     [TextArea]
     public string description;
     public bool isWeaponEffect;

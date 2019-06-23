@@ -67,6 +67,7 @@ public class ModelsMenu : MonoBehaviour
         // ..spawn the relevant game object based on the array of potential game objects, according to the current index (position in the array)
         currentGO = Instantiate(modelSystems[currentIndex].modelSystemGO, spawnLocation.position + modelSystems[currentIndex].modelPosition, Quaternion.Euler(modelSystems[currentIndex].modelRotation)) as GameObject;
         currentGO.AddComponent<TransformModel>();
+        currentGO = asignarLogicaModulo(currentGO, modelSystems[currentIndex].nameModel);
         currentGO.transform.localScale = modelSystems[currentIndex].modelScale;
 
         // only activate the gun GameObject if the current effect is a weapon effect
@@ -78,4 +79,110 @@ public class ModelsMenu : MonoBehaviour
         navigationDetails.text = "" + (currentIndex + 1) + " de " + modelSystems.Length.ToString();
 
     }
+
+    private GameObject asignarLogicaModulo(GameObject module, string nameModule)
+    {
+        Debug.Log(modelSystems[currentIndex].title);
+        if (nameModule == "1")
+        {
+            module.AddComponent<Modulo1>();
+        }
+        else
+        if (nameModule == "2")
+        {
+            module.AddComponent<Modulo2>();
+        }
+        else
+        if (nameModule == "3")
+        {
+            module.AddComponent<Modulo3>();
+        }
+        else
+        if (nameModule == "4")
+        {
+            module.AddComponent<Modulo4>();
+        }
+        else
+        if (nameModule == "5")
+        {
+            module.AddComponent<Modulo5>();
+        }
+        else
+        if (nameModule == "6")
+        {
+            module.AddComponent<Modulo6>();
+        }
+        else
+        if (nameModule == "7")
+        {
+            module.AddComponent<Modulo7>();
+        }
+        else
+        if (nameModule == "8, 11")
+        {
+            module.AddComponent<Modulo8_11>();
+        }
+        else
+        if (nameModule == "9")
+        {
+            module.AddComponent<Modulo9>();
+        }
+        else
+        if (nameModule == "10, 17, 18, 19")
+        {
+            module.AddComponent<Modulo10_17_18_19>();
+        }
+        else
+        if (nameModule == "13")
+        {
+            module.AddComponent<Modulo13>();
+        }
+        else
+        if (nameModule == "14, 16")
+        {
+            module.AddComponent<Modulo14_16>();
+        }
+        else
+        if (nameModule == "15")
+        {
+            module.AddComponent<Modulo15>();
+        }
+        else
+        if (nameModule == "20")
+        {
+            module.AddComponent<Modulo20>();
+        }
+        else
+        if (nameModule == "21")
+        {
+            module.AddComponent<Modulo21>();
+        }
+        else
+        if (nameModule == "22, 23")
+        {
+            module.AddComponent<Modulo22_23>();
+        }
+        else
+        if (nameModule == "22")
+        {
+            module.AddComponent<Modulo22_23>();
+        }
+        else
+        if (nameModule == "23")
+        {
+            module.AddComponent<Modulo22_23>();
+        }
+        else
+        if (nameModule == "Potenciometro")
+        {
+            module.AddComponent<Potenciometro>();
+        }else 
+        if (nameModule == "MotorElectricoAC")
+        {
+            module.AddComponent<MotorElectricoAC>();
+        }
+        return module;
+    }
+
+
 }

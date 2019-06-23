@@ -9,8 +9,8 @@ public class Modulo3 : MonoBehaviour
     [SerializeField] public List<GameObject> plugNegros;
     [SerializeField] public List<GameObject> botonesCircularesRojos;
     [SerializeField] public List<GameObject> botonesCircularesVerdes;
-    [SerializeField] private string rutaAnimacionBotonCircular = "Assets/Animation/Modulos/Modulo3/Mod3PresBotonCircular.anim";
-    [SerializeField] private string nombreAnimacionBotonCircular = "Mod2PresBotonCuadradoVerde";
+    private string rutaAnimacionBotonCircular = "Assets/Animation/Modulos/Modulo3/Mod3PresBotonCircular.anim";
+    private string nombreAnimacionBotonCircular = "Mod3PresBotonCircular";
 
     // Start is called before the first frame update
     void Start()
