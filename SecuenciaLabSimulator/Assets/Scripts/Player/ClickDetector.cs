@@ -18,7 +18,7 @@ public class ClickDetector : MonoBehaviour
         GameObject clickedGmObj = null;
         bool clickedGmObjAcquired = false;
         // Left click
-        /*if (HandleLeftClick && Input.GetMouseButtonDown(0))
+        if (HandleLeftClick && Input.GetMouseButtonDown(0))
         {
             if (!clickedGmObjAcquired)
             {
@@ -134,7 +134,7 @@ public class ClickDetector : MonoBehaviour
                 }
                 //clickedGmObj.SendMessage(OnLeftClickMethodName, null, SendMessageOptions.DontRequireReceiver);
             }
-        }*/
+        }
         // Right click
         if (HandleRightClick && Input.GetMouseButtonDown(1))
         {

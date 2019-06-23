@@ -13,9 +13,11 @@ public class OpenCloseChangeModule : MonoBehaviour
     public GameObject player;
     public Text currentModuleSelected;
     public GameObject padreTotal;
+    public ChangeModule changeModuleDropdown;
     // Use this for initialization
     void Start()
     {
+        changeModuleDropdown = GameObject.Find("DropdownChangeModule").GetComponent<ChangeModule>();
         player = GameObject.Find("FirstPersonCharacter");
         currentModuleSelected = GameObject.Find("CurrentModuleSelected").GetComponent<Text>();
         panel = GameObject.Find("PanelChangeModule");
@@ -47,7 +49,7 @@ public class OpenCloseChangeModule : MonoBehaviour
         GameObject module = clickDetector.lastClickedGmObj;
         EncontrarPadreTotal(module);
         //module = padreTotal;
-        Debug.Log("Entra al LookAt");
+        Debug.Log("Entra al LookAt-------------------");
         Debug.Log("transform.position.x: " + transform.position.x +
             ", transform.position.y: " + transform.position.y +
             ", transform.position.z: " + transform.position.z);
@@ -58,7 +60,10 @@ public class OpenCloseChangeModule : MonoBehaviour
         panel.transform.position = menuPosition;
 
         if (padreTotal != null && currentModuleSelected != null)
+        {
             currentModuleSelected.text = "Seleccionado: " + padreTotal.name;
+            changeModuleDropdown.selectedGameObjectRightClick = padreTotal;
+        }
         //panel = GameObject.Find("PanelChangeModule");
         if (!panel.activeSelf)
         {

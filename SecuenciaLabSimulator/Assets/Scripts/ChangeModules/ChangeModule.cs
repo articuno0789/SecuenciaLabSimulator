@@ -19,6 +19,8 @@ public class ChangeModule : MonoBehaviour
     public bool displayInfo;
     public GameObject player;
     public GameObject player2;
+    public int moduleLayer = 11; //La capa 11, equivale a la capa "Modulo"
+    public GameObject selectedGameObjectRightClick;
 
     void Start()
     {
@@ -40,8 +42,13 @@ public class ChangeModule : MonoBehaviour
     {
         ClickDetector clickDetector = player.GetComponent<ClickDetector>();
         GameObject module = clickDetector.lastClickedGmObj;
+
+        //GameObject selectedGameObjectRightClick;
+        //selectedGameObjectRightClick = GameObject.Find("SelectedGameObjectRightClick");
+        module = selectedGameObjectRightClick;
+
         Debug.Log("***********Modulo seleccionado: " + module);
-        module.GetComponent<Renderer>().material.color = new Color(Random.value, Random.value, Random.value, 1.0f);
+        //module.GetComponent<Renderer>().material.color = new Color(Random.value, Random.value, Random.value, 1.0f);
         EncontrarPadreTotal(module);
         Debug.Log("***********Modulo padre: " + padreTotal.name);
         DestruirObjetosRecursivos(padreTotal);
@@ -104,6 +111,7 @@ public class ChangeModule : MonoBehaviour
         newModule.name = m_Message + terminacion;
         newModule = asignarLogicaModulo(newModule, m_Message);
         newModule.tag = m_Message;
+        newModule.layer = moduleLayer; 
         return newModule;
     }
 
@@ -230,6 +238,7 @@ public class ChangeModule : MonoBehaviour
 
     private void AsignacionRecursiva(GameObject nodo)
     {
+        nodo.layer = moduleLayer;
         nodo.AddComponent<OpenCloseChangeModule>();
         OpenCloseChangeModule OCChangeModule = nodo.GetComponent<OpenCloseChangeModule>();
         OCChangeModule.panel = panel;
