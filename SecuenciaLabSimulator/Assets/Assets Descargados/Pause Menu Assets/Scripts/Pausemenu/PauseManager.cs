@@ -7,9 +7,7 @@ using UnityEngine.EventSystems;
 using System.IO;
 using UnityStandardAssets.Characters.FirstPerson;
 //using UnityStandardAssets.ImageEffects;
-/// <summary>
-///  Copyright (c) 2016 Eric Zhu 
-/// </summary>
+
 namespace GreatArcStudios
 {
     /// <summary>

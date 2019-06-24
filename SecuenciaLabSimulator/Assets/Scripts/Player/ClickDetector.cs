@@ -13,6 +13,7 @@ public class ClickDetector : MonoBehaviour
     public LayerMask layerMask;
     public Camera camara;
     public GameObject lastClickedGmObj;
+    public ColorPicker colorPicker;
     void Update()
     {
         GameObject clickedGmObj = null;
@@ -116,8 +117,17 @@ public class ClickDetector : MonoBehaviour
                             cableCompEnd.endPoint = lastClickedGmObj;
                             cableCompEnd.startPoint = clickedGmObj;
                             cableCompEnd.cableMaterial = cableMaterial;
+
                             lastClickedGmObj.GetComponent<Renderer>().material.color = Color.white;
                             clickedGmObj.GetComponent<Renderer>().material.color = Color.white;
+                            if(lastClickedGmObj.GetComponent<ChangeColorCables>() == null)
+                            {
+                                lastClickedGmObj.AddComponent<ChangeColorCables>();
+                            }
+                            if (clickedGmObj.GetComponent<ChangeColorCables>() == null)
+                            {
+                                clickedGmObj.AddComponent<ChangeColorCables>();
+                            }
                         }
                         else
                         {
@@ -146,10 +156,16 @@ public class ClickDetector : MonoBehaviour
             }
             if (clickedGmObj != null)
             {
-                Debug.Log("Manda mensaje, " + OnRightClickMethodName + ", *******Objeto clic: " + clickedGmObj.name);
+                Debug.Log("Manda mensaje clic derecho, " + OnRightClickMethodName + ", *******Objeto clic: " + clickedGmObj.name);
                 //clickedGmObj.SendMessage("Prueba");
                 clickedGmObj.SendMessage("OpenCloseMenuChangeModule", 1, SendMessageOptions.DontRequireReceiver);
                 //clickedGmObj.SendMessage("Prueba", 1);
+                if (clickedGmObj.name.Contains("EntradaPlug")){
+                    clickedGmObj.SendMessage("OpenCloseMenuChangeColorCable", 1, SendMessageOptions.DontRequireReceiver);
+                    colorPicker.selectedPlug = clickedGmObj;
+                    clickedGmObj = null;
+                    lastClickedGmObj = null;
+                }
             }
                 
                 //clickedGmObj.SendMessage(OnRightClickMethodName, null, SendMessageOptions.DontRequireReceiver);

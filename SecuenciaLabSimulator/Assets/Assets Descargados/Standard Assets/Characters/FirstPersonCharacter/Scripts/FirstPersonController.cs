@@ -81,6 +81,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 RotateView();
             }
+
+            if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                if (m_rotateViewPermission)
+                {
+                    m_rotateViewPermission = false;
+                }
+                else
+                {
+                    m_rotateViewPermission = true;
+                }
+            }
+
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)
             {
