@@ -11,6 +11,8 @@ public class Modulo6 : MonoBehaviour
     [SerializeField] public float limiteGiroSuperiorPerilla = 180.0f;
     [SerializeField] public float gradosActualesPerilla = -90.0f;
     [SerializeField] public float valorActualPerilla = 0.0f;
+    public float valorMinimoPerilla = 0.0f;
+    public float valorMaximoPerilla = 40.0f;
     [SerializeField] public float velocidadRotacion = 10;
     [SerializeField] public bool rotarPerillaPrueba = true;
     [SerializeField] public int estaLimiteRotacion = -1;

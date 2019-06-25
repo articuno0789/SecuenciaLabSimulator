@@ -11,20 +11,14 @@ public class ChangeModule : MonoBehaviour
 
     private GameObject padreTotal;
     public Dropdown dropdown;
-
-    public string myString;
     public Text myText;
     public GameObject panel;
-    public float fateTime;
-    public bool displayInfo;
     public GameObject player;
-    public GameObject player2;
     public int moduleLayer = 11; //La capa 11, equivale a la capa "Modulo"
     public GameObject selectedGameObjectRightClick;
 
     void Start()
     {
-        player2 = GameObject.Find("Player");
         player = GameObject.Find("FirstPersonCharacter");
         dropdown = GameObject.Find("DropdownChangeModule").GetComponent<Dropdown>();
         myText = GameObject.Find("TextChangeModule").GetComponent<Text>();
@@ -239,10 +233,17 @@ public class ChangeModule : MonoBehaviour
     private void AsignacionRecursiva(GameObject nodo)
     {
         nodo.layer = moduleLayer;
-        nodo.AddComponent<OpenCloseChangeModule>();
-        OpenCloseChangeModule OCChangeModule = nodo.GetComponent<OpenCloseChangeModule>();
-        OCChangeModule.panel = panel;
-        OCChangeModule.dropdown = dropdown;
+        if (nodo.name.Contains("BaseModulo"))
+        {
+            nodo.AddComponent<OpenCloseChangeModule>();
+            OpenCloseChangeModule OCChangeModule = nodo.GetComponent<OpenCloseChangeModule>();
+            OCChangeModule.panel = panel;
+            OCChangeModule.dropdown = dropdown;
+        }else if (nodo.name.Contains("Total_Perilla"))
+        {
+            nodo.AddComponent<OpenClosePerillas>();
+        }
+
         /*GameObject myObj = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/3.blend", typeof(GameObject));
         MouseClick mouseScript = nodo.GetComponent<MouseClick>();
         mouseScript.prefab = (GameObject)myObj;*/

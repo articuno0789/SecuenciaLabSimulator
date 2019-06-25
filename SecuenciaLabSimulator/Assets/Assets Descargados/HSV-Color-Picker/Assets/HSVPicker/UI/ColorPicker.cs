@@ -313,21 +313,25 @@ public class ColorPicker : MonoBehaviour
         if (module!= null && module.name.Contains("EntradaPlug"))
         {
             CableComponent cableCompStart = module.GetComponent<CableComponent>();
-            CableComponent cableCompEnd = cableCompStart.endPoint.GetComponent<CableComponent>();
-            if (cableCompStart != null)
+            if (cableCompStart != null && cableCompStart.endPoint != null)
             {
-                if(cableCompStart.line != null)
+                CableComponent cableCompEnd = cableCompStart.endPoint.GetComponent<CableComponent>();
+                if (cableCompStart != null)
                 {
-                    cableCompStart.line.SetColors(CurrentColor, CurrentColor);
+                    if (cableCompStart.line != null)
+                    {
+                        cableCompStart.line.SetColors(CurrentColor, CurrentColor);
+                    }
+                }
+                if (cableCompEnd != null)
+                {
+                    if (cableCompEnd.line != null)
+                    {
+                        cableCompEnd.line.SetColors(CurrentColor, CurrentColor);
+                    }
                 }
             }
-            if (cableCompEnd != null)
-            {
-                if (cableCompEnd.line != null)
-                {
-                    cableCompEnd.line.SetColors(CurrentColor, CurrentColor);
-                }
-            }
+
         }
     }
 

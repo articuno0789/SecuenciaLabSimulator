@@ -6,10 +6,12 @@ public class ChangeColorCables : MonoBehaviour
 {
     public GameObject panelChangeColor;
     public GameObject canvasChangeColor;
+    public GameObject panelChangeColorManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        panelChangeColorManager = GameObject.Find("ChangeColorCableManager");
         panelChangeColor = GameObject.Find("PanelChangeColorCableMenu");
         canvasChangeColor = GameObject.Find("ChangeColorCableMenu");
     }
@@ -22,7 +24,9 @@ public class ChangeColorCables : MonoBehaviour
 
     public void OpenCloseMenuChangeColorCable()
     {
-        CanvasGroup canvas = canvasChangeColor.GetComponent<CanvasGroup>();
+        OpenCloseChangeColorCable OCChangeColor = panelChangeColorManager.GetComponent<OpenCloseChangeColorCable>();
+        OCChangeColor.ShowHideChangeColorCable();
+        /*CanvasGroup canvas = canvasChangeColor.GetComponent<CanvasGroup>();
         if(canvas != null)
         {
             if(canvas.alpha == 0.0f)
@@ -33,9 +37,9 @@ public class ChangeColorCables : MonoBehaviour
             {
                 canvas.alpha = 0.0f;
             }
-        }
+        }*/
 
-        
+
         /*var rt = panelChangeColor.GetComponent<RectTransform>();
         Vector3 mostrar = new Vector3(425, 180, 0);
         Vector3 ocultar = new Vector3(0, 0, 0);

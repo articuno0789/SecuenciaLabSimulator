@@ -1,6 +1,8 @@
 ﻿
 using UnityEngine;
 using System.Collections;
+using UnityEditor;
+
 public class ClickDetector : MonoBehaviour
 {
     public Material cableMaterial;
@@ -14,6 +16,8 @@ public class ClickDetector : MonoBehaviour
     public Camera camara;
     public GameObject lastClickedGmObj;
     public ColorPicker colorPicker;
+    private string rutaMaterialPlugAnaranjado = "Assets/Materials/EntradaPlug/AnaranjadoPlug.mat";
+    private string rutaMaterialPlugNegro = "Assets/Materials/EntradaPlug/ObscuroPlug.mat";
     void Update()
     {
         GameObject clickedGmObj = null;
@@ -44,12 +48,13 @@ public class ClickDetector : MonoBehaviour
                             //Set the main Color of the Material to green
                             //rend.material.shader = Shader.Find("_Color");
                             //rend.material.SetColor("_Color", Color.green);
+                            rend.material = new Material(Shader.Find("Sprites/Default"));
                             rend.material.color = Color.green;
                         }
                         else
                         {
                             Renderer rend = clickedGmObj.GetComponent<Renderer>();
-                            rend.material.color = Color.yellow;
+                            //rend.material.color = Color.yellow;
                             Debug.Log("-------CAMBIO DE COLOR");
                             //Fetch the Renderer from the GameObject
                             //Renderer rend = clickedGmObj.GetComponent<Renderer>();
@@ -63,7 +68,7 @@ public class ClickDetector : MonoBehaviour
                         if (clickedGmObj.name.Contains("EntradaPlug") && clickedGmObj != lastClickedGmObj)
                         {
                             Renderer rend = clickedGmObj.GetComponent<Renderer>();
-                            rend.material.color = Color.red;
+                            //rend.material.color = Color.red;
                             segundoPlug = true;
 
                             CableComponent cableCompStart = lastClickedGmObj.GetComponent<CableComponent>();
@@ -118,8 +123,8 @@ public class ClickDetector : MonoBehaviour
                             cableCompEnd.startPoint = clickedGmObj;
                             cableCompEnd.cableMaterial = cableMaterial;
 
-                            lastClickedGmObj.GetComponent<Renderer>().material.color = Color.white;
-                            clickedGmObj.GetComponent<Renderer>().material.color = Color.white;
+                            //lastClickedGmObj.GetComponent<Renderer>().material.color = Color.white;
+                            //clickedGmObj.GetComponent<Renderer>().material.color = Color.white;
                             if(lastClickedGmObj.GetComponent<ChangeColorCables>() == null)
                             {
                                 lastClickedGmObj.AddComponent<ChangeColorCables>();
@@ -128,11 +133,14 @@ public class ClickDetector : MonoBehaviour
                             {
                                 clickedGmObj.AddComponent<ChangeColorCables>();
                             }
+                            changeOriginalColorPlug(lastClickedGmObj);
+                            changeOriginalColorPlug(clickedGmObj);
                         }
                         else
                         {
-                            Renderer rend = lastClickedGmObj.GetComponent<Renderer>();
-                            rend.material.color = Color.white;
+                            changeOriginalColorPlug(lastClickedGmObj);
+                            //Renderer rend = lastClickedGmObj.GetComponent<Renderer>();
+                            //rend.material.color = Color.white;
                             segundoPlug = true;
                         }
                     }
@@ -157,14 +165,26 @@ public class ClickDetector : MonoBehaviour
             if (clickedGmObj != null)
             {
                 Debug.Log("Manda mensaje clic derecho, " + OnRightClickMethodName + ", *******Objeto clic: " + clickedGmObj.name);
-                //clickedGmObj.SendMessage("Prueba");
-                clickedGmObj.SendMessage("OpenCloseMenuChangeModule", 1, SendMessageOptions.DontRequireReceiver);
-                //clickedGmObj.SendMessage("Prueba", 1);
+                if (clickedGmObj.name.Contains("BaseModulo"))
+                {
+                    clickedGmObj.SendMessage("OpenCloseMenuChangeModule", 1, SendMessageOptions.DontRequireReceiver);
+                }else
                 if (clickedGmObj.name.Contains("EntradaPlug")){
                     clickedGmObj.SendMessage("OpenCloseMenuChangeColorCable", 1, SendMessageOptions.DontRequireReceiver);
                     colorPicker.selectedPlug = clickedGmObj;
                     clickedGmObj = null;
                     lastClickedGmObj = null;
+                }
+                else if (clickedGmObj.name.Contains("Total_Perilla"))
+                {
+                    GameObject panelSetValueKnob = GameObject.Find("ButtonSetValueKnob");
+                    GameObject inputFieldCurrentValue = GameObject.Find("InputFieldCurrentValue");
+                    if (panelSetValueKnob != null && inputFieldCurrentValue != null)
+                    {
+                        panelSetValueKnob.GetComponent<SetValueKnob>().perillaSeleccionada = clickedGmObj;
+                        inputFieldCurrentValue.GetComponent<SetValueKnob>().perillaSeleccionada = clickedGmObj;
+                    }
+                    clickedGmObj.SendMessage("OpenCloseMenuSetValueKnob", 1, SendMessageOptions.DontRequireReceiver);
                 }
             }
                 
@@ -182,6 +202,7 @@ public class ClickDetector : MonoBehaviour
                 clickedGmObj.SendMessage(OnMiddleClickMethodName, null, SendMessageOptions.DontRequireReceiver);
         }
     }
+
     GameObject GetClickedGameObject()
     {
         // Builds a ray from camera point of view to the mouse position<br />
@@ -200,5 +221,16 @@ public class ClickDetector : MonoBehaviour
         }   
     }
 
+    private void changeOriginalColorPlug(GameObject objectClick)
+    {
+        if (objectClick.name.Contains("EntradaPlugNegro"))
+        {
+            objectClick.GetComponent<Renderer>().material = (Material)AssetDatabase.LoadAssetAtPath(rutaMaterialPlugNegro, typeof(Material));
+        }
+        else
+        {
+            objectClick.GetComponent<Renderer>().material = (Material)AssetDatabase.LoadAssetAtPath(rutaMaterialPlugAnaranjado, typeof(Material));
+        }
+    }
 
 }
