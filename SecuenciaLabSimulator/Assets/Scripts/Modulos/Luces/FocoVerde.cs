@@ -5,27 +5,24 @@ using UnityEngine;
 
 public class FocoVerde : MonoBehaviour
 {
-    public GameObject padreTotalComponente;
+    
     [SerializeField] public bool pruebaDeFocoVerde = true;
     [SerializeField] public string rutaPlasticoVerdeApagado = "Assets/Materials/PLasticos/PlasticoTraslucidoVerdeApagado.mat";
     [SerializeField] public string rutaPlasticoVerdeEncendido = "Assets/Materials/PLasticos/PlasticoTraslucidoVerdeEncendido.mat";
     [SerializeField] public Material plasticoVerdeApagado;
     [SerializeField] public Material plasticoVerdeEncendido;
-    public ParticlesInformation[] particlesFocoVerde;
-    private GameObject currentGO;
-    public ParticlesInformation particle;
+    public GameObject padreTotalComponente;
+    public GameObject currentParticle;
+    private ParticlesError particleError;
+    public int currentTypeParticleError = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        particleError = new ParticlesError();
+        padreTotalComponente = new GameObject();
         plasticoVerdeApagado = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoVerdeApagado, typeof(Material));
         plasticoVerdeEncendido = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoVerdeEncendido, typeof(Material));
-        GameObject particlesGroup = GameObject.Find("ParticlesGroup");
-        if (particlesGroup != null)
-        {
-            //particlesFocoVerde = particlesGroup.GetComponent<ParticlesGroup>().particlesGroup.Clone();
-            //particlesFocoVerde[0].modelScale.x = 50;
-        }
     }
 
     // Update is called once per frame
@@ -42,14 +39,14 @@ public class FocoVerde : MonoBehaviour
             focoVerdeRen.material = plasticoVerdeEncendido;
             Debug.Log("Cambio de material Luminoso - Foco Verde");
             pruebaDeFocoVerde = false;
-            /*currentGO = Instantiate(particles22[0].modelSystemGO, particles22[0].modelPosition, Quaternion.Euler(particles22[0].modelRotation)) as GameObject;
-            currentGO.transform.localScale = particles22[0].modelScale;*/
+            currentParticle = particleError.CrearParticulasError(currentTypeParticleError, transform.position, transform.rotation.eulerAngles);
         }
         else
         {
             focoVerdeRen.material = plasticoVerdeApagado;
             Debug.Log("Cambio de material Opaco - Foco Verde");
             pruebaDeFocoVerde = true;
+            particleError.DestruirParticulasError(currentParticle);
         }
     }
 }

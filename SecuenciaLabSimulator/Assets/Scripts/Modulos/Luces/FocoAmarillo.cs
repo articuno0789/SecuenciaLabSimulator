@@ -10,10 +10,16 @@ public class FocoAmarillo : MonoBehaviour
     [SerializeField] public string rutaPlasticoAmarilloEncendido = "Assets/Materials/PLasticos/PlasticoTraslucidoAmarilloEncendido.mat";
     [SerializeField] public Material plasticoAmarilloApagado;
     [SerializeField] public Material plasticoAmarilloEncendido;
+    public GameObject padreTotalComponente;
+    public GameObject currentParticle;
+    private ParticlesError particleError;
+    public int currentTypeParticleError = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        particleError = new ParticlesError();
+        padreTotalComponente = new GameObject();
         plasticoAmarilloApagado = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoAmarilloApagado, typeof(Material));
         plasticoAmarilloEncendido = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoAmarilloEncendido, typeof(Material));
     }
@@ -32,12 +38,14 @@ public class FocoAmarillo : MonoBehaviour
             focoVerdeRen.material = plasticoAmarilloEncendido;
             Debug.Log("Cambio de material Luminoso - Foco Amarillo");
             pruebaDeFocoAmarillo = false;
+            currentParticle = particleError.CrearParticulasError(currentTypeParticleError, transform.position, transform.rotation.eulerAngles);
         }
         else
         {
             focoVerdeRen.material = plasticoAmarilloApagado;
             Debug.Log("Cambio de material Opaco - Foco Amarillo");
             pruebaDeFocoAmarillo = true;
+            particleError.DestruirParticulasError(currentParticle);
         }
     }
 }

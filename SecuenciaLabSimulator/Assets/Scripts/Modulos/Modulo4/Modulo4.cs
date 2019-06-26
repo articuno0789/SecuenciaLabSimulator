@@ -9,6 +9,16 @@ public class Modulo4 : MonoBehaviour
     [SerializeField] public List<GameObject> plugNegros;
     [SerializeField] public List<GameObject> focosVerde;
     [SerializeField] public List<GameObject> focosAmarillos;
+    public enum ParticlesError {
+        BigExplosion,
+        DrippingFlames,
+        ElectricalSparksEffect,
+        SmallExplosionEffect,
+        SmokeEffect,
+        SparksEffect,
+        RibbonSmoke,
+        PlasmaExplosionEffect
+    }
 
     //Particulas
     private string rutaParticulaElectricalSparksEffect = "Assets/Assets Descargados/EffectExamples/Misc Effects/Prefabs/ElectricalSparksEffect.prefab";
@@ -22,15 +32,6 @@ public class Modulo4 : MonoBehaviour
         focosAmarillos = new List<GameObject>();
         inicializarComponentes(gameObject);
     }
-
-    /*void inicializarParticulas(int indice, string title, string nameModel,
-        string description, GameObject modelSystemGO,
-        Vector3 modelPosition, Vector3 modelRotation, Vector3 modelScale)
-    {
-        particle = new ParticlesInformation(title, nameModel, description, modelSystemGO, 
-            modelPosition, modelRotation, modelScale);
-        particles[indice] = particle;
-    }*/
 
     // Update is called once per frame
     void Update()
@@ -57,13 +58,15 @@ public class Modulo4 : MonoBehaviour
             else if (child.name.Contains("FocoAmarilo"))
             {
                 focosAmarillos.Add(child);
-                child.AddComponent<FocoAmarillo>();
+                FocoAmarillo focoAmarillo = child.AddComponent<FocoAmarillo>();
+                focoAmarillo.currentTypeParticleError = (int)ParticlesError.SmokeEffect;
             }
             else if (child.name.Contains("FocoVerde"))
             {
                 focosVerde.Add(child);
                 FocoVerde focoVerde = child.AddComponent<FocoVerde>();
                 focoVerde.padreTotalComponente = this.gameObject;
+                focoVerde.currentTypeParticleError = (int)ParticlesError.PlasmaExplosionEffect;
             }
             inicializarComponentes(child);
         }

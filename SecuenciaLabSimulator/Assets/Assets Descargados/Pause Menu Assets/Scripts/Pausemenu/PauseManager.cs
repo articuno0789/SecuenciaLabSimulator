@@ -448,13 +448,31 @@ namespace GreatArcStudios
 
         public void goSimulator()
         {
-            SceneManager.LoadScene("Main");
-            uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
+            gameMaskToColor(Color.cyan);
+            StartCoroutine(goLevel(3, "Main", 0.10f));
+        }
+
+        public void goMenuShowModule()
+        {
+            gameMaskToColor(Color.cyan);
+            StartCoroutine(goLevel(3, "MenuShowModule", 0.10f));
+            goLevelPanel.SetActive(false);
         }
 
         public void goCredits()
         {
-            SceneManager.LoadScene("Credits");
+            gameMaskToColor(Color.cyan);
+            StartCoroutine(goLevel(3, "Credits", 0.10f));
+            goLevelPanel.SetActive(false);
+        }
+
+        IEnumerator goLevel(int seconds, string levelName, float levelMainMusic)
+        {
+            Debug.Log("Inicia ir al simulador del juego en " + seconds + " segundos.");
+            music[0].volume = levelMainMusic;
+            yield return new WaitForSeconds(seconds);
+            Debug.Log("Finaliza carga del simulador.");
+            SceneManager.LoadScene(levelName);
             uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
         }
 
@@ -463,11 +481,38 @@ namespace GreatArcStudios
         /// </summary>
         public void quitGame()
         {
-            Application.Quit();
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#endif
+            gameMaskToColor(Color.black);
+            StartCoroutine(quitGameTime(2));
         }
+
+        public void gameMaskToColor(Color color)
+        {
+            mainPanel.SetActive(false);
+            vidPanel.SetActive(false);
+            audioPanel.SetActive(false);
+            TitleTexts.SetActive(false);
+            //mask.SetActive(false);
+            CanvasGroup canGP = mask.GetComponent<CanvasGroup>();
+            Image image = mask.GetComponent<Image>();
+            image.color = color;
+            for (float i = 8.0f; i < 1.0f; i += 0.0000001f)
+            {
+                canGP.alpha = i;
+            }
+        }
+
+        IEnumerator quitGameTime(int seconds)
+        {
+            Debug.Log("Inicia salida del juego en "+ seconds + " segundos.");
+            music[0].volume = 0.20f;
+            yield return new WaitForSeconds(seconds);
+            Debug.Log("Finaliza salida del juego.");
+            Application.Quit();
+            #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+            #endif
+        }
+
         /// <summary>
         /// Cancels quittting by playing an animation.
         /// </summary>
@@ -480,10 +525,14 @@ namespace GreatArcStudios
         /// </summary>
         public void returnToMenu()
         {
+            gameMaskToColor(Color.cyan);
+            StartCoroutine(goLevel(3, "MainMenuPrueba", 0.10f));
+            quitPanelAnimator.Play("QuitPanelOut");
+    
             //SceneManager.LoadScene("MainMenu");
-            SceneManager.LoadScene("MainMenuPrueba");
+            //SceneManager.LoadScene("MainMenuPrueba");
             //Application.LoadLevel(mainMenu);
-            uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
+            //uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
         }
 
         // Update is called once per frame
