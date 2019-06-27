@@ -137,7 +137,6 @@ public class LO_LoadingScreen : MonoBehaviour
                     Destroy(gameObject);
                 }
             }
-
             else
             {
                 canvasAlpha.alpha += fadingAnimationSpeed * Time.deltaTime;

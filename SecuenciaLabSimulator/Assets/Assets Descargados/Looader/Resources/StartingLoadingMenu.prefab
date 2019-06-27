@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 225947441309332506}
   - component: {fileID: 114990792727926986}
   m_Layer: 5
-  m_Name: Filled_Style
+  m_Name: StartingLoadingMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -239,22 +239,47 @@ MonoBehaviour:
   progressBar: {fileID: 114029233093872246}
   hintsText: {fileID: 114237348852162874}
   HintList:
-  - USE BOW FOR HUNTING
-  - USE SWORD FOR FIGHTING
-  - YOU CAN ALWAYS HEAL WITH MAGICAL POTION
-  - UPGRADE YOUR SKILLS FROM CHARACTERS PANEL
-  - YOU SUCK? NO PROBLEM. PLAY ON EASY MODE
+  - "Elimina una conexi\xF3n ya existente realizando el mismo proceso de creaci\xF3n
+    sobre el cable ya existente."
+  - "Los plugs \xFAnicamente pueden concertarse con otro \xFAnico plug."
+  - Se puede cambiar el color de los cables al dar clic derecho sobre ellos.
+  - "Para crear conexiones entre los m\xF3dulos hay que dar clic izquierdo sobre los
+    plugs a relacionar."
+  - "Presiona la tecla de Esc para abrir el men\xFA dentro del simulador."
+  - Presiona F10 para tomar una captura de pantalla.
+  - "Presiona 1 para bloquear la rotaci\xF3n de la c\xE1mara."
+  - Usa las teclas/flechas del teclado para navegar por el simulador.
+  - Puedes utilizar las flechas para moverte.
+  - Presiona Q para subir dentro del simulador.
+  - Presiona E para bajar dentro del simulador.
+  - El objetivo del simulador es poder practicar y aprender en un ambiente seguro
+    y asequible.
+  - "El simulador tiene el mismo comportamiento que una m\xE1quina de control secuencial
+    real."
+  - "Los m\xF3dulos se comportan de la misma manera que en la realidad."
+  - "Puedes ajustar los aspectos de audio desde el men\xFA principal."
+  - Baja la distancia de render para mejor el rendimiento del simulador.
+  - "Ajusta la calidad de los presents de acuerdo a tus necesidades, dentro del men\xFA
+    gr\xE1fico."
+  - "Puedes ajustar los aspectos de v\xEDdeo desde el men\xFA principal."
+  - "Recuerda guardar tu progreso, para no perder la informaci\xF3n."
+  - "Puedes regresar al men\xFA principal desde el men\xFA del simulador."
+  - Es recomendable utilizar un mouse para mejor uso del simulador.
+  - Ajusta el valor de las perillas al dar clic derecho sobre ellas.
+  - "Cambia un m\xF3dulo por alg\xFAn otro al dar clic derecho sobre su base."
+  - "Hay huevos de pascua en el simulador. \xA1Desc\xFAbrelos!!"
   changeHintWithTimer: 1
   hintTimerValue: 4
   imageObject: {fileID: 114761200470072882}
   fadingAnimator: {fileID: 95754749211101552}
-  ImageList: []
-  changeImageWithTimer: 1
+  ImageList:
+  - {fileID: 0}
+  changeImageWithTimer: 0
   imageTimerValue: 3
   imageFadingSpeed: 1
   objectAnimator: {fileID: 95564032577149956}
-  virtualLoadingTimer: 5
-  enableVirtualLoading: 0
+  virtualLoadingTimer: 12
+  enableVirtualLoading: 1
   enableTitleDesc: 1
   enableRandomHints: 1
   enableRandomImages: 0
@@ -1250,7 +1275,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 2c72bc873c5c70c40bfeb0cc9cfcd5f7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d4b2029a0456551418bcc0d1332cc5c0, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1502,7 +1527,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: HINTS
+  m_Text: Consejos
 --- !u!1 &1889169705053456
 GameObject:
   m_ObjectHideFlags: 0
@@ -1652,7 +1677,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.000015258789, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222636328128822954
