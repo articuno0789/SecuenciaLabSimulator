@@ -4696,7 +4696,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Secuencia Lab : Laboratorio Virtual'
+  m_Text: 'Secuencia Lab: Laboratorio Virtual'
 --- !u!222 &1364284293
 CanvasRenderer:
   m_ObjectHideFlags: 0
