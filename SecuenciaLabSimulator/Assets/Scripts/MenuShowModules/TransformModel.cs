@@ -19,6 +19,9 @@ public class TransformModel : MonoBehaviour
     public float forwardLimit = 2f;
     public float upLimit = 10f;
     public float downLimit = 0f;
+    public Vector3 originalPosition;
+    public Vector3 originalScale;
+    public Vector3 originalRotation;
 
     void Update()
     {
@@ -73,8 +76,9 @@ public class TransformModel : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.Keypad3) || Input.GetKey(KeyCode.Alpha3))
         {
-            transform.rotation = new Quaternion(0, 0, 0, 0);
-            transform.position = new Vector3(3, 4, 10);
+            transform.rotation = Quaternion.Euler(originalRotation);
+            transform.position = originalPosition;
+            transform.localScale = originalScale;
         }
     }
 }

@@ -66,7 +66,10 @@ public class ModelsMenu : MonoBehaviour
 
         // ..spawn the relevant game object based on the array of potential game objects, according to the current index (position in the array)
         currentGO = Instantiate(modelSystems[currentIndex].modelSystemGO, spawnLocation.position + modelSystems[currentIndex].modelPosition, Quaternion.Euler(modelSystems[currentIndex].modelRotation)) as GameObject;
-        currentGO.AddComponent<TransformModel>();
+        TransformModel transModel = currentGO.AddComponent<TransformModel>();
+        transModel.originalPosition = spawnLocation.position + modelSystems[currentIndex].modelPosition;
+        transModel.originalScale = modelSystems[currentIndex].modelScale;
+        transModel.originalRotation = modelSystems[currentIndex].modelRotation;
         currentGO = asignarLogicaModulo(currentGO, modelSystems[currentIndex].nameModel);
         currentGO.transform.localScale = modelSystems[currentIndex].modelScale;
 
