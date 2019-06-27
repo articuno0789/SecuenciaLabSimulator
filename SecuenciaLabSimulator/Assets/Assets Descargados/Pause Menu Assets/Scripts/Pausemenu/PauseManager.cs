@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.IO;
 using UnityStandardAssets.Characters.FirstPerson;
+using UnityEditor;
 //using UnityStandardAssets.ImageEffects;
 
 namespace GreatArcStudios
@@ -368,10 +369,10 @@ namespace GreatArcStudios
         /// </summary>
         public void Restart()
         {
-            SceneManager.LoadScene(currentLevelName);
-            //SceneManager.LoadScene(Application.loadedLevel);
-            //Application.LoadLevel(Application.loadedLevel);
-            uiEventSystem.firstSelectedGameObject = defualtSelectedMain;
+          SceneManager.LoadScene(currentLevelName);
+          //SceneManager.LoadScene(Application.loadedLevel);
+          //Application.LoadLevel(Application.loadedLevel);
+          uiEventSystem.firstSelectedGameObject = defualtSelectedMain;
         }
         /// <summary>
         /// Method to resume the game, so disable the pause menu and re-enable all other ui elements
