@@ -1719,10 +1719,10 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.05}
-  m_AnchorMax: {x: 0.95, y: 0.75}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 1}
+  m_AnchorMax: {x: 0.75, y: 0.95}
+  m_AnchoredPosition: {x: 104.015015, y: -65.277985}
+  m_SizeDelta: {x: 103.77997, y: 45.68402}
+  m_Pivot: {x: 1, y: 1}
 --- !u!222 &190732356
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9767,7 +9767,7 @@ MonoBehaviour:
     modelScale: {x: 0.6, y: 0.5, z: 0.6}
   gunGameObject: {fileID: 1547811597}
   BackgroundImage: {fileID: 1077734313}
-  hideBackgroundImage: 0
+  hideBackgroundImage: 1
   spawnLocation: {fileID: 2002168963}
   title: {fileID: 1385382695}
   description: {fileID: 190732357}
