@@ -40,6 +40,7 @@ public class FocoVerde : MonoBehaviour
             Debug.Log("Cambio de material Luminoso - Foco Verde");
             pruebaDeFocoVerde = false;
             currentParticle = particleError.CrearParticulasError(currentTypeParticleError, transform.position, transform.rotation.eulerAngles);
+            currentParticle.transform.parent = this.gameObject.transform;
         }
         else
         {

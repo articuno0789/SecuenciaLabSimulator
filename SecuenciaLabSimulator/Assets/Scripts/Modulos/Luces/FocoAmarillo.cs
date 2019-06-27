@@ -39,6 +39,7 @@ public class FocoAmarillo : MonoBehaviour
             Debug.Log("Cambio de material Luminoso - Foco Amarillo");
             pruebaDeFocoAmarillo = false;
             currentParticle = particleError.CrearParticulasError(currentTypeParticleError, transform.position, transform.rotation.eulerAngles);
+            currentParticle.transform.parent = this.gameObject.transform;
         }
         else
         {
