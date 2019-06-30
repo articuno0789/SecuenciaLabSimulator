@@ -135,6 +135,9 @@ public class ClickDetector : MonoBehaviour
                             }
                             changeOriginalColorPlug(lastClickedGmObj);
                             changeOriginalColorPlug(clickedGmObj);
+
+                            clickedGmObj.SendMessage("CrearConexionPlugs", 1, SendMessageOptions.DontRequireReceiver);
+                            lastClickedGmObj.SendMessage("CrearConexionPlugs", 1, SendMessageOptions.DontRequireReceiver);
                         }
                         else
                         {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Potenciometro : MonoBehaviour
 {
+    public Dictionary<string, string> plugsConnections;
     [SerializeField] public List<GameObject> plugAnaranjados;
     [SerializeField] public List<GameObject> plugNegros;
     [SerializeField] public GameObject perilla;
@@ -11,6 +12,8 @@ public class Potenciometro : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        plugsConnections = new Dictionary<string, string>();
+
         plugAnaranjados = new List<GameObject>();
         plugNegros = new List<GameObject>();
         inicializarComponentes(gameObject);
@@ -32,11 +35,19 @@ public class Potenciometro : MonoBehaviour
             {
                 plugAnaranjados.Add(child);
                 child.AddComponent<CableComponent>();
+
+                Plugs plug = child.AddComponent<Plugs>();
+                plug.padreTotalComponente = this.gameObject;
+                plugsConnections.Add(gameObject.name + "|" + child.name, "");
             }
             else if (child.name.Contains("EntradaPlugNegro"))
             {
                 plugNegros.Add(child);
                 child.AddComponent<CableComponent>();
+
+                Plugs plug = child.AddComponent<Plugs>();
+                plug.padreTotalComponente = this.gameObject;
+                plugsConnections.Add(gameObject.name + "|" + child.name, "");
             }
             else if (child.name.Contains("PerillaPotenciometro"))
             {
@@ -45,4 +56,11 @@ public class Potenciometro : MonoBehaviour
             inicializarComponentes(child);
         }
     }
+
+    public void CrearConexionPlugs(string startPlug, string endPlug)
+    {
+        plugsConnections[startPlug] = endPlug;
+        Debug.Log("plugsConnections[" + startPlug + "]: " + endPlug);
+    }
+
 }

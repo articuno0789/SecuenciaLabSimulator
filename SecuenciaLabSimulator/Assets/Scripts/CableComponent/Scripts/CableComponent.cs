@@ -14,7 +14,7 @@ public class CableComponent : MonoBehaviour
     [SerializeField] public Color originalColor = Color.black;
 
     // Cable config
-    [SerializeField] private float cableLength = 0.5f;
+    [SerializeField] private float cableLength = 0.1f;
     [SerializeField] private int totalSegments = 5;
     [SerializeField] private float segmentsPerUnit = 2f;
     private int segments = 0;
@@ -23,6 +23,7 @@ public class CableComponent : MonoBehaviour
     public float offsetX = 0.0f;
     public float offsetY = 0.0f;
     public float offsetZ = 0.13f;
+    public bool diagramaSecuencial = false;
 
     // Solver config
     [SerializeField] private int verletIterations = 1;
@@ -64,9 +65,14 @@ public class CableComponent : MonoBehaviour
             CableComponent cableCompEnd = endPoint.GetComponent<CableComponent>();
             cableCompEnd.showRender = false;
         }
-        float dist = Vector3.Distance(endPoint.transform.position, transform.position);
-        cableLength = (dist / 100) * 100; //+ offsetLength;
-        Debug.Log("Distancia cable generado: " + cableLength);
+
+        if (!diagramaSecuencial)
+        {
+            float dist = Vector3.Distance(endPoint.transform.position, transform.position);
+            cableLength = (dist / 100) * 100; //+ offsetLength;
+            Debug.Log("Distancia cable generado: " + cableLength);
+        }
+        
         // Calculate segments to use
         if (totalSegments > 0)
         {
@@ -146,11 +152,18 @@ public class CableComponent : MonoBehaviour
         //InitCableParticles();
         for (int pointIdx = 0; pointIdx < segments + 1; pointIdx++)
         {
-            Vector3 position = points[pointIdx].Position;
-            position.x = points[pointIdx].Position.x + offsetX;
-            position.y = points[pointIdx].Position.y + offsetY;
-            position.z = points[pointIdx].Position.z + offsetZ;
-            line.SetPosition(pointIdx, position);
+            if (!diagramaSecuencial)
+            {
+                Vector3 position = points[pointIdx].Position;
+                position.x = points[pointIdx].Position.x + offsetX;
+                position.y = points[pointIdx].Position.y + offsetY;
+                position.z = points[pointIdx].Position.z + offsetZ;
+                line.SetPosition(pointIdx, position);
+            }
+            else
+            {
+                line.SetPosition(pointIdx, points[pointIdx].Position);
+            }
             //line.SetPosition(pointIdx, points[pointIdx].Position);
         }
     }

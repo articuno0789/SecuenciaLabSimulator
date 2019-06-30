@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Modulo7 : MonoBehaviour
 {
+    public Dictionary<string, string> plugsConnections;
     [SerializeField] public List<GameObject> plugAnaranjados;
     [SerializeField] public List<GameObject> plugNegros;
     [SerializeField] public GameObject perilla;
@@ -21,6 +22,8 @@ public class Modulo7 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        plugsConnections = new Dictionary<string, string>();
+
         plugAnaranjados = new List<GameObject>();
         plugNegros = new List<GameObject>();
         inicializarComponentes(gameObject);
@@ -73,11 +76,19 @@ public class Modulo7 : MonoBehaviour
             {
                 plugAnaranjados.Add(child);
                 child.AddComponent<CableComponent>();
+
+                Plugs plug = child.AddComponent<Plugs>();
+                plug.padreTotalComponente = this.gameObject;
+                plugsConnections.Add(gameObject.name + "|" + child.name, "");
             }
             else if (child.name.Contains("EntradaPlugNegro"))
             {
                 plugNegros.Add(child);
                 child.AddComponent<CableComponent>();
+
+                Plugs plug = child.AddComponent<Plugs>();
+                plug.padreTotalComponente = this.gameObject;
+                plugsConnections.Add(gameObject.name + "|" + child.name, "");
             }
             else if (child.name.Contains("Total_Perilla"))
             {
@@ -86,4 +97,11 @@ public class Modulo7 : MonoBehaviour
             inicializarComponentes(child);
         }
     }
+
+    public void CrearConexionPlugs(string startPlug, string endPlug)
+    {
+        plugsConnections[startPlug] = endPlug;
+        Debug.Log("plugsConnections[" + startPlug + "]: " + endPlug);
+    }
+
 }
