@@ -1,0 +1,69 @@
+Simbología de diagramas de control secuencial
+
+DISTRIBUCIÓN DE SIMBOLOS:
+----Interruptor termormagnetico----
+	**[PEN - CRISTIAN] Interruptor termormagnetico (1 línea)
+	**[PEN - CRISTIAN] Interruptor termormagnetico (2 líneas)
+	**[PEN - CRISTIAN] Interruptor termormagnetico (3 líneas)
+----Transformador de control----
+	**[PEN - CRISTIAN] Transformador de control 1
+	**[PEN - CRISTIAN] Transformador de control 2
+----Botón pulsador----
+	[TER - ALEX] Botón pulsador (Arranque)
+	[TER - ALEX] Botón pulsador (Paro)
+----Lámpara indicadora----
+	[TER - ALEX] Lámpara indicadora
+----Seccionador----
+	**[PEN - ALEX] Seccionador (1 línea)
+	**[PEN - ALEX] Seccionador (2 líneas)
+	**[PEN - ALEX] Seccionador (3 líneas)
+----Relevador de carga----
+	[TER - ALEX] Relevador de carga (bobina)
+	[TER - ALEX] Relevador de carga (contactor NA)
+	[TER - ALEX] Relevador de carga (contactor NC)
+----Contactor----
+	[TER - ALEX] Contactor (Bobina)
+	[TER - ALEX] Contactor (NA)
+	[TER - ALEX] Contactor (NC)
+----Relevador de sobrecarga----
+	**[PEN - CRISTIAN] Relevador de sobrecarga (1 línea)
+	**[PEN - CRISTIAN] Relevador de sobrecarga (2 líneas)
+	**[PEN - CRISTIAN] Relevador de sobrecarga (3 líneas)
+	**[PEN - CRISTIAN] Relevador de sobrecarga (contactor NA)
+	**[PEN - CRISTIAN] Relevador de sobrecarga (contactor NC)
+---- Guardamotor----
+	**[PEN - CRISTIAN] Guardamotor (1 línea)
+	**[PEN - CRISTIAN] Guardamotor (2 líneas)
+	**[PEN - CRISTIAN] Guardamotor (3 líneas)
+	[TER - ALEX] Guardamotor (contactor NA)
+	[TER - ALEX] Guardamotor (contactor NC)
+----Relevador temporizado----
+	[TER - ALEX] Relevador temporizado on/off-delay (Bobina)
+	**[PEN - ALEX] Relevador temporizado on-delay (timer NA)
+	**[PEN - ALEX] Relevador temporizado on-delay (timer NC)
+	**[PEN - ALEX] Relevador temporizado off-delay (timer NA)
+	**[PEN - ALEX] Relevador temporizado off-delay (timer NC)
+	[TER - ALEX] Relevador temporizado on/off-delay (contactor NA)
+	[TER - ALEX] Relevador temporizado on/off-delay (contactor NC)
+----Interruptor de giro----
+	[TER - ALEX] Interruptor de giro (CW NA)
+	[TER - ALEX] Interruptor de giro (CW NC)
+	[TER - ALEX] Interruptor de giro (CCW NA)
+	[TER - ALEX] Interruptor de giro (CCW NC)
+----Interruptor termostático----
+	**[PEN - CRISTIAN] Interruptor termostático (NA)
+	**[PEN - CRISTIAN] Interruptor termostático (NC)
+----Interruptor de presión----
+	[TER - ALEX] Interruptor de presión (NA)
+	[TER - ALEX] Interruptor de presión (NC)
+----Transformador de ignición----
+	**[PEN - CRISTIAN] Transformador de ignición 1
+	**[PEN - CRISTIAN] Transformador de ignición 2
+	**[PEN - CRISTIAN] Transformador de ignición 3
+	**[PEN - CRISTIAN] Transformador de ignición 4
+	**[PEN - CRISTIAN] Transformador de ignición 5
+----Contactor de estado sólido----
+	**[PEN - CRISTIAN] Contactor de estado sólido (SSC)
+----Relevador de estado sólido----
+	**[PEN - CRISTIAN] Relevador de estado sólido (SSR)
+
