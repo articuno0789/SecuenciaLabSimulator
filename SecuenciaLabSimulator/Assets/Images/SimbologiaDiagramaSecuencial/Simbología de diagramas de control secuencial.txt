@@ -14,9 +14,9 @@ DISTRIBUCIÓN DE SIMBOLOS:
 ----Lámpara indicadora----
 	[TER - ALEX] Lámpara indicadora
 ----Seccionador----
-	**[PEN - ALEX] Seccionador (1 línea)
-	**[PEN - ALEX] Seccionador (2 líneas)
-	**[PEN - ALEX] Seccionador (3 líneas)
+	[TER - ALEX] Seccionador (1 línea)
+	[TER - ALEX] Seccionador (2 líneas)
+	[TER - ALEX] Seccionador (3 líneas)
 ----Relevador de carga----
 	[TER - ALEX] Relevador de carga (bobina)
 	[TER - ALEX] Relevador de carga (contactor NA)
