@@ -39,10 +39,10 @@ DISTRIBUCIÓN DE SIMBOLOS:
 	[TER - ALEX] Guardamotor (contactor NC)
 ----Relevador temporizado----
 	[TER - ALEX] Relevador temporizado on/off-delay (Bobina)
-	**[PEN - ALEX] Relevador temporizado on-delay (timer NA)
-	**[PEN - ALEX] Relevador temporizado on-delay (timer NC)
-	**[PEN - ALEX] Relevador temporizado off-delay (timer NA)
-	**[PEN - ALEX] Relevador temporizado off-delay (timer NC)
+	[TER - ALEX] Relevador temporizado on-delay (timer NA)
+	[TER - ALEX] Relevador temporizado on-delay (timer NC)
+	[TER - ALEX] Relevador temporizado off-delay (timer NA)
+	[TER - ALEX] Relevador temporizado off-delay (timer NC)
 	[TER - ALEX] Relevador temporizado on/off-delay (contactor NA)
 	[TER - ALEX] Relevador temporizado on/off-delay (contactor NC)
 ----Interruptor de giro----
