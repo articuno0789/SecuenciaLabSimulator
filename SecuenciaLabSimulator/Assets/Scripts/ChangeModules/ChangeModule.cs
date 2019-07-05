@@ -16,12 +16,14 @@ public class ChangeModule : MonoBehaviour
     public GameObject player;
     public int moduleLayer = 11; //La capa 11, equivale a la capa "Modulo"
     public GameObject selectedGameObjectRightClick;
+    public Text textInfoChangeModule;
 
     void Start()
     {
         player = GameObject.Find("FirstPersonCharacter");
         dropdown = GameObject.Find("DropdownChangeModule").GetComponent<Dropdown>();
         myText = GameObject.Find("TextChangeModule").GetComponent<Text>();
+        textInfoChangeModule = GameObject.Find("TextInfoChangeModule").GetComponent<Text>();
         myText.color = Color.clear;
         panel = GameObject.Find("PanelChangeModule");
     }
@@ -37,20 +39,41 @@ public class ChangeModule : MonoBehaviour
         ClickDetector clickDetector = player.GetComponent<ClickDetector>();
         GameObject module = clickDetector.lastClickedGmObj;
 
-        //GameObject selectedGameObjectRightClick;
-        //selectedGameObjectRightClick = GameObject.Find("SelectedGameObjectRightClick");
-        module = selectedGameObjectRightClick;
-
-        Debug.Log("***********Modulo seleccionado: " + module);
-        //module.GetComponent<Renderer>().material.color = new Color(Random.value, Random.value, Random.value, 1.0f);
-        EncontrarPadreTotal(module);
-        Debug.Log("***********Modulo padre: " + padreTotal.name);
-        DestruirObjetosRecursivos(padreTotal);
-        GameObject newModule = CrearNuevoModulo();
-        AsignacionRecursiva(newModule);
-        panel.transform.position = new Vector3(0, -5, 0);
-        //panel.SetActive(false);
-        OpenCloseMenuChangeModule(clickDetector.lastClickedGmObj);
+        bool nuevoModuloNoRestringido = true;
+        int m_DropdownValue = dropdown.value;
+        string nombreModuloNuevo = dropdown.options[m_DropdownValue].text;
+        if(nombreModuloNuevo == "20" || nombreModuloNuevo == "21")
+        {
+            GameObject[] listaMismosModulos = GameObject.FindGameObjectsWithTag(nombreModuloNuevo);
+            if(listaMismosModulos.Length >= 1)
+            {
+                nuevoModuloNoRestringido = false;
+            }
+        }
+        if (nuevoModuloNoRestringido)
+        {
+            textInfoChangeModule.text = "Información: Ok";
+            //GameObject selectedGameObjectRightClick;
+            //selectedGameObjectRightClick = GameObject.Find("SelectedGameObjectRightClick");
+            module = selectedGameObjectRightClick;
+            Debug.Log("***********Modulo seleccionado: " + module);
+            //module.GetComponent<Renderer>().material.color = new Color(Random.value, Random.value, Random.value, 1.0f);
+            EncontrarPadreTotal(module);
+            Debug.Log("***********Modulo padre: " + padreTotal.name);
+            DestruirObjetosRecursivos(padreTotal);
+            GameObject newModule = CrearNuevoModulo();
+            AsignacionRecursiva(newModule);
+            panel.transform.position = new Vector3(0, -5, 0);
+            //panel.SetActive(false);
+            OpenCloseMenuChangeModule(clickDetector.lastClickedGmObj);
+        }
+        else
+        {
+            string mensajeErrorModRestringidos = "";
+            mensajeErrorModRestringidos = "Error. No se puede crear otro modulo " + nombreModuloNuevo + ", solo puede existir a la vez un modulo de ese tipo en el simulador. Intente crear un modulo de otro tipo.";
+            Debug.LogError(mensajeErrorModRestringidos);
+            textInfoChangeModule.text = "Información: " + mensajeErrorModRestringidos;
+        }
     }
 
     private GameObject CrearNuevoModulo()
@@ -240,6 +263,10 @@ public class ChangeModule : MonoBehaviour
             OCChangeModule.panel = panel;
             OCChangeModule.dropdown = dropdown;
         }else if (nodo.name.Contains("Total_Perilla"))
+        {
+            nodo.AddComponent<OpenClosePerillas>();
+        }
+        else if (nodo.name.Contains("PerillaPotenciometro"))
         {
             nodo.AddComponent<OpenClosePerillas>();
         }
