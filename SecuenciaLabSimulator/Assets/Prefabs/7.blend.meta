@@ -165,6 +165,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: IndicadorValorPerilla
+    second: {fileID: 2100000, guid: d87d4ad206093f3429be60d366719a78, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: LateralPerillaNegra
     second: {fileID: 2100000, guid: f6af89d8d3661bb42be07d0bbc468041, type: 2}
   - first:

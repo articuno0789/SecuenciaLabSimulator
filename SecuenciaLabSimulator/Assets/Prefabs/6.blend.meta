@@ -5907,6 +5907,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: IndicadorValorPerilla
+    second: {fileID: 2100000, guid: d87d4ad206093f3429be60d366719a78, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Lestras
     second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
   - first:
