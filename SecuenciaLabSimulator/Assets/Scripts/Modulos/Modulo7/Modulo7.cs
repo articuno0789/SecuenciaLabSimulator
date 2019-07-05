@@ -9,15 +9,18 @@ public class Modulo7 : MonoBehaviour
     [SerializeField] public List<GameObject> plugNegros;
     [SerializeField] public GameObject perilla;
     [SerializeField] public float limiteGiroInferiorPerilla = -90.0f;
-    [SerializeField] public float limiteGiroSuperiorPerilla = 180.0f;
-    [SerializeField] public float gradosActualesPerilla = -90.0f;
-    [SerializeField] public float valorActualPerilla = 0.0f;
-    public float valorMinimoPerilla = 0.0f;
+    [SerializeField] public float limiteGiroSuperiorPerilla = 320.0f;
+    public float valorActualPerilla = 0.0f;
+    public float valorMinimoPerilla = 0.1f;
     public float valorMaximoPerilla = 30.0f;
+    private Quaternion originalRotationKnob;
+
+
+    [SerializeField] public float gradosActualesPerilla = -90.0f;
     [SerializeField] public float velocidadRotacion = 10;
-    [SerializeField] public bool rotarPerillaPrueba = true;
+    public bool rotarPerillaPrueba = false;
     [SerializeField] public int estaLimiteRotacion = -1;
-    [SerializeField] private bool puederotar = true;
+    private bool puederotar = true;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +38,21 @@ public class Modulo7 : MonoBehaviour
         if (rotarPerillaPrueba)
         {
             RotarPerillaPrueba();
+        }
+    }
+
+    public void RotarPerilla()
+    {
+        if (valorActualPerilla >= valorMinimoPerilla && valorActualPerilla <= valorMaximoPerilla)
+        {
+            perilla.transform.rotation = originalRotationKnob;
+            float valorRotacionGrados = (limiteGiroSuperiorPerilla * valorActualPerilla) / valorMaximoPerilla;
+            Debug.Log("Modulo 7: valorRotacionGrados: " + valorRotacionGrados + ", valorActualPerilla: " + valorActualPerilla + ", limiteGiroSuperiorPerilla: " + limiteGiroSuperiorPerilla + ", valorMaximoPerilla: " + valorMaximoPerilla);
+            perilla.transform.Rotate(0, 0, valorRotacionGrados);
+        }
+        else
+        {
+            Debug.LogError("Error. Modulo 7: rotarPerilla(float valorActual): El valor actual recibido sobrepasa los limites establecidos");
         }
     }
 
@@ -93,6 +111,7 @@ public class Modulo7 : MonoBehaviour
             else if (child.name.Contains("Total_Perilla"))
             {
                 perilla = child;
+                originalRotationKnob = perilla.transform.rotation;
             }
             inicializarComponentes(child);
         }

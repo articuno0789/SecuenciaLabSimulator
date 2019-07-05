@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Text.RegularExpressions; // needed for Regex
+using System.Text.RegularExpressions;
 
 public class SetValueKnob : MonoBehaviour
 {
@@ -70,17 +70,23 @@ public class SetValueKnob : MonoBehaviour
             {
                 EncontrarPadreTotal(perillaSeleccionada);
             }
-            if (padreTotal!= null && padreTotal.name.Contains("6_"))
+            if (padreTotal!= null && Regex.IsMatch(padreTotal.name, @"^6_\d*$"))
             {
                 Modulo6 mod6 = padreTotal.GetComponent<Modulo6>();
                 limiteMinimo = mod6.valorMinimoPerilla;
                 limiteMaximo = mod6.valorMaximoPerilla;
             }
-            else if (padreTotal != null && padreTotal.name.Contains("7_"))
+            else if (padreTotal != null && Regex.IsMatch(padreTotal.name, @"^7_\d*$"))
             {
                 Modulo7 mod7 = padreTotal.GetComponent<Modulo7>();
                 limiteMinimo = mod7.valorMinimoPerilla;
                 limiteMaximo = mod7.valorMaximoPerilla;
+            }
+            else if (Regex.IsMatch(padreTotal.name, @"^Potenciometro_\d*$"))
+            {
+                Potenciometro modPoten = padreTotal.GetComponent<Potenciometro>();
+                limiteMinimo = modPoten.valorMinimoPerilla;
+                limiteMaximo = modPoten.valorMaximoPerilla;
             }
             Debug.Log("------------------------------------------------------------------------------------------------------valorCampoTexto: " + valorCampoTexto + ", limiteMinimo: " + limiteMinimo + ", limiteMaximo: " + limiteMaximo + ", " + padreTotal);
             if (padreTotal != null && valorCampoTexto < limiteMinimo)
@@ -93,7 +99,7 @@ public class SetValueKnob : MonoBehaviour
             if (padreTotal != null && valorCampoTexto > limiteMaximo)
             {
                 inputFieldCurrentValue.text = "0.0";
-                textInfoValueKnob.text = "Información: Error. El valor introducido es menor al limite máximo de la perilla.";
+                textInfoValueKnob.text = "Información: Error. El valor introducido es mayor al limite máximo de la perilla.";
                 buttonSetValueKnob.enabled = false;
             }
             else
@@ -116,21 +122,33 @@ public class SetValueKnob : MonoBehaviour
         if (padreTotal != null && currentModuleSelected != null)
         {
             currentModuleSelected.text = "Seleccionado: Perilla del modulo" + padreTotal.name;
-            if (padreTotal.name.Contains("6_"))
+            
+            if (Regex.IsMatch(padreTotal.name, @"^6_\d*$"))
             {
                 Modulo6 mod6 = padreTotal.GetComponent<Modulo6>();
                 mod6.valorActualPerilla = float.Parse(inputFieldCurrentValue.text);
+                mod6.RotarPerilla();
                 minMaxKnobRange.text = "Valor [Min Max]: " + mod6.valorMinimoPerilla + " - " + mod6.valorMaximoPerilla;
                 inputFieldCurrentValue.text = mod6.valorActualPerilla + "";
-                Debug.Log(" Modulo6 SE HA ESTABLECIDO UN NUEVO VALOR EN LA PERILLA " + inputFieldCurrentValue.text + ", " + float.Parse(inputFieldCurrentValue.text));
+                Debug.Log(" Modulo6: SE HA ESTABLECIDO UN NUEVO VALOR EN LA PERILLA " + inputFieldCurrentValue.text + ", " + float.Parse(inputFieldCurrentValue.text));
             }
-            else if (padreTotal.name.Contains("7_"))
+            else if (Regex.IsMatch(padreTotal.name, @"^7_\d*$"))
             {
                 Modulo7 mod7 = padreTotal.GetComponent<Modulo7>();
                 mod7.valorActualPerilla = float.Parse(inputFieldCurrentValue.text);
+                mod7.RotarPerilla();
                 minMaxKnobRange.text = "Valor [Min Max]: " + mod7.valorMinimoPerilla + " - " + mod7.valorMaximoPerilla;
                 inputFieldCurrentValue.text = mod7.valorActualPerilla + "";
-                Debug.Log(" Modulo7 SE HA ESTABLECIDO UN NUEVO VALOR EN LA PERILLA " + inputFieldCurrentValue.text + ", " + float.Parse(inputFieldCurrentValue.text));
+                Debug.Log(" Modulo7: SE HA ESTABLECIDO UN NUEVO VALOR EN LA PERILLA " + inputFieldCurrentValue.text + ", " + float.Parse(inputFieldCurrentValue.text));
+            }
+            else if (Regex.IsMatch(padreTotal.name, @"^Potenciometro_\d*$"))
+            {
+                Potenciometro modPoten = padreTotal.GetComponent<Potenciometro>();
+                modPoten.valorActualPerilla = float.Parse(inputFieldCurrentValue.text);
+                modPoten.RotarPerilla();
+                minMaxKnobRange.text = "Valor [Min Max]: " + modPoten.valorMinimoPerilla + " - " + modPoten.valorMaximoPerilla;
+                inputFieldCurrentValue.text = modPoten.valorActualPerilla + "";
+                Debug.Log(" ModuloPotenciometro: SE HA ESTABLECIDO UN NUEVO VALOR EN LA PERILLA " + inputFieldCurrentValue.text + ", " + float.Parse(inputFieldCurrentValue.text));
             }
             CloseMenuSetValueKnob();
         }
