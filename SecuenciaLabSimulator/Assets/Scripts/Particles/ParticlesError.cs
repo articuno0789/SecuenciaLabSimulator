@@ -39,6 +39,19 @@ public class ParticlesError : MonoBehaviour
         return currentParticle;
     }
 
+    public GameObject CrearParticulasError(int typeParticleError, Vector3 positionParticle, Vector3 rotationParticle, Vector3 scaleParticle)
+    {
+        //Debug.Log("INICIAR CREAR PARTICULA");
+        GameObject currentParticle = null;
+        if (particlesError != null)
+        {
+            currentParticle = Instantiate(particlesError[typeParticleError].modelSystemGO, positionParticle, Quaternion.Euler(particlesError[typeParticleError].modelRotation)) as GameObject;
+            currentParticle.transform.localScale = scaleParticle;
+            //Debug.Log("SE CREO PARTICULA");
+        }
+        return currentParticle;
+    }
+
     public void DestruirParticulasError(GameObject currentParticle)
     {
         if (currentParticle != null)
