@@ -189,6 +189,17 @@ public class ClickDetector : MonoBehaviour
                     }
                     clickedGmObj.SendMessage("OpenCloseMenuSetValueKnob", 1, SendMessageOptions.DontRequireReceiver);
                 }
+                else if (clickedGmObj.name.Contains("PerillaPotenciometro"))
+                {
+                    GameObject panelSetValueKnob = GameObject.Find("ButtonSetValueKnob");
+                    GameObject inputFieldCurrentValue = GameObject.Find("InputFieldCurrentValue");
+                    if (panelSetValueKnob != null && inputFieldCurrentValue != null)
+                    {
+                        panelSetValueKnob.GetComponent<SetValueKnob>().perillaSeleccionada = clickedGmObj;
+                        inputFieldCurrentValue.GetComponent<SetValueKnob>().perillaSeleccionada = clickedGmObj;
+                    }
+                    clickedGmObj.SendMessage("OpenCloseMenuSetValueKnob", 1, SendMessageOptions.DontRequireReceiver);
+                }
             }
                 
                 //clickedGmObj.SendMessage(OnRightClickMethodName, null, SendMessageOptions.DontRequireReceiver);
