@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -59,19 +60,25 @@ public class OpenClosePerillas : MonoBehaviour
 
         if (padreTotal != null && currentModuleSelected != null)
         {
-            currentModuleSelected.text = "Seleccionado: Perilla del modulo" + padreTotal.name;
+            currentModuleSelected.text = "Seleccionado: Perilla del modulo " + padreTotal.name;
             textInfoValueKnob.text = "Información: OK";
-            if (padreTotal.name.Contains("6_"))
+            if (Regex.IsMatch(padreTotal.name, @"^6_\d*$"))
             {
                 Modulo6 mod6 = padreTotal.GetComponent<Modulo6>();
                 minMaxKnobRange.text = "Valor [Min Max]: " + mod6.valorMinimoPerilla + " - " + mod6.valorMaximoPerilla;
                 inputFieldCurrentValue.text = mod6.valorActualPerilla + "";
             }
-            else if (padreTotal.name.Contains("7_"))
+            else if (Regex.IsMatch(padreTotal.name, @"^7_\d*$"))
             {
                 Modulo7 mod7 = padreTotal.GetComponent<Modulo7>();
                 minMaxKnobRange.text = "Valor [Min Max]: " + mod7.valorMinimoPerilla + " - " + mod7.valorMaximoPerilla;
                 inputFieldCurrentValue.text = mod7.valorActualPerilla + "";
+            }
+            else if (Regex.IsMatch(padreTotal.name, @"^Potenciometro_\d*$"))
+            {
+                Potenciometro modPoten = padreTotal.GetComponent<Potenciometro>();
+                minMaxKnobRange.text = "Valor [Min Max]: " + modPoten.valorMinimoPerilla + " - " + modPoten.valorMaximoPerilla;
+                inputFieldCurrentValue.text = modPoten.valorActualPerilla + "";
             }
         }
         //panel = GameObject.Find("PanelChangeModule");
