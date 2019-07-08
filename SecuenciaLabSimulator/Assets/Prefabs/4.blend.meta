@@ -1,100 +1,284 @@
 fileFormatVersion: 2
 guid: a03e1fe6515a0b244b7506429e42cf78
 ModelImporter:
-  serializedVersion: 22
-  fileIDToRecycleName:
-    100000: //RootNode
-    100002: BaseModulo4
-    100004: Circulo
-    100006: EntradaPlugAnaranjado1
-    100008: EntradaPlugAnaranjado1_001
-    100010: EntradaPlugNegro1
-    100012: EntradaPlugNegro2
-    100014: FocoAmarilo
-    100016: FocoVerde
-    100018: PisoModulo4
-    100020: Plane
-    100022: Plane_001
-    100024: Plane_002
-    100026: Plane_003
-    400000: //RootNode
-    400002: BaseModulo4
-    400004: Circulo
-    400006: EntradaPlugAnaranjado1
-    400008: EntradaPlugAnaranjado1_001
-    400010: EntradaPlugNegro1
-    400012: EntradaPlugNegro2
-    400014: FocoAmarilo
-    400016: FocoVerde
-    400018: PisoModulo4
-    400020: Plane
-    400022: Plane_001
-    400024: Plane_002
-    400026: Plane_003
-    2100000: Lestras
-    2100002: EnchufesObscuros
-    2100004: FondoEnchufe
-    2100006: ParteMetalicaInternaEnchufe
-    2100008: EnchufesAnaranjados
-    2100010: PlasticoTrslucidoAnaranjado
-    2100012: PlasticoTraslucidoAmarillo
-    2100014: unnamed
-    2100016: Madera
-    2100018: PlasticoTraslucidoVerde
-    2300000: BaseModulo4
-    2300002: Circulo
-    2300004: EntradaPlugAnaranjado1
-    2300006: EntradaPlugAnaranjado1_001
-    2300008: EntradaPlugNegro1
-    2300010: EntradaPlugNegro2
-    2300012: FocoAmarilo
-    2300014: FocoVerde
-    2300016: PisoModulo4
-    2300018: Plane
-    2300020: Plane_001
-    2300022: Plane_002
-    2300024: Plane_003
-    3300000: BaseModulo4
-    3300002: Circulo
-    3300004: EntradaPlugAnaranjado1
-    3300006: EntradaPlugAnaranjado1_001
-    3300008: EntradaPlugNegro1
-    3300010: EntradaPlugNegro2
-    3300012: FocoAmarilo
-    3300014: FocoVerde
-    3300016: PisoModulo4
-    3300018: Plane
-    3300020: Plane_001
-    3300022: Plane_002
-    3300024: Plane_003
-    4300000: Circulo
-    4300002: Plane
-    4300004: Plane_003
-    4300006: Plane_002
-    4300008: Plane_001
-    4300010: EntradaPlugNegro1
-    4300012: EntradaPlugNegro2
-    4300014: EntradaPlugAnaranjado1_001
-    4300016: FocoAmarilo
-    4300018: FocoVerde
-    4300020: PisoModulo4
-    4300022: EntradaPlugAnaranjado1
-    4300024: BaseModulo4
-    6400000: BaseModulo4
-    6400002: Circulo
-    6400004: EntradaPlugAnaranjado1
-    6400006: EntradaPlugAnaranjado1_001
-    6400008: EntradaPlugNegro1
-    6400010: EntradaPlugNegro2
-    6400012: FocoAmarilo
-    6400014: FocoVerde
-    6400016: Plane
-    6400018: Plane_001
-    6400020: Plane_002
-    6400022: Plane_003
-    7400000: Default Take
-    9500000: //RootNode
-    2186277476908879412: ImportLogs
+  serializedVersion: 25
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: //RootNode
+  - first:
+      1: 100002
+    second: BaseModulo4
+  - first:
+      1: 100004
+    second: Circulo
+  - first:
+      1: 100006
+    second: EntradaPlugAnaranjado1
+  - first:
+      1: 100008
+    second: EntradaPlugAnaranjado1_001
+  - first:
+      1: 100010
+    second: EntradaPlugNegro1
+  - first:
+      1: 100012
+    second: EntradaPlugNegro2
+  - first:
+      1: 100014
+    second: FocoAmarilo
+  - first:
+      1: 100016
+    second: FocoVerde
+  - first:
+      1: 100018
+    second: PisoModulo4
+  - first:
+      1: 100020
+    second: Plane
+  - first:
+      1: 100022
+    second: Plane_001
+  - first:
+      1: 100024
+    second: Plane_002
+  - first:
+      1: 100026
+    second: Plane_003
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      4: 400002
+    second: BaseModulo4
+  - first:
+      4: 400004
+    second: Circulo
+  - first:
+      4: 400006
+    second: EntradaPlugAnaranjado1
+  - first:
+      4: 400008
+    second: EntradaPlugAnaranjado1_001
+  - first:
+      4: 400010
+    second: EntradaPlugNegro1
+  - first:
+      4: 400012
+    second: EntradaPlugNegro2
+  - first:
+      4: 400014
+    second: FocoAmarilo
+  - first:
+      4: 400016
+    second: FocoVerde
+  - first:
+      4: 400018
+    second: PisoModulo4
+  - first:
+      4: 400020
+    second: Plane
+  - first:
+      4: 400022
+    second: Plane_001
+  - first:
+      4: 400024
+    second: Plane_002
+  - first:
+      4: 400026
+    second: Plane_003
+  - first:
+      21: 2100000
+    second: Lestras
+  - first:
+      21: 2100002
+    second: EnchufesObscuros
+  - first:
+      21: 2100004
+    second: FondoEnchufe
+  - first:
+      21: 2100006
+    second: ParteMetalicaInternaEnchufe
+  - first:
+      21: 2100008
+    second: EnchufesAnaranjados
+  - first:
+      21: 2100010
+    second: PlasticoTrslucidoAnaranjado
+  - first:
+      21: 2100012
+    second: PlasticoTraslucidoAmarillo
+  - first:
+      21: 2100014
+    second: unnamed
+  - first:
+      21: 2100016
+    second: Madera
+  - first:
+      21: 2100018
+    second: PlasticoTraslucidoVerde
+  - first:
+      23: 2300000
+    second: BaseModulo4
+  - first:
+      23: 2300002
+    second: Circulo
+  - first:
+      23: 2300004
+    second: EntradaPlugAnaranjado1
+  - first:
+      23: 2300006
+    second: EntradaPlugAnaranjado1_001
+  - first:
+      23: 2300008
+    second: EntradaPlugNegro1
+  - first:
+      23: 2300010
+    second: EntradaPlugNegro2
+  - first:
+      23: 2300012
+    second: FocoAmarilo
+  - first:
+      23: 2300014
+    second: FocoVerde
+  - first:
+      23: 2300016
+    second: PisoModulo4
+  - first:
+      23: 2300018
+    second: Plane
+  - first:
+      23: 2300020
+    second: Plane_001
+  - first:
+      23: 2300022
+    second: Plane_002
+  - first:
+      23: 2300024
+    second: Plane_003
+  - first:
+      33: 3300000
+    second: BaseModulo4
+  - first:
+      33: 3300002
+    second: Circulo
+  - first:
+      33: 3300004
+    second: EntradaPlugAnaranjado1
+  - first:
+      33: 3300006
+    second: EntradaPlugAnaranjado1_001
+  - first:
+      33: 3300008
+    second: EntradaPlugNegro1
+  - first:
+      33: 3300010
+    second: EntradaPlugNegro2
+  - first:
+      33: 3300012
+    second: FocoAmarilo
+  - first:
+      33: 3300014
+    second: FocoVerde
+  - first:
+      33: 3300016
+    second: PisoModulo4
+  - first:
+      33: 3300018
+    second: Plane
+  - first:
+      33: 3300020
+    second: Plane_001
+  - first:
+      33: 3300022
+    second: Plane_002
+  - first:
+      33: 3300024
+    second: Plane_003
+  - first:
+      43: 4300000
+    second: Circulo
+  - first:
+      43: 4300002
+    second: Plane
+  - first:
+      43: 4300004
+    second: Plane_003
+  - first:
+      43: 4300006
+    second: Plane_002
+  - first:
+      43: 4300008
+    second: Plane_001
+  - first:
+      43: 4300010
+    second: EntradaPlugNegro1
+  - first:
+      43: 4300012
+    second: EntradaPlugNegro2
+  - first:
+      43: 4300014
+    second: EntradaPlugAnaranjado1_001
+  - first:
+      43: 4300016
+    second: FocoAmarilo
+  - first:
+      43: 4300018
+    second: FocoVerde
+  - first:
+      43: 4300020
+    second: PisoModulo4
+  - first:
+      43: 4300022
+    second: EntradaPlugAnaranjado1
+  - first:
+      43: 4300024
+    second: BaseModulo4
+  - first:
+      64: 6400000
+    second: BaseModulo4
+  - first:
+      64: 6400002
+    second: Circulo
+  - first:
+      64: 6400004
+    second: EntradaPlugAnaranjado1
+  - first:
+      64: 6400006
+    second: EntradaPlugAnaranjado1_001
+  - first:
+      64: 6400008
+    second: EntradaPlugNegro1
+  - first:
+      64: 6400010
+    second: EntradaPlugNegro2
+  - first:
+      64: 6400012
+    second: FocoAmarilo
+  - first:
+      64: 6400014
+    second: FocoVerde
+  - first:
+      64: 6400016
+    second: Plane
+  - first:
+      64: 6400018
+    second: Plane_001
+  - first:
+      64: 6400020
+    second: Plane_002
+  - first:
+      64: 6400022
+    second: Plane_003
+  - first:
+      74: 7400000
+    second: Default Take
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      41386430: 2186277476908879412
+    second: ImportLogs
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -140,7 +324,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: PlasticoTrslucidoAnaranjado
-    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+    second: {fileID: 2100000, guid: 65bdb8b712c01e547988415651fbecf9, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -172,13 +356,43 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Default Take
+      takeName: Default Take
+      internalID: 7400000
+      firstFrame: 0
+      lastFrame: 249
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
     addColliders: 1
+    useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -186,10 +400,13 @@ ModelImporter:
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 1
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
@@ -201,10 +418,14 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -214,8 +435,8 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

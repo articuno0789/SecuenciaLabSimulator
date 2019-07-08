@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Potenciometro : MonoBehaviour
 {
+    #region Atributos
     public Dictionary<string, string> plugsConnections;
     [SerializeField] public List<GameObject> plugAnaranjados;
     [SerializeField] public List<GameObject> plugNegros;
@@ -21,7 +22,9 @@ public class Potenciometro : MonoBehaviour
     public bool rotarPerillaPrueba = false;
     [SerializeField] public int estaLimiteRotacion = -1;
     private bool puederotar = true;
+    #endregion
 
+    #region Inicializacion
     // Start is called before the first frame update
     void Start()
     {
@@ -29,31 +32,10 @@ public class Potenciometro : MonoBehaviour
 
         plugAnaranjados = new List<GameObject>();
         plugNegros = new List<GameObject>();
-        inicializarComponentes(gameObject);
+        InicializarComponentes(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void RotarPerilla()
-    {
-        if (valorActualPerilla >= valorMinimoPerilla && valorActualPerilla <= valorMaximoPerilla)
-        {
-            perilla.transform.rotation = originalRotationKnob;
-            float valorRotacionGrados = ((limiteGiroSuperiorPerilla * valorActualPerilla) / valorMaximoPerilla) * 2;
-            Debug.Log("Modulo Potenciometro: valorRotacionGrados: " + valorRotacionGrados + ", valorActualPerilla: " + valorActualPerilla + ", limiteGiroSuperiorPerilla: " + limiteGiroSuperiorPerilla + ", valorMaximoPerilla: " + valorMaximoPerilla);
-            perilla.transform.Rotate(0, 0, valorRotacionGrados);
-        }
-        else
-        {
-            Debug.LogError("Error. Modulo Potenciometro: rotarPerilla(float valorActual): El valor actual recibido sobrepasa los limites establecidos");
-        }
-    }
-
-    private void inicializarComponentes(GameObject nodo)
+    private void InicializarComponentes(GameObject nodo)
     {
         int numeroDeHijosHijos = nodo.transform.childCount;
         for (int i = 0; i < numeroDeHijosHijos; i++)
@@ -82,14 +64,39 @@ public class Potenciometro : MonoBehaviour
                 perilla = child;
                 originalRotationKnob = perilla.transform.rotation;
             }
-            inicializarComponentes(child);
+            InicializarComponentes(child);
         }
     }
+    #endregion
 
+    #region Comportamiento Modulo
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public void RotarPerilla()
+    {
+        if (valorActualPerilla >= valorMinimoPerilla && valorActualPerilla <= valorMaximoPerilla)
+        {
+            perilla.transform.rotation = originalRotationKnob;
+            float valorRotacionGrados = ((limiteGiroSuperiorPerilla * valorActualPerilla) / valorMaximoPerilla) * 2;
+            Debug.Log("Modulo Potenciometro: valorRotacionGrados: " + valorRotacionGrados + ", valorActualPerilla: " + valorActualPerilla + ", limiteGiroSuperiorPerilla: " + limiteGiroSuperiorPerilla + ", valorMaximoPerilla: " + valorMaximoPerilla);
+            perilla.transform.Rotate(0, 0, valorRotacionGrados);
+        }
+        else
+        {
+            Debug.LogError("Error. Modulo Potenciometro: rotarPerilla(float valorActual): El valor actual recibido sobrepasa los limites establecidos");
+        }
+    }
+    #endregion
+
+    #region Conexiones Grafo
     public void CrearConexionPlugs(string startPlug, string endPlug)
     {
         plugsConnections[startPlug] = endPlug;
         Debug.Log("plugsConnections[" + startPlug + "]: " + endPlug);
     }
-
+    #endregion
 }

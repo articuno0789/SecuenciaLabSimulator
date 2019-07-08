@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ParticlesError : MonoBehaviour
 {
+    #region Atributos
     public enum ParticlesErrorType
     {
         BigExplosion,
@@ -16,7 +17,9 @@ public class ParticlesError : MonoBehaviour
         PlasmaExplosionEffect
     }
     public ParticlesInformation[] particlesError;
+    #endregion
 
+    #region Inicializacion
     public ParticlesError()
     {
         GameObject particlesGroup = GameObject.Find("ParticlesGroup");
@@ -26,6 +29,14 @@ public class ParticlesError : MonoBehaviour
         }
     }
 
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+    #endregion
+
+    #region Creacion Particulas
     public GameObject CrearParticulasError(int typeParticleError, Vector3 positionParticle, Vector3 rotationParticle)
     {
         //Debug.Log("INICIAR CREAR PARTICULA");
@@ -51,7 +62,9 @@ public class ParticlesError : MonoBehaviour
         }
         return currentParticle;
     }
+    #endregion
 
+    #region Destrucción Particulas
     public void DestruirParticulasError(GameObject currentParticle)
     {
         if (currentParticle != null)
@@ -59,12 +72,7 @@ public class ParticlesError : MonoBehaviour
             Destroy(currentParticle);
         }
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+    #endregion
 
     // Update is called once per frame
     void Update()

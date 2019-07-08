@@ -4,26 +4,20 @@ using UnityEngine;
 
 public class MotorElectricoAC : MonoBehaviour
 {
+    #region Atributos
     [SerializeField] public GameObject ejeMotor;
     [SerializeField] public float velocidadRotacion = 10;
     [SerializeField] public bool rotaMotorPrueba = true;
+    #endregion
 
+    #region Inicializacion
     // Start is called before the first frame update
     void Start()
     {
-        inicializarComponentes(gameObject);
+        InicializarComponentes(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (rotaMotorPrueba)
-        {
-            ejeMotor.transform.Rotate(Vector3.right, -velocidadRotacion * Time.deltaTime);
-        }
-    }
-
-    private void inicializarComponentes(GameObject nodo)
+    private void InicializarComponentes(GameObject nodo)
     {
         int numeroDeHijosHijos = nodo.transform.childCount;
         for (int i = 0; i < numeroDeHijosHijos; i++)
@@ -33,8 +27,19 @@ public class MotorElectricoAC : MonoBehaviour
             {
                 ejeMotor = child;
             }
-            inicializarComponentes(child);
+            InicializarComponentes(child);
         }
     }
+    #endregion
 
+    #region Comportamiento Modulo
+    // Update is called once per frame
+    void Update()
+    {
+        if (rotaMotorPrueba)
+        {
+            ejeMotor.transform.Rotate(Vector3.right, -velocidadRotacion * Time.deltaTime);
+        }
+    }
+    #endregion
 }

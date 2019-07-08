@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Modulo5 : MonoBehaviour
 {
+    #region Atributos
     public Dictionary<string, string> plugsConnections;
     [SerializeField] public List<GameObject> plugAnaranjados;
     [SerializeField] public List<GameObject> plugNegros;
+    public Dictionary<string, GameObject> plugAnaranjadosDict;
+    public Dictionary<string, GameObject> plugNegrosDict;
     [SerializeField] public GameObject agujaMedidora;
     [SerializeField] public float limiteGiroInferiorAguja = -35.0f;
     [SerializeField] public float limiteGiroSuperiorAguja = -145.0f;
@@ -22,24 +25,197 @@ public class Modulo5 : MonoBehaviour
     [SerializeField] public int estaLimiteRotacion = -1;
     private bool puederotar = true;
 
+    public GameObject currentParticle;
+    private ParticlesError particleError;
+    public int currentTypeParticleError = 0;
+    public bool moduloAveriado = false;
+    public enum ParticlesErrorTypes
+    {
+        BigExplosion,
+        DrippingFlames,
+        ElectricalSparksEffect,
+        SmallExplosionEffect,
+        SmokeEffect,
+        SparksEffect,
+        RibbonSmoke,
+        PlasmaExplosionEffect
+    }
+    public bool debug = false;
+    #endregion
+
+    #region Propiedades
+
+    public bool ModuloAveriado
+    {
+        get => moduloAveriado;
+        set => moduloAveriado = value;
+    }
+
+    public float ValorActualAguja
+    {
+        get => valorActualAguja;
+        set => valorActualAguja = value;
+    }
+
+    public float ValorMaximoAguja
+    {
+        get => valorMaximoAguja;
+        set => valorMaximoAguja = value;
+    }
+
+    public float ValorMinimoAguja
+    {
+        get => valorMinimoAguja;
+        set => valorMinimoAguja = value;
+    }
+    #endregion
+
+    #region Inicializacion
     // Start is called before the first frame update
     void Start()
     {
         plugsConnections = new Dictionary<string, string>();
+        plugAnaranjadosDict = new Dictionary<string, GameObject>();
+        plugNegrosDict = new Dictionary<string, GameObject>();
 
+        particleError = new ParticlesError();
         plugAnaranjados = new List<GameObject>();
         plugNegros = new List<GameObject>();
-        inicializarComponentes(gameObject);
+        InicializarComponentes(gameObject);
     }
+
+    private void InicializarComponentes(GameObject nodo)
+    {
+        int numeroDeHijosHijos = nodo.transform.childCount;
+        for (int i = 0; i < numeroDeHijosHijos; i++)
+        {
+            GameObject child = nodo.transform.GetChild(i).gameObject;
+            if (child.name.Contains("EntradaPlugAnaranjado"))
+            {
+                plugAnaranjados.Add(child);
+                child.AddComponent<CableComponent>();
+
+                Plugs plug = child.AddComponent<Plugs>();
+                plug.padreTotalComponente = this.gameObject;
+                plugsConnections.Add(gameObject.name + "|" + child.name, "");
+
+                plugAnaranjadosDict.Add(child.name, child);
+            }
+            else if (child.name.Contains("EntradaPlugNegro"))
+            {
+                plugNegros.Add(child);
+                child.AddComponent<CableComponent>();
+
+                Plugs plug = child.AddComponent<Plugs>();
+                plug.padreTotalComponente = this.gameObject;
+                plugsConnections.Add(gameObject.name + "|" + child.name, "");
+
+                plugNegrosDict.Add(child.name, child);
+            }
+            else if (child.name.Contains("AgujaMedidora"))
+            {
+                agujaMedidora = child;
+                originalRotationNeedle = agujaMedidora.transform.rotation;
+                currentTypeParticleError = (int)ParticlesErrorTypes.ElectricalSparksEffect;
+            }
+            InicializarComponentes(child);
+        }
+    }
+
+    #endregion
+
+    #region Comportamiento Modulo
 
     // Update is called once per frame
     void Update()
     {
-        //valorActualAguja += 0.5f;
+        ComportamientoModulo();
         RotarAguja();
-        if (rotarAgujaPrueba)
+    }
+
+    private void ComportamientoModulo()
+    {
+        Plugs plugIzquierdoCompPlug = plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>();
+        Plugs plugDerechoCompPlug = plugNegrosDict["EntradaPlugNegro1"].GetComponent<Plugs>();
+
+        plugIzquierdoCompPlug.EstablecerPropiedadesConexionesEntrantes();
+        plugDerechoCompPlug.EstablecerPropiedadesConexionesEntrantes();
+        if (plugIzquierdoCompPlug.Conectado && plugDerechoCompPlug.Conectado)
         {
-            RotarAguajaPrueba();
+            if (plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 2) //Caso exito - Medir voltaje
+            {
+                ValorActualAguja = plugIzquierdoCompPlug.Voltaje;
+                if (ValorActualAguja > ValorMaximoAguja) // Caso Avaria - El voltaje suministrado supera los limites de medición
+                {
+                    ModuloAveriado = true;
+                    ComprobarEstadoAveria();
+                    Debug.LogError(this.name + " - if (ValorActualAguja > ValorMaximoAguja)");
+                }
+                if (debug)
+                {
+                    Debug.Log(this.name + " - if (plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 2)");
+                }
+            }
+            else if (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 1) //Caso averia????? - Conectores conectados, pero estan invertidos.
+            {
+                //-----------------Falta comportamiento
+                if (debug)
+                {
+                    Debug.Log(this.name + " - if (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 1)");
+                }
+            }
+            else if (plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 1) //Caso averia - Dos conectores de linea conectados, en lugar de una linea y un neutro.
+            {
+                ModuloAveriado = true;
+                ComprobarEstadoAveria();
+                Debug.LogError(this.name + " - if (plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 1)- Conectado");
+            }
+            else if (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 2) //Caso Neutro - Dos conectores neutros, No se va a averiar, pero no mide el voltaje.
+            {
+                if (debug)
+                {
+                    Debug.Log(this.name + " - if (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 2)");
+                }
+            }
+        }
+        else
+        {
+            ValorActualAguja = 0;
+            if (debug)
+            {
+                Debug.Log(this.name + " - No conectado");
+            }
+        }
+    }
+
+    public void CrearAveria()
+    {
+        currentParticle = particleError.CrearParticulasError(currentTypeParticleError, transform.position, transform.rotation.eulerAngles, new Vector3(2f, 2f, 2f));
+        currentParticle.transform.parent = this.gameObject.transform;
+        ModuloAveriado = true;
+    }
+
+    public void QuitarAveria()
+    {
+        particleError.DestruirParticulasError(currentParticle);
+        ModuloAveriado = false;
+    }
+
+    void ComprobarEstadoAveria()
+    {
+        if (ModuloAveriado)
+        {
+            if (currentParticle == null)
+            {
+                CrearAveria();
+            }
+        }
+        else
+        {
+            if (currentParticle != null)
+            {
+                QuitarAveria();
+            }
         }
     }
 
@@ -49,11 +225,12 @@ public class Modulo5 : MonoBehaviour
         {
             float valorRotacionGrados = 0.0f;
             agujaMedidora.transform.rotation = originalRotationNeedle;
-            if(valorActualAguja >= valorMinimoAguja && valorActualAguja <= 50)
+            if (valorActualAguja >= valorMinimoAguja && valorActualAguja <= 50)
             {
                 valorRotacionGrados = 0.52f * valorActualAguja;
                 //Debug.Log("if(valorActualAguja >= 0 && valorActualAguja <= 50)");
-            } else if (valorActualAguja > 50 && valorActualAguja <= 100)
+            }
+            else if (valorActualAguja > 50 && valorActualAguja <= 100)
             {
                 valorRotacionGrados = (0.465f * (valorActualAguja));
                 //Debug.Log("if (valorActualAguja > 50 && valorActualAguja <= 100)");
@@ -119,44 +296,13 @@ public class Modulo5 : MonoBehaviour
             }
         }
     }
+    #endregion
 
-    private void inicializarComponentes(GameObject nodo)
-    {
-        int numeroDeHijosHijos = nodo.transform.childCount;
-        for (int i = 0; i < numeroDeHijosHijos; i++)
-        {
-            GameObject child = nodo.transform.GetChild(i).gameObject;
-            if (child.name.Contains("EntradaPlugAnaranjado"))
-            {
-                plugAnaranjados.Add(child);
-                child.AddComponent<CableComponent>();
-
-                Plugs plug = child.AddComponent<Plugs>();
-                plug.padreTotalComponente = this.gameObject;
-                plugsConnections.Add(gameObject.name + "|" + child.name, "");
-            }
-            else if (child.name.Contains("EntradaPlugNegro"))
-            {
-                plugNegros.Add(child);
-                child.AddComponent<CableComponent>();
-
-                Plugs plug = child.AddComponent<Plugs>();
-                plug.padreTotalComponente = this.gameObject;
-                plugsConnections.Add(gameObject.name + "|" + child.name, "");
-            }
-            else if (child.name.Contains("AgujaMedidora"))
-            {
-                agujaMedidora = child;
-                originalRotationNeedle = agujaMedidora.transform.rotation;
-            }
-            inicializarComponentes(child);
-        }
-    }
-
+    #region Conexiones Grafo
     public void CrearConexionPlugs(string startPlug, string endPlug)
     {
         plugsConnections[startPlug] = endPlug;
         Debug.Log("plugsConnections[" + startPlug + "]: " + endPlug);
     }
-
+    #endregion
 }

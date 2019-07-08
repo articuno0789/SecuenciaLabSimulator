@@ -1,0 +1,37 @@
+Cables:
+   [TER] Elimina una conexión ya existente realizando el mismo proceso de creación sobre el cable ya existente.
+   [TER] Los plugs únicamente pueden concertarse con otro único plug.
+   [TER] Se puede cambiar el color de los cables al dar clic derecho sobre ellos.
+   [TER] Para crear conexiones entre los módulos hay que dar clic izquierdo sobre los plugs a relacionar.
+
+Funciones al presionar teclas:
+   [TER] Presiona la tecla de Esc para abrir el menú dentro del simulador.
+   [TER] Presiona F10 para tomar una captura de pantalla.
+   [TER] Presiona 1 para bloquear la rotación de la cámara.
+
+Controles de movimiento:
+   [TER] Usa las teclas/flechas del teclado para navegar por el simulador.
+   [TER] Puedes utilizar las flechas para moverte.
+   [TER] Presiona Q para subir dentro del simulador.
+   [TER] Presiona E para bajar dentro del simulador.
+
+Objetivos del simulador:
+   [TER] El objetivo del simulador es poder practicar y aprender en un ambiente seguro y asequible.
+   [TER] El simulador tiene el mismo comportamiento que una máquina de control secuencial real.
+   [TER] Los módulos se comportan de la misma manera que en la realidad.
+
+Ajustes:
+   [TER] Puedes ajustar los aspectos de audio desde el menú principal.
+   [TER] Baja la distancia de render para mejor el rendimiento del simulador.
+   [TER] Ajusta la calidad de los presents de acuerdo a tus necesidades, dentro del menú gráfico.
+   [TER] Puedes ajustar los aspectos de vídeo desde el menú principal.
+   [TER] Recuerda guardar tu progreso, para no perder la información.
+   [TER] Puedes regresar al menú principal desde el menú del simulador.
+   [TER] Es recomendable utilizar un mouse para mejor uso del simulador.
+
+Configuración del simulador
+   [TER] Ajusta el valor de las perillas al dar clic derecho sobre ellas.
+   [TER] Cambia un módulo por algún otro al dar clic derecho sobre su base.
+
+Mensajes divertidos:
+   [TER] Hay huevos de pascua en el simulador. ¡Descúbrelos!!

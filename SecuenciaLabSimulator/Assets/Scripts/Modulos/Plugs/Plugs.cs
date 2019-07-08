@@ -5,7 +5,48 @@ using System.Text.RegularExpressions;
 
 public class Plugs : MonoBehaviour
 {
+    #region Atributos
     public GameObject padreTotalComponente;
+    public bool estaConectado;
+    public int tipoConexion; //1 - Linea, 0 - Sin conexion, 2 - Neutro
+    public float voltaje;
+    #endregion
+
+    #region Propiedades
+    public bool Conectado
+    {
+        get => estaConectado;
+        set => estaConectado = value;
+    }
+
+    public int TipoConexion
+    {
+        get => tipoConexion;
+        set
+        {
+            if (value < 0 || value > 2)
+            {
+                throw new System.ArgumentOutOfRangeException(
+                      $"{nameof(value)} debe ser un valor entre 0 y 2. 0 sin conexión, 1 - Línea, 2 - Neutro.");
+            }
+            if(value == 1 || value == 2)
+            {
+                estaConectado = true;
+            }
+            else if(value == 0)
+            {
+                estaConectado = false;
+            }
+            tipoConexion = value;
+        }
+    }
+
+    public float Voltaje
+    {
+        get => voltaje;
+        set => voltaje = value;
+    }
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +58,43 @@ public class Plugs : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void EstablecerValoresNoConexion()
+    {
+        TipoConexion = 0;
+        Voltaje = 0;
+    }
+
+    public void EstablecerPropiedadesConexionesEntrantes()
+    {
+        CableComponent cableComp = this.GetComponent<CableComponent>();
+        if(cableComp != null)
+        {
+            GameObject conexionEntrante = cableComp.EndPoint;
+            if (conexionEntrante != null)
+            {
+                Plugs plugConexionEntrante = conexionEntrante.GetComponent<Plugs>();
+                if(plugConexionEntrante != null)
+                {
+                    Conectado = true;
+                    TipoConexion = plugConexionEntrante.TipoConexion;
+                    Voltaje = plugConexionEntrante.Voltaje;
+                }
+                else
+                {
+                    EstablecerValoresNoConexion();
+                }
+            }
+            else
+            {
+                EstablecerValoresNoConexion();
+            }
+        }
+        else
+        {
+            EstablecerValoresNoConexion();
+        }
     }
 
     void CrearConexionPlugs()

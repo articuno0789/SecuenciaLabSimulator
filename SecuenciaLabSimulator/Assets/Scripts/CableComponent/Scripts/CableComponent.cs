@@ -37,6 +37,21 @@ public class CableComponent : MonoBehaviour
 
     #endregion
 
+    #region Properties
+
+    public GameObject StartPoint
+    {
+        get => startPoint;
+        set => startPoint = value;
+    }
+
+    public GameObject EndPoint
+    {
+        get => endPoint;
+        set => endPoint = value;
+    }
+
+    #endregion
 
     #region Initial setup
 
@@ -128,7 +143,6 @@ public class CableComponent : MonoBehaviour
 
     #endregion
 
-
     #region Render Pass
 
     void Update()
@@ -169,7 +183,6 @@ public class CableComponent : MonoBehaviour
     }
 
     #endregion
-
 
     #region Verlet integration & solver pass
 
@@ -218,7 +231,6 @@ public class CableComponent : MonoBehaviour
     }
 
     #endregion
-
 
     #region Solver Constraints
 

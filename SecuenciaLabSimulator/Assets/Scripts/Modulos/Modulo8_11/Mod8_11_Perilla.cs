@@ -4,20 +4,26 @@ using UnityEngine;
 
 public class Mod8_11_Perilla : MonoBehaviour
 {
+    #region Atributos
     private Animation animation;
     private bool ani = true;
+    #endregion
 
+    #region Inicializacion
     // Start is called before the first frame update
     void Start()
     {
         animation = GetComponent<Animation>();
     }
+    #endregion
 
+    #region Comportamiento
     // Update is called once per frame
     void Update()
     {
 
     }
+    #endregion
 
     private void OnMouseDown()
     {
