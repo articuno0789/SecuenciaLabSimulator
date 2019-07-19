@@ -8,6 +8,8 @@ public class Potenciometro : MonoBehaviour
     public Dictionary<string, string> plugsConnections;
     [SerializeField] public List<GameObject> plugAnaranjados;
     [SerializeField] public List<GameObject> plugNegros;
+    public Dictionary<string, GameObject> plugAnaranjadosDict;
+    public Dictionary<string, GameObject> plugNegrosDict;
     [SerializeField] public GameObject perilla;
     [SerializeField] public float limiteGiroInferiorPerilla = 135.0f;
     [SerializeField] public float limiteGiroSuperiorPerilla = -135.0f;
@@ -29,6 +31,8 @@ public class Potenciometro : MonoBehaviour
     void Start()
     {
         plugsConnections = new Dictionary<string, string>();
+        plugAnaranjadosDict = new Dictionary<string, GameObject>();
+        plugNegrosDict = new Dictionary<string, GameObject>();
 
         plugAnaranjados = new List<GameObject>();
         plugNegros = new List<GameObject>();
@@ -49,6 +53,8 @@ public class Potenciometro : MonoBehaviour
                 Plugs plug = child.AddComponent<Plugs>();
                 plug.padreTotalComponente = this.gameObject;
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
+
+                plugAnaranjadosDict.Add(child.name, child);
             }
             else if (child.name.Contains("EntradaPlugNegro"))
             {
@@ -58,6 +64,8 @@ public class Potenciometro : MonoBehaviour
                 Plugs plug = child.AddComponent<Plugs>();
                 plug.padreTotalComponente = this.gameObject;
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
+
+                plugNegrosDict.Add(child.name, child);
             }
             else if (child.name.Contains("PerillaPotenciometro"))
             {
