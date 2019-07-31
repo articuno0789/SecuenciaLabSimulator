@@ -115,10 +115,7 @@ public class SetValueKnob : MonoBehaviour
         //ClickDetector clickDetector = player.GetComponent<ClickDetector>();
         GameObject module = perillaSeleccionada;
         Debug.Log(perillaSeleccionada.name);
-        if (module != null && padreTotal == null)
-        {
-            EncontrarPadreTotal(perillaSeleccionada);
-        }
+        EncontrarPadreTotal(perillaSeleccionada);
         if (padreTotal != null && currentModuleSelected != null)
         {
             currentModuleSelected.text = "Seleccionado: Perilla del modulo" + padreTotal.name;
@@ -130,7 +127,7 @@ public class SetValueKnob : MonoBehaviour
                 mod6.RotarPerilla();
                 minMaxKnobRange.text = "Valor [Min Max]: " + mod6.valorMinimoPerilla + " - " + mod6.valorMaximoPerilla;
                 inputFieldCurrentValue.text = mod6.valorActualPerilla + "";
-                Debug.Log(" Modulo6: SE HA ESTABLECIDO UN NUEVO VALOR EN LA PERILLA " + inputFieldCurrentValue.text + ", " + float.Parse(inputFieldCurrentValue.text));
+                Debug.Log(name + "--Modulo6: SE HA ESTABLECIDO UN NUEVO VALOR EN LA PERILLA " + inputFieldCurrentValue.text + ", " + float.Parse(inputFieldCurrentValue.text));
             }
             else if (Regex.IsMatch(padreTotal.name, @"^7_\d*$"))
             {
@@ -139,7 +136,7 @@ public class SetValueKnob : MonoBehaviour
                 mod7.RotarPerilla();
                 minMaxKnobRange.text = "Valor [Min Max]: " + mod7.valorMinimoPerilla + " - " + mod7.valorMaximoPerilla;
                 inputFieldCurrentValue.text = mod7.valorActualPerilla + "";
-                Debug.Log(" Modulo7: SE HA ESTABLECIDO UN NUEVO VALOR EN LA PERILLA " + inputFieldCurrentValue.text + ", " + float.Parse(inputFieldCurrentValue.text));
+                Debug.Log(name + "++Modulo7: SE HA ESTABLECIDO UN NUEVO VALOR EN LA PERILLA " + inputFieldCurrentValue.text + ", " + float.Parse(inputFieldCurrentValue.text));
             }
             else if (Regex.IsMatch(padreTotal.name, @"^Potenciometro_\d*$"))
             {
@@ -148,7 +145,7 @@ public class SetValueKnob : MonoBehaviour
                 modPoten.RotarPerilla();
                 minMaxKnobRange.text = "Valor [Min Max]: " + modPoten.valorMinimoPerilla + " - " + modPoten.valorMaximoPerilla;
                 inputFieldCurrentValue.text = modPoten.valorActualPerilla + "";
-                Debug.Log(" ModuloPotenciometro: SE HA ESTABLECIDO UN NUEVO VALOR EN LA PERILLA " + inputFieldCurrentValue.text + ", " + float.Parse(inputFieldCurrentValue.text));
+                Debug.Log(name + "//ModuloPotenciometro: SE HA ESTABLECIDO UN NUEVO VALOR EN LA PERILLA " + inputFieldCurrentValue.text + ", " + float.Parse(inputFieldCurrentValue.text));
             }
             CloseMenuSetValueKnob();
         }
