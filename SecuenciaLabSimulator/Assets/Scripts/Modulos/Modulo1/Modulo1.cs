@@ -12,8 +12,8 @@ public class Modulo1 : MonoBehaviour
     [SerializeField] public List<GameObject> plugAnaranjados;
     [SerializeField] public List<GameObject> plugNegros;
     [SerializeField] public List<GameObject> luzRojos;
-    [SerializeField] public const float voltajeModulo = 127;
-    [SerializeField] public bool pruebaDeLuz = true;
+    [SerializeField] public float voltajeModulo = 127; // Variable
+    [SerializeField] public bool pruebaDeLuz = true; // Variable
     #endregion
 
     #region Inicializacion
