@@ -88,7 +88,7 @@ public class Modulo2 : MonoBehaviour
             }
             else if (child.name.Contains("BotonCuadradoRojoDerecho"))
             {
-                botonCuadradoRojoIzquierdo = child;
+                botonCuadradoRojoDerecho = child;
                 Animation ani = child.AddComponent<Animation>();
                 ani.playAutomatically = false;
                 ani.AddClip(((AnimationClip)AssetDatabase.LoadAssetAtPath(rutaAnimacionBotonCuadradoRojo, typeof(AnimationClip))), nombreAnimacionBotonCuadradoRojo);
