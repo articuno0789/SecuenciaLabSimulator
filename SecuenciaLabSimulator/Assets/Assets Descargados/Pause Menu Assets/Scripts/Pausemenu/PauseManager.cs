@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.IO;
 using UnityStandardAssets.Characters.FirstPerson;
+using System.Text.RegularExpressions;
 using UnityEditor;
 //using UnityStandardAssets.ImageEffects;
 
@@ -16,6 +17,7 @@ namespace GreatArcStudios
     /// </summary>
     public class PauseManager : MonoBehaviour
     {
+        public GameObject saverManager;
         public String currentLevelName;
         /// <summary>
         /// This is the main panel holder, which holds the main panel and should be called "main panel"
@@ -25,6 +27,18 @@ namespace GreatArcStudios
         /// This is the video panel holder, which holds all of the controls for the video panel and should be called "vid panel"
         /// </summary>
         public GameObject vidPanel;
+        /// <summary>
+        /// This is the video panel holder, which holds all of the controls for the video panel and should be called "vid panel"
+        /// </summary>
+        public GameObject controlPanel;
+        /// <summary>
+        /// This is the video panel holder, which holds all of the controls for the video panel and should be called "vid panel"
+        /// </summary>
+        public GameObject savePanel;
+        /// <summary>
+        /// This is the video panel holder, which holds all of the controls for the video panel and should be called "vid panel"
+        /// </summary>
+        public GameObject loadPanel;
         /// <summary>
         /// This is the audio panel holder, which holds all of the silders for the audio panel and should be called "audio panel"
         /// </summary>
@@ -337,6 +351,20 @@ namespace GreatArcStudios
                 audioPanel.SetActive(false);
                 //Enable mask
                 mask.SetActive(false);
+
+                //Paneles Extra
+                if(savePanel != null)
+                {
+                    savePanel.SetActive(false);
+                }
+                if (loadPanel != null)
+                {
+                    loadPanel.SetActive(false);
+                }
+                if (controlPanel != null)
+                {
+                    controlPanel.SetActive(false);
+                }
             }
             //set last texture limit
             lastTexLimit = QualitySettings.masterTextureLimit;
@@ -390,6 +418,18 @@ namespace GreatArcStudios
             audioPanel.SetActive(false);
             TitleTexts.SetActive(false);
             mask.SetActive(false);
+            if (savePanel != null)
+            {
+                savePanel.SetActive(false);
+            }
+            if (loadPanel != null)
+            {
+                loadPanel.SetActive(false);
+            }
+            if (controlPanel != null)
+            {
+                controlPanel.SetActive(false);
+            }
             for (int i = 0; i < otherUIElements.Length; i++)
             {
                 otherUIElements[i].gameObject.SetActive(true);
@@ -398,6 +438,7 @@ namespace GreatArcStudios
             {
                 FirstPersonController playerController = player.GetComponent<FirstPersonController>();
                 playerController.m_rotateViewPermission = true;
+                playerController.m_movementPermission = true;
             }
             /* if (blurBool == false)
              {
@@ -416,6 +457,18 @@ namespace GreatArcStudios
         {
             vidPanel.SetActive(false);
             audioPanel.SetActive(false);
+            if(savePanel != null)
+            {
+                savePanel.SetActive(false);
+            }
+            if (controlPanel != null)
+            {
+                controlPanel.SetActive(false);
+            }
+            if (loadPanel != null)
+            {
+                loadPanel.SetActive(false);
+            }
             if (goLevelPanel != null)
             {
                 goLevelPanel.SetActive(false);
@@ -435,8 +488,274 @@ namespace GreatArcStudios
             {
                 goLevelPanel.SetActive(true);
             }
+            if(savePanel != null)
+            {
+                savePanel.SetActive(false);
+            }
+            if (controlPanel != null)
+            {
+                controlPanel.SetActive(false);
+            }
+            if (loadPanel != null)
+            {
+                loadPanel.SetActive(false);
+            }
             //quitPanelAnimator.enabled = true;
             //quitPanelAnimator.Play("QuitPanelIn");
+        }
+
+        public void controlOptions()
+        {
+            vidPanel.SetActive(false);
+            audioPanel.SetActive(false);
+            if (goLevelPanel != null)
+            {
+                goLevelPanel.SetActive(false);
+            }
+            if (savePanel != null)
+            {
+                savePanel.SetActive(false);
+            }
+            if (loadPanel != null)
+            {
+                loadPanel.SetActive(false);
+            }
+            if (controlPanel != null)
+            {
+                controlPanel.SetActive(true);
+            }
+            if (quitPanelAnimator.enabled)
+            {
+                quitPanelAnimator.Play("QuitPanelOut");
+            }
+        }
+
+        public void closeControlOptions()
+        {
+            if (controlPanel != null)
+            {
+                controlPanel.SetActive(false);
+            }
+        }
+
+        public void saveSimulatorOptions()
+        {
+            vidPanel.SetActive(false);
+            audioPanel.SetActive(false);
+            if (goLevelPanel != null)
+            {
+                goLevelPanel.SetActive(true);
+            }
+            if (savePanel != null)
+            {
+                savePanel.SetActive(true);
+            }
+            if (controlPanel != null)
+            {
+                controlPanel.SetActive(false);
+            }
+            if (loadPanel != null)
+            {
+                loadPanel.SetActive(false);
+            }
+            Button buttonSaveFile = GameObject.Find("ApplySaveFile").GetComponent<Button>();
+            Text textInfoSavedFile = GameObject.Find("SavedFileInformationText").GetComponent<Text>();
+            InputField inputFieldCurrentName = GameObject.Find("NameSavedFileInput").GetComponent<InputField>();
+            ProgressManager proManage = saverManager.GetComponent<ProgressManager>();
+            if (proManage.nombreArchivoGuardado != "")
+            {
+                inputFieldCurrentName.text = proManage.nombreArchivoGuardado;
+            }
+            else
+            {
+                string screenshotIMGName = System.DateTime.Now.ToString();
+                string subString = screenshotIMGName.Replace('/', '_');
+                string gypsy = subString.Replace(':', '_');
+                inputFieldCurrentName.text = "Simulador_" + gypsy;
+            }
+            buttonSaveFile.enabled = false;
+            ValidateNameFileSave();
+        }
+
+        public void saveFileSimulator()
+        {
+            if(saverManager != null)
+            {
+                InputField inputFieldCurrentName = GameObject.Find("NameSavedFileInput").GetComponent<InputField>();
+                Text textInfoSavedFile = GameObject.Find("SavedFileInformationText").GetComponent<Text>();
+                ProgressManager proManage = saverManager.GetComponent<ProgressManager>();
+                string extensionArchivo = ".txt";
+                string nombreArchivoGuarado = inputFieldCurrentName.text + extensionArchivo;
+                string dataPath = Path.Combine(Application.persistentDataPath, nombreArchivoGuarado);
+                proManage.SaveSimulator(dataPath, inputFieldCurrentName.text);
+                Debug.Log("Archivo guardado desde el menu");
+                textInfoSavedFile.text = "Información: Archivo correctamente guardado. El archivo se guardo en la ruta: " + dataPath;
+            }
+        }
+
+        public void ValidateNameFileSave()
+        {
+            Text textInfoSavedFile = GameObject.Find("SavedFileInformationText").GetComponent<Text>();
+            InputField inputFieldCurrentName = GameObject.Find("NameSavedFileInput").GetComponent<InputField>();
+            Button buttonSaveFile = GameObject.Find("ApplySaveFile").GetComponent<Button>();
+            buttonSaveFile.enabled = false;
+            Debug.Log(inputFieldCurrentName.text + ": " + Regex.IsMatch(inputFieldCurrentName.text, @"^[a-zA-Z0-9_\.\s]+$").ToString());
+            if (!Regex.IsMatch(inputFieldCurrentName.text, @"^[a-zA-Z0-9_\.\s]+$"))
+            {
+                string screenshotIMGName = System.DateTime.Now.ToString();
+                string subString = screenshotIMGName.Replace('/', '_');
+                string gypsy = subString.Replace(':', '_');
+                inputFieldCurrentName.text = "Simulador_" + gypsy;
+                buttonSaveFile.enabled = false;
+                textInfoSavedFile.text = "Información: Error. El nombre del archivo No es valido. El nombre debe contener unicamente letras y numeros.";
+            }
+            else
+            {
+                ProgressManager proManage = saverManager.GetComponent<ProgressManager>();
+                string extensionArchivo = ".txt";
+                string nombreArchivoGuarado = inputFieldCurrentName.text + extensionArchivo;
+                string dataPath = Path.Combine(Application.persistentDataPath, nombreArchivoGuarado);
+                int tamanoMaxNombre = 80;
+                if (inputFieldCurrentName.text.Length >= 80)
+                {
+                    inputFieldCurrentName.text = "0.0";
+                    textInfoSavedFile.text = "Información: Error. El nombre del archivo No debe ser mayor a " + tamanoMaxNombre + " caracteres.";
+                    buttonSaveFile.enabled = false;
+                }else if (proManage.ComprobarExistenciaArchivo(dataPath))
+                {
+                    textInfoSavedFile.text = "Información: Cuidado. El nombre del archivo introducido ya corresponde a un archivo existente de guardado, si guarda el archivo actual se borrará el contenido anterior.";
+                    buttonSaveFile.enabled = true;
+                }
+                else
+                {
+                    textInfoSavedFile.text = "Información: OK";
+                    buttonSaveFile.enabled = true;
+                }
+            }
+        }
+
+        public void ValidateNameFileLoad()
+        {
+            Text textInfoLoadedFile = GameObject.Find("LoadedFileInformationText").GetComponent<Text>();
+            InputField inputFieldCurrentName = GameObject.Find("NameLoadedFileInput").GetComponent<InputField>();
+            Button buttoLoadFile = GameObject.Find("ApplyLoadFile").GetComponent<Button>();
+            buttoLoadFile.enabled = false;
+            Debug.Log(inputFieldCurrentName.text + ": " + Regex.IsMatch(inputFieldCurrentName.text, @"^[a-zA-Z0-9_\.\s]+$").ToString());
+            if (!Regex.IsMatch(inputFieldCurrentName.text, @"^[a-zA-Z0-9_\.\s]+$"))
+            {
+                string screenshotIMGName = System.DateTime.Now.ToString();
+                string subString = screenshotIMGName.Replace('/', '_');
+                string gypsy = subString.Replace(':', '_');
+                inputFieldCurrentName.text = "Simulador_" + gypsy;
+                buttoLoadFile.enabled = false;
+                textInfoLoadedFile.text = "Información: Error. El nombre del archivo No es valido. El nombre debe contener unicamente letras y numeros.";
+            }
+            else
+            {
+                ProgressManager proManage = saverManager.GetComponent<ProgressManager>();
+                string extensionArchivo = ".txt";
+                string nombreArchivoGuarado = inputFieldCurrentName.text + extensionArchivo;
+                string dataPath = Path.Combine(Application.persistentDataPath, nombreArchivoGuarado);
+                int tamanoMaxNombre = 80;
+                if (inputFieldCurrentName.text.Length >= 80)
+                {
+                    inputFieldCurrentName.text = "0.0";
+                    textInfoLoadedFile.text = "Información: Error. El nombre del archivo No debe ser mayor a " + tamanoMaxNombre + " caracteres.";
+                    buttoLoadFile.enabled = false;
+                }
+                else if (proManage.ComprobarExistenciaArchivo(dataPath))
+                {
+                    textInfoLoadedFile.text = "Información: Archivo encontrado. El nombre del archivo introducido se se encuentra disponible en la ruta adecuada. Puede Realizar la carga del archivo.";
+                    if (proManage.ComprobarValidezJson(dataPath))
+                    {
+                        textInfoLoadedFile.text += "La cadena Json es valida.";
+                        buttoLoadFile.enabled = true;
+                    }
+                    else
+                    {
+                        textInfoLoadedFile.text += "Error. La cadena Json es invalida, compruebe la estructura del archivo, puede estar corrupto.";
+                        buttoLoadFile.enabled = false;
+                    }
+                    
+                }
+                else
+                {
+                    textInfoLoadedFile.text = textInfoLoadedFile.text = "Información: Error. Archivo no encontrado. El archivo solicitado no se encuentra en la reuta: " + dataPath;
+                    buttoLoadFile.enabled = false;
+                }
+            }
+        }
+
+        public void closeSaveSimulatorOptions()
+        {
+            if (savePanel != null)
+            {
+                savePanel.SetActive(false);
+            }
+        }
+
+        public void closeLoadSimulatorOptions()
+        {
+            if (loadPanel != null)
+            {
+                loadPanel.SetActive(false);
+            }
+        }
+
+        public void loadSimulatorOptions()
+        {
+            vidPanel.SetActive(false);
+            audioPanel.SetActive(false);
+            if (goLevelPanel != null)
+            {
+                goLevelPanel.SetActive(true);
+            }
+            if (savePanel != null)
+            {
+                savePanel.SetActive(false);
+            }
+            if (loadPanel != null)
+            {
+                loadPanel.SetActive(true);
+            }
+            if (controlPanel != null)
+            {
+                controlPanel.SetActive(false);
+            }
+            Button buttonLoadFile = GameObject.Find("ApplyLoadFile").GetComponent<Button>();
+            InputField inputFieldCurrentName = GameObject.Find("NameLoadedFileInput").GetComponent<InputField>();
+            ProgressManager proManage = saverManager.GetComponent<ProgressManager>();
+            if (proManage.nombreArchivoGuardado != "")
+            {
+                inputFieldCurrentName.text = proManage.nombreArchivoGuardado;
+            }
+            else
+            {
+                inputFieldCurrentName.text = "";
+            }
+            /*Text textInfoSavedFile = GameObject.Find("SavedFileInformationText").GetComponent<Text>();
+            InputField inputFieldCurrentName = GameObject.Find("NameSavedFileInput").GetComponent<InputField>();
+            string screenshotIMGName = System.DateTime.Now.ToString();
+            string subString = screenshotIMGName.Replace('/', '_');
+            string gypsy = subString.Replace(':', '_');
+            inputFieldCurrentName.text = "Simulador_" + gypsy;*/
+            buttonLoadFile.enabled = false;
+        }
+
+        public void loadFileSimulator()
+        {
+            if (saverManager != null)
+            {
+                InputField inputFieldCurrentName = GameObject.Find("NameLoadedFileInput").GetComponent<InputField>();
+                Text textInfoLoadedFile = GameObject.Find("LoadedFileInformationText").GetComponent<Text>();
+                ProgressManager proManage = saverManager.GetComponent<ProgressManager>();
+                string extensionArchivo = ".txt";
+                string nombreArchivoGuarado = inputFieldCurrentName.text + extensionArchivo;
+                string dataPath = Path.Combine(Application.persistentDataPath, nombreArchivoGuarado);
+                proManage.LoadSimulator(dataPath, inputFieldCurrentName.text);
+                Debug.Log("Archivo Cargado desde el menu");
+                textInfoLoadedFile.text = "Información: Archivo cargado correctamente. El archivo se encuentra guardado en la ruta: " + dataPath;
+            }
         }
 
         public void closeGoLevelOptions()
@@ -492,6 +811,18 @@ namespace GreatArcStudios
             vidPanel.SetActive(false);
             audioPanel.SetActive(false);
             TitleTexts.SetActive(false);
+            if (savePanel != null)
+            {
+                savePanel.SetActive(false);
+            }
+            if (loadPanel != null)
+            {
+                loadPanel.SetActive(false);
+            }
+            if (controlPanel != null)
+            {
+                controlPanel.SetActive(false);
+            }
             //mask.SetActive(false);
             CanvasGroup canGP = mask.GetComponent<CanvasGroup>();
             Image image = mask.GetComponent<Image>();
@@ -545,22 +876,22 @@ namespace GreatArcStudios
             readUseSimpleTerrain = useSimpleTerrain;
             useSimpleTerrain = readUseSimpleTerrain;
             //colorCrossfade();
-            if (vidPanel.active == true)
+            if (vidPanel.activeSelf == true)
             {
-                pauseMenu.text = "Video Menu";
+                pauseMenu.text = "Menú de vídeo";
             }
-            else if (audioPanel.active == true)
+            else if (audioPanel.activeSelf == true)
             {
-                pauseMenu.text = "Audio Menu";
+                pauseMenu.text = "Menú de audio";
             }
-            else if (mainPanel.active == true)
+            else if (mainPanel.activeSelf == true)
             {
-                //pauseMenu.text = "Pause Menu";
+                pauseMenu.text = "Menú de pausa";
             }
 
             if(currentLevelName != "MainMenu")
             {
-                if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.active == false)
+                if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.activeSelf == false)
                 {
                     uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
                     mainPanel.SetActive(true);
@@ -568,6 +899,18 @@ namespace GreatArcStudios
                     audioPanel.SetActive(false);
                     TitleTexts.SetActive(true);
                     mask.SetActive(true);
+                    if (savePanel != null)
+                    {
+                        savePanel.SetActive(false);
+                    }
+                    if (controlPanel != null)
+                    {
+                        controlPanel.SetActive(false);
+                    }
+                    if (loadPanel != null)
+                    {
+                        loadPanel.SetActive(false);
+                    }
                     for (int i = 0; i < otherUIElements.Length; i++)
                     {
                         otherUIElements[i].gameObject.SetActive(false);
@@ -576,13 +919,14 @@ namespace GreatArcStudios
                     {
                         FirstPersonController playerController = player.GetComponent<FirstPersonController>();
                         playerController.m_rotateViewPermission = false;
+                        playerController.m_movementPermission = false;
                     }
                     /* if (blurBool == false)
                       {
                          blurEffect.enabled = true;
                      }  */
                 }
-                else if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.active == true)
+                else if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.activeSelf == true)
                 {
                     Time.timeScale = timeScale;
                     mainPanel.SetActive(false);
@@ -590,6 +934,18 @@ namespace GreatArcStudios
                     audioPanel.SetActive(false);
                     TitleTexts.SetActive(false);
                     mask.SetActive(false);
+                    if (savePanel != null)
+                    {
+                        savePanel.SetActive(false);
+                    }
+                    if (controlPanel != null)
+                    {
+                        controlPanel.SetActive(false);
+                    }
+                    if (loadPanel != null)
+                    {
+                        loadPanel.SetActive(false);
+                    }
                     for (int i = 0; i < otherUIElements.Length; i++)
                     {
                         otherUIElements[i].gameObject.SetActive(true);
@@ -598,6 +954,7 @@ namespace GreatArcStudios
                     {
                         FirstPersonController playerController = player.GetComponent<FirstPersonController>();
                         playerController.m_rotateViewPermission = true;
+                        playerController.m_movementPermission = true;
                     }
                 }
             }
@@ -632,9 +989,21 @@ namespace GreatArcStudios
             {
                 goLevelPanel.SetActive(false);
             }
+            if(savePanel != null)
+            {
+                savePanel.SetActive(false);
+            }
+            if (controlPanel != null)
+            {
+                controlPanel.SetActive(false);
+            }
+            if (loadPanel != null)
+            {
+                loadPanel.SetActive(false);
+            }
             audioPanelAnimator.enabled = true;
             audioIn();
-            pauseMenu.text = "Audio Menu";
+            pauseMenu.text = "Menú de audio";
         }
         /// <summary>
         /// Play the "audio panel in" animation.
@@ -745,6 +1114,18 @@ namespace GreatArcStudios
             mainPanel.SetActive(true);
             vidPanel.SetActive(false);
             audioPanel.SetActive(false);
+            if(savePanel != null)
+            {
+                savePanel.SetActive(false);
+            }
+            if (controlPanel != null)
+            {
+                controlPanel.SetActive(false);
+            }
+            if (loadPanel != null)
+            {
+                loadPanel.SetActive(false);
+            }
             beforeMaster = AudioListener.volume;
             lastMusicMult = audioMusicSlider.value;
             lastAudioMult = audioEffectsSlider.value;
@@ -770,6 +1151,18 @@ namespace GreatArcStudios
             mainPanel.SetActive(true);
             vidPanel.SetActive(false);
             audioPanel.SetActive(false);
+            if(savePanel != null)
+            {
+                savePanel.SetActive(false);
+            }
+            if (controlPanel != null)
+            {
+                controlPanel.SetActive(false);
+            }
+            if (loadPanel != null)
+            {
+                loadPanel.SetActive(false);
+            }
             AudioListener.volume = beforeMaster;
             //Debug.Log(_beforeMaster + AudioListener.volume);
             try
@@ -797,7 +1190,6 @@ namespace GreatArcStudios
         /// </summary>
         public void Video()
         {
-
             mainPanel.SetActive(false);
             vidPanel.SetActive(true);
             audioPanel.SetActive(false);
@@ -805,10 +1197,21 @@ namespace GreatArcStudios
             {
                 goLevelPanel.SetActive(false);
             }
+            if(savePanel != null)
+            {
+                savePanel.SetActive(false);
+            }
+            if (controlPanel != null)
+            {
+                controlPanel.SetActive(false);
+            }
+            if (loadPanel != null)
+            {
+                loadPanel.SetActive(false);
+            }
             vidPanelAnimator.enabled = true;
             videoIn();
-            pauseMenu.text = "Video Menu";
-
+            pauseMenu.text = "Menú de vídeo";
         }
         /// <summary>
         /// Play the "video panel in" animation
@@ -953,7 +1356,6 @@ namespace GreatArcStudios
         {
             StartCoroutine(applyVideo());
             uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
-
         }
         /// <summary>
         /// Use an IEnumerator to first play the animation and then change the video settings.
