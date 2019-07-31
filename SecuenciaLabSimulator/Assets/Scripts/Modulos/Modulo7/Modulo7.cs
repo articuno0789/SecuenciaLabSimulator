@@ -89,16 +89,19 @@ public class Modulo7 : MonoBehaviour
 
     public void RotarPerilla()
     {
-        if (valorActualPerilla >= valorMinimoPerilla && valorActualPerilla <= valorMaximoPerilla)
+        if (perilla != null)
         {
-            perilla.transform.rotation = originalRotationKnob;
-            float valorRotacionGrados = (limiteGiroSuperiorPerilla * valorActualPerilla) / valorMaximoPerilla;
-            Debug.Log("Modulo 7: valorRotacionGrados: " + valorRotacionGrados + ", valorActualPerilla: " + valorActualPerilla + ", limiteGiroSuperiorPerilla: " + limiteGiroSuperiorPerilla + ", valorMaximoPerilla: " + valorMaximoPerilla);
-            perilla.transform.Rotate(0, 0, valorRotacionGrados);
-        }
-        else
-        {
-            Debug.LogError("Error. Modulo 7: rotarPerilla(float valorActual): El valor actual recibido sobrepasa los limites establecidos");
+            if (valorActualPerilla >= valorMinimoPerilla && valorActualPerilla <= valorMaximoPerilla)
+            {
+                perilla.transform.rotation = originalRotationKnob;
+                float valorRotacionGrados = (limiteGiroSuperiorPerilla * valorActualPerilla) / valorMaximoPerilla;
+                Debug.Log("Modulo 7: valorRotacionGrados: " + valorRotacionGrados + ", valorActualPerilla: " + valorActualPerilla + ", limiteGiroSuperiorPerilla: " + limiteGiroSuperiorPerilla + ", valorMaximoPerilla: " + valorMaximoPerilla);
+                perilla.transform.Rotate(0, 0, valorRotacionGrados);
+            }
+            else
+            {
+                Debug.LogError("Error. Modulo 7: rotarPerilla(float valorActual): El valor actual recibido sobrepasa los limites establecidos");
+            }
         }
     }
 

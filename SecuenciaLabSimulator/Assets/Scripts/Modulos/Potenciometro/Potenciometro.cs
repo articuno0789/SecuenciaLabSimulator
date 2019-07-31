@@ -86,16 +86,19 @@ public class Potenciometro : MonoBehaviour
 
     public void RotarPerilla()
     {
-        if (valorActualPerilla >= valorMinimoPerilla && valorActualPerilla <= valorMaximoPerilla)
+        if (perilla != null)
         {
-            perilla.transform.rotation = originalRotationKnob;
-            float valorRotacionGrados = ((limiteGiroSuperiorPerilla * valorActualPerilla) / valorMaximoPerilla) * 2;
-            Debug.Log("Modulo Potenciometro: valorRotacionGrados: " + valorRotacionGrados + ", valorActualPerilla: " + valorActualPerilla + ", limiteGiroSuperiorPerilla: " + limiteGiroSuperiorPerilla + ", valorMaximoPerilla: " + valorMaximoPerilla);
-            perilla.transform.Rotate(0, 0, valorRotacionGrados);
-        }
-        else
-        {
-            Debug.LogError("Error. Modulo Potenciometro: rotarPerilla(float valorActual): El valor actual recibido sobrepasa los limites establecidos");
+            if (valorActualPerilla >= valorMinimoPerilla && valorActualPerilla <= valorMaximoPerilla)
+            {
+                perilla.transform.rotation = originalRotationKnob;
+                float valorRotacionGrados = ((limiteGiroSuperiorPerilla * valorActualPerilla) / valorMaximoPerilla) * 2;
+                Debug.Log("Modulo Potenciometro: valorRotacionGrados: " + valorRotacionGrados + ", valorActualPerilla: " + valorActualPerilla + ", limiteGiroSuperiorPerilla: " + limiteGiroSuperiorPerilla + ", valorMaximoPerilla: " + valorMaximoPerilla);
+                perilla.transform.Rotate(0, 0, valorRotacionGrados);
+            }
+            else
+            {
+                Debug.LogError("Error. Modulo Potenciometro: rotarPerilla(float valorActual): El valor actual recibido sobrepasa los limites establecidos");
+            }
         }
     }
     #endregion

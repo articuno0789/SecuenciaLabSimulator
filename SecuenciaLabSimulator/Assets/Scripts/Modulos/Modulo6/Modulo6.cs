@@ -16,7 +16,7 @@ public class Modulo6 : MonoBehaviour
     public float valorActualPerilla = 0.0f;
     public float valorMinimoPerilla = 0.0f;
     public float valorMaximoPerilla = 40.0f;
-    private Quaternion originalRotationKnob;
+    public Quaternion originalRotationKnob;
 
 
     [SerializeField] public float gradosActualesPerilla = -90.0f;
@@ -90,16 +90,19 @@ public class Modulo6 : MonoBehaviour
 
     public void RotarPerilla()
     {
-        if(valorActualPerilla >= valorMinimoPerilla && valorActualPerilla <= valorMaximoPerilla)
+        if(perilla!= null)
         {
-            perilla.transform.rotation = originalRotationKnob;
-            float valorRotacionGrados = (limiteGiroSuperiorPerilla * valorActualPerilla) / valorMaximoPerilla;
-            Debug.Log("Modulo 6: valorRotacionGrados: " + valorRotacionGrados + ", valorActualPerilla: " + valorActualPerilla + ", limiteGiroSuperiorPerilla: " + limiteGiroSuperiorPerilla + ", valorMaximoPerilla: " + valorMaximoPerilla);
-            perilla.transform.Rotate(0, 0, valorRotacionGrados);
-        }
-        else
-        {
-            Debug.LogError("Error. Modulo 6: rotarPerilla(float valorActual): El valor actual recibido sobrepasa los limites establecidos");
+            if (valorActualPerilla >= valorMinimoPerilla && valorActualPerilla <= valorMaximoPerilla)
+            {
+                perilla.transform.rotation = originalRotationKnob;
+                float valorRotacionGrados = (limiteGiroSuperiorPerilla * valorActualPerilla) / valorMaximoPerilla;
+                Debug.Log("Modulo 6: valorRotacionGrados: " + valorRotacionGrados + ", valorActualPerilla: " + valorActualPerilla + ", limiteGiroSuperiorPerilla: " + limiteGiroSuperiorPerilla + ", valorMaximoPerilla: " + valorMaximoPerilla);
+                perilla.transform.Rotate(0, 0, valorRotacionGrados);
+            }
+            else
+            {
+                Debug.LogError("Error. Modulo 6: rotarPerilla(float valorActual): El valor actual recibido sobrepasa los limites establecidos");
+            }
         }
     }
 
