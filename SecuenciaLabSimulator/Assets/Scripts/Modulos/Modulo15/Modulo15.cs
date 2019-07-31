@@ -12,7 +12,7 @@ public class Modulo15 : MonoBehaviour
     public Dictionary<string, GameObject> plugAnaranjadosDict;
     public Dictionary<string, GameObject> plugNegrosDict;
     public Dictionary<string, GameObject> lucesRojasDict;
-    [SerializeField] public float voltaje = 127;
+    [SerializeField] public float voltajeModulo = 220;
     #endregion
 
     #region Inicializacion
