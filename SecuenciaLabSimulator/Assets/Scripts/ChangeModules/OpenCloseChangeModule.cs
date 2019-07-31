@@ -18,6 +18,7 @@ public class OpenCloseChangeModule : MonoBehaviour
     void Start()
     {
         changeModuleDropdown = GameObject.Find("DropdownChangeModule").GetComponent<ChangeModule>();
+        dropdown = GameObject.Find("DropdownChangeModule").GetComponent<Dropdown>();
         player = GameObject.Find("FirstPersonCharacter");
         currentModuleSelected = GameObject.Find("CurrentModuleSelected").GetComponent<Text>();
         panel = GameObject.Find("PanelChangeModule");
@@ -63,6 +64,8 @@ public class OpenCloseChangeModule : MonoBehaviour
         {
             currentModuleSelected.text = "Seleccionado: " + padreTotal.name;
             changeModuleDropdown.selectedGameObjectRightClick = padreTotal;
+            changeModuleDropdown.ComprobarRestricciones();
+            dropdown.value = 0;
         }
         //panel = GameObject.Find("PanelChangeModule");
         if (!panel.activeSelf)

@@ -180,25 +180,25 @@ public class ClickDetector : MonoBehaviour
                 }
                 else if (clickedGmObj.name.Contains("Total_Perilla"))
                 {
-                    GameObject panelSetValueKnob = GameObject.Find("ButtonSetValueKnob");
+                    GameObject buttonSetValueKnob = GameObject.Find("ButtonSetValueKnob");
                     GameObject inputFieldCurrentValue = GameObject.Find("InputFieldCurrentValue");
-                    if (panelSetValueKnob != null && inputFieldCurrentValue != null)
+                    clickedGmObj.SendMessage("OpenCloseMenuSetValueKnob", 1, SendMessageOptions.DontRequireReceiver);
+                    if (buttonSetValueKnob != null && inputFieldCurrentValue != null)
                     {
-                        panelSetValueKnob.GetComponent<SetValueKnob>().perillaSeleccionada = clickedGmObj;
+                        buttonSetValueKnob.GetComponent<SetValueKnob>().perillaSeleccionada = clickedGmObj;
                         inputFieldCurrentValue.GetComponent<SetValueKnob>().perillaSeleccionada = clickedGmObj;
                     }
-                    clickedGmObj.SendMessage("OpenCloseMenuSetValueKnob", 1, SendMessageOptions.DontRequireReceiver);
                 }
                 else if (clickedGmObj.name.Contains("PerillaPotenciometro"))
                 {
-                    GameObject panelSetValueKnob = GameObject.Find("ButtonSetValueKnob");
+                    GameObject buttonSetValueKnob = GameObject.Find("ButtonSetValueKnob");
                     GameObject inputFieldCurrentValue = GameObject.Find("InputFieldCurrentValue");
-                    if (panelSetValueKnob != null && inputFieldCurrentValue != null)
+                    clickedGmObj.SendMessage("OpenCloseMenuSetValueKnob", 1, SendMessageOptions.DontRequireReceiver);
+                    if (buttonSetValueKnob != null && inputFieldCurrentValue != null)
                     {
-                        panelSetValueKnob.GetComponent<SetValueKnob>().perillaSeleccionada = clickedGmObj;
+                        buttonSetValueKnob.GetComponent<SetValueKnob>().perillaSeleccionada = clickedGmObj;
                         inputFieldCurrentValue.GetComponent<SetValueKnob>().perillaSeleccionada = clickedGmObj;
                     }
-                    clickedGmObj.SendMessage("OpenCloseMenuSetValueKnob", 1, SendMessageOptions.DontRequireReceiver);
                 }
             }
                 
