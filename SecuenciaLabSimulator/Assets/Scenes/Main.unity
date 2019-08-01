@@ -44170,7 +44170,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Abilitar/desabilitar\nrotaci\xF3n camara"
+  m_Text: "Habilitar/deshabilitar\nrotaci\xF3n camara"
 --- !u!222 &2116191114
 CanvasRenderer:
   m_ObjectHideFlags: 0
