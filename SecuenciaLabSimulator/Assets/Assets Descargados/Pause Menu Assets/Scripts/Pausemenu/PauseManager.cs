@@ -339,7 +339,7 @@ namespace GreatArcStudios
             fovINI = mainCam.fieldOfView;
             msaaINI = QualitySettings.antiAliasing;
             vsyncINI = QualitySettings.vSyncCount;
-            
+
             //Find terrain
             terrain = Terrain.activeTerrain;
             if (currentLevelName != "MainMenu")
@@ -354,7 +354,7 @@ namespace GreatArcStudios
                 mask.SetActive(false);
 
                 //Paneles Extra
-                if(savePanel != null)
+                if (savePanel != null)
                 {
                     savePanel.SetActive(false);
                 }
@@ -398,10 +398,10 @@ namespace GreatArcStudios
         /// </summary>
         public void Restart()
         {
-          SceneManager.LoadScene(currentLevelName);
-          //SceneManager.LoadScene(Application.loadedLevel);
-          //Application.LoadLevel(Application.loadedLevel);
-          uiEventSystem.firstSelectedGameObject = defualtSelectedMain;
+            SceneManager.LoadScene(currentLevelName);
+            //SceneManager.LoadScene(Application.loadedLevel);
+            //Application.LoadLevel(Application.loadedLevel);
+            uiEventSystem.firstSelectedGameObject = defualtSelectedMain;
         }
         /// <summary>
         /// Method to resume the game, so disable the pause menu and re-enable all other ui elements
@@ -458,7 +458,7 @@ namespace GreatArcStudios
         {
             vidPanel.SetActive(false);
             audioPanel.SetActive(false);
-            if(savePanel != null)
+            if (savePanel != null)
             {
                 savePanel.SetActive(false);
             }
@@ -489,7 +489,7 @@ namespace GreatArcStudios
             {
                 goLevelPanel.SetActive(true);
             }
-            if(savePanel != null)
+            if (savePanel != null)
             {
                 savePanel.SetActive(false);
             }
@@ -580,7 +580,7 @@ namespace GreatArcStudios
 
         public void saveFileSimulator()
         {
-            if(saverManager != null)
+            if (saverManager != null)
             {
                 InputField inputFieldCurrentName = GameObject.Find("NameSavedFileInput").GetComponent<InputField>();
                 Text textInfoSavedFile = GameObject.Find("SavedFileInformationText").GetComponent<Text>();
@@ -622,7 +622,8 @@ namespace GreatArcStudios
                     inputFieldCurrentName.text = "0.0";
                     textInfoSavedFile.text = "Información: Error. El nombre del archivo No debe ser mayor a " + tamanoMaxNombre + " caracteres.";
                     buttonSaveFile.enabled = false;
-                }else if (proManage.ComprobarExistenciaArchivo(dataPath))
+                }
+                else if (proManage.ComprobarExistenciaArchivo(dataPath))
                 {
                     textInfoSavedFile.text = "Información: Cuidado. El nombre del archivo introducido ya corresponde a un archivo existente de guardado, si guarda el archivo actual se borrará el contenido anterior.";
                     buttonSaveFile.enabled = true;
@@ -677,7 +678,7 @@ namespace GreatArcStudios
                         textInfoLoadedFile.text += "Error. La cadena Json es invalida, compruebe la estructura del archivo, puede estar corrupto.";
                         buttoLoadFile.enabled = false;
                     }
-                    
+
                 }
                 else
                 {
@@ -836,14 +837,14 @@ namespace GreatArcStudios
 
         IEnumerator quitGameTime(int seconds)
         {
-            Debug.Log("Inicia salida del juego en "+ seconds + " segundos.");
+            Debug.Log("Inicia salida del juego en " + seconds + " segundos.");
             music[0].volume = 0.20f;
             yield return new WaitForSeconds(seconds);
             Debug.Log("Finaliza salida del juego.");
             Application.Quit();
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
-            #endif
+#endif
         }
 
         /// <summary>
@@ -861,7 +862,7 @@ namespace GreatArcStudios
             gameMaskToColor(Color.cyan);
             StartCoroutine(goLevel(3, "MainMenuPrueba", 0.10f));
             quitPanelAnimator.Play("QuitPanelOut");
-    
+
             //SceneManager.LoadScene("MainMenu");
             //SceneManager.LoadScene("MainMenuPrueba");
             //Application.LoadLevel(mainMenu);
@@ -890,7 +891,7 @@ namespace GreatArcStudios
                 pauseMenu.text = "Menú de pausa";
             }
 
-            if(currentLevelName != "MainMenu")
+            if (currentLevelName != "MainMenu")
             {
                 if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.activeSelf == false)
                 {
@@ -960,9 +961,6 @@ namespace GreatArcStudios
                     }
                 }
             }
-
-
-
         }
         /*
         void colorCrossfade()
@@ -991,7 +989,7 @@ namespace GreatArcStudios
             {
                 goLevelPanel.SetActive(false);
             }
-            if(savePanel != null)
+            if (savePanel != null)
             {
                 savePanel.SetActive(false);
             }
@@ -1116,7 +1114,7 @@ namespace GreatArcStudios
             mainPanel.SetActive(true);
             vidPanel.SetActive(false);
             audioPanel.SetActive(false);
-            if(savePanel != null)
+            if (savePanel != null)
             {
                 savePanel.SetActive(false);
             }
@@ -1153,7 +1151,7 @@ namespace GreatArcStudios
             mainPanel.SetActive(true);
             vidPanel.SetActive(false);
             audioPanel.SetActive(false);
-            if(savePanel != null)
+            if (savePanel != null)
             {
                 savePanel.SetActive(false);
             }
@@ -1199,7 +1197,7 @@ namespace GreatArcStudios
             {
                 goLevelPanel.SetActive(false);
             }
-            if(savePanel != null)
+            if (savePanel != null)
             {
                 savePanel.SetActive(false);
             }
