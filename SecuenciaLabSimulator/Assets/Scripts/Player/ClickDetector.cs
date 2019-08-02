@@ -67,77 +67,8 @@ public class ClickDetector : MonoBehaviour
                     {
                         if (clickedGmObj.name.Contains("EntradaPlug") && clickedGmObj != lastClickedGmObj)
                         {
-                            Renderer rend = clickedGmObj.GetComponent<Renderer>();
-                            //rend.material.color = Color.red;
                             segundoPlug = true;
-
-                            CableComponent cableCompStart = lastClickedGmObj.GetComponent<CableComponent>();
-                            CableComponent cableCompEnd = clickedGmObj.GetComponent<CableComponent>();
-
-                            if (cableCompStart.endPoint != null)
-                            {
-                                CableComponent cableCompLastEndPointStart = cableCompStart.endPoint.GetComponent<CableComponent>();
-                                GameObject endPoint = cableCompStart.endPoint;
-                                Debug.Log("GameObject endPoint = cableCompStart.endPoint;");
-                                Destroy(cableCompLastEndPointStart);
-                                Debug.Log("Destroy(cableCompLastEndPointStart);");
-                                Destroy(cableCompStart);
-                                Debug.Log("Destroy(cableCompStart);");
-                                //cableCompLastEndPointStart.endPoint = null;
-                                //cableCompLastEndPointStart.startPoint = null;
-                                Destroy(lastClickedGmObj.GetComponent<LineRenderer>());
-                                Destroy(cableCompStart.endPoint.GetComponent<LineRenderer>());
-
-                                endPoint.AddComponent(typeof(CableComponent));
-                                Debug.Log("endPoint.AddComponent(typeof(CableComponent));");
-                                cableCompStart = lastClickedGmObj.AddComponent(typeof(CableComponent)) as CableComponent;
-                                Debug.Log("lastClickedGmObj.AddComponent(typeof(CableComponent)) as CableComponent;");
-                            }
-                            //CableComponent cableCompEnd2 = cableCompEnd;
-                           // GameObject endEndPoint = cableCompEnd2.endPoint;
-                            //    if (cableCompEnd2.endPoint != null)
-                            //    {
-                            //        CableComponent cableCompLastEndPointEnd = endEndPoint.GetComponent<CableComponent>();
-                            //        Destroy(cableCompLastEndPointEnd);
-                            //        Destroy(clickedGmObj.GetComponent<CableComponent>());
-                           //         Destroy(clickedGmObj.GetComponent<LineRenderer>());
-                           //         Destroy(endEndPoint.GetComponent<LineRenderer>());
-
-                           //         endEndPoint.AddComponent(typeof(CableComponent));
-                           //         cableCompEnd = clickedGmObj.AddComponent(typeof(CableComponent)) as CableComponent;
-                           //     Debug.Log("**********************************************cableCompEnd2.endPoint != null");
-                           // }
-
-
-                            cableCompStart.endPoint = clickedGmObj;
-                            cableCompStart.startPoint = lastClickedGmObj;
-
-                            //cableCompStart.cableMaterial = (Material)Resources.Load("CableMaterial.mat", typeof(Material));
-                            cableCompStart.cableMaterial = cableMaterial;
-                            cableCompStart.InitCableParticles();
-                            cableCompStart.InitLineRenderer();
-
-                            
-
-                            cableCompEnd.endPoint = lastClickedGmObj;
-                            cableCompEnd.startPoint = clickedGmObj;
-                            cableCompEnd.cableMaterial = cableMaterial;
-
-                            //lastClickedGmObj.GetComponent<Renderer>().material.color = Color.white;
-                            //clickedGmObj.GetComponent<Renderer>().material.color = Color.white;
-                            if(lastClickedGmObj.GetComponent<ChangeColorCables>() == null)
-                            {
-                                lastClickedGmObj.AddComponent<ChangeColorCables>();
-                            }
-                            if (clickedGmObj.GetComponent<ChangeColorCables>() == null)
-                            {
-                                clickedGmObj.AddComponent<ChangeColorCables>();
-                            }
-                            changeOriginalColorPlug(lastClickedGmObj);
-                            changeOriginalColorPlug(clickedGmObj);
-
-                            clickedGmObj.SendMessage("CrearConexionPlugs", 1, SendMessageOptions.DontRequireReceiver);
-                            lastClickedGmObj.SendMessage("CrearConexionPlugs", 1, SendMessageOptions.DontRequireReceiver);
+                            CrearConexionCable(clickedGmObj);
                         }
                         else
                         {
@@ -245,6 +176,123 @@ public class ClickDetector : MonoBehaviour
         {
             objectClick.GetComponent<Renderer>().material = (Material)AssetDatabase.LoadAssetAtPath(rutaMaterialPlugAnaranjado, typeof(Material));
         }
+    }
+
+    private void CrearConexionCable(GameObject clickedGmObj)
+    {
+        Renderer rend = clickedGmObj.GetComponent<Renderer>();
+        //rend.material.color = Color.red;
+        //segundoPlug = true;
+
+        CableComponent cableCompStart = lastClickedGmObj.GetComponent<CableComponent>();
+        CableComponent cableCompEnd = clickedGmObj.GetComponent<CableComponent>();
+
+
+        /*if (cableCompStart.endPoint != null)
+        {
+            CableComponent cableCompLastEndPointStart = cableCompStart.endPoint.GetComponent<CableComponent>();
+            GameObject endPoint = cableCompStart.endPoint;
+            Debug.Log("GameObject endPoint = cableCompStart.endPoint;");
+            Destroy(cableCompLastEndPointStart);
+            Debug.Log("Destroy(cableCompLastEndPointStart);");
+            Destroy(cableCompStart);
+            Debug.Log("Destroy(cableCompStart);");
+            //cableCompLastEndPointStart.endPoint = null;
+            //cableCompLastEndPointStart.startPoint = null;
+            Destroy(lastClickedGmObj.GetComponent<LineRenderer>());
+            Destroy(cableCompStart.endPoint.GetComponent<LineRenderer>());
+
+            endPoint.AddComponent(typeof(CableComponent));
+            Debug.Log("endPoint.AddComponent(typeof(CableComponent));");
+            cableCompStart = lastClickedGmObj.AddComponent(typeof(CableComponent)) as CableComponent;
+            Debug.Log("lastClickedGmObj.AddComponent(typeof(CableComponent)) as CableComponent;");
+        }*/
+        //CableComponent cableCompEnd2 = cableCompEnd;
+        // GameObject endEndPoint = cableCompEnd2.endPoint;
+        //    if (cableCompEnd2.endPoint != null)
+        //    {
+        //        CableComponent cableCompLastEndPointEnd = endEndPoint.GetComponent<CableComponent>();
+        //        Destroy(cableCompLastEndPointEnd);
+        //        Destroy(clickedGmObj.GetComponent<CableComponent>());
+        //         Destroy(clickedGmObj.GetComponent<LineRenderer>());
+        //         Destroy(endEndPoint.GetComponent<LineRenderer>());
+
+        //         endEndPoint.AddComponent(typeof(CableComponent));
+        //         cableCompEnd = clickedGmObj.AddComponent(typeof(CableComponent)) as CableComponent;
+        //     Debug.Log("**********************************************cableCompEnd2.endPoint != null");
+        // }
+
+        bool eliminarCable = ComprobarEliminarConexion(cableCompStart, lastClickedGmObj);
+        ComprobarEliminarConexion(cableCompEnd, clickedGmObj);
+        if (!eliminarCable)
+        {
+            cableCompStart.startPoint = lastClickedGmObj;
+            cableCompStart.endPoint = clickedGmObj;
+
+            //cableCompStart.cableMaterial = (Material)Resources.Load("CableMaterial.mat", typeof(Material));
+            //Primer conector en  ser seleccionado
+            cableCompStart.cableMaterial = cableMaterial;
+            cableCompStart.InitCableParticles();
+            cableCompStart.InitLineRenderer();
+
+            //Segundo conector en eser seleccionado
+            cableCompEnd.startPoint = clickedGmObj;
+            cableCompEnd.endPoint = lastClickedGmObj;
+            cableCompEnd.cableMaterial = cableMaterial;
+
+            //lastClickedGmObj.GetComponent<Renderer>().material.color = Color.white;
+            //clickedGmObj.GetComponent<Renderer>().material.color = Color.white;
+            if (lastClickedGmObj.GetComponent<ChangeColorCables>() == null)
+            {
+                lastClickedGmObj.AddComponent<ChangeColorCables>();
+            }
+            if (clickedGmObj.GetComponent<ChangeColorCables>() == null)
+            {
+                clickedGmObj.AddComponent<ChangeColorCables>();
+            }
+        }
+
+        //Crear conexiones entre plugs
+        clickedGmObj.SendMessage("CrearConexionPlugs", false, SendMessageOptions.DontRequireReceiver);
+        lastClickedGmObj.SendMessage("CrearConexionPlugs", false, SendMessageOptions.DontRequireReceiver);
+
+        //Regresar color original a conectores
+        changeOriginalColorPlug(lastClickedGmObj);
+        changeOriginalColorPlug(clickedGmObj);
+
+        
+    }
+
+    private bool ComprobarEliminarConexion(CableComponent cableCompStart, GameObject objectStart)
+    {
+        bool eliminarCable = false;
+        if (cableCompStart.endPoint != null)//Si este valor es diferente a nulo, kquiere decir que este plug ya tiene una conexión
+        {
+            eliminarCable = true;
+            GameObject endPoint = cableCompStart.endPoint;
+            CableComponent cableCompLastEndPointStart = endPoint.GetComponent<CableComponent>();
+            Debug.Log("GameObject endPoint = cableCompStart.endPoint;");
+            cableCompLastEndPointStart.endPoint = null;
+            cableCompStart.endPoint = null;
+            cableCompLastEndPointStart.showRender = true;
+            cableCompStart.showRender = true;
+
+            //Desturir elementos Line Render
+            LineRenderer lineRenderEndPoint = endPoint.GetComponent<LineRenderer>();
+            if(lineRenderEndPoint != null)
+            {
+                Destroy(lineRenderEndPoint);
+                endPoint.AddComponent<LineRenderer>();
+            }
+
+            LineRenderer lineRenderStartPoint = objectStart.GetComponent<LineRenderer>();
+            if (lineRenderStartPoint != null)
+            {
+                Destroy(lineRenderStartPoint);
+                endPoint.AddComponent<LineRenderer>();
+            }
+        }
+        return eliminarCable;
     }
 
 }
