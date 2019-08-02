@@ -110,6 +110,11 @@ public class FocoCircularAzul : MonoBehaviour
                     Debug.Log("Modulo9 - if (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
                 }
             }
+            else
+            {
+                EliminarMaterial();
+                Debug.LogError(padreTotalComponente.name + ") " + this.name + " - Este caso de uso todavia no esta programado - No entro a ningun caso");
+            }
         }
         else
         {
@@ -120,6 +125,12 @@ public class FocoCircularAzul : MonoBehaviour
                 Debug.Log("Modulo9 - if (plugIzquierdoCompPlug.Conectado && plugDerechoCompPlug.Conectado) - NO esta conectados");
             }
         }
+    }
+
+    void EliminarMaterial()
+    {
+        Renderer focoAmarillo = transform.GetComponent<Renderer>();
+        focoAmarillo.material = null;
     }
 
     public void EncenderFoco()

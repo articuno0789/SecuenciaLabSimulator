@@ -89,6 +89,10 @@ public class LuzRoja : MonoBehaviour
                 {
                     Debug.Log("Modulo9 - if (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 1) - Conectado");
                 }*/
+                focoAveriado = false;
+                EliminarMaterial();
+                //ApagarFoco();
+                Debug.LogError(padreTotalComponente.name + ") " + this.name + " - Este caso de uso todavia no esta programado");
             }
             else if (plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1) // Avaeria - Dos lineas conectadas al mismo tiempo
             {
@@ -108,6 +112,11 @@ public class LuzRoja : MonoBehaviour
                     Debug.Log(padreTotalComponente.name + ") " + this.name + " - (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
                 }
             }
+            else
+            {
+                EliminarMaterial();
+                Debug.LogError(padreTotalComponente.name + ") " + this.name + " - Este caso de uso todavia no esta programado - No entro a ningun caso");
+            }
         }
         else
         {
@@ -118,6 +127,12 @@ public class LuzRoja : MonoBehaviour
                 Debug.Log(padreTotalComponente.name + ") " + this.name + " - if (plugIzquierdoCompPlug.Conectado && plugDerechoCompPlug.Conectado) - NO esta conectados");
             }
         }
+    }
+
+    void EliminarMaterial()
+    {
+        Renderer focoAmarillo = transform.GetComponent<Renderer>();
+        focoAmarillo.material = null;
     }
 
     public void EncenderFoco()
