@@ -293,6 +293,7 @@ namespace GreatArcStudios
         //public Boolean blurBool;
 
         GameObject player;
+        bool Player_m_rotateViewPermission;
         /// <summary>
         /// The start method; you will need to place all of your inital value getting/setting here. 
         /// </summary>
@@ -437,7 +438,7 @@ namespace GreatArcStudios
             if (player != null)
             {
                 FirstPersonController playerController = player.GetComponent<FirstPersonController>();
-                playerController.m_rotateViewPermission = true;
+                playerController.m_rotateViewPermission = Player_m_rotateViewPermission;
                 playerController.m_movementPermission = true;
             }
             /* if (blurBool == false)
@@ -918,6 +919,7 @@ namespace GreatArcStudios
                     if (player != null)
                     {
                         FirstPersonController playerController = player.GetComponent<FirstPersonController>();
+                        Player_m_rotateViewPermission = playerController.m_rotateViewPermission;
                         playerController.m_rotateViewPermission = false;
                         playerController.m_movementPermission = false;
                     }
@@ -953,7 +955,7 @@ namespace GreatArcStudios
                     if (player != null)
                     {
                         FirstPersonController playerController = player.GetComponent<FirstPersonController>();
-                        playerController.m_rotateViewPermission = true;
+                        playerController.m_rotateViewPermission = Player_m_rotateViewPermission;
                         playerController.m_movementPermission = true;
                     }
                 }
