@@ -138,9 +138,9 @@ public class ChangeModule : MonoBehaviour
 
         if (tipoPadreTotalViejo == "22")//Destruir objeto de la derecha
         {
-            ModulesList modelusList = modulesList.GetComponent<ModulesList>();
+            ModulesList modelsList = modulesList.GetComponent<ModulesList>();
             Debug.Log("posicion: " + posicion);
-            GameObject moduloDerecho = modelusList.modulesGroup[(posicion - 1) + 1].modelSystemGO;
+            GameObject moduloDerecho = modelsList.modulesGroup[(posicion - 1) + 1].modelSystemGO;
             EncontrarPadreTotal(moduloDerecho);
             nombrePadreTotalViejo = padreTotal.name;
             DestruirObjetosRecursivos(padreTotal);
