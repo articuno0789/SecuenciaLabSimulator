@@ -281,10 +281,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f87d0351fbd81c34b9728309a0f3d499, type: 3}
   - {fileID: 21300000, guid: cca7259740d233b4fa4d48cd2d5831dd, type: 3}
   changeImageWithTimer: 1
-  imageTimerValue: 10
+  imageTimerValue: 5
   imageFadingSpeed: 1
   objectAnimator: {fileID: 95063768590427680}
-  virtualLoadingTimer: 20
+  virtualLoadingTimer: 10
   enableVirtualLoading: 1
   enableTitleDesc: 1
   enableRandomHints: 1

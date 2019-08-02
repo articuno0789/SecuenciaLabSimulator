@@ -284,7 +284,7 @@ MonoBehaviour:
   imageTimerValue: 3
   imageFadingSpeed: 1
   objectAnimator: {fileID: 95063768590427680}
-  virtualLoadingTimer: 6
+  virtualLoadingTimer: 3
   enableVirtualLoading: 1
   enableTitleDesc: 1
   enableRandomHints: 1
