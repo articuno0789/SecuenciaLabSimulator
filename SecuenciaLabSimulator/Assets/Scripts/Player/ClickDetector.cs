@@ -259,8 +259,6 @@ public class ClickDetector : MonoBehaviour
         //Regresar color original a conectores
         changeOriginalColorPlug(lastClickedGmObj);
         changeOriginalColorPlug(clickedGmObj);
-
-        
     }
 
     private bool ComprobarEliminarConexion(CableComponent cableCompStart, GameObject objectStart)
