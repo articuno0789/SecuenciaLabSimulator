@@ -483,6 +483,7 @@ namespace GreatArcStudios
         /// </summary>
         public void goLevelOptions()
         {
+            quitPanelAnimator.Play("QuitPanelOut");
             vidPanel.SetActive(false);
             audioPanel.SetActive(false);
             if (goLevelPanel != null)
@@ -507,6 +508,7 @@ namespace GreatArcStudios
 
         public void controlOptions()
         {
+            quitPanelAnimator.Play("QuitPanelOut");
             vidPanel.SetActive(false);
             audioPanel.SetActive(false);
             if (goLevelPanel != null)
@@ -537,15 +539,17 @@ namespace GreatArcStudios
             {
                 controlPanel.SetActive(false);
             }
+            quitPanelAnimator.Play("QuitPanelOut");
         }
 
         public void saveSimulatorOptions()
         {
+            quitPanelAnimator.Play("QuitPanelOut");
             vidPanel.SetActive(false);
             audioPanel.SetActive(false);
             if (goLevelPanel != null)
             {
-                goLevelPanel.SetActive(true);
+                goLevelPanel.SetActive(false);
             }
             if (savePanel != null)
             {
@@ -694,6 +698,7 @@ namespace GreatArcStudios
             {
                 savePanel.SetActive(false);
             }
+            quitPanelAnimator.Play("QuitPanelOut");
         }
 
         public void closeLoadSimulatorOptions()
@@ -702,15 +707,17 @@ namespace GreatArcStudios
             {
                 loadPanel.SetActive(false);
             }
+            quitPanelAnimator.Play("QuitPanelOut");
         }
 
         public void loadSimulatorOptions()
         {
+            quitPanelAnimator.Play("QuitPanelOut");
             vidPanel.SetActive(false);
             audioPanel.SetActive(false);
             if (goLevelPanel != null)
             {
-                goLevelPanel.SetActive(true);
+                goLevelPanel.SetActive(false);
             }
             if (savePanel != null)
             {
@@ -766,6 +773,7 @@ namespace GreatArcStudios
             {
                 goLevelPanel.SetActive(false);
             }
+            quitPanelAnimator.Play("QuitPanelOut");
         }
 
         public void goSimulator()
@@ -913,6 +921,10 @@ namespace GreatArcStudios
                     {
                         loadPanel.SetActive(false);
                     }
+                    if (goLevelPanel != null)
+                    {
+                        goLevelPanel.SetActive(false);
+                    }
                     for (int i = 0; i < otherUIElements.Length; i++)
                     {
                         otherUIElements[i].gameObject.SetActive(false);
@@ -948,6 +960,10 @@ namespace GreatArcStudios
                     if (loadPanel != null)
                     {
                         loadPanel.SetActive(false);
+                    }
+                    if (goLevelPanel != null)
+                    {
+                        goLevelPanel.SetActive(false);
                     }
                     for (int i = 0; i < otherUIElements.Length; i++)
                     {
