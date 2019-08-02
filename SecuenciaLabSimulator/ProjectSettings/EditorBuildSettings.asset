@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: c25c3e67163c0e741bd2a533dd49f6dd
+  - enabled: 1
+    path: Assets/Scenes/SecuencialDiagram.unity
+    guid: c4d8deae83fd5274ba073edaa5cbd6ad
   m_configObjects: {}
