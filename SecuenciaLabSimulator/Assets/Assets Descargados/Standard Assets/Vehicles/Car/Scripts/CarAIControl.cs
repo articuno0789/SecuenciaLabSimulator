@@ -45,6 +45,19 @@ namespace UnityStandardAssets.Vehicles.Car
         private float m_AvoidPathOffset;          // direction (-1 or 1) in which to offset path to avoid other car, whilst avoiding
         private Rigidbody m_Rigidbody;
 
+        public bool StopWhenTargetReached { get => m_StopWhenTargetReached; set => m_StopWhenTargetReached = value; }
+        public float ReachTargetThreshold { get => m_ReachTargetThreshold; set => m_ReachTargetThreshold = value; }
+        public float AccelWanderSpeed { get => m_AccelWanderSpeed; set => m_AccelWanderSpeed = value; }
+        public BrakeCondition BrakeCondition1 { get => m_BrakeCondition; set => m_BrakeCondition = value; }
+        public float LateralWanderSpeed { get => m_LateralWanderSpeed; set => m_LateralWanderSpeed = value; }
+        public float LateralWanderDistance { get => m_LateralWanderDistance; set => m_LateralWanderDistance = value; }
+        public float BrakeSensitivity { get => m_BrakeSensitivity; set => m_BrakeSensitivity = value; }
+        public float AccelSensitivity { get => m_AccelSensitivity; set => m_AccelSensitivity = value; }
+        public float SteerSensitivity { get => m_SteerSensitivity; set => m_SteerSensitivity = value; }
+        public float CautiousAngularVelocityFactor { get => m_CautiousAngularVelocityFactor; set => m_CautiousAngularVelocityFactor = value; }
+        public float CautiousMaxDistance { get => m_CautiousMaxDistance; set => m_CautiousMaxDistance = value; }
+        public float CautiousMaxAngle { get => m_CautiousMaxAngle; set => m_CautiousMaxAngle = value; }
+        public float CautiousSpeedFactor { get => m_CautiousSpeedFactor; set => m_CautiousSpeedFactor = value; }
 
         private void Awake()
         {

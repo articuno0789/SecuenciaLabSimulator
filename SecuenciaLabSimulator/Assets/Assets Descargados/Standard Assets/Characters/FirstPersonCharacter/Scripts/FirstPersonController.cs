@@ -15,6 +15,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] public bool m_movementPermission;
         [SerializeField] private bool m_IsFlyingCamara;
 
+        [SerializeField] private bool m_IsWalking_Menu;
         [SerializeField] private bool m_IsWalking;
         [SerializeField] private float m_WalkSpeed;
         [SerializeField] private float m_RunSpeed;
@@ -27,7 +28,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         //Volar y caminar
         [SerializeField] private MouseLook m_MouseLook;
-        [SerializeField] private bool m_UseFovKick;
+        [SerializeField] private readonly bool m_UseFovKick;
         [SerializeField] private FOVKick m_FovKick = new FOVKick();
         //Solo caminar
         [SerializeField] private bool m_UseHeadBob;
@@ -58,6 +59,29 @@ namespace UnityStandardAssets.Characters.FirstPerson
         //Volar y caminar
         private AudioSource m_AudioSource;
 
+        public float StickToGroundForce { get => m_StickToGroundForce; set => m_StickToGroundForce = value; }
+        public float GravityMultiplier { get => m_GravityMultiplier; set => m_GravityMultiplier = value; }
+        public float JumpSpeed { get => m_JumpSpeed; set => m_JumpSpeed = value; }
+        public bool UseHeadBob { get => m_UseHeadBob; set => m_UseHeadBob = value; }
+        public float StepInterval { get => m_StepInterval; set => m_StepInterval = value; }
+        public float RunstepLenghten { get => m_RunstepLenghten; set => m_RunstepLenghten = value; }
+        public float RunSpeed { get => m_RunSpeed; set => m_RunSpeed = value; }
+        public float WalkSpeed { get => m_WalkSpeed; set => m_WalkSpeed = value; }
+        public bool IsFlyingCamara { get => m_IsFlyingCamara; set => m_IsFlyingCamara = value; }
+        public float YRotation { get => m_YRotation; set => m_YRotation = value; }
+        public AudioClip JumpSound { get => m_JumpSound; set => m_JumpSound = value; }
+        public AudioClip LandSound { get => m_LandSound; set => m_LandSound = value; }
+        public MouseLook MouseLook { get => m_MouseLook; set => m_MouseLook = value; }
+
+        public bool UseFovKick => m_UseFovKick;
+
+        public FOVKick FovKick { get => m_FovKick; set => m_FovKick = value; }
+        public AudioClip[] FootstepSounds { get => m_FootstepSounds; set => m_FootstepSounds = value; }
+
+        public bool UseFovKick1 => m_UseFovKick;
+
+        public bool UseFovKick2 => m_UseFovKick;
+
         // Use this for initialization
         private void Start()
         {
@@ -73,6 +97,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_MouseLook.Init(transform, m_Camera.transform);
             m_rotateViewPermission = true;
             m_movementPermission = true;
+            m_IsWalking_Menu = true;
         }
 
 
@@ -119,6 +144,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
         }
 
+        public void HabilitarDeshabilitarRotacionCamara()
+        {
+            if (m_rotateViewPermission)
+            {
+                m_rotateViewPermission = false;
+            }
+            else
+            {
+                m_rotateViewPermission = true;
+            }
+        }
 
         private void PlayLandingSound()
         {
@@ -127,23 +163,66 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_NextStep = m_StepCycle + .5f;
         }
 
+        public void WalkingRunningMenu()
+        {
+            if (m_IsWalking_Menu)
+            {
+                m_IsWalking_Menu = false;
+            }
+            else
+            {
+                m_IsWalking_Menu = true;
+            }
+        }
+
+        public void MovePlayerMenu(string movement)
+        {
+            float speed = m_WalkSpeed;
+            if (!m_IsWalking_Menu)
+            {
+                speed = m_RunSpeed;
+            }
+            if (movement == "W")
+            {
+                transform.Translate(Vector3.forward * speed * Time.deltaTime);
+            }
+            if (movement == "S")
+            {
+                transform.Translate(Vector3.back * speed * Time.deltaTime);
+            }
+            if (movement == "A")
+            {
+                transform.Translate(Vector3.left * speed * Time.deltaTime);
+            }
+            if (movement == "D")
+            {
+                transform.Translate(Vector3.right * speed * Time.deltaTime);
+            }
+            if (movement == "E")
+            {
+                transform.Translate(Vector3.up * speed * Time.deltaTime);
+            }
+            if (movement == "Q")
+            {
+                transform.Translate(Vector3.down * speed * Time.deltaTime);
+            }
+        }
 
         private void FixedUpdate()
         {
             if (m_movementPermission)
             {
                 float flyDirection = 0;
-                if (Input.GetKey("e"))
+                if (Input.GetKey(KeyCode.E)) // Arriba
                 {
                     flyDirection = 1;
                 }
-                else if (Input.GetKey("q"))
+                else if (Input.GetKey(KeyCode.Q))//Abajo
                 {
                     flyDirection = -1;
                 }
 
-                float speed;
-                GetInput(out speed);
+                GetInput(out float speed);
                 // always move along the camera forward as it is the direction that it being aimed at
 
                 Vector3 desiredMove = transform.forward * m_Input.y + transform.right * m_Input.x;
@@ -157,8 +236,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 }
 
                 // get a normal for the surface that is being touched to move along it
-                RaycastHit hitInfo;
-                Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
+                Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out RaycastHit hitInfo,
                                    m_CharacterController.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
                 desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
 
@@ -202,7 +280,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_AudioSource.clip = m_JumpSound;
             m_AudioSource.Play();
         }
-
 
         private void ProgressStepCycle(float speed)
         {

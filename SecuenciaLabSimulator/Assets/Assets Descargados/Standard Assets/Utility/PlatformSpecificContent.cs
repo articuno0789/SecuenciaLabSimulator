@@ -43,6 +43,9 @@ namespace UnityStandardAssets.Utility
                 return 1;
             }
         }
+
+        private BuildTargetGroup BuildTargetGroup1 { get => m_BuildTargetGroup; set => m_BuildTargetGroup = value; }
+        public bool ChildrenOfThisObject { get => m_ChildrenOfThisObject; set => m_ChildrenOfThisObject = value; }
 #endif
 
 #if UNITY_EDITOR

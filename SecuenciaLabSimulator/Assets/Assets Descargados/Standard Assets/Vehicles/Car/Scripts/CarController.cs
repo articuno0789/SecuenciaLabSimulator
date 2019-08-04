@@ -54,6 +54,23 @@ namespace UnityStandardAssets.Vehicles.Car
         public float MaxSpeed{get { return m_Topspeed; }}
         public float Revs { get; private set; }
         public float AccelInput { get; private set; }
+        public float FullTorqueOverAllWheels { get => m_FullTorqueOverAllWheels; set => m_FullTorqueOverAllWheels = value; }
+        public float MaximumSteerAngle { get => m_MaximumSteerAngle; set => m_MaximumSteerAngle = value; }
+        public WheelEffects[] WheelEffects { get => m_WheelEffects; set => m_WheelEffects = value; }
+        public GameObject[] WheelMeshes { get => m_WheelMeshes; set => m_WheelMeshes = value; }
+        public WheelCollider[] WheelColliders { get => m_WheelColliders; set => m_WheelColliders = value; }
+        internal CarDriveType CarDriveType { get => m_CarDriveType; set => m_CarDriveType = value; }
+        public float ReverseTorque { get => m_ReverseTorque; set => m_ReverseTorque = value; }
+        public float Downforce { get => m_Downforce; set => m_Downforce = value; }
+        public float Topspeed { get => m_Topspeed; set => m_Topspeed = value; }
+        public float RevRangeBoundary { get => m_RevRangeBoundary; set => m_RevRangeBoundary = value; }
+        public float SlipLimit { get => m_SlipLimit; set => m_SlipLimit = value; }
+        public float BrakeTorque { get => m_BrakeTorque; set => m_BrakeTorque = value; }
+        public float TractionControl1 { get => m_TractionControl; set => m_TractionControl = value; }
+        public float SteerHelper1 { get => m_SteerHelper; set => m_SteerHelper = value; }
+        internal SpeedType SpeedType { get => m_SpeedType; set => m_SpeedType = value; }
+        public static int NoOfGears1 { get => NoOfGears; set => NoOfGears = value; }
+        public Vector3 CentreOfMassOffset { get => m_CentreOfMassOffset; set => m_CentreOfMassOffset = value; }
 
         // Use this for initialization
         private void Start()

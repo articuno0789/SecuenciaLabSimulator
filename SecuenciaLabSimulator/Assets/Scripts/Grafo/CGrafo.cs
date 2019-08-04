@@ -120,11 +120,11 @@ public class CGrafo : MonoBehaviour
     public void AgregarArco(CVertice pVerticeOrigen, CVertice pVerticeDestino, int pDistancia)
     { // Posicionarse en el elemento donde se agragara el arco
         if (ExisteVertice(pVerticeOrigen) && ExisteVertice(pVerticeDestino))
-            agregarArco(pVerticeOrigen, pVerticeDestino, pDistancia);
+            AgregarArco2(pVerticeOrigen, pVerticeDestino, pDistancia);
         else
             Debug.Log("Error......No se agregó arco");
     }
-    private void agregarArco(CVertice pVerticeOrigen, CVertice pVerticeDestino, int pDistancia)
+    private void AgregarArco2(CVertice pVerticeOrigen, CVertice pVerticeDestino, int pDistancia)
     { // Posicionarse en el elemento donde se agragara el arco
         if (ExisteVertice(pVerticeOrigen))
         {
@@ -139,7 +139,7 @@ public class CGrafo : MonoBehaviour
             else
            if (aSiguiente != null)
             {
-                aSiguiente.agregarArco(pVerticeOrigen, pVerticeDestino, pDistancia);
+                aSiguiente.AgregarArco2(pVerticeOrigen, pVerticeDestino, pDistancia);
                 numeroArchos++;
             }
 
@@ -154,7 +154,7 @@ public class CGrafo : MonoBehaviour
         }
     }
 
-    public CVertice regresarVertice(CVertice verticeBuscar)
+    public CVertice RegresarVertice(CVertice verticeBuscar)
     {
         CGrafo auxiliar = aSiguiente;
         CVertice encontrado = null;
@@ -197,7 +197,7 @@ public class CGrafo : MonoBehaviour
         }*/
     }
 
-    public CGrafo regresarGrafo(CVertice verticeBuscar)
+    public CGrafo RegresarGrafo(CVertice verticeBuscar)
     {
         CGrafo auxiliar = aSiguiente;
         CGrafo encontrado = null;
@@ -281,7 +281,7 @@ public class CGrafo : MonoBehaviour
 
     public List<Pair<int, long>>[] ady2;
 
-    public long[,] construirTablaDeAdyacencia(int personajeEntero)
+    public long[,] ConstruirTablaDeAdyacencia(int personajeEntero)
     {
         ady2 = new List<Pair<int, long>>[10005];
         for (int i = 0; i < 10005; i++)
@@ -300,7 +300,7 @@ public class CGrafo : MonoBehaviour
             }
         }
 
-        CVertice encontrado = null;
+        //CVertice encontrado = null;
         // Console.WriteLine("aVertice.nombre: " + aVertice.nombre + " " + aVertice.tipoTerreno + ", Buscado: " + verticeBuscar.nombre + " " + verticeBuscar.tipoTerreno);
 
 
@@ -342,7 +342,7 @@ public class CGrafo : MonoBehaviour
 
     }
 
-    public List<CVertice> regresarConexionesVertice(CVertice vertice)
+    public List<CVertice> RegresarConexionesVertice(CVertice vertice)
     {
         List<CVertice> conexiones = new List<CVertice>();
 
@@ -376,7 +376,7 @@ public class CGrafo : MonoBehaviour
         return conexiones;
     }
 
-    public CLista regresarArista(CVertice verticeOrigen, CVertice verticeDestino)
+    public CLista RegresarArista(CVertice verticeOrigen, CVertice verticeDestino)
     {
         CGrafo auxiliar = aSiguiente;
         CLista encontrado = null;
@@ -444,7 +444,7 @@ public class CGrafo : MonoBehaviour
         if (ExisteVertice(pVertice))
         {
             EliminarDeLLegadas(pVertice);
-            suprimirVertice(pVertice);
+            SuprimirVertice2(pVertice);
         }
         else
         {
@@ -461,7 +461,7 @@ public class CGrafo : MonoBehaviour
         }
     }
 
-    private void suprimirVertice(CVertice pVertice)
+    private void SuprimirVertice2(CVertice pVertice)
     {
         if (aVertice != null)
         {
@@ -613,7 +613,7 @@ public class CGrafo : MonoBehaviour
         }
     }
 
-    public void dikstra(CLista verticeOrigen, CLista verticeDestino)
+    public void Dikstra(CLista verticeOrigen, CLista verticeDestino)
     {
         bool verticeAcualExisteListaDeVisitados, rutaNoEncontrada = false;
         int costoActual = 0;
@@ -624,7 +624,7 @@ public class CGrafo : MonoBehaviour
         Stack<Pair<CLista, CLista>> pila = new Stack<Pair<CLista, CLista>>();
         listaCosto.Add(new Pair<CLista, int>(verticeOrigen, 0));
         listaOrdenada.Add(new Pair<CLista, int>(verticeOrigen, 0));
-        
+
         while (listaOrdenada.Count != 0)
         {
             Debug.Log("while (!listaOrdenada.Any()), primer while");
@@ -729,7 +729,7 @@ public class CGrafo : MonoBehaviour
 
     List<Pair<int, int>>[] ady;
 
-    public int[,] construirTablaDeAdyacencia2(int personajeEntero)
+    public int[,] ConstruirTablaDeAdyacencia2(int personajeEntero)
     {
         int numeroVertices = NumerodeVertices();
         ady = new List<Pair<int, int>>[numeroVertices];
@@ -743,7 +743,7 @@ public class CGrafo : MonoBehaviour
             }
         }
 
-        CVertice encontrado = null;
+        //CVertice encontrado = null;
         // Console.WriteLine("aVertice.nombre: " + aVertice.nombre + " " + aVertice.tipoTerreno + ", Buscado: " + verticeBuscar.nombre + " " + verticeBuscar.tipoTerreno);
 
 
@@ -841,7 +841,7 @@ public class CGrafo : MonoBehaviour
         Print(distance, verticesCount);
     }
 
-    public List<int> primeroElMejor(int verticeOrigen, int verticeDestino, int personaje)
+    public List<int> PrimeroElMejor(int verticeOrigen, int verticeDestino, int personaje)
     {
         List<int> recorrido = new List<int>();
         bool verticeAcualExisteListaDeVisitados, rutaNoEncontrada = false;
@@ -852,7 +852,7 @@ public class CGrafo : MonoBehaviour
         List<int> conexionesAUnVertice;
         //verticeOrigen = convertirVerticeRecividoAVerticeDeMatrizSinEspacios(nombreVerticeOrigen, matrizAdyecenciaVerticesSinEspacios);
         //verticeDestino = convertirVerticeRecividoAVerticeDeMatrizSinEspacios(nombreVerticeDestino, matrizAdyecenciaVerticesSinEspacios);
-        long[,] matrizAdyacencia = construirTablaDeAdyacencia(personaje);
+        long[,] matrizAdyacencia = ConstruirTablaDeAdyacencia(personaje);
         long costoActual = 0;
         List<Pair<long, long>> listaCosto = new List<Pair<long, long>>();
         List<Pair<long, long>> listaOrdenada = new List<Pair<long, long>>();
@@ -884,9 +884,9 @@ public class CGrafo : MonoBehaviour
                 }
                 break;
             }
-            int numeroDeConexionesVerticeActual = calcularNumeroDeConexionesDeUnaArista(verticeActual, matrizAdyacencia);
+            int numeroDeConexionesVerticeActual = CalcularNumeroDeConexionesDeUnaArista(verticeActual, matrizAdyacencia);
             int k = 0;
-            conexionesAUnVertice = calcularVerticeALosQueEsConexoUnVertice(verticeActual, matrizAdyacencia);
+            conexionesAUnVertice = CalcularVerticeALosQueEsConexoUnVertice(verticeActual, matrizAdyacencia);
 
             aristaAuxiliar = conexionesAUnVertice[k];//primera conexion vertice actual
                                                      // i numero de conexiones que tiene el vertice;
@@ -912,11 +912,26 @@ public class CGrafo : MonoBehaviour
                             }
                             listaOrdenada.Sort(delegate (Pair<long, long> x, Pair<long, long> y)
                             {
-                                if (x.Second == null && y.Second == null) return 0;
-                                else if (x.Second == null) return -1;
-                                else if (y.Second == null) return 1;
-                                else return x.Second.CompareTo(y.Second);//Checar si es en este orden
-                                });
+                                if (x.Second != null || y.Second != null)
+                                {
+                                    if (x.Second == null)
+                                    {
+                                        return -1;
+                                    }
+                                    else if (y.Second == null)
+                                    {
+                                        return 1;
+                                    }
+                                    else
+                                    {
+                                        return x.Second.CompareTo(y.Second);//Checar si es en este orden
+                                    }
+                                }
+                                else
+                                {
+                                    return 0;
+                                }
+                            });
 
                             pila.Push(new Pair<long, long>(verticeActual, aristaAuxiliar));
                             costoActual = costoActual - matrizAdyacencia[verticeActual, aristaAuxiliar];
@@ -935,7 +950,7 @@ public class CGrafo : MonoBehaviour
                         else if (x.Second == null) return -1;
                         else if (y.Second == null) return 1;
                         else return x.Second.CompareTo(y.Second);//Checar si es en este orden
-                        });
+                    });
                     pila.Push(new Pair<long, long>(verticeActual, aristaAuxiliar));
                     costoActual = costoActual - matrizAdyacencia[verticeActual, aristaAuxiliar];
                 }
@@ -955,7 +970,7 @@ public class CGrafo : MonoBehaviour
         return recorrido;
     }
 
-    int calcularNumeroDeConexionesDeUnaArista(long verticeActual, long[,] matrizAdyacencia)
+    int CalcularNumeroDeConexionesDeUnaArista(long verticeActual, long[,] matrizAdyacencia)
     {
         int numeroConexiones = 0;
         int numeroVertices = NumerodeVertices();
@@ -969,7 +984,7 @@ public class CGrafo : MonoBehaviour
         return numeroConexiones;
     }
 
-    List<int> calcularVerticeALosQueEsConexoUnVertice(long verticeActual, long[,] matrizAdyacencia)
+    List<int> CalcularVerticeALosQueEsConexoUnVertice(long verticeActual, long[,] matrizAdyacencia)
     {
         List<int> listaConexos = new List<int>();
         int numeroVertices = NumerodeVertices();

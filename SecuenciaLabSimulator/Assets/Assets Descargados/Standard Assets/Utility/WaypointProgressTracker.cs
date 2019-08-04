@@ -38,9 +38,16 @@ namespace UnityStandardAssets.Utility
         }
 
         // these are public, readable by other objects - i.e. for an AI to know where to head!
-        public WaypointCircuit.RoutePoint targetPoint { get; private set; }
-        public WaypointCircuit.RoutePoint speedPoint { get; private set; }
-        public WaypointCircuit.RoutePoint progressPoint { get; private set; }
+        public WaypointCircuit.RoutePoint TargetPoint { get; private set; }
+        public WaypointCircuit.RoutePoint SpeedPoint { get; private set; }
+        public WaypointCircuit.RoutePoint ProgressPoint { get; private set; }
+        public float LookAheadForTargetOffset { get => lookAheadForTargetOffset; set => lookAheadForTargetOffset = value; }
+        public float LookAheadForTargetFactor { get => lookAheadForTargetFactor; set => lookAheadForTargetFactor = value; }
+        public float LookAheadForSpeedOffset { get => lookAheadForSpeedOffset; set => lookAheadForSpeedOffset = value; }
+        public float LookAheadForSpeedFactor { get => lookAheadForSpeedFactor; set => lookAheadForSpeedFactor = value; }
+        public ProgressStyle ProgressStyle1 { get => progressStyle; set => progressStyle = value; }
+        public float PointToPointThreshold { get => pointToPointThreshold; set => pointToPointThreshold = value; }
+        public WaypointCircuit Circuit { get => circuit; set => circuit = value; }
 
         public Transform target;
 
@@ -102,9 +109,9 @@ namespace UnityStandardAssets.Utility
 
 
                 // get our current progress along the route
-                progressPoint = circuit.GetRoutePoint(progressDistance);
-                Vector3 progressDelta = progressPoint.position - transform.position;
-                if (Vector3.Dot(progressDelta, progressPoint.direction) < 0)
+                ProgressPoint = circuit.GetRoutePoint(progressDistance);
+                Vector3 progressDelta = ProgressPoint.position - transform.position;
+                if (Vector3.Dot(progressDelta, ProgressPoint.direction) < 0)
                 {
                     progressDistance += progressDelta.magnitude*0.5f;
                 }
@@ -126,9 +133,9 @@ namespace UnityStandardAssets.Utility
                 target.rotation = circuit.Waypoints[progressNum].rotation;
 
                 // get our current progress along the route
-                progressPoint = circuit.GetRoutePoint(progressDistance);
-                Vector3 progressDelta = progressPoint.position - transform.position;
-                if (Vector3.Dot(progressDelta, progressPoint.direction) < 0)
+                ProgressPoint = circuit.GetRoutePoint(progressDistance);
+                Vector3 progressDelta = ProgressPoint.position - transform.position;
+                if (Vector3.Dot(progressDelta, ProgressPoint.direction) < 0)
                 {
                     progressDistance += progressDelta.magnitude;
                 }

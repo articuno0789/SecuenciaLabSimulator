@@ -100,5 +100,8 @@ namespace UnityStandardAssets.Cameras
         {
             get { return m_Target; }
         }
+
+        public bool AutoTargetPlayer { get => m_AutoTargetPlayer; set => m_AutoTargetPlayer = value; }
+        public UpdateType UpdateType1 { get => m_UpdateType; set => m_UpdateType = value; }
     }
 }

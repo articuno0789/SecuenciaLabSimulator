@@ -18,6 +18,12 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
         private Renderer m_PropellorModelRenderer;
         private Renderer m_PropellorBlurRenderer;
 
+        public float ThrottleBlurStart { get => m_ThrottleBlurStart; set => m_ThrottleBlurStart = value; }
+        public float ThrottleBlurEnd { get => m_ThrottleBlurEnd; set => m_ThrottleBlurEnd = value; }
+        public float MaxRpm { get => m_MaxRpm; set => m_MaxRpm = value; }
+        public Transform PropellorModel { get => m_PropellorModel; set => m_PropellorModel = value; }
+        public Transform PropellorBlur { get => m_PropellorBlur; set => m_PropellorBlur = value; }
+        public Texture2D[] PropellorBlurTextures { get => m_PropellorBlurTextures; set => m_PropellorBlurTextures = value; }
 
         private void Awake()
         {

@@ -20,8 +20,14 @@ namespace UnityStandardAssets.Utility
 		[SerializeField]
 		private float heightDamping;
 
-		// Use this for initialization
-		void Start() { }
+        public float Distance { get => distance; set => distance = value; }
+        public float Height { get => height; set => height = value; }
+        public float RotationDamping { get => rotationDamping; set => rotationDamping = value; }
+        public float HeightDamping { get => heightDamping; set => heightDamping = value; }
+        public Transform Target { get => target; set => target = value; }
+
+        // Use this for initialization
+        void Start() { }
 
 		// Update is called once per frame
 		void LateUpdate()

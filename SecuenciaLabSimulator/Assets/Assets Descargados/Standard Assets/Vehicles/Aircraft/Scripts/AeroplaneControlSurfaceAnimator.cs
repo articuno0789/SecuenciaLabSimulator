@@ -10,6 +10,8 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
 
         private AeroplaneController m_Plane; // Reference to the aeroplane controller.
 
+        public float Smoothing { get => m_Smoothing; set => m_Smoothing = value; }
+        public ControlSurface[] ControlSurfaces { get => m_ControlSurfaces; set => m_ControlSurfaces = value; }
 
         private void Start()
         {
