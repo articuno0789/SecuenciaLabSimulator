@@ -232,11 +232,13 @@ public class ClickDetector : MonoBehaviour
 
             //cableCompStart.cableMaterial = (Material)Resources.Load("CableMaterial.mat", typeof(Material));
             //Primer conector en  ser seleccionado
+            cableCompStart.originalColor = Color.black;
             cableCompStart.cableMaterial = cableMaterial;
             cableCompStart.InitCableParticles();
             cableCompStart.InitLineRenderer();
 
             //Segundo conector en eser seleccionado
+            cableCompEnd.originalColor = Color.black;
             cableCompEnd.startPoint = clickedGmObj;
             cableCompEnd.endPoint = lastClickedGmObj;
             cableCompEnd.cableMaterial = cableMaterial;

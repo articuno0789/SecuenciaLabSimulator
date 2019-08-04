@@ -318,15 +318,21 @@ public class ColorPicker : MonoBehaviour
                 CableComponent cableCompEnd = cableCompStart.endPoint.GetComponent<CableComponent>();
                 if (cableCompStart != null)
                 {
+                    cableCompStart.originalColor = CurrentColor;
                     if (cableCompStart.line != null)
                     {
+                        cableCompStart.line.endColor = CurrentColor;
+                        cableCompStart.line.startColor = CurrentColor;
                         cableCompStart.line.SetColors(CurrentColor, CurrentColor);
                     }
                 }
                 if (cableCompEnd != null)
                 {
+                    cableCompEnd.originalColor = CurrentColor;
                     if (cableCompEnd.line != null)
                     {
+                        cableCompEnd.line.endColor = CurrentColor;
+                        cableCompEnd.line.startColor = CurrentColor;
                         cableCompEnd.line.SetColors(CurrentColor, CurrentColor);
                     }
                 }

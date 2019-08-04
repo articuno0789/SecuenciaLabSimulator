@@ -329,33 +329,29 @@ public class ProgressManager : MonoBehaviour
 
             //cableCompStart.cableMaterial = (Material)Resources.Load("CableMaterial.mat", typeof(Material));
             //Primer conector en  ser seleccionado
-            Color color = new Color(0f, 1f, 0f, 1);
-            cableCompStart.originalColor = color;
+            cableCompStart.originalColor = colorCable;
             cableCompStart.cableMaterial = cableMaterial;
             cableCompStart.InitCableParticles();
             cableCompStart.InitLineRenderer();
-            
+
             if (cableCompStart.line != null)
             {
-                Debug.LogError("Cambio color cable origen");
-                cableCompStart.line.endColor = color;
-                cableCompStart.line.startColor = color;
-                cableCompStart.line.SetColors(color, color);
+                cableCompStart.line.endColor = colorCable;
+                cableCompStart.line.startColor = colorCable;
+                cableCompStart.line.SetColors(colorCable, colorCable);
             }
 
             //Segundo conector en eser seleccionado
-            Color color2 = new Color(1f, 0f, 0f, 1);
-            cableCompEnd.originalColor = color;
+            cableCompEnd.originalColor = colorCable;
             cableCompEnd.startPoint = conexionDestino;
             cableCompEnd.endPoint = conexionOrigen;
             cableCompEnd.cableMaterial = cableMaterial;
 
             if (cableCompEnd.line != null)
             {
-                Debug.LogError("Cambio color cable destino");
-                cableCompStart.line.endColor = color2;
-                cableCompStart.line.startColor = color2;
-                cableCompEnd.line.SetColors(color2, color2);
+                cableCompStart.line.endColor = colorCable;
+                cableCompStart.line.startColor = colorCable;
+                cableCompEnd.line.SetColors(colorCable, colorCable);
             }
 
             //lastClickedGmObj.GetComponent<Renderer>().material.color = Color.white;
@@ -1799,10 +1795,11 @@ public class ProgressManager : MonoBehaviour
             camble = plugOrigen.GetComponent<CableComponent>();
             if (camble != null)
             {
-                LineRenderer line = camble.line;
-                if (line != null)
+                //LineRenderer line = camble.line;
+                if (camble != null)
                 {
-                    Color color = line.startColor;
+                    //Color color = line.startColor;
+                    Color color = camble.originalColor;
                     colorString += "\"R\": " + color.r + ",\n";
                     colorString += "\"G\": " + color.g + ",\n";
                     colorString += "\"B\": " + color.b + ",\n";

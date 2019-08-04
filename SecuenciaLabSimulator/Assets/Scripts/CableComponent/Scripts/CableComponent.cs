@@ -142,7 +142,12 @@ public class CableComponent : MonoBehaviour
         //line.material = cableMaterial;
         //line.colorGradient = Color.green;
         line.material = new Material(Shader.Find("Sprites/Default"));
-        originalColor = Color.black;
+        if(originalColor == null)
+        {
+            originalColor = Color.black;
+        }
+        line.startColor = originalColor;
+        line.endColor = originalColor;
         line.SetColors(originalColor, originalColor);
         line.GetComponent<Renderer>().enabled = true;
     }
