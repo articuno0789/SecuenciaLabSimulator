@@ -20,6 +20,7 @@ public class ParticlesError : MonoBehaviour
     #endregion
 
     #region Inicializacion
+    /*En este método se hace la inicialización del grupo de particulas.*/
     public ParticlesError()
     {
         GameObject particlesGroup = GameObject.Find("ParticlesGroup");
@@ -37,6 +38,8 @@ public class ParticlesError : MonoBehaviour
     #endregion
 
     #region Creacion Particulas
+    /*En este método se crea la particula de averia solicitada, de acuerdo a las especificaciones de los componentes.
+      Se especifica la posición y la rotación.*/
     public GameObject CrearParticulasError(int typeParticleError, Vector3 positionParticle, Vector3 rotationParticle)
     {
         //Debug.Log("INICIAR CREAR PARTICULA");
@@ -50,6 +53,8 @@ public class ParticlesError : MonoBehaviour
         return currentParticle;
     }
 
+    /*En este método se crea la particula de averia solicitada, de acuerdo a las especificaciones de los componentes.
+      Se especifica la posición, la rotación y la escala.*/
     public GameObject CrearParticulasError(int typeParticleError, Vector3 positionParticle, Vector3 rotationParticle, Vector3 scaleParticle)
     {
         //Debug.Log("INICIAR CREAR PARTICULA");
@@ -73,10 +78,4 @@ public class ParticlesError : MonoBehaviour
         }
     }
     #endregion
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

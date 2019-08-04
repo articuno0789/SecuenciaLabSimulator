@@ -429,7 +429,29 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 33051069}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1155348730}
+        m_MethodName: Resume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 978515828}
+        m_MethodName: ActivarBackgroundImage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &33051069
@@ -2481,7 +2503,40 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 229291247}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1155348730}
+        m_MethodName: Resume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1468557613}
+        m_MethodName: TomarCapturaDePantalla
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 978515828}
+        m_MethodName: ActivarBackgroundImage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &229291247
@@ -4870,6 +4925,87 @@ RectTransform:
   m_AnchoredPosition: {x: -277.89996, y: 124}
   m_SizeDelta: {x: 262.2, y: 46.399994}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &452141247
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6181636107476044761, guid: 4bd175c64a5b8684aa12b241844767b3,
+        type: 3}
+      propertyPath: m_Name
+      value: MenuSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 6181636107476044762, guid: 4bd175c64a5b8684aa12b241844767b3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.7852821
+      objectReference: {fileID: 0}
+    - target: {fileID: 6181636107476044762, guid: 4bd175c64a5b8684aa12b241844767b3,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 42.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6181636107476044762, guid: 4bd175c64a5b8684aa12b241844767b3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -224.9302
+      objectReference: {fileID: 0}
+    - target: {fileID: 6181636107476044762, guid: 4bd175c64a5b8684aa12b241844767b3,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6181636107476044762, guid: 4bd175c64a5b8684aa12b241844767b3,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7134151
+      objectReference: {fileID: 0}
+    - target: {fileID: 6181636107476044762, guid: 4bd175c64a5b8684aa12b241844767b3,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6181636107476044762, guid: 4bd175c64a5b8684aa12b241844767b3,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7007417
+      objectReference: {fileID: 0}
+    - target: {fileID: 6181636107476044762, guid: 4bd175c64a5b8684aa12b241844767b3,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6181636107476044762, guid: 4bd175c64a5b8684aa12b241844767b3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6181636107476044762, guid: 4bd175c64a5b8684aa12b241844767b3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6181636107476044762, guid: 4bd175c64a5b8684aa12b241844767b3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4bd175c64a5b8684aa12b241844767b3, type: 3}
+--- !u!1 &452141248 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6181636107992959562, guid: 4bd175c64a5b8684aa12b241844767b3,
+    type: 3}
+  m_PrefabInstance: {fileID: 452141247}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &452141249 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6181636108476162976, guid: 4bd175c64a5b8684aa12b241844767b3,
+    type: 3}
+  m_PrefabInstance: {fileID: 452141247}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &461498875
 GameObject:
   m_ObjectHideFlags: 0
@@ -8954,81 +9090,6 @@ Transform:
   m_Father: {fileID: 1257235577}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!1001 &810521004
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5710404733049697564, guid: 160d09ae1a886b44db5e989135181ff7,
-        type: 3}
-      propertyPath: m_Name
-      value: MenuSound
-      objectReference: {fileID: 0}
-    - target: {fileID: 5710404733049697567, guid: 160d09ae1a886b44db5e989135181ff7,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 192.98744
-      objectReference: {fileID: 0}
-    - target: {fileID: 5710404733049697567, guid: 160d09ae1a886b44db5e989135181ff7,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 90.56555
-      objectReference: {fileID: 0}
-    - target: {fileID: 5710404733049697567, guid: 160d09ae1a886b44db5e989135181ff7,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 4.525801
-      objectReference: {fileID: 0}
-    - target: {fileID: 5710404733049697567, guid: 160d09ae1a886b44db5e989135181ff7,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5710404733049697567, guid: 160d09ae1a886b44db5e989135181ff7,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5710404733049697567, guid: 160d09ae1a886b44db5e989135181ff7,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5710404733049697567, guid: 160d09ae1a886b44db5e989135181ff7,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5710404733049697567, guid: 160d09ae1a886b44db5e989135181ff7,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5710404733049697567, guid: 160d09ae1a886b44db5e989135181ff7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5710404733049697567, guid: 160d09ae1a886b44db5e989135181ff7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5710404733049697567, guid: 160d09ae1a886b44db5e989135181ff7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 160d09ae1a886b44db5e989135181ff7, type: 3}
---- !u!82 &810521005 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 5710404733453390392, guid: 160d09ae1a886b44db5e989135181ff7,
-    type: 3}
-  m_PrefabInstance: {fileID: 810521004}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &856556165
 GameObject:
   m_ObjectHideFlags: 0
@@ -10483,7 +10544,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 934979741}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &934979741
@@ -11176,7 +11248,7 @@ GameObject:
   - component: {fileID: 978515823}
   - component: {fileID: 978515828}
   m_Layer: 5
-  m_Name: MenuCanvas
+  m_Name: MenuCanvasShowModules
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11531,6 +11603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14a77b06c04d70d459c1f22cd3d7a13a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PauseMenuManager: {fileID: 1155348729}
   modelSystems:
   - title: Modulo 1
     nameModel: 1
@@ -11699,18 +11772,28 @@ MonoBehaviour:
     modelPosition: {x: 3, y: 3, z: 10}
     modelRotation: {x: 0, y: 0, z: 0}
     modelScale: {x: 1, y: 1, z: 1}
-  - title: MotorElectricoAC
-    nameModel: MotorElectricoAC
+  - title: MotorElectricoAC1
+    nameModel: MotorElectricoAC1
     description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
       es cada modulo y como funciona."
     isWeaponEffect: 0
-    modelSystemGO: {fileID: -927199367670048503, guid: e741e78b357a2414ab9b65d36fbdf7cc,
+    modelSystemGO: {fileID: -927199367670048503, guid: 896d1196af6bb0a46bac7ed6663db850,
       type: 3}
     modelPosition: {x: 5.5, y: 0.6, z: 10}
     modelRotation: {x: 0, y: 0, z: 0}
     modelScale: {x: 3.5, y: 3.5, z: 3.5}
+  - title: MotorElectricoAC2
+    nameModel: MotorElectricoAC2
+    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
+      es cada modulo y como funciona."
+    isWeaponEffect: 0
+    modelSystemGO: {fileID: -927199367670048503, guid: ff83c82897448894f893f58892d18bc2,
+      type: 3}
+    modelPosition: {x: 2.9, y: 0.6, z: 10}
+    modelRotation: {x: 0, y: -116, z: 0}
+    modelScale: {x: 3.5, y: 3.5, z: 3.5}
   - title: "Estaci\xF3n de control secuencial"
-    nameModel: 
+    nameModel: V0.1 - Aparato Control Secuencial
     description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
       es cada modulo y como funciona."
     isWeaponEffect: 0
@@ -11888,7 +11971,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1000468799}
   m_Layer: 5
-  m_Name: MovementControls
+  m_Name: AllControls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12883,7 +12966,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 810521005}
+      - m_Target: {fileID: 0}
         m_MethodName: Play
         m_Mode: 1
         m_Arguments:
@@ -13134,7 +13217,7 @@ MonoBehaviour:
           m_StringArgument: MenuShowModule
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 810521005}
+      - m_Target: {fileID: 0}
         m_MethodName: Play
         m_Mode: 1
         m_Arguments:
@@ -14146,8 +14229,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc997a6468b3484fb1dc2380fa842f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuOpen: 0
   saverManager: {fileID: 0}
   currentLevelName: MenuShowModule
+  MenuShowModules: {fileID: 0}
   mainPanel: {fileID: 519218217}
   vidPanel: {fileID: 461835016}
   controlPanel: {fileID: 1399985567}
@@ -15170,7 +15255,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1206113334}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1206113334
@@ -19254,6 +19350,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0edb83f7aff93cf409079eed9de319b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camaraSound: {fileID: 452141248}
+  debug: 1
 --- !u!4 &1468557614
 Transform:
   m_ObjectHideFlags: 0
@@ -20164,7 +20262,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 452141249}
         m_MethodName: Play
         m_Mode: 1
         m_Arguments:
@@ -21468,7 +21566,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 810521005}
+      - m_Target: {fileID: 0}
         m_MethodName: Play
         m_Mode: 1
         m_Arguments:
@@ -28682,7 +28780,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 810521005}
+      - m_Target: {fileID: 0}
         m_MethodName: Play
         m_Mode: 1
         m_Arguments:
@@ -29213,7 +29311,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 452141249}
         m_MethodName: Play
         m_Mode: 1
         m_Arguments:

@@ -19,7 +19,7 @@ public class ChangeColorCables : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void OpenCloseMenuChangeColorCable()
@@ -87,5 +87,4 @@ public class ChangeColorCables : MonoBehaviour
             panelChangeColor.SetActive(false);
         }*/
     }
-
 }

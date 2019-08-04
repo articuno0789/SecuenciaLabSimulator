@@ -17,8 +17,10 @@ namespace GreatArcStudios
     /// </summary>
     public class PauseManager : MonoBehaviour
     {
+        public bool menuOpen;
         public GameObject saverManager;
         public String currentLevelName;
+        public GameObject MenuShowModules;
         /// <summary>
         /// This is the main panel holder, which holds the main panel and should be called "main panel"
         /// </summary> 
@@ -294,12 +296,43 @@ namespace GreatArcStudios
 
         GameObject player;
         bool Player_m_rotateViewPermission;
+
+        public float BeforeMusic { get => _beforeMusic; set => _beforeMusic = value; }
+
         /// <summary>
         /// The start method; you will need to place all of your inital value getting/setting here. 
         /// </summary>
         public void Start()
         {
-            player = GameObject.Find("Player");
+            menuOpen = false;
+            if(player == null)
+            {
+                player = GameObject.Find("Player");
+            }
+            if(MenuShowModules == null)
+            {
+                MenuShowModules = GameObject.Find("MenuCanvasShowModules");
+            }
+            if(saverManager == null)
+            {
+                saverManager = GameObject.Find("ProgressSaver");
+            }
+            if(controlPanel == null)
+            {
+                controlPanel = GameObject.Find("Control Panel");
+            }
+            if (savePanel == null)
+            {
+                savePanel = GameObject.Find("Save Panel");
+            }
+            if (loadPanel == null)
+            {
+                loadPanel = GameObject.Find("Load Panel");
+            }
+            if (goLevelPanel == null)
+            {
+                goLevelPanel = GameObject.Find("GoLevelPanel");
+            }
             readUseSimpleTerrain = useSimpleTerrain;
             if (useSimpleTerrain)
             {
@@ -419,6 +452,10 @@ namespace GreatArcStudios
             audioPanel.SetActive(false);
             TitleTexts.SetActive(false);
             mask.SetActive(false);
+            if(MenuShowModules != null)
+            {
+                MenuShowModules.GetComponent<ModelsMenu>().ActivarBackgroundImage();
+            }
             if (savePanel != null)
             {
                 savePanel.SetActive(false);
@@ -441,6 +478,7 @@ namespace GreatArcStudios
                 playerController.m_rotateViewPermission = Player_m_rotateViewPermission;
                 playerController.m_movementPermission = true;
             }
+            menuOpen = false;
             /* if (blurBool == false)
              {
                  blurEffect.enabled = false;
@@ -451,6 +489,7 @@ namespace GreatArcStudios
                  return;
              } */
         }
+
         /// <summary>
         /// All the methods relating to qutting should be called here.
         /// </summary>
@@ -903,6 +942,11 @@ namespace GreatArcStudios
             {
                 if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.activeSelf == false)
                 {
+                    if (MenuShowModules != null)
+                    {
+                        MenuShowModules.GetComponent<ModelsMenu>().DesactivarBackgroundImage();
+                    }
+                    menuOpen = true;
                     uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
                     mainPanel.SetActive(true);
                     vidPanel.SetActive(false);
@@ -943,6 +987,11 @@ namespace GreatArcStudios
                 }
                 else if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.activeSelf == true)
                 {
+                    if (MenuShowModules != null)
+                    {
+                        MenuShowModules.GetComponent<ModelsMenu>().ActivarBackgroundImage();
+                    }
+                    menuOpen = false;
                     Time.timeScale = timeScale;
                     mainPanel.SetActive(false);
                     vidPanel.SetActive(false);

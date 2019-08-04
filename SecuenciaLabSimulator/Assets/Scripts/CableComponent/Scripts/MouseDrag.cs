@@ -7,7 +7,7 @@ public class MouseDrag : MonoBehaviour
 
     float distance = 10;
 
-    private void Start()
+    private void Awake()
     {
         GameObject cam = GameObject.Find("Main Camera");
         float distance2 = Vector3.Distance(transform.position, cam.transform.position);

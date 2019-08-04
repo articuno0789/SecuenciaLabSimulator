@@ -86,6 +86,8 @@ public class LO_LoadingScreen : MonoBehaviour
     // Scene loading process
     private AsyncOperation loadingProcess;
 
+    public bool IsHintAlphaZero { get => isHintAlphaZero; set => isHintAlphaZero = value; }
+
     // Load a new scene
     public static void LoadScene(string sceneName)
     {

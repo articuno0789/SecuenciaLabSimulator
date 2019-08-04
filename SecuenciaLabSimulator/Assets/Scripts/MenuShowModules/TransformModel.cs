@@ -4,6 +4,7 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class TransformModel : MonoBehaviour
 {
+    #region Atributos
     //Turn
     public bool turnWithMouse;
     public float horizontalSpeed = 25.0F;
@@ -22,10 +23,14 @@ public class TransformModel : MonoBehaviour
     public Vector3 originalPosition;
     public Vector3 originalScale;
     public Vector3 originalRotation;
+    #endregion
 
+    #region Comportamiento
+    /*En este apartado se comprueba el estado del teclado para activar el comportamiento
+     * de tranformación de los modelos*/
     void Update()
     {
-        if (Input.GetKey(KeyCode.Keypad1) || Input.GetKey(KeyCode.Alpha1))
+        if (Input.GetKey(KeyCode.Keypad1) || Input.GetKey(KeyCode.Alpha1))//Rotar el modelo
         {
             if (turnWithMouse)
             {
@@ -55,7 +60,7 @@ public class TransformModel : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.Keypad2) || Input.GetKey(KeyCode.Alpha2))
         {
-            if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) 
+            if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) //Trasladar el modelo
                 && transform.position.z >= forwardLimit && transform.position.y >= downLimit)
             {
                 transform.Translate(Vector3.back * moveSpeed * Time.deltaTime);
@@ -74,11 +79,12 @@ public class TransformModel : MonoBehaviour
                 transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
             }
         }
-        else if (Input.GetKey(KeyCode.Keypad3) || Input.GetKey(KeyCode.Alpha3))
+        else if (Input.GetKey(KeyCode.Keypad3) || Input.GetKey(KeyCode.Alpha3))//Regresar a su estado original el modelo
         {
             transform.rotation = Quaternion.Euler(originalRotation);
             transform.position = originalPosition;
             transform.localScale = originalScale;
         }
     }
+    #endregion
 }

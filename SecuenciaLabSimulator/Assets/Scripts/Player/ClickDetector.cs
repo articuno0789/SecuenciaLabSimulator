@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
 
@@ -35,7 +34,8 @@ public class ClickDetector : MonoBehaviour
             {
                 bool segundoPlug = false;
                 Debug.Log("Manda mensaje, click izquierdo: " + OnLeftClickMethodName + ", *******Objeto clic: " + clickedGmObj.name);
-                if(lastClickedGmObj != null) {
+                if (lastClickedGmObj != null)
+                {
                     Debug.Log("lastClickedGmObj != null");
                     if (!lastClickedGmObj.name.Contains("EntradaPlug"))
                     {
@@ -102,8 +102,10 @@ public class ClickDetector : MonoBehaviour
                 if (clickedGmObj.name.Contains("BaseModulo"))
                 {
                     clickedGmObj.SendMessage("OpenCloseMenuChangeModule", 1, SendMessageOptions.DontRequireReceiver);
-                }else
-                if (clickedGmObj.name.Contains("EntradaPlug")){
+                }
+                else
+                if (clickedGmObj.name.Contains("EntradaPlug"))
+                {
                     clickedGmObj.SendMessage("OpenCloseMenuChangeColorCable", 1, SendMessageOptions.DontRequireReceiver);
                     colorPicker.selectedPlug = clickedGmObj;
                     clickedGmObj = null;
@@ -132,8 +134,8 @@ public class ClickDetector : MonoBehaviour
                     }
                 }
             }
-                
-                //clickedGmObj.SendMessage(OnRightClickMethodName, null, SendMessageOptions.DontRequireReceiver);
+
+            //clickedGmObj.SendMessage(OnRightClickMethodName, null, SendMessageOptions.DontRequireReceiver);
         }
         // Middle click
         if (HandleMiddleClick && Input.GetMouseButtonDown(2))
@@ -163,7 +165,7 @@ public class ClickDetector : MonoBehaviour
         {
             Debug.Log("eNTRA A NULO, x: " + Input.mousePosition.x + ", y: " + Input.mousePosition.y + ", z: " + Input.mousePosition.z);
             return null;
-        }   
+        }
     }
 
     private void changeOriginalColorPlug(GameObject objectClick)
@@ -201,7 +203,6 @@ public class ClickDetector : MonoBehaviour
             //cableCompLastEndPointStart.startPoint = null;
             Destroy(lastClickedGmObj.GetComponent<LineRenderer>());
             Destroy(cableCompStart.endPoint.GetComponent<LineRenderer>());
-
             endPoint.AddComponent(typeof(CableComponent));
             Debug.Log("endPoint.AddComponent(typeof(CableComponent));");
             cableCompStart = lastClickedGmObj.AddComponent(typeof(CableComponent)) as CableComponent;
@@ -277,7 +278,7 @@ public class ClickDetector : MonoBehaviour
 
             //Desturir elementos Line Render
             LineRenderer lineRenderEndPoint = endPoint.GetComponent<LineRenderer>();
-            if(lineRenderEndPoint != null)
+            if (lineRenderEndPoint != null)
             {
                 Destroy(lineRenderEndPoint);
                 endPoint.AddComponent<LineRenderer>();

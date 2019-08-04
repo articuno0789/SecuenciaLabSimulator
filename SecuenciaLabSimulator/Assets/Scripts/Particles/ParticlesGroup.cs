@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class ParticlesGroup : MonoBehaviour
 {
+    #region Atributos
     [SerializeField] public ParticlesInformation[] particlesGroup;
+    #endregion
 
+    #region Comportamiento
     // Start is called before the first frame update
     void Start()
     {
@@ -17,4 +20,5 @@ public class ParticlesGroup : MonoBehaviour
     {
         
     }
+    #endregion
 }

@@ -13,8 +13,8 @@ public class Modulo9 : MonoBehaviour
     public List<GameObject> plugAnaranjados;
     public List<GameObject> plugNegros;
     public List<GameObject> focosCircularesAzules;
-    private string rutaAnimacionBotonCircularAzul = "Assets/Animation/Modulos/Modulo9/Mod9PresBotonCircularAzul.anim";
-    private string nombreAnimacionBotonCircularAzul = "Mod9PresBotonCircularAzul";
+    private readonly string rutaAnimacionBotonCircularAzul = "Assets/Animation/Modulos/Modulo9/Mod9PresBotonCircularAzul.anim";
+    private readonly string nombreAnimacionBotonCircularAzul = "Mod9PresBotonCircularAzul";
 
     public enum ParticlesErrorTypes
     {
@@ -33,6 +33,10 @@ public class Modulo9 : MonoBehaviour
     public bool mostrarPlugAnaranjados = false; // Variable
     public bool mostrarPlugNegros = false; // Variable
     public bool mostrarFocosCircularesAzules = false; // Variable
+
+    public string RutaAnimacionBotonCircularAzul => rutaAnimacionBotonCircularAzul;
+    public string NombreAnimacionBotonCircularAzul => nombreAnimacionBotonCircularAzul;
+
     #endregion
 
     #region Inicializacion
@@ -61,7 +65,7 @@ public class Modulo9 : MonoBehaviour
         for (int i = 0; i < numeroDeHijosHijos; i++)
         {
             GameObject child = nodo.transform.GetChild(i).gameObject;
-            Debug.Log("child.name: " + child.name);
+            //Debug.Log("child.name: " + child.name);
             if (child.name.Contains("EntradaPlugAnaranjado"))
             {
                 plugAnaranjados.Add(child);

@@ -69,61 +69,68 @@ public class FocoCircularAzul : MonoBehaviour
         Plugs plugIzquierdoCompPlug = plugIzquierdo.GetComponent<Plugs>();
         Plugs plugDerechoCompPlug = plugDerecho.GetComponent<Plugs>();
 
-        plugIzquierdoCompPlug.EstablecerPropiedadesConexionesEntrantes();
-        plugDerechoCompPlug.EstablecerPropiedadesConexionesEntrantes();
-
-        if (plugIzquierdoCompPlug.Conectado && plugDerechoCompPlug.Conectado)
+        if (plugIzquierdoCompPlug != null && plugDerechoCompPlug != null)
         {
-            if(plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 2)
+            plugIzquierdoCompPlug.EstablecerPropiedadesConexionesEntrantes();
+            plugDerechoCompPlug.EstablecerPropiedadesConexionesEntrantes();
+
+            if (plugIzquierdoCompPlug.Conectado && plugDerechoCompPlug.Conectado)
             {
-                focoAveriado = false;
-                EncenderFoco();
-                if (DebugMode)
+                if (plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 2)
                 {
-                    Debug.Log("Modulo9 - if(plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
+                    focoAveriado = false;
+                    EncenderFoco();
+                    if (DebugMode)
+                    {
+                        Debug.Log("Modulo9 - if(plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
+                    }
                 }
-            }
-            else if (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 1)
-            {
-                focoAveriado = false;
-                EncenderFoco();
-                if (DebugMode)
+                else if (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 1)
                 {
-                    Debug.Log("Modulo9 - if (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 1) - Conectado");
+                    focoAveriado = false;
+                    EncenderFoco();
+                    if (DebugMode)
+                    {
+                        Debug.Log("Modulo9 - if (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 1) - Conectado");
+                    }
                 }
-            }
-            else if (plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 1)
-            {
-                focoAveriado = true;
-                ApagarFoco();
-                if (DebugMode)
+                else if (plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 1)
                 {
-                    Debug.LogError("Modulo9 - if (plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 1) - Conectado");
+                    focoAveriado = true;
+                    ApagarFoco();
+                    if (DebugMode)
+                    {
+                        Debug.LogError("Modulo9 - if (plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 1) - Conectado");
+                    }
                 }
-            }
-            else if (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 2)
-            {
-                focoAveriado = false;
-                ApagarFoco();
-                if (DebugMode)
+                else if (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 2)
                 {
-                    Debug.Log("Modulo9 - if (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
+                    focoAveriado = false;
+                    ApagarFoco();
+                    if (DebugMode)
+                    {
+                        Debug.Log("Modulo9 - if (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
+                    }
+                }
+                else
+                {
+                    EliminarMaterial();
+                    Debug.LogError(padreTotalComponente.name + ") " + this.name + " - Este caso de uso todavia no esta programado - No entro a ningun caso");
                 }
             }
             else
             {
-                EliminarMaterial();
-                Debug.LogError(padreTotalComponente.name + ") " + this.name + " - Este caso de uso todavia no esta programado - No entro a ningun caso");
+                focoAveriado = false;
+                ApagarFoco();
+                if (DebugMode)
+                {
+                    Debug.Log("Modulo9 - if (plugIzquierdoCompPlug.Conectado && plugDerechoCompPlug.Conectado) - NO esta conectados");
+                }
             }
         }
         else
         {
-            focoAveriado = false;
-            ApagarFoco();
-            if (DebugMode)
-            {
-                Debug.Log("Modulo9 - if (plugIzquierdoCompPlug.Conectado && plugDerechoCompPlug.Conectado) - NO esta conectados");
-            }
+            Debug.LogError(padreTotalComponente.name + ") " + this.name + " - if(plugArribaCompPlug != null && plugAbajoCompPlug != null) - Alguno de los dos es nulo, plugIzquierdoCompPlug: " + plugIzquierdoCompPlug + ", plugDerechoCompPlug: " + plugDerechoCompPlug);
         }
     }
 
@@ -153,7 +160,7 @@ public class FocoCircularAzul : MonoBehaviour
     {
         if (focoAveriado)
         {
-            if(currentParticle == null)
+            if (currentParticle == null)
             {
                 CrearAveria();
             }

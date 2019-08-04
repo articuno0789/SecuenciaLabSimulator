@@ -11,47 +11,69 @@ using System.Text.RegularExpressions;
 
 public class ProgressManager : MonoBehaviour
 {
+    #region Atributos
+    //Variables
     public Material cableMaterial;
-    string dataPath;
-    GameObject[] saveModules;
-    public string nombreArchivoGuardado = "";
-    private GameObject padreTotal;
     public Dropdown dropdown;
     public GameObject panel;
-    GameObject modulesList;
-    int moduleLayer = 11; //La capa 11, equivale a la capa "Modulo"
-    bool debug = false;
-    bool cifrar = false;
-    string palabraClave = "ProyectoModular";
+    private GameObject padreTotal;
+    private GameObject modulesList;
+    private GameObject[] saveModules;
+    //Variables
+    public string rutaGuardado;
+    public string nombreArchivoGuardado = "";
+    public bool cifrar = false;
+    //Patrones Regex
+    private readonly string patronPlugAnaranjado = @"^EntradaPlugAnaranjado\d*$";
+    private readonly string patronPlugNegro = @"^EntradaPlugNegro\d*$";
+    //Constantes
+    private readonly int moduleLayer = 11; //La capa 11, equivale a la capa "Modulo"
+    private readonly string palabraClave = "ProyectoModular";
+    //Debug
+    public bool debug = false;
+    #endregion
 
+    #region Inicializacion
     // Start is called before the first frame update
     void Start()
     {
-        dataPath = Path.Combine(Application.persistentDataPath, "SimulatorDataTest.txt");
-        dropdown = GameObject.Find("DropdownChangeModule").GetComponent<Dropdown>();
-        panel = GameObject.Find("PanelChangeModule");
-        modulesList = GameObject.Find("ModulesGroup");
+        if (dropdown == null)
+        {
+            dropdown = GameObject.Find("DropdownChangeModule").GetComponent<Dropdown>();
+        }
+        if (panel == null)
+        {
+            panel = GameObject.Find("PanelChangeModule");
+        }
+        if (modulesList == null)
+        {
+            modulesList = GameObject.Find("ModulesGroup");
+        }
+        rutaGuardado = Path.Combine(Application.persistentDataPath, "SimulatorDataTest.txt");
     }
+    #endregion
 
-    // Update is called once per frame
+    #region Comportamiento
+    /*Este método se encarga de verificar las entradas por teclado.*/
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.G))//Se guarda el contenido actual del simulador en el archivo de prueba.
         {
-            SaveSimulator(dataPath, "SimulatorDataTest.txt");
+            SaveSimulator(rutaGuardado, "SimulatorDataTest.txt");
         }
 
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C))//Se carga el contenido del archivo de pruebas guardado.
         {
-            LoadSimulator(dataPath, "SimulatorDataTest.txt");
+            LoadSimulator(rutaGuardado, "SimulatorDataTest.txt");
         }
 
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I))//Se destrullen los módulos actuales del siulador
         {
             DestruirModulos();
         }
     }
 
+    /*Este método se encarga de destruir todos los tipos de módulos especificados en el simulador.*/
     void DestruirModulos()
     {
         DestruirObjetos("1");
@@ -73,22 +95,27 @@ public class ProgressManager : MonoBehaviour
         DestruirObjetos("23");
         DestruirObjetos("Potenciometro");
         DestruirObjetos("ModuloVacio");
-        Debug.Log("Modulos destruidos");
+        if (debug)
+        {
+            Debug.Log("Modulos destruidos");
+        }
     }
 
+    /*Este método se encarga de destruir todos los objetos especificados de acuerdo a la tag.*/
     bool DestruirObjetos(string tagModulos)
     {
+        bool resultado = false;
         GameObject[] modulosDestruir = GameObject.FindGameObjectsWithTag(tagModulos);
         int numeroMaximoModulos = modulosDestruir.Length;
         foreach (GameObject modulo in modulosDestruir)
         {
             Destroy(modulo);
         }
-        if(numeroMaximoModulos != 0)
+        if (numeroMaximoModulos != 0)
         {
-            return true;
+            resultado = true;
         }
-        return false;
+        return resultado;
     }
 
     public void LoadSimulator(string path, string nameFile)
@@ -96,7 +123,6 @@ public class ProgressManager : MonoBehaviour
         string jsonString = ObtenerCadenaJson(path);
         JSONObject j = new JSONObject(jsonString);
         nombreArchivoGuardado = nameFile;
-        //accessData(j);
         if (IsValidJson(jsonString))
         {
             Debug.Log("************JSON Valido");
@@ -110,7 +136,8 @@ public class ProgressManager : MonoBehaviour
         }
     }
 
-    void CrearModulosDesdeJson(string jsonString)
+    /*Este método se encarga en crear los módulos del simulador, desde un archivo de guardado Json válido.*/
+    private void CrearModulosDesdeJson(string jsonString)
     {
         var jo = JObject.Parse(jsonString);
         int posicionModulesList = 0;
@@ -119,52 +146,69 @@ public class ProgressManager : MonoBehaviour
         {
             string nombreModulo = x.Key;
             JToken contenido = x.Value;
-            //Debug.Log("name: " + nombreModulo);
-            //Debug.Log("value: " + contenido);
-            //Debug.Log("Tipo: " + contenido["Tipo"]);
+            if (debug)
+            {
+                Debug.Log("name: " + nombreModulo);
+                Debug.Log("value: " + contenido);
+                Debug.Log("Tipo: " + contenido["Tipo"]);
+            }
             string tipoModulo = contenido["Tipo"].ToString();
             JToken posicion = contenido["Posicion"];
             Vector3 vectorPosicion = new Vector3(float.Parse(posicion["X"].ToString()), float.Parse(posicion["Y"].ToString()), float.Parse(posicion["Z"].ToString()));
             Vector3 vectorRotacion = new Vector3(0, 180, 0);
             GameObject newModule = CrearNuevoModulo(tipoModulo, vectorPosicion, vectorRotacion, nombreModulo);
-            AsignacionRecursiva(newModule);
+            AsignacionRecursivaLogicaComponentes(newModule);
             modList.modulesGroup[posicionModulesList].modelSystemGO = newModule;
             modList.modulesGroup[posicionModulesList].modelPosition = newModule.transform.position;
             modList.modulesGroup[posicionModulesList].modelRotation = newModule.transform.rotation.eulerAngles;
             modList.modulesGroup[posicionModulesList].nameModule = newModule.name;
             modList.modulesGroup[posicionModulesList].title = newModule.name;
-            if (tipoModulo == "1")
-            {
-                float voltaje = float.Parse(contenido["Voltaje"].ToString());
-                Modulo1 mod1 = newModule.GetComponent<Modulo1>();
-                mod1.voltajeModulo = voltaje;
-            }else if (tipoModulo == "6")
-            {
-                float valorPerilla = float.Parse(contenido["ValorPerilla"].ToString());
-                Modulo6 mod6 = newModule.GetComponent<Modulo6>();
-                mod6.valorActualPerilla = valorPerilla;
-                mod6.RotarPerilla();
-            }
-            else if (tipoModulo == "7")
-            {
-                float valorPerilla = float.Parse(contenido["ValorPerilla"].ToString());
-                Modulo7 mod7 = newModule.GetComponent<Modulo7>();
-                mod7.valorActualPerilla = valorPerilla;
-                mod7.RotarPerilla();
-            }
-            else if (tipoModulo == "Potenciometro")
-            {
-                float valorPerilla = float.Parse(contenido["ValorPerilla"].ToString());
-                Potenciometro modPoten = newModule.GetComponent<Potenciometro>();
-                modPoten.valorActualPerilla = valorPerilla;
-                modPoten.RotarPerilla();
-            }
+            EstablecerParametrosVariablesModulos(newModule, tipoModulo, contenido);
             posicionModulesList++;
         }
-        Debug.Log("Termina creación modulos");
+        if (debug)
+        {
+            Debug.Log("Termina creación modulos");
+        }
     }
 
-    private int recuperarIndiceModuloPorNombre(string nombreModuloBuscar)
+    /*Este método se encarga de establecer a los módulos creados con el método "void CrearModulosDesdeJson()"
+      los valores variabbles particulares de cada uno.*/
+    private void EstablecerParametrosVariablesModulos(GameObject newModule, string tipoModulo, JToken contenido)
+    {
+        /*En esta sección se establecen los valores variables a cada modulo*/
+        if (tipoModulo == "1")
+        {
+            float voltaje = float.Parse(contenido["Voltaje"].ToString());
+            Modulo1 mod1 = newModule.GetComponent<Modulo1>();
+            mod1.voltajeModulo = voltaje;
+        }
+        else if (tipoModulo == "6")
+        {
+            float valorPerilla = float.Parse(contenido["ValorPerilla"].ToString());
+            Modulo6 mod6 = newModule.GetComponent<Modulo6>();
+            mod6.valorActualPerilla = valorPerilla;
+            mod6.RotarPerilla();
+        }
+        else if (tipoModulo == "7")
+        {
+            float valorPerilla = float.Parse(contenido["ValorPerilla"].ToString());
+            Modulo7 mod7 = newModule.GetComponent<Modulo7>();
+            mod7.valorActualPerilla = valorPerilla;
+            mod7.RotarPerilla();
+        }
+        else if (tipoModulo == "Potenciometro")
+        {
+            float valorPerilla = float.Parse(contenido["ValorPerilla"].ToString());
+            Potenciometro modPoten = newModule.GetComponent<Potenciometro>();
+            modPoten.valorActualPerilla = valorPerilla;
+            modPoten.RotarPerilla();
+        }
+    }
+
+    /*Este método se encarga de recuperar el indice de un módulo (Con el nombre), que se encuentre presente en la lista
+      de módulos actuales del simulador.*/
+    private int RecuperarIndiceModuloPorNombre(string nombreModuloBuscar)
     {
         int indiceEncontrado = -1;
         if (modulesList != null)
@@ -182,7 +226,9 @@ public class ProgressManager : MonoBehaviour
         return indiceEncontrado;
     }
 
-    void CrearConexionesDesdeJson(string jsonString)
+    /*Este método se encarga en crear las conexiones de los módulos del simulador, desde un archivo de guardado Json
+     * válido.*/
+    private void CrearConexionesDesdeJson(string jsonString)
     {
         GameObject moduloActual = null;
         var jo = JObject.Parse(jsonString);
@@ -192,15 +238,18 @@ public class ProgressManager : MonoBehaviour
         {
             string nombreModulo = x.Key;
             JToken contenido = x.Value;
-            //Debug.Log("name: " + nombreModulo);
-            //Debug.Log("value: " + contenido);
-            //Debug.Log("Tipo: " + contenido["Tipo"]);
+            if (debug)
+            {
+                Debug.Log("name: " + nombreModulo);
+                Debug.Log("value: " + contenido);
+                Debug.Log("Tipo: " + contenido["Tipo"]);
+            }
             string tipoModulo = contenido["Tipo"].ToString();
             JToken posicion = contenido["Posicion"];
             JToken Conexiones = contenido["Conexiones"];
-            if(tipoModulo != "ModuloVacio")
+            if (tipoModulo != "ModuloVacio")
             {
-                int indiceModuloActual = recuperarIndiceModuloPorNombre(nombreModulo);
+                int indiceModuloActual = RecuperarIndiceModuloPorNombre(nombreModulo);
                 if (indiceModuloActual != -1)
                 {
                     moduloActual = modList.modulesGroup[indiceModuloActual - 1].modelSystemGO;
@@ -209,34 +258,53 @@ public class ProgressManager : MonoBehaviour
                 Dictionary<string, string> plugsConnections = ObtenerPlugConnections(tipoModulo, moduloActual);
                 int numeroPlugs = plugsConnections.Count;
                 int j = 0;
-                //Debug.LogError(nombreModulo + " - Numero de plugs: " + numeroPlugs);
+                if (debug)
+                {
+                    Debug.Log(nombreModulo + " - Numero de plugs: " + numeroPlugs);
+                }
                 //foreach (KeyValuePair<string, string> entry in plugsConnections)
                 for (int i = 0; i < numeroPlugs; i++)
                 {
                     string conexionActual = "Conexion" + (j + 1);
                     string[] parametrosConexionOrigen = Conexiones[conexionActual]["Origen"].ToString().Split('|');
                     string[] parametrosConexionDestino = Conexiones[conexionActual]["Destino"].ToString().Split('|');
-                    //Debug.LogError("parametrosConexionDestino.Length: " + parametrosConexionDestino.Length);
-                    if (parametrosConexionDestino.Length != 0 && parametrosConexionDestino[0] != "");
+                    if (debug)
+                    {
+                        Debug.Log("parametrosConexionDestino.Length: " + parametrosConexionDestino.Length);
+                    }
+                    if (parametrosConexionDestino.Length != 0 && parametrosConexionDestino[0] != "")
                     {
                         //Debug.LogError("parametrosConexionDestino.Length: " + parametrosConexionDestino.Length);
                         //Debug.LogError("parametrosConexionDestino[0]: " + parametrosConexionDestino[0]);
                         //Debug.LogError(parametrosConexionDestino[0] + " " + parametrosConexionDestino[1]);
                         GameObject moduloDestino = null;
-                        int indiceModuloDestino = recuperarIndiceModuloPorNombre(parametrosConexionDestino[0]);
+                        int indiceModuloDestino = RecuperarIndiceModuloPorNombre(parametrosConexionDestino[0]);
                         if (indiceModuloDestino != -1)
                         {
                             moduloDestino = modList.modulesGroup[indiceModuloDestino - 1].modelSystemGO;
                             //Debug.LogError("moduloActual: " + moduloActual.name + ", moduloDestino: " + moduloDestino.name);
                             GameObject conexionOrigen = BuscarPlugConexion(moduloActual.tag, moduloActual, parametrosConexionOrigen[1]);
                             GameObject conexionDestino = BuscarPlugConexion(moduloDestino.tag, moduloDestino, parametrosConexionDestino[1]);
-
-                            if(conexionOrigen!= null && conexionDestino != null)
+                            if (conexionOrigen != null && conexionDestino != null)
                             {
-                                CrearConexionCable(conexionOrigen, conexionDestino);
-                                //Debug.LogError("Se creo una conexion");
+                                Color colorCable = new Color(0, 0, 0, 1);
+                                Debug.LogError("Longitud error: " + parametrosConexionDestino.Length);
+                                if (parametrosConexionDestino.Length == 2)
+                                {
+                                    //Debug.LogError("Color ROJO: " + Conexiones[conexionActual]["Color"]["R"].ToString());
+                                    colorCable = new Color(float.Parse(Conexiones[conexionActual]["Color"]["R"].ToString()),
+                                        float.Parse(Conexiones[conexionActual]["Color"]["G"].ToString()),
+                                        float.Parse(Conexiones[conexionActual]["Color"]["B"].ToString()),
+                                        float.Parse(Conexiones[conexionActual]["Color"]["A"].ToString()));
+                                    Debug.LogError("Color leido: " + colorCable.ToString());
+                                }
+                                CrearConexionCable(conexionOrigen, conexionDestino, colorCable);
+                                if (debug)
+                                {
+                                    Debug.Log("Se creo una conexion");
+                                }
                             }
-                            
+
                         }
                     }
                     j++;
@@ -247,10 +315,9 @@ public class ProgressManager : MonoBehaviour
         Debug.Log("Termina creación conexiones");
     }
 
-    private void CrearConexionCable(GameObject conexionOrigen, GameObject conexionDestino)
+    /*Este método se encarga de realizar y establecer la conexión entre dos plugs de dos módulos determinados.*/
+    private void CrearConexionCable(GameObject conexionOrigen, GameObject conexionDestino, Color colorCable)
     {
-        //Renderer rend = conexionDestino.GetComponent<Renderer>();
-
         CableComponent cableCompStart = conexionOrigen.GetComponent<CableComponent>();
         CableComponent cableCompEnd = conexionDestino.GetComponent<CableComponent>();
         //bool eliminarCable = ComprobarEliminarConexion(cableCompStart, conexionOrigen);
@@ -262,14 +329,34 @@ public class ProgressManager : MonoBehaviour
 
             //cableCompStart.cableMaterial = (Material)Resources.Load("CableMaterial.mat", typeof(Material));
             //Primer conector en  ser seleccionado
+            Color color = new Color(0f, 1f, 0f, 1);
+            cableCompStart.originalColor = color;
             cableCompStart.cableMaterial = cableMaterial;
             cableCompStart.InitCableParticles();
             cableCompStart.InitLineRenderer();
+            
+            if (cableCompStart.line != null)
+            {
+                Debug.LogError("Cambio color cable origen");
+                cableCompStart.line.endColor = color;
+                cableCompStart.line.startColor = color;
+                cableCompStart.line.SetColors(color, color);
+            }
 
             //Segundo conector en eser seleccionado
+            Color color2 = new Color(1f, 0f, 0f, 1);
+            cableCompEnd.originalColor = color;
             cableCompEnd.startPoint = conexionDestino;
             cableCompEnd.endPoint = conexionOrigen;
             cableCompEnd.cableMaterial = cableMaterial;
+
+            if (cableCompEnd.line != null)
+            {
+                Debug.LogError("Cambio color cable destino");
+                cableCompStart.line.endColor = color2;
+                cableCompStart.line.startColor = color2;
+                cableCompEnd.line.SetColors(color2, color2);
+            }
 
             //lastClickedGmObj.GetComponent<Renderer>().material.color = Color.white;
             //clickedGmObj.GetComponent<Renderer>().material.color = Color.white;
@@ -282,12 +369,12 @@ public class ProgressManager : MonoBehaviour
                 conexionDestino.AddComponent<ChangeColorCables>();
             }
         }
-
         //Crear conexiones entre plugs
         conexionDestino.SendMessage("CrearConexionPlugs", false, SendMessageOptions.DontRequireReceiver);
         conexionOrigen.SendMessage("CrearConexionPlugs", false, SendMessageOptions.DontRequireReceiver);
     }
 
+    /*Este étodo se encarga de eliminar la conexión entre dos plugs de dos módulos determinados.*/
     private bool ComprobarEliminarConexion(CableComponent cableCompStart, GameObject objectStart)
     {
         bool eliminarCable = false;
@@ -320,16 +407,19 @@ public class ProgressManager : MonoBehaviour
         return eliminarCable;
     }
 
-    private GameObject BuscarPlugConexion(string tipoModulo, GameObject module, string nombrePlug)
+    /*Este método se encarga de regresar el GameObject de un plug determinado, apartir del nombre del
+     * plug y el módulo padre (Nodo raíz).*/
+    private GameObject BuscarPlugConexion(string tipoModulo, GameObject modulo, string nombrePlug)
     {
         GameObject plugEncontrado = null;
         if (tipoModulo == "1")
         {
-            Modulo1 mod1 = module.GetComponent<Modulo1>();
-            if (Regex.IsMatch(nombrePlug, @"^EntradaPlugAnaranjado\d*$"))
+            Modulo1 mod1 = modulo.GetComponent<Modulo1>();
+            if (Regex.IsMatch(nombrePlug, patronPlugAnaranjado))
             {
                 plugEncontrado = mod1.plugAnaranjadosDict[nombrePlug];
-            } else if (Regex.IsMatch(nombrePlug, @"^EntradaPlugNegro\d*$"))
+            }
+            else if (Regex.IsMatch(nombrePlug, patronPlugNegro))
             {
                 plugEncontrado = mod1.plugNegrosDict[nombrePlug];
             }
@@ -337,12 +427,12 @@ public class ProgressManager : MonoBehaviour
         else
         if (tipoModulo == "2")
         {
-            Modulo2 mod2 = module.GetComponent<Modulo2>();
-            if (Regex.IsMatch(nombrePlug, @"^EntradaPlugAnaranjado\d*$"))
+            Modulo2 mod2 = modulo.GetComponent<Modulo2>();
+            if (Regex.IsMatch(nombrePlug, patronPlugAnaranjado))
             {
                 plugEncontrado = mod2.plugAnaranjadosDict[nombrePlug];
             }
-            else if (Regex.IsMatch(nombrePlug, @"^EntradaPlugNegro\d*$"))
+            else if (Regex.IsMatch(nombrePlug, patronPlugNegro))
             {
                 plugEncontrado = mod2.plugNegrosDict[nombrePlug];
             }
@@ -350,12 +440,12 @@ public class ProgressManager : MonoBehaviour
         else
         if (tipoModulo == "3")
         {
-            Modulo3 mod3 = module.GetComponent<Modulo3>();
-            if (Regex.IsMatch(nombrePlug, @"^EntradaPlugAnaranjado\d*$"))
+            Modulo3 mod3 = modulo.GetComponent<Modulo3>();
+            if (Regex.IsMatch(nombrePlug, patronPlugAnaranjado))
             {
                 plugEncontrado = mod3.plugAnaranjadosDict[nombrePlug];
             }
-            else if (Regex.IsMatch(nombrePlug, @"^EntradaPlugNegro\d*$"))
+            else if (Regex.IsMatch(nombrePlug, patronPlugNegro))
             {
                 plugEncontrado = mod3.plugNegrosDict[nombrePlug];
             }
@@ -363,12 +453,12 @@ public class ProgressManager : MonoBehaviour
         else
         if (tipoModulo == "4")
         {
-            Modulo4 mod4 = module.GetComponent<Modulo4>();
-            if (Regex.IsMatch(nombrePlug, @"^EntradaPlugAnaranjado\d*$"))
+            Modulo4 mod4 = modulo.GetComponent<Modulo4>();
+            if (Regex.IsMatch(nombrePlug, patronPlugAnaranjado))
             {
                 plugEncontrado = mod4.plugAnaranjadosDict[nombrePlug];
             }
-            else if (Regex.IsMatch(nombrePlug, @"^EntradaPlugNegro\d*$"))
+            else if (Regex.IsMatch(nombrePlug, patronPlugNegro))
             {
                 plugEncontrado = mod4.plugNegrosDict[nombrePlug];
             }
@@ -376,12 +466,12 @@ public class ProgressManager : MonoBehaviour
         else
         if (tipoModulo == "5")
         {
-            Modulo5 mod5 = module.GetComponent<Modulo5>();
-            if (Regex.IsMatch(nombrePlug, @"^EntradaPlugAnaranjado\d*$"))
+            Modulo5 mod5 = modulo.GetComponent<Modulo5>();
+            if (Regex.IsMatch(nombrePlug, patronPlugAnaranjado))
             {
                 plugEncontrado = mod5.plugAnaranjadosDict[nombrePlug];
             }
-            else if (Regex.IsMatch(nombrePlug, @"^EntradaPlugNegro\d*$"))
+            else if (Regex.IsMatch(nombrePlug, patronPlugNegro))
             {
                 plugEncontrado = mod5.plugNegrosDict[nombrePlug];
             }
@@ -389,12 +479,12 @@ public class ProgressManager : MonoBehaviour
         else
         if (tipoModulo == "6")
         {
-            Modulo6 mod6 = module.GetComponent<Modulo6>();
-            if (Regex.IsMatch(nombrePlug, @"^EntradaPlugAnaranjado\d*$"))
+            Modulo6 mod6 = modulo.GetComponent<Modulo6>();
+            if (Regex.IsMatch(nombrePlug, patronPlugAnaranjado))
             {
                 plugEncontrado = mod6.plugAnaranjadosDict[nombrePlug];
             }
-            else if (Regex.IsMatch(nombrePlug, @"^EntradaPlugNegro\d*$"))
+            else if (Regex.IsMatch(nombrePlug, patronPlugNegro))
             {
                 plugEncontrado = mod6.plugNegrosDict[nombrePlug];
             }
@@ -402,12 +492,12 @@ public class ProgressManager : MonoBehaviour
         else
         if (tipoModulo == "7")
         {
-            Modulo7 mod7 = module.GetComponent<Modulo7>();
-            if (Regex.IsMatch(nombrePlug, @"^EntradaPlugAnaranjado\d*$"))
+            Modulo7 mod7 = modulo.GetComponent<Modulo7>();
+            if (Regex.IsMatch(nombrePlug, patronPlugAnaranjado))
             {
                 plugEncontrado = mod7.plugAnaranjadosDict[nombrePlug];
             }
-            else if (Regex.IsMatch(nombrePlug, @"^EntradaPlugNegro\d*$"))
+            else if (Regex.IsMatch(nombrePlug, patronPlugNegro))
             {
                 plugEncontrado = mod7.plugNegrosDict[nombrePlug];
             }
@@ -415,12 +505,12 @@ public class ProgressManager : MonoBehaviour
         else
         if (tipoModulo == "8, 11")
         {
-            Modulo8_11 mod8_11 = module.GetComponent<Modulo8_11>();
-            if (Regex.IsMatch(nombrePlug, @"^EntradaPlugAnaranjado\d*$"))
+            Modulo8_11 mod8_11 = modulo.GetComponent<Modulo8_11>();
+            if (Regex.IsMatch(nombrePlug, patronPlugAnaranjado))
             {
                 plugEncontrado = mod8_11.plugAnaranjadosDict[nombrePlug];
             }
-            else if (Regex.IsMatch(nombrePlug, @"^EntradaPlugNegro\d*$"))
+            else if (Regex.IsMatch(nombrePlug, patronPlugNegro))
             {
                 plugEncontrado = mod8_11.plugNegrosDict[nombrePlug];
             }
@@ -428,12 +518,12 @@ public class ProgressManager : MonoBehaviour
         else
         if (tipoModulo == "9")
         {
-            Modulo9 mod9 = module.GetComponent<Modulo9>();
-            if (Regex.IsMatch(nombrePlug, @"^EntradaPlugAnaranjado\d*$"))
+            Modulo9 mod9 = modulo.GetComponent<Modulo9>();
+            if (Regex.IsMatch(nombrePlug, patronPlugAnaranjado))
             {
                 plugEncontrado = mod9.plugAnaranjadosDict[nombrePlug];
             }
-            else if (Regex.IsMatch(nombrePlug, @"^EntradaPlugNegro\d*$"))
+            else if (Regex.IsMatch(nombrePlug, patronPlugNegro))
             {
                 plugEncontrado = mod9.plugNegrosDict[nombrePlug];
             }
@@ -441,12 +531,12 @@ public class ProgressManager : MonoBehaviour
         else
         if (tipoModulo == "10, 17, 18, 19")
         {
-            Modulo10_17_18_19 mod10_17_18_19 = module.GetComponent<Modulo10_17_18_19>();
-            if (Regex.IsMatch(nombrePlug, @"^EntradaPlugAnaranjado\d*$"))
+            Modulo10_17_18_19 mod10_17_18_19 = modulo.GetComponent<Modulo10_17_18_19>();
+            if (Regex.IsMatch(nombrePlug, patronPlugAnaranjado))
             {
                 plugEncontrado = mod10_17_18_19.plugAnaranjadosDict[nombrePlug];
             }
-            else if (Regex.IsMatch(nombrePlug, @"^EntradaPlugNegro\d*$"))
+            else if (Regex.IsMatch(nombrePlug, patronPlugNegro))
             {
                 plugEncontrado = mod10_17_18_19.plugNegrosDict[nombrePlug];
             }
@@ -454,12 +544,12 @@ public class ProgressManager : MonoBehaviour
         else
         if (tipoModulo == "13")
         {
-            Modulo13 mod13 = module.GetComponent<Modulo13>();
-            if (Regex.IsMatch(nombrePlug, @"^EntradaPlugAnaranjado\d*$"))
+            Modulo13 mod13 = modulo.GetComponent<Modulo13>();
+            if (Regex.IsMatch(nombrePlug, patronPlugAnaranjado))
             {
                 plugEncontrado = mod13.plugAnaranjadosDict[nombrePlug];
             }
-            else if (Regex.IsMatch(nombrePlug, @"^EntradaPlugNegro\d*$"))
+            else if (Regex.IsMatch(nombrePlug, patronPlugNegro))
             {
                 plugEncontrado = mod13.plugNegrosDict[nombrePlug];
             }
@@ -467,12 +557,12 @@ public class ProgressManager : MonoBehaviour
         else
         if (tipoModulo == "14, 16")
         {
-            Modulo14_16 mod14_16 = module.GetComponent<Modulo14_16>();
-            if (Regex.IsMatch(nombrePlug, @"^EntradaPlugAnaranjado\d*$"))
+            Modulo14_16 mod14_16 = modulo.GetComponent<Modulo14_16>();
+            if (Regex.IsMatch(nombrePlug, patronPlugAnaranjado))
             {
                 plugEncontrado = mod14_16.plugAnaranjadosDict[nombrePlug];
             }
-            else if (Regex.IsMatch(nombrePlug, @"^EntradaPlugNegro\d*$"))
+            else if (Regex.IsMatch(nombrePlug, patronPlugNegro))
             {
                 plugEncontrado = mod14_16.plugNegrosDict[nombrePlug];
             }
@@ -480,12 +570,12 @@ public class ProgressManager : MonoBehaviour
         else
         if (tipoModulo == "15")
         {
-            Modulo15 mod15 = module.GetComponent<Modulo15>();
-            if (Regex.IsMatch(nombrePlug, @"^EntradaPlugAnaranjado\d*$"))
+            Modulo15 mod15 = modulo.GetComponent<Modulo15>();
+            if (Regex.IsMatch(nombrePlug, patronPlugAnaranjado))
             {
                 plugEncontrado = mod15.plugAnaranjadosDict[nombrePlug];
             }
-            else if (Regex.IsMatch(nombrePlug, @"^EntradaPlugNegro\d*$"))
+            else if (Regex.IsMatch(nombrePlug, patronPlugNegro))
             {
                 plugEncontrado = mod15.plugNegrosDict[nombrePlug];
             }
@@ -493,12 +583,12 @@ public class ProgressManager : MonoBehaviour
         else
         if (tipoModulo == "20")
         {
-            Modulo20 mod20 = module.GetComponent<Modulo20>();
-            if (Regex.IsMatch(nombrePlug, @"^EntradaPlugAnaranjado\d*$"))
+            Modulo20 mod20 = modulo.GetComponent<Modulo20>();
+            if (Regex.IsMatch(nombrePlug, patronPlugAnaranjado))
             {
                 plugEncontrado = mod20.plugAnaranjadosDict[nombrePlug];
             }
-            else if (Regex.IsMatch(nombrePlug, @"^EntradaPlugNegro\d*$"))
+            else if (Regex.IsMatch(nombrePlug, patronPlugNegro))
             {
                 plugEncontrado = mod20.plugNegrosDict[nombrePlug];
             }
@@ -506,12 +596,12 @@ public class ProgressManager : MonoBehaviour
         else
         if (tipoModulo == "21")
         {
-            Modulo21 mod21 = module.GetComponent<Modulo21>();
-            if (Regex.IsMatch(nombrePlug, @"^EntradaPlugAnaranjado\d*$"))
+            Modulo21 mod21 = modulo.GetComponent<Modulo21>();
+            if (Regex.IsMatch(nombrePlug, patronPlugAnaranjado))
             {
                 plugEncontrado = mod21.plugAnaranjadosDict[nombrePlug];
             }
-            else if (Regex.IsMatch(nombrePlug, @"^EntradaPlugNegro\d*$"))
+            else if (Regex.IsMatch(nombrePlug, patronPlugNegro))
             {
                 plugEncontrado = mod21.plugNegrosDict[nombrePlug];
             }
@@ -519,12 +609,12 @@ public class ProgressManager : MonoBehaviour
         else
         if (tipoModulo == "22, 23")
         {
-            Modulo22_23 mod22_23 = module.GetComponent<Modulo22_23>();
-            if(Regex.IsMatch(nombrePlug, @"^EntradaPlugAnaranjado\d*$"))
+            Modulo22_23 mod22_23 = modulo.GetComponent<Modulo22_23>();
+            if (Regex.IsMatch(nombrePlug, patronPlugAnaranjado))
             {
                 plugEncontrado = mod22_23.plugAnaranjadosDict[nombrePlug];
             }
-            else if (Regex.IsMatch(nombrePlug, @"^EntradaPlugNegro\d*$"))
+            else if (Regex.IsMatch(nombrePlug, patronPlugNegro))
             {
                 plugEncontrado = mod22_23.plugNegrosDict[nombrePlug];
             }
@@ -532,12 +622,12 @@ public class ProgressManager : MonoBehaviour
         else
         if (tipoModulo == "22")
         {
-            Modulo22_23 mod22_23 = module.GetComponent<Modulo22_23>();
-            if (Regex.IsMatch(nombrePlug, @"^EntradaPlugAnaranjado\d*$"))
+            Modulo22_23 mod22_23 = modulo.GetComponent<Modulo22_23>();
+            if (Regex.IsMatch(nombrePlug, patronPlugAnaranjado))
             {
                 plugEncontrado = mod22_23.plugAnaranjadosDict[nombrePlug];
             }
-            else if (Regex.IsMatch(nombrePlug, @"^EntradaPlugNegro\d*$"))
+            else if (Regex.IsMatch(nombrePlug, patronPlugNegro))
             {
                 plugEncontrado = mod22_23.plugNegrosDict[nombrePlug];
             }
@@ -545,12 +635,12 @@ public class ProgressManager : MonoBehaviour
         else
         if (tipoModulo == "23")
         {
-            Modulo22_23 mod22_23 = module.GetComponent<Modulo22_23>();
-            if (Regex.IsMatch(nombrePlug, @"^EntradaPlugAnaranjado\d*$"))
+            Modulo22_23 mod22_23 = modulo.GetComponent<Modulo22_23>();
+            if (Regex.IsMatch(nombrePlug, patronPlugAnaranjado))
             {
                 plugEncontrado = mod22_23.plugAnaranjadosDict[nombrePlug];
             }
-            else if (Regex.IsMatch(nombrePlug, @"^EntradaPlugNegro\d*$"))
+            else if (Regex.IsMatch(nombrePlug, patronPlugNegro))
             {
                 plugEncontrado = mod22_23.plugNegrosDict[nombrePlug];
             }
@@ -558,12 +648,12 @@ public class ProgressManager : MonoBehaviour
         else
         if (tipoModulo == "Potenciometro")
         {
-            Potenciometro modPoten = module.GetComponent<Potenciometro>();
-            if (Regex.IsMatch(nombrePlug, @"^EntradaPlugAnaranjado\d*$"))
+            Potenciometro modPoten = modulo.GetComponent<Potenciometro>();
+            if (Regex.IsMatch(nombrePlug, patronPlugAnaranjado))
             {
                 plugEncontrado = modPoten.plugAnaranjadosDict[nombrePlug];
             }
-            else if (Regex.IsMatch(nombrePlug, @"^EntradaPlugNegro\d*$"))
+            else if (Regex.IsMatch(nombrePlug, patronPlugNegro))
             {
                 plugEncontrado = modPoten.plugNegrosDict[nombrePlug];
             }
@@ -575,120 +665,121 @@ public class ProgressManager : MonoBehaviour
         return plugEncontrado;
     }
 
-    Dictionary<string, string> ObtenerPlugConnections(string tipoModulo, GameObject module)
+    /*Este método se encarga de regresar el diccionario de conexiones de un respectivo módulo.*/
+    private Dictionary<string, string> ObtenerPlugConnections(string tipoModulo, GameObject modulo)
     {
         Dictionary<string, string> diccionario = null;
         if (tipoModulo == "1")
         {
-            Modulo1 mod1 = module.GetComponent<Modulo1>();
+            Modulo1 mod1 = modulo.GetComponent<Modulo1>();
             diccionario = mod1.plugsConnections;
         }
         else
         if (tipoModulo == "2")
         {
-            Modulo2 mod2 = module.GetComponent<Modulo2>();
+            Modulo2 mod2 = modulo.GetComponent<Modulo2>();
             diccionario = mod2.plugsConnections;
         }
         else
         if (tipoModulo == "3")
         {
-            Modulo3 mod3 = module.GetComponent<Modulo3>();
+            Modulo3 mod3 = modulo.GetComponent<Modulo3>();
             diccionario = mod3.plugsConnections;
         }
         else
         if (tipoModulo == "4")
         {
-            Modulo4 mod4 = module.GetComponent<Modulo4>();
+            Modulo4 mod4 = modulo.GetComponent<Modulo4>();
             diccionario = mod4.plugsConnections;
         }
         else
         if (tipoModulo == "5")
         {
-            Modulo5 mod5 = module.GetComponent<Modulo5>();
+            Modulo5 mod5 = modulo.GetComponent<Modulo5>();
             diccionario = mod5.plugsConnections;
         }
         else
         if (tipoModulo == "6")
         {
-            Modulo6 mod6 = module.GetComponent<Modulo6>();
+            Modulo6 mod6 = modulo.GetComponent<Modulo6>();
             diccionario = mod6.plugsConnections;
         }
         else
         if (tipoModulo == "7")
         {
-            Modulo7 mod7 = module.GetComponent<Modulo7>();
+            Modulo7 mod7 = modulo.GetComponent<Modulo7>();
             diccionario = mod7.plugsConnections;
         }
         else
         if (tipoModulo == "8, 11")
         {
-            Modulo8_11 mod8_11 = module.GetComponent<Modulo8_11>();
+            Modulo8_11 mod8_11 = modulo.GetComponent<Modulo8_11>();
             diccionario = mod8_11.plugsConnections;
         }
         else
         if (tipoModulo == "9")
         {
-            Modulo9 mod9 = module.GetComponent<Modulo9>();
+            Modulo9 mod9 = modulo.GetComponent<Modulo9>();
             diccionario = mod9.plugsConnections;
         }
         else
         if (tipoModulo == "10, 17, 18, 19")
         {
-            Modulo10_17_18_19 mod10_17_18_19 = module.GetComponent<Modulo10_17_18_19>();
+            Modulo10_17_18_19 mod10_17_18_19 = modulo.GetComponent<Modulo10_17_18_19>();
             diccionario = mod10_17_18_19.plugsConnections;
         }
         else
         if (tipoModulo == "13")
         {
-            Modulo13 mod13 = module.GetComponent<Modulo13>();
+            Modulo13 mod13 = modulo.GetComponent<Modulo13>();
             diccionario = mod13.plugsConnections;
         }
         else
         if (tipoModulo == "14, 16")
         {
-            Modulo14_16 mod14_16 = module.GetComponent<Modulo14_16>();
+            Modulo14_16 mod14_16 = modulo.GetComponent<Modulo14_16>();
             diccionario = mod14_16.plugsConnections;
         }
         else
         if (tipoModulo == "15")
         {
-            Modulo15 mod15 = module.GetComponent<Modulo15>();
+            Modulo15 mod15 = modulo.GetComponent<Modulo15>();
             diccionario = mod15.plugsConnections;
         }
         else
         if (tipoModulo == "20")
         {
-            Modulo20 mod20 = module.GetComponent<Modulo20>();
+            Modulo20 mod20 = modulo.GetComponent<Modulo20>();
             diccionario = mod20.plugsConnections;
         }
         else
         if (tipoModulo == "21")
         {
-            Modulo21 mod21 = module.GetComponent<Modulo21>();
+            Modulo21 mod21 = modulo.GetComponent<Modulo21>();
             diccionario = mod21.plugsConnections;
         }
         else
         if (tipoModulo == "22, 23")
         {
-            Modulo22_23 mod22_23 = module.GetComponent<Modulo22_23>();
+            Modulo22_23 mod22_23 = modulo.GetComponent<Modulo22_23>();
             diccionario = mod22_23.plugsConnections;
         }
         else
         if (tipoModulo == "22")
         {
-            Modulo22_23 mod22_23 = module.GetComponent<Modulo22_23>();
+            Modulo22_23 mod22_23 = modulo.GetComponent<Modulo22_23>();
             diccionario = mod22_23.plugsConnections;
         }
         else
         if (tipoModulo == "23")
         {
-            Modulo22_23 mod22_23 = module.GetComponent<Modulo22_23>();
+            Modulo22_23 mod22_23 = modulo.GetComponent<Modulo22_23>();
             diccionario = mod22_23.plugsConnections;
         }
         else
         if (tipoModulo == "Potenciometro")
         {
-            Potenciometro modPoten = module.GetComponent<Potenciometro>();
+            Potenciometro modPoten = modulo.GetComponent<Potenciometro>();
             diccionario = modPoten.plugsConnections;
         }
         else
@@ -698,6 +789,8 @@ public class ProgressManager : MonoBehaviour
         return diccionario;
     }
 
+    /*En este método se encarga de realizar la creación de los nuevos modulos y establecer sus carácteristicas,
+      de acuerdo a un tipo de múdulo determinado.*/
     private GameObject CrearNuevoModulo(string tipo, Vector3 vectorPosicion, Vector3 vectorRotacion, string nombreModulo)
     {
         string ruta = "Assets/Prefabs/" + tipo + ".blend";
@@ -710,105 +803,107 @@ public class ProgressManager : MonoBehaviour
         return newModule;
     }
 
-    private GameObject AsignarLogicaModulo(GameObject module, string nameModule)
+    /*En este método se asigna la lógica de funcionamiento a un determinado módulo, de acuerdo a su tipo.*/
+    private GameObject AsignarLogicaModulo(GameObject module, string tipoModulo)
     {
-        if (nameModule == "1")
+        if (tipoModulo == "1")
         {
             module.AddComponent<Modulo1>();
         }
         else
-        if (nameModule == "2")
+        if (tipoModulo == "2")
         {
             module.AddComponent<Modulo2>();
         }
         else
-        if (nameModule == "3")
+        if (tipoModulo == "3")
         {
             module.AddComponent<Modulo3>();
         }
         else
-        if (nameModule == "4")
+        if (tipoModulo == "4")
         {
             module.AddComponent<Modulo4>();
         }
         else
-        if (nameModule == "5")
+        if (tipoModulo == "5")
         {
             module.AddComponent<Modulo5>();
         }
         else
-        if (nameModule == "6")
+        if (tipoModulo == "6")
         {
             module.AddComponent<Modulo6>();
         }
         else
-        if (nameModule == "7")
+        if (tipoModulo == "7")
         {
             module.AddComponent<Modulo7>();
         }
         else
-        if (nameModule == "8, 11")
+        if (tipoModulo == "8, 11")
         {
             module.AddComponent<Modulo8_11>();
         }
         else
-        if (nameModule == "9")
+        if (tipoModulo == "9")
         {
             module.AddComponent<Modulo9>();
         }
         else
-        if (nameModule == "10, 17, 18, 19")
+        if (tipoModulo == "10, 17, 18, 19")
         {
             module.AddComponent<Modulo10_17_18_19>();
         }
         else
-        if (nameModule == "13")
+        if (tipoModulo == "13")
         {
             module.AddComponent<Modulo13>();
         }
         else
-        if (nameModule == "14, 16")
+        if (tipoModulo == "14, 16")
         {
             module.AddComponent<Modulo14_16>();
         }
         else
-        if (nameModule == "15")
+        if (tipoModulo == "15")
         {
             module.AddComponent<Modulo15>();
         }
         else
-        if (nameModule == "20")
+        if (tipoModulo == "20")
         {
             module.AddComponent<Modulo20>();
         }
         else
-        if (nameModule == "21")
+        if (tipoModulo == "21")
         {
             module.AddComponent<Modulo21>();
         }
         else
-        if (nameModule == "22, 23")
+        if (tipoModulo == "22, 23")
         {
             module.AddComponent<Modulo22_23>();
         }
         else
-        if (nameModule == "22")
+        if (tipoModulo == "22")
         {
             module.AddComponent<Modulo22_23>();
         }
         else
-        if (nameModule == "23")
+        if (tipoModulo == "23")
         {
             module.AddComponent<Modulo22_23>();
         }
         else
-        if (nameModule == "Potenciometro")
+        if (tipoModulo == "Potenciometro")
         {
             module.AddComponent<Potenciometro>();
         }
         return module;
     }
 
+    /*Este método recursivo se utiliza para encontrar el padretotal (Nodo raíz) de un componente*/
     private void EncontrarPadreTotal(GameObject nodo)
     {
         if (nodo.transform.parent == null)
@@ -822,7 +917,9 @@ public class ProgressManager : MonoBehaviour
         }
     }
 
-    private void AsignacionRecursiva(GameObject nodo)
+    /*En este método se asigna la lógica de funcionamiento a los componentes de un determinado módulo´,
+     * de acuerdo a su tipo.*/
+    private void AsignacionRecursivaLogicaComponentes(GameObject nodo)
     {
         nodo.layer = moduleLayer;
         if (nodo.name.Contains("BaseModulo"))
@@ -843,10 +940,11 @@ public class ProgressManager : MonoBehaviour
         int numeroDeHijoss = nodo.transform.childCount;
         for (int i = 0; i < numeroDeHijoss; i++)
         {
-            AsignacionRecursiva(nodo.transform.GetChild(i).gameObject);
+            AsignacionRecursivaLogicaComponentes(nodo.transform.GetChild(i).gameObject);
         }
     }
 
+    /*Este método recursivo se utiliza para eliminar los componetes en cascada aparitr de un objeto.*/
     private void DestruirObjetosRecursivos(GameObject nodo)
     {
         int numeroDeHijosHijos = nodo.transform.childCount;
@@ -856,7 +954,7 @@ public class ProgressManager : MonoBehaviour
         }
         Destroy(nodo);
     }
-    
+
     public string ObtenerCadenaJson(string path)
     {
         string jsonString;
@@ -872,6 +970,7 @@ public class ProgressManager : MonoBehaviour
         return jsonString;
     }
 
+    /*Este método se encarga de comprobar si un Json tiene un formato válido.*/
     public bool ComprobarValidezJson(string path)
     {
         bool info = false;
@@ -883,6 +982,7 @@ public class ProgressManager : MonoBehaviour
         return info;
     }
 
+    /*Este método se encarga de comprobar si un Json tiene un formato válido.*/
     private static bool IsValidJson(string strInput)
     {
         strInput = strInput.Trim();
@@ -912,6 +1012,7 @@ public class ProgressManager : MonoBehaviour
         }
     }
 
+    /*Este método se encarga de mostrar todo el contenido de un Json separado por tipo.*/
     void AccessData(JSONObject obj)
     {
         switch (obj.type)
@@ -947,6 +1048,7 @@ public class ProgressManager : MonoBehaviour
         }
     }
 
+    /*Este método se encarga de comprobar si la ruta de un archivo o carpeta existe, es decir, si es válida.*/
     public bool ComprobarExistenciaArchivo(string path)
     {
         bool existeArchivo = false;
@@ -957,6 +1059,8 @@ public class ProgressManager : MonoBehaviour
         return existeArchivo;
     }
 
+    /*Este método se encarga de generar el archivo Json de acuerdo al estado actual del simulador y 
+     * guardar dicho contenido en disco.*/
     public void SaveSimulator(string path, string nameFile)
     {
         saveModules = GameObject.FindGameObjectsWithTag("1");
@@ -980,7 +1084,7 @@ public class ProgressManager : MonoBehaviour
         string jsonModPotenciometro = GenerarJsonModuloPotenciometro();
         string jsonModVacio = GenerarJsonModuloVacio();
         string json = "{";
-        if(jsonMod1.Length != 0)
+        if (jsonMod1.Length != 0)
         {
             json += jsonMod1 + ",\n";
         }
@@ -1056,15 +1160,15 @@ public class ProgressManager : MonoBehaviour
         {
             json += jsonModVacio;
         }
-        if(json[json.Length-1] == ',')
+        if (json[json.Length - 1] == ',')
         {
-            json.Remove(json.Length-1);
+            json.Remove(json.Length - 1);
         }
         json += "}";
         Debug.LogError(json);
         if (cifrar)
         {
-             json = EncryptStringSample.StringCipher.Encrypt(json, palabraClave);
+            json = EncryptStringSample.StringCipher.Encrypt(json, palabraClave);
         }
         if (File.Exists(path))
         {
@@ -1076,14 +1180,14 @@ public class ProgressManager : MonoBehaviour
                 {
                     streamWriter.Write(json);
                 }
-                Debug.Log("Archivo guardado correctamente." + dataPath);
+                Debug.Log("Archivo guardado correctamente." + rutaGuardado);
                 nombreArchivoGuardado = nameFile;
             }
             else
             {
                 Debug.Log("Cambie el nombre de sua rchivo de guardado, por uno diferente.");
             }
-            
+
         }
         else
         {
@@ -1091,11 +1195,13 @@ public class ProgressManager : MonoBehaviour
             {
                 streamWriter.Write(json);
             }
-            Debug.Log("Archivo guardado correctamente." + dataPath);
+            Debug.Log("Archivo guardado correctamente." + rutaGuardado);
             nombreArchivoGuardado = nameFile;
         }
     }
 
+    /*Este método se encarga de generar la representación Json de todos los módulos de tipo "1", 
+     * existentes en el simulador.*/
     string GenerarJsonModulo1()
     {
         GameObject[] modulos1 = GameObject.FindGameObjectsWithTag("1");
@@ -1109,9 +1215,10 @@ public class ProgressManager : MonoBehaviour
             jsonModulo1 += "\"Tipo\":\"1\",\n";
             jsonModulo1 += "\"Voltaje\":" + mod1.voltajeModulo + ",\n";
             jsonModulo1 += PosicionModulo(modulo) + ",\n";
-            jsonModulo1 += "\"Conexiones\":{" + CrearConexionesModulo(mod1.plugsConnections) + "}";
+            jsonModulo1 += "\"Conexiones\":{" + CrearConexionesModulo(mod1.plugsConnections, modulo) + "}";
             jsonModulo1 += "}";
-            if (numeroDeModulos != numeroMaximoModulos) {
+            if (numeroDeModulos != numeroMaximoModulos)
+            {
                 jsonModulo1 += ",\n";
             }
             numeroDeModulos++;
@@ -1123,6 +1230,8 @@ public class ProgressManager : MonoBehaviour
         return jsonModulo1;
     }
 
+    /*Este método se encarga de generar la representación Json de todos los módulos de tipo "2", 
+    * existentes en el simulador.*/
     string GenerarJsonModulo2()
     {
         GameObject[] modulos2 = GameObject.FindGameObjectsWithTag("2");
@@ -1135,7 +1244,7 @@ public class ProgressManager : MonoBehaviour
             jsonModulo2 += "\"" + modulo.name + "\":{\n";
             jsonModulo2 += "\"Tipo\":\"2\",\n";
             jsonModulo2 += PosicionModulo(modulo) + ",\n";
-            jsonModulo2 += "\"Conexiones\":{" + CrearConexionesModulo(mod2.plugsConnections) + "}";
+            jsonModulo2 += "\"Conexiones\":{" + CrearConexionesModulo(mod2.plugsConnections, modulo) + "}";
             jsonModulo2 += "}";
             if (numeroDeModulos != numeroMaximoModulos)
             {
@@ -1150,6 +1259,8 @@ public class ProgressManager : MonoBehaviour
         return jsonModulo2;
     }
 
+    /*Este método se encarga de generar la representación Json de todos los módulos de tipo "3", 
+    * existentes en el simulador.*/
     string GenerarJsonModulo3()
     {
         GameObject[] modulos3 = GameObject.FindGameObjectsWithTag("3");
@@ -1162,7 +1273,7 @@ public class ProgressManager : MonoBehaviour
             jsonModulo3 += "\"" + modulo.name + "\":{\n";
             jsonModulo3 += "\"Tipo\":\"3\",\n";
             jsonModulo3 += PosicionModulo(modulo) + ",\n";
-            jsonModulo3 += "\"Conexiones\":{" + CrearConexionesModulo(mod3.plugsConnections) + "}";
+            jsonModulo3 += "\"Conexiones\":{" + CrearConexionesModulo(mod3.plugsConnections, modulo) + "}";
             jsonModulo3 += "}";
             if (numeroDeModulos != numeroMaximoModulos)
             {
@@ -1177,6 +1288,8 @@ public class ProgressManager : MonoBehaviour
         return jsonModulo3;
     }
 
+    /*Este método se encarga de generar la representación Json de todos los módulos de tipo "4", 
+    * existentes en el simulador.*/
     string GenerarJsonModulo4()
     {
         GameObject[] modulos4 = GameObject.FindGameObjectsWithTag("4");
@@ -1189,7 +1302,7 @@ public class ProgressManager : MonoBehaviour
             jsonModulo4 += "\"" + modulo.name + "\":{\n";
             jsonModulo4 += "\"Tipo\":\"4\",\n";
             jsonModulo4 += PosicionModulo(modulo) + ",\n";
-            jsonModulo4 += "\"Conexiones\":{" + CrearConexionesModulo(mod4.plugsConnections) + "}";
+            jsonModulo4 += "\"Conexiones\":{" + CrearConexionesModulo(mod4.plugsConnections, modulo) + "}";
             jsonModulo4 += "}";
             if (numeroDeModulos != numeroMaximoModulos)
             {
@@ -1204,6 +1317,8 @@ public class ProgressManager : MonoBehaviour
         return jsonModulo4;
     }
 
+    /*Este método se encarga de generar la representación Json de todos los módulos de tipo "5", 
+    * existentes en el simulador.*/
     string GenerarJsonModulo5()
     {
         GameObject[] modulos5 = GameObject.FindGameObjectsWithTag("5");
@@ -1216,7 +1331,7 @@ public class ProgressManager : MonoBehaviour
             jsonModulo5 += "\"" + modulo.name + "\":{\n";
             jsonModulo5 += "\"Tipo\":\"5\",\n";
             jsonModulo5 += PosicionModulo(modulo) + ",\n";
-            jsonModulo5 += "\"Conexiones\":{" + CrearConexionesModulo(mod5.plugsConnections) + "}";
+            jsonModulo5 += "\"Conexiones\":{" + CrearConexionesModulo(mod5.plugsConnections, modulo) + "}";
             jsonModulo5 += "}";
             if (numeroDeModulos != numeroMaximoModulos)
             {
@@ -1231,6 +1346,8 @@ public class ProgressManager : MonoBehaviour
         return jsonModulo5;
     }
 
+    /*Este método se encarga de generar la representación Json de todos los módulos de tipo "6", 
+    * existentes en el simulador.*/
     string GenerarJsonModulo6()
     {
         GameObject[] modulos6 = GameObject.FindGameObjectsWithTag("6");
@@ -1244,7 +1361,7 @@ public class ProgressManager : MonoBehaviour
             jsonModulo6 += "\"Tipo\":\"6\",\n";
             jsonModulo6 += "\"ValorPerilla\":" + mod6.valorActualPerilla + ",\n";
             jsonModulo6 += PosicionModulo(modulo) + ",\n";
-            jsonModulo6 += "\"Conexiones\":{" + CrearConexionesModulo(mod6.plugsConnections) + "}";
+            jsonModulo6 += "\"Conexiones\":{" + CrearConexionesModulo(mod6.plugsConnections, modulo) + "}";
             jsonModulo6 += "}";
             if (numeroDeModulos != numeroMaximoModulos)
             {
@@ -1259,6 +1376,8 @@ public class ProgressManager : MonoBehaviour
         return jsonModulo6;
     }
 
+    /*Este método se encarga de generar la representación Json de todos los módulos de tipo "7", 
+    * existentes en el simulador.*/
     string GenerarJsonModulo7()
     {
         GameObject[] modulos7 = GameObject.FindGameObjectsWithTag("7");
@@ -1272,7 +1391,7 @@ public class ProgressManager : MonoBehaviour
             jsonModulo7 += "\"Tipo\":\"7\",\n";
             jsonModulo7 += "\"ValorPerilla\":" + mod7.valorActualPerilla + ",\n";
             jsonModulo7 += PosicionModulo(modulo) + ",\n";
-            jsonModulo7 += "\"Conexiones\":{" + CrearConexionesModulo(mod7.plugsConnections) + "}";
+            jsonModulo7 += "\"Conexiones\":{" + CrearConexionesModulo(mod7.plugsConnections, modulo) + "}";
             jsonModulo7 += "}";
             if (numeroDeModulos != numeroMaximoModulos)
             {
@@ -1287,6 +1406,8 @@ public class ProgressManager : MonoBehaviour
         return jsonModulo7;
     }
 
+    /*Este método se encarga de generar la representación Json de todos los módulos de tipo "8, 11", 
+    * existentes en el simulador.*/
     string GenerarJsonModulo8_11()
     {
         GameObject[] modulos8_11 = GameObject.FindGameObjectsWithTag("8, 11");
@@ -1299,7 +1420,7 @@ public class ProgressManager : MonoBehaviour
             jsonModulo8_11 += "\"" + modulo.name + "\":{\n";
             jsonModulo8_11 += "\"Tipo\":\"8, 11\",\n";
             jsonModulo8_11 += PosicionModulo(modulo) + ",\n";
-            jsonModulo8_11 += "\"Conexiones\":{" + CrearConexionesModulo(mod8_11.plugsConnections) + "}";
+            jsonModulo8_11 += "\"Conexiones\":{" + CrearConexionesModulo(mod8_11.plugsConnections, modulo) + "}";
             jsonModulo8_11 += "}";
             if (numeroDeModulos != numeroMaximoModulos)
             {
@@ -1314,6 +1435,8 @@ public class ProgressManager : MonoBehaviour
         return jsonModulo8_11;
     }
 
+    /*Este método se encarga de generar la representación Json de todos los módulos de tipo "9", 
+    * existentes en el simulador.*/
     string GenerarJsonModulo9()
     {
         GameObject[] modulos9 = GameObject.FindGameObjectsWithTag("9");
@@ -1326,7 +1449,7 @@ public class ProgressManager : MonoBehaviour
             jsonModulo9 += "\"" + modulo.name + "\":{\n";
             jsonModulo9 += "\"Tipo\":\"9\",\n";
             jsonModulo9 += PosicionModulo(modulo) + ",\n";
-            jsonModulo9 += "\"Conexiones\":{" + CrearConexionesModulo(mod9.plugsConnections) + "}";
+            jsonModulo9 += "\"Conexiones\":{" + CrearConexionesModulo(mod9.plugsConnections, modulo) + "}";
             jsonModulo9 += "}";
             if (numeroDeModulos != numeroMaximoModulos)
             {
@@ -1341,6 +1464,8 @@ public class ProgressManager : MonoBehaviour
         return jsonModulo9;
     }
 
+    /*Este método se encarga de generar la representación Json de todos los módulos de tipo "10, 17, 18, 19", 
+    * existentes en el simulador.*/
     string GenerarJsonModulo10_17_18_19()
     {
         GameObject[] modulos10_17_18_19 = GameObject.FindGameObjectsWithTag("10, 17, 18, 19");
@@ -1353,7 +1478,7 @@ public class ProgressManager : MonoBehaviour
             jsonModulo10_17_18_19 += "\"" + modulo.name + "\":{\n";
             jsonModulo10_17_18_19 += "\"Tipo\":\"10, 17, 18, 19\",\n";
             jsonModulo10_17_18_19 += PosicionModulo(modulo) + ",\n";
-            jsonModulo10_17_18_19 += "\"Conexiones\":{" + CrearConexionesModulo(mod10_17_18_19.plugsConnections) + "}";
+            jsonModulo10_17_18_19 += "\"Conexiones\":{" + CrearConexionesModulo(mod10_17_18_19.plugsConnections, modulo) + "}";
             jsonModulo10_17_18_19 += "}";
             if (numeroDeModulos != numeroMaximoModulos)
             {
@@ -1368,6 +1493,8 @@ public class ProgressManager : MonoBehaviour
         return jsonModulo10_17_18_19;
     }
 
+    /*Este método se encarga de generar la representación Json de todos los módulos de tipo "13", 
+    * existentes en el simulador.*/
     string GenerarJsonModulo13()
     {
         GameObject[] modulos13 = GameObject.FindGameObjectsWithTag("13");
@@ -1380,7 +1507,7 @@ public class ProgressManager : MonoBehaviour
             jsonModulo13 += "\"" + modulo.name + "\":{\n";
             jsonModulo13 += "\"Tipo\":\"13\",\n";
             jsonModulo13 += PosicionModulo(modulo) + ",\n";
-            jsonModulo13 += "\"Conexiones\":{" + CrearConexionesModulo(mod13.plugsConnections) + "}";
+            jsonModulo13 += "\"Conexiones\":{" + CrearConexionesModulo(mod13.plugsConnections, modulo) + "}";
             jsonModulo13 += "}";
             if (numeroDeModulos != numeroMaximoModulos)
             {
@@ -1395,6 +1522,8 @@ public class ProgressManager : MonoBehaviour
         return jsonModulo13;
     }
 
+    /*Este método se encarga de generar la representación Json de todos los módulos de tipo "14, 16", 
+    * existentes en el simulador.*/
     string GenerarJsonModulo14_16()
     {
         GameObject[] modulos14_16 = GameObject.FindGameObjectsWithTag("14, 16");
@@ -1407,7 +1536,7 @@ public class ProgressManager : MonoBehaviour
             jsonModulo14_16 += "\"" + modulo.name + "\":{\n";
             jsonModulo14_16 += "\"Tipo\":\"14, 16\",\n";
             jsonModulo14_16 += PosicionModulo(modulo) + ",\n";
-            jsonModulo14_16 += "\"Conexiones\":{" + CrearConexionesModulo(mod14_16.plugsConnections) + "}";
+            jsonModulo14_16 += "\"Conexiones\":{" + CrearConexionesModulo(mod14_16.plugsConnections, modulo) + "}";
             jsonModulo14_16 += "}";
             if (numeroDeModulos != numeroMaximoModulos)
             {
@@ -1422,6 +1551,8 @@ public class ProgressManager : MonoBehaviour
         return jsonModulo14_16;
     }
 
+    /*Este método se encarga de generar la representación Json de todos los módulos de tipo "15", 
+    * existentes en el simulador.*/
     string GenerarJsonModulo15()
     {
         GameObject[] modulos15 = GameObject.FindGameObjectsWithTag("15");
@@ -1435,7 +1566,7 @@ public class ProgressManager : MonoBehaviour
             jsonModulo15 += "\"Tipo\":\"15\",\n";
             jsonModulo15 += "\"Voltaje\":" + mod15.voltajeModulo + ",\n";
             jsonModulo15 += PosicionModulo(modulo) + ",\n";
-            jsonModulo15 += "\"Conexiones\":{" + CrearConexionesModulo(mod15.plugsConnections) + "}";
+            jsonModulo15 += "\"Conexiones\":{" + CrearConexionesModulo(mod15.plugsConnections, modulo) + "}";
             jsonModulo15 += "}";
             if (numeroDeModulos != numeroMaximoModulos)
             {
@@ -1450,6 +1581,8 @@ public class ProgressManager : MonoBehaviour
         return jsonModulo15;
     }
 
+    /*Este método se encarga de generar la representación Json de todos los módulos de tipo "20", 
+    * existentes en el simulador.*/
     string GenerarJsonModulo20()
     {
         GameObject[] modulos20 = GameObject.FindGameObjectsWithTag("20");
@@ -1462,7 +1595,7 @@ public class ProgressManager : MonoBehaviour
             jsonModulo20 += "\"" + modulo.name + "\":{\n";
             jsonModulo20 += "\"Tipo\":\"20\",\n";
             jsonModulo20 += PosicionModulo(modulo) + ",\n";
-            jsonModulo20 += "\"Conexiones\":{" + CrearConexionesModulo(mod20.plugsConnections) + "}";
+            jsonModulo20 += "\"Conexiones\":{" + CrearConexionesModulo(mod20.plugsConnections, modulo) + "}";
             jsonModulo20 += "}";
             if (numeroDeModulos != numeroMaximoModulos)
             {
@@ -1477,6 +1610,8 @@ public class ProgressManager : MonoBehaviour
         return jsonModulo20;
     }
 
+    /*Este método se encarga de generar la representación Json de todos los módulos de tipo "21", 
+    * existentes en el simulador.*/
     string GenerarJsonModulo21()
     {
         GameObject[] modulos21 = GameObject.FindGameObjectsWithTag("21");
@@ -1489,7 +1624,7 @@ public class ProgressManager : MonoBehaviour
             jsonModulo21 += "\"" + modulo.name + "\":{\n";
             jsonModulo21 += "\"Tipo\":\"21\",\n";
             jsonModulo21 += PosicionModulo(modulo) + ",\n";
-            jsonModulo21 += "\"Conexiones\":{" + CrearConexionesModulo(mod21.plugsConnections) + "}";
+            jsonModulo21 += "\"Conexiones\":{" + CrearConexionesModulo(mod21.plugsConnections, modulo) + "}";
             jsonModulo21 += "}";
             if (numeroDeModulos != numeroMaximoModulos)
             {
@@ -1504,6 +1639,8 @@ public class ProgressManager : MonoBehaviour
         return jsonModulo21;
     }
 
+    /*Este método se encarga de generar la representación Json de todos los módulos de tipo "22", 
+    * existentes en el simulador.*/
     string GenerarJsonModulo22()
     {
         GameObject[] modulos22 = GameObject.FindGameObjectsWithTag("22");
@@ -1516,7 +1653,7 @@ public class ProgressManager : MonoBehaviour
             jsonModulo22 += "\"" + modulo.name + "\":{\n";
             jsonModulo22 += "\"Tipo\":\"22\",\n";
             jsonModulo22 += PosicionModulo(modulo) + ",\n";
-            jsonModulo22 += "\"Conexiones\":{" + CrearConexionesModulo(mod22.plugsConnections) + "}";
+            jsonModulo22 += "\"Conexiones\":{" + CrearConexionesModulo(mod22.plugsConnections, modulo) + "}";
             jsonModulo22 += "}";
             if (numeroDeModulos != numeroMaximoModulos)
             {
@@ -1531,6 +1668,8 @@ public class ProgressManager : MonoBehaviour
         return jsonModulo22;
     }
 
+    /*Este método se encarga de generar la representación Json de todos los módulos de tipo "23", 
+    * existentes en el simulador.*/
     string GenerarJsonModulo23()
     {
         GameObject[] modulos23 = GameObject.FindGameObjectsWithTag("23");
@@ -1543,7 +1682,7 @@ public class ProgressManager : MonoBehaviour
             jsonModulo23 += "\"" + modulo.name + "\":{\n";
             jsonModulo23 += "\"Tipo\":\"23\",\n";
             jsonModulo23 += PosicionModulo(modulo) + ",\n";
-            jsonModulo23 += "\"Conexiones\":{" + CrearConexionesModulo(mod23.plugsConnections) + "}";
+            jsonModulo23 += "\"Conexiones\":{" + CrearConexionesModulo(mod23.plugsConnections, modulo) + "}";
             jsonModulo23 += "}";
             if (numeroDeModulos != numeroMaximoModulos)
             {
@@ -1558,6 +1697,8 @@ public class ProgressManager : MonoBehaviour
         return jsonModulo23;
     }
 
+    /*Este método se encarga de generar la representación Json de todos los módulos de tipo "Potenciometro", 
+    * existentes en el simulador.*/
     string GenerarJsonModuloPotenciometro()
     {
         GameObject[] modulosPotenciometro = GameObject.FindGameObjectsWithTag("Potenciometro");
@@ -1571,7 +1712,7 @@ public class ProgressManager : MonoBehaviour
             jsonModuloPoten += "\"Tipo\":\"Potenciometro\",\n";
             jsonModuloPoten += "\"ValorPerilla\":" + modPoten.valorActualPerilla + ",\n";
             jsonModuloPoten += PosicionModulo(modulo) + ",\n";
-            jsonModuloPoten += "\"Conexiones\":{" + CrearConexionesModulo(modPoten.plugsConnections) + "}";
+            jsonModuloPoten += "\"Conexiones\":{" + CrearConexionesModulo(modPoten.plugsConnections, modulo) + "}";
             jsonModuloPoten += "}";
             if (numeroDeModulos != numeroMaximoModulos)
             {
@@ -1586,6 +1727,8 @@ public class ProgressManager : MonoBehaviour
         return jsonModuloPoten;
     }
 
+    /*Este método se encarga de generar la representación Json de todos los módulos de tipo "ModuloVacio", 
+    * existentes en el simulador.*/
     string GenerarJsonModuloVacio()
     {
         GameObject[] modulosVacio = GameObject.FindGameObjectsWithTag("ModuloVacio");
@@ -1611,6 +1754,7 @@ public class ProgressManager : MonoBehaviour
         return jsonModuloPoten;
     }
 
+    /*Este método se encarga de generar la representación Json de la posición de un GameObject determinado.*/
     string PosicionModulo(GameObject modulo)
     {
         string jsonPosicion = "";
@@ -1621,23 +1765,60 @@ public class ProgressManager : MonoBehaviour
         return jsonPosicion;
     }
 
-    string CrearConexionesModulo(Dictionary<string, string> conexionesDict)
+    /*Este método se encarga de generar la representación Json de todas las conexiones de un módulo a 
+     * partir de un dicctionario de conexiones.*/
+    string CrearConexionesModulo(Dictionary<string, string> conexionesDict, GameObject modulo)
     {
         string jsonConexiones = "";
         int numeroConexion = 1;
         int numeroMaximoConexiones = conexionesDict.Count;
         foreach (KeyValuePair<string, string> entry in conexionesDict)
         {
+            string colorCable = ColorCable(entry.Key, modulo);
             jsonConexiones += "\"Conexion" + numeroConexion + "\":{\n";
             jsonConexiones += "\"Origen\": \"" + entry.Key + "\",\n";
-            jsonConexiones += "\"Destino\": \"" + entry.Value + "\"\n}";
+            jsonConexiones += "\"Destino\": \"" + entry.Value + "\",\n";
+            jsonConexiones += "\"Color\": {" + colorCable + "}\n}";
             if (numeroConexion != numeroMaximoConexiones)
             {
                 jsonConexiones += ",\n";
             }
             numeroConexion++;
-            // do something with entry.Value or entry.Key
         }
         return jsonConexiones;
     }
+
+    private string ColorCable(string plugOrigenString, GameObject modulo)
+    {
+        string colorString = "";
+        string[] parametrosConexionOrigen = plugOrigenString.ToString().Split('|');
+        GameObject plugOrigen = BuscarPlugConexion(modulo.tag, modulo, parametrosConexionOrigen[1]);
+        CableComponent camble;
+        if (plugOrigen != null)
+        {
+            camble = plugOrigen.GetComponent<CableComponent>();
+            if (camble != null)
+            {
+                LineRenderer line = camble.line;
+                if (line != null)
+                {
+                    Color color = line.startColor;
+                    colorString += "\"R\": " + color.r + ",\n";
+                    colorString += "\"G\": " + color.g + ",\n";
+                    colorString += "\"B\": " + color.b + ",\n";
+                    colorString += "\"A\": " + color.a + "\n";
+                    //colorString = color.ToString();
+                }
+                else
+                {
+                    colorString += "\"R\": " + 0 + ",\n";
+                    colorString += "\"G\": " + 0 + ",\n";
+                    colorString += "\"B\": " + 0 + ",\n";
+                    colorString += "\"A\": " + 1 + "\n";
+                }
+            }
+        }
+        return colorString;
+    }
+    #endregion
 }

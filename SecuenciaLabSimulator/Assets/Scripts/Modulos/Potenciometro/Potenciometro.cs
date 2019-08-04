@@ -23,12 +23,14 @@ public class Potenciometro : MonoBehaviour
     [SerializeField] public float velocidadRotacion = 10;
     public bool rotarPerillaPrueba = false;
     [SerializeField] public int estaLimiteRotacion = -1;
-    private bool puederotar = true;
+    private readonly bool puederotar = true;
 
     //Variables de debug
     public bool mostrarDiccionarioConexiones = false; // Variable
     public bool mostrarPlugAnaranjados = false; // Variable
     public bool mostrarPlugNegros = false; // Variable
+
+    public bool Puederotar => puederotar;
     #endregion
 
     #region Inicializacion

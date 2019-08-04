@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FocoVerde : MonoBehaviour
 {
-    
+    #region Atributos
     [SerializeField] public bool pruebaDeFocoVerde = true;
     [SerializeField] public string rutaPlasticoVerdeApagado = "Assets/Materials/PLasticos/PlasticoTraslucidoVerdeApagado.mat";
     [SerializeField] public string rutaPlasticoVerdeEncendido = "Assets/Materials/PLasticos/PlasticoTraslucidoVerdeEncendido.mat";
@@ -18,6 +18,7 @@ public class FocoVerde : MonoBehaviour
     public bool focoVerdeEncendido = false;
     public bool focoAveriado = false;
     public bool debugMode = false;
+    #endregion
 
     #region Propiedades
     public bool DebugMode
@@ -68,65 +69,72 @@ public class FocoVerde : MonoBehaviour
         Plugs plugArribaCompPlug = plugArriba.GetComponent<Plugs>();
         Plugs plugAbajoCompPlug = plugAbajo.GetComponent<Plugs>();
 
-        plugArribaCompPlug.EstablecerPropiedadesConexionesEntrantes();
-        plugAbajoCompPlug.EstablecerPropiedadesConexionesEntrantes();
-
-        if (plugArribaCompPlug.Conectado && plugAbajoCompPlug.Conectado)
+        if (plugArribaCompPlug != null && plugAbajoCompPlug != null)
         {
-            if (plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 2)// Correcto - Linea y neutro conectado en de manera correcta
+            plugArribaCompPlug.EstablecerPropiedadesConexionesEntrantes();
+            plugAbajoCompPlug.EstablecerPropiedadesConexionesEntrantes();
+
+            if (plugArribaCompPlug.Conectado && plugAbajoCompPlug.Conectado)
             {
-                focoAveriado = false;
-                EncenderFoco();
-                if (DebugMode)
+                if (plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 2)// Correcto - Linea y neutro conectado en de manera correcta
                 {
-                    Debug.Log(padreTotalComponente.name + ") " + this.name + " - if(plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
+                    focoAveriado = false;
+                    EncenderFoco();
+                    if (DebugMode)
+                    {
+                        Debug.Log(padreTotalComponente.name + ") " + this.name + " - if(plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
+                    }
                 }
-            }
-            else if (plugArribaCompPlug.TipoConexion == 2 && plugAbajoCompPlug.TipoConexion == 1) //Averia - Linea y neutro invertido
-            {
-                /*focoAveriado = false;
-                EncenderFoco();
-                if (DebugMode)
+                else if (plugArribaCompPlug.TipoConexion == 2 && plugAbajoCompPlug.TipoConexion == 1) //Averia - Linea y neutro invertido
                 {
-                    Debug.Log("Modulo9 - if (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 1) - Conectado");
-                }*/
-                focoAveriado = false;
-                EliminarMaterial();
-                //ApagarFoco();
-                Debug.LogError(padreTotalComponente.name + ") " + this.name + " - Este caso de uso todavia no esta programado");
-            }
-            else if (plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1) // Avaeria - Dos lineas conectadas al mismo tiempo
-            {
-                focoAveriado = true;
-                ApagarFoco();
-                if (DebugMode)
-                {
-                    Debug.LogError(padreTotalComponente.name + ") " + this.name + " - if (plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 1) - Conectado");
+                    /*focoAveriado = false;
+                    EncenderFoco();
+                    if (DebugMode)
+                    {
+                        Debug.Log("Modulo9 - if (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 1) - Conectado");
+                    }*/
+                    focoAveriado = false;
+                    EliminarMaterial();
+                    //ApagarFoco();
+                    Debug.LogError(padreTotalComponente.name + ") " + this.name + " - Este caso de uso todavia no esta programado");
                 }
-            }
-            else if (plugArribaCompPlug.TipoConexion == 2 && plugAbajoCompPlug.TipoConexion == 2) // Correcto - Dos neutros conectados, no pasa nada
-            {
-                focoAveriado = false;
-                ApagarFoco();
-                if (DebugMode)
+                else if (plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1) // Avaeria - Dos lineas conectadas al mismo tiempo
                 {
-                    Debug.Log(padreTotalComponente.name + ") " + this.name + " - (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
+                    focoAveriado = true;
+                    ApagarFoco();
+                    if (DebugMode)
+                    {
+                        Debug.LogError(padreTotalComponente.name + ") " + this.name + " - if (plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 1) - Conectado");
+                    }
+                }
+                else if (plugArribaCompPlug.TipoConexion == 2 && plugAbajoCompPlug.TipoConexion == 2) // Correcto - Dos neutros conectados, no pasa nada
+                {
+                    focoAveriado = false;
+                    ApagarFoco();
+                    if (DebugMode)
+                    {
+                        Debug.Log(padreTotalComponente.name + ") " + this.name + " - (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
+                    }
+                }
+                else
+                {
+                    EliminarMaterial();
+                    Debug.LogError(padreTotalComponente.name + ") " + this.name + " - Este caso de uso todavia no esta programado - No entro a ningun caso");
                 }
             }
             else
             {
-                EliminarMaterial();
-                Debug.LogError(padreTotalComponente.name + ") " + this.name + " - Este caso de uso todavia no esta programado - No entro a ningun caso");
+                focoAveriado = false;
+                ApagarFoco();
+                if (DebugMode)
+                {
+                    Debug.Log(padreTotalComponente.name + ") " + this.name + " - if (plugIzquierdoCompPlug.Conectado && plugDerechoCompPlug.Conectado) - NO esta conectados");
+                }
             }
         }
         else
         {
-            focoAveriado = false;
-            ApagarFoco();
-            if (DebugMode)
-            {
-                Debug.Log(padreTotalComponente.name + ") " + this.name + " - if (plugIzquierdoCompPlug.Conectado && plugDerechoCompPlug.Conectado) - NO esta conectados");
-            }
+            Debug.LogError(padreTotalComponente.name + ") " + this.name + " - if(plugArribaCompPlug != null && plugAbajoCompPlug != null) - Alguno de los dos es nulo, plugArribaCompPlug: " + plugArribaCompPlug + ", plugAbajoCompPlug: " + plugAbajoCompPlug);
         }
     }
 

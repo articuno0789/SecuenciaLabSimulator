@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class OpenClosePerillas : MonoBehaviour
 {
+    #region Atributos
     public GameObject panel;
     public GameObject player;
     public Text currentModuleSelected;
@@ -14,83 +15,117 @@ public class OpenClosePerillas : MonoBehaviour
     public InputField inputFieldCurrentValue;
     public GameObject padreTotal;
     public Button buttonSetValueKnob;
+    //Patrones Regex
+    private readonly string patronMod6 = @"^6_\d*$";
+    private readonly string patronMod7 = @"^7_\d*$";
+    private readonly string patronModPotenciometro = @"^Potenciometro_\d*$";
+    private readonly string patronNumerosReales = "^[0-9]*([.][0-9]+)?$";
+    //Debug
+    public bool debug = false;
+    #endregion
+
+    #region Inicializacion
     // Use this for initialization
     void Start()
     {
-        player = GameObject.Find("FirstPersonCharacter");
-        currentModuleSelected = GameObject.Find("CurrentModuleSelectedKnob").GetComponent<Text>();
-        minMaxKnobRange = GameObject.Find("MinMaxValueKnob").GetComponent<Text>();
-        textInfoValueKnob = GameObject.Find("TextInfoValueKnob").GetComponent<Text>();
-        panel = GameObject.Find("PanelSetValueKnob");
-        inputFieldCurrentValue = GameObject.Find("InputFieldCurrentValue").GetComponent<InputField>();
-        buttonSetValueKnob = GameObject.Find("ButtonSetValueKnob").GetComponent<Button>();
+        if(player == null)
+        {
+            player = GameObject.Find("FirstPersonCharacter");
+        }
+        if (currentModuleSelected == null)
+        {
+            currentModuleSelected = GameObject.Find("CurrentModuleSelectedKnob").GetComponent<Text>();
+        }
+        if (minMaxKnobRange == null)
+        {
+            minMaxKnobRange = GameObject.Find("MinMaxValueKnob").GetComponent<Text>();
+        }
+        if (textInfoValueKnob == null)
+        {
+            textInfoValueKnob = GameObject.Find("TextInfoValueKnob").GetComponent<Text>();
+        }
+        if (panel == null)
+        {
+            panel = GameObject.Find("PanelSetValueKnob");
+        }
+        if (inputFieldCurrentValue == null)
+        {
+            inputFieldCurrentValue = GameObject.Find("InputFieldCurrentValue").GetComponent<InputField>();
+        }
+        if (buttonSetValueKnob == null)
+        {
+            buttonSetValueKnob = GameObject.Find("ButtonSetValueKnob").GetComponent<Button>();
+        }
     }
+    #endregion
 
+    #region Comportamiento
     // Update is called once per frame
     void Update()
     {
 
     }
-
-    private void EncontrarPadreTotal(GameObject nodo)
-    {
-        if (nodo.transform.parent == null)
-        {
-            padreTotal = nodo;
-        }
-        else
-        {
-            GameObject padre = nodo.transform.parent.gameObject;
-            EncontrarPadreTotal(padre);
-        }
-    }
-
+    
+    /*Este método se encarga de validar la entrada por teclado del usuario para el valor de la perilla y notificar
+     si el valor introducido cumple con las especificaciones del componente.*/
     public void ValidateValueKnob()
     {
-        Debug.Log(inputFieldCurrentValue.text + ": " + Regex.IsMatch(inputFieldCurrentValue.text, "^[0-9]*([.][0-9]{1,5})?$").ToString());
-        if (!Regex.IsMatch(inputFieldCurrentValue.text, "^[0-9]*([.][0-9]+)?$"))
+        if (debug)
+        {
+            Debug.Log(inputFieldCurrentValue.text + ": " + Regex.IsMatch(inputFieldCurrentValue.text, patronNumerosReales).ToString());
+        }
+        //Comprobar si el valor introducido no es un número real.
+        if (!Regex.IsMatch(inputFieldCurrentValue.text, patronNumerosReales))
         {
             inputFieldCurrentValue.text = "0.0";
             buttonSetValueKnob.enabled = false;
         }
+        /*Si entra en este caso la entrada es un número real, pero hay que 
+         * comprobar si esta dentro de los límites de cada perilla.*/
         else
         {
             float limiteMinimo = 0.0f;
             float limiteMaximo = 0.0f;
             float valorCampoTexto = float.Parse(inputFieldCurrentValue.text);
-            if (padreTotal != null && Regex.IsMatch(padreTotal.name, @"^6_\d*$"))
+
+            //Determinar los límites de los diferentes modulos con perilla.
+            if (padreTotal != null && Regex.IsMatch(padreTotal.name, patronMod6))
             {
                 Modulo6 mod6 = padreTotal.GetComponent<Modulo6>();
                 limiteMinimo = mod6.valorMinimoPerilla;
                 limiteMaximo = mod6.valorMaximoPerilla;
             }
-            else if (padreTotal != null && Regex.IsMatch(padreTotal.name, @"^7_\d*$"))
+            else if (padreTotal != null && Regex.IsMatch(padreTotal.name, patronMod7))
             {
                 Modulo7 mod7 = padreTotal.GetComponent<Modulo7>();
                 limiteMinimo = mod7.valorMinimoPerilla;
                 limiteMaximo = mod7.valorMaximoPerilla;
             }
-            else if (Regex.IsMatch(padreTotal.name, @"^Potenciometro_\d*$"))
+            else if (Regex.IsMatch(padreTotal.name, patronModPotenciometro))
             {
                 Potenciometro modPoten = padreTotal.GetComponent<Potenciometro>();
                 limiteMinimo = modPoten.valorMinimoPerilla;
                 limiteMaximo = modPoten.valorMaximoPerilla;
             }
-            Debug.Log("------------------------------------------------------------------------------------------------------valorCampoTexto: " + valorCampoTexto + ", limiteMinimo: " + limiteMinimo + ", limiteMaximo: " + limiteMaximo + ", " + padreTotal);
-            if (padreTotal != null && valorCampoTexto < limiteMinimo)
+            if (debug)
+            {
+                Debug.Log("void ValidateValueKnob() - valorCampoTexto: " + valorCampoTexto + ", limiteMinimo: " + limiteMinimo + ", limiteMaximo: " + limiteMaximo + ", " + padreTotal);
+            }
+            /*Establecer los difernes mensajes de notificación de acuerdo cada situación.*/
+            if (padreTotal != null && valorCampoTexto < limiteMinimo) // El valor es menor al mínimo permitido.
             {
                 inputFieldCurrentValue.text = "0.0";
                 textInfoValueKnob.text = "Información: Error. El valor introducido es menor al limite mínimo de la perilla.";
                 buttonSetValueKnob.enabled = false;
             }
             else
-            if (padreTotal != null && valorCampoTexto > limiteMaximo)
+            if (padreTotal != null && valorCampoTexto > limiteMaximo)// El valor es mayor al máximo permitido.
             {
                 inputFieldCurrentValue.text = "0.0";
                 textInfoValueKnob.text = "Información: Error. El valor introducido es mayor al limite máximo de la perilla.";
                 buttonSetValueKnob.enabled = false;
             }
-            else
+            else // El valor esta dentro de los límites adecuados.
             {
                 textInfoValueKnob.text = "Información: OK";
                 buttonSetValueKnob.enabled = true;
@@ -98,41 +133,46 @@ public class OpenClosePerillas : MonoBehaviour
         }
     }
 
+    /*Este método se encarga de abrir y posicionar el panel para introducir el valor de la perilla,
+     * frente al usuario.*/
     public void OpenCloseMenuSetValueKnob()
     {
         ClickDetector clickDetector = player.GetComponent<ClickDetector>();
         GameObject module = clickDetector.lastClickedGmObj;
         EncontrarPadreTotal(module);
         //module = padreTotal;
-        Debug.Log("Entra al LookAt-------------------");
-        Debug.Log("transform.position.x: " + transform.position.x +
-            ", transform.position.y: " + transform.position.y +
-            ", transform.position.z: " + transform.position.z);
+        if (debug)
+        {
+            Debug.Log("Entra al LookAt-------------------");
+            Debug.Log("transform.position.x: " + transform.position.x +
+                ", transform.position.y: " + transform.position.y +
+                ", transform.position.z: " + transform.position.z);
+        }
         Vector3 targetPosition = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
         panel.transform.LookAt(targetPosition);
         panel.transform.rotation = player.transform.rotation;
         Vector3 menuPosition = new Vector3(module.transform.position.x, module.transform.position.y + 2, module.transform.position.z + 0);
         panel.transform.position = menuPosition;
-
+        //Se muestra en el panel el valor mínimo y máximo de ese componente.
         if (padreTotal != null && currentModuleSelected != null)
         {
             currentModuleSelected.text = "Seleccionado: Perilla del modulo " + padreTotal.name;
             textInfoValueKnob.text = "Información: OK";
-            if (Regex.IsMatch(padreTotal.name, @"^6_\d*$"))
+            if (Regex.IsMatch(padreTotal.name, patronMod6))
             {
                 Modulo6 mod6 = padreTotal.GetComponent<Modulo6>();
                 minMaxKnobRange.text = "Valor [Min Max]: " + mod6.valorMinimoPerilla + " - " + mod6.valorMaximoPerilla;
                 inputFieldCurrentValue.text = mod6.valorActualPerilla + "";
                 ValidateValueKnob();
             }
-            else if (Regex.IsMatch(padreTotal.name, @"^7_\d*$"))
+            else if (Regex.IsMatch(padreTotal.name, patronMod7))
             {
                 Modulo7 mod7 = padreTotal.GetComponent<Modulo7>();
                 minMaxKnobRange.text = "Valor [Min Max]: " + mod7.valorMinimoPerilla + " - " + mod7.valorMaximoPerilla;
                 inputFieldCurrentValue.text = mod7.valorActualPerilla + "";
                 ValidateValueKnob();
             }
-            else if (Regex.IsMatch(padreTotal.name, @"^Potenciometro_\d*$"))
+            else if (Regex.IsMatch(padreTotal.name, patronModPotenciometro))
             {
                 Potenciometro modPoten = padreTotal.GetComponent<Potenciometro>();
                 minMaxKnobRange.text = "Valor [Min Max]: " + modPoten.valorMinimoPerilla + " - " + modPoten.valorMaximoPerilla;
@@ -140,7 +180,7 @@ public class OpenClosePerillas : MonoBehaviour
                 ValidateValueKnob();
             }
         }
-        //panel = GameObject.Find("PanelChangeModule");
+        //Aparece o desaparece el panl bajandole o subiendo la opacidad.
         if(panel != null)
         {
             CanvasGroup canvasGP = panel.GetComponent<CanvasGroup>();
@@ -154,4 +194,19 @@ public class OpenClosePerillas : MonoBehaviour
             }
         }
     }
+
+    /*Este método recursivo se utiliza para encontrar el padretotal (Nodo raíz) de un componente.*/
+    private void EncontrarPadreTotal(GameObject nodo)
+    {
+        if (nodo.transform.parent == null)
+        {
+            padreTotal = nodo;
+        }
+        else
+        {
+            GameObject padre = nodo.transform.parent.gameObject;
+            EncontrarPadreTotal(padre);
+        }
+    }
+    #endregion
 }

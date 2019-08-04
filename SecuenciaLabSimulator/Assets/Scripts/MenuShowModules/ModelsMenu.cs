@@ -3,68 +3,98 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using GreatArcStudios;
 
 public class ModelsMenu : MonoBehaviour
 {
-
-    // our ParticleExamples class being turned into an array of things that can be referenced
+    #region Atributos
+    // nuestra clase ParticleExamples se convierte en una variedad de cosas a las que se puede hacer referencia
+    public GameObject PauseMenuManager;
     public ModelsExamples[] modelSystems;
 
-    // the gun GameObject
+    // La pistola GameObject
     public GameObject gunGameObject;
 
     public GameObject BackgroundImage;
 
     public bool hideBackgroundImage;
 
-    // a private integer to store the current position in the array
+    // Un entero privado para almacenar la posición actual en la matriz
     private int currentIndex;
 
-    // the currently shown prefab game object
+    // la GameObject prefabricada actualmente mostrado
     private GameObject currentGO;
 
-    // where to spawn prefabs 
+    // donde generar prefabricados
     public Transform spawnLocation;
 
-    // references to the UI Text components
+    // referencias a los componentes de texto de la interfaz de usuario
     public Text title;
     public Text description;
     public Text navigationDetails;
+    #endregion
 
-    // setting up the first menu item and resetting the currentIndex to ensure it's at zero
+    #region Inicializacion
+    // configurar el primer elemento del menú y restablecer el CurrentIndex para asegurarse de que esté en cero
     void Start()
     {
         Navigate(0);
         currentIndex = 0;
     }
+    #endregion
 
-    private void Update()
+    #region Comportamiento
+
+    private void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && hideBackgroundImage)
+        if(PauseMenuManager == null)
         {
-            if (BackgroundImage.activeSelf)
-            {
-                BackgroundImage.SetActive(false);
-            }
-            else
-            {
-                BackgroundImage.SetActive(true);
-            }
+            PauseMenuManager = GameObject.Find("Pause Menu Manager");
         }
     }
 
-    // our public function that gets called by our menu's buttons
+    private void Update()
+    {
+        /*Si se apreta la tecla de esc se oculta el panel donde se muestra la información de los modelos
+          para evitar que interfiera con el menú de pausa.*/
+        /*if (Input.GetKeyDown(KeyCode.Escape) && PauseMenuManager.GetComponent<PauseManager>().menuOpen)
+        {
+            BackgroundImage.SetActive(false);
+        }
+        else
+        {
+            BackgroundImage.SetActive(true);
+        }*/
+        /*if (Input.GetKeyDown(KeyCode.Escape) && hideBackgroundImage)
+        {
+            
+        }*/
+    }
+
+    public void ActivarBackgroundImage()
+    {
+        BackgroundImage.SetActive(true);
+    }
+
+    public void DesactivarBackgroundImage()
+    {
+        BackgroundImage.SetActive(false);
+    }
+
+    // Nuestra función pública que se llama por los botones de nuestro menú
     public void Navigate(int i)
     {
 
-        // set the current position in the array to the next or previous position depending on whether i is -1 or 1, defined in our button event
+        /* Establece la posición actual en la matriz en la posición siguiente o anterior
+         * dependiendo de si i es -1 o 1, definido en nuestro evento de botón*/
         currentIndex = (modelSystems.Length + currentIndex + i) % modelSystems.Length;
 
         // check if there is a currentGO, if there is (if its not null), then destroy it to make space for the new one..
         if (currentGO != null)
             Destroy(currentGO);
 
-        // ..spawn the relevant game object based on the array of potential game objects, according to the current index (position in the array)
+        /* ..pawn el objeto de juego relevante basado en la matriz de objetos de juego 
+         * potenciales, de acuerdo con el índice actual (posición en la matriz)*/
         currentGO = Instantiate(modelSystems[currentIndex].modelSystemGO, spawnLocation.position + modelSystems[currentIndex].modelPosition, Quaternion.Euler(modelSystems[currentIndex].modelRotation)) as GameObject;
         TransformModel transModel = currentGO.AddComponent<TransformModel>();
         transModel.originalPosition = spawnLocation.position + modelSystems[currentIndex].modelPosition;
@@ -73,10 +103,10 @@ public class ModelsMenu : MonoBehaviour
         currentGO = asignarLogicaModulo(currentGO, modelSystems[currentIndex].nameModel);
         currentGO.transform.localScale = modelSystems[currentIndex].modelScale;
 
-        // only activate the gun GameObject if the current effect is a weapon effect
+        // solo activa el arma GameObject si el efecto actual es un efecto de arma
         gunGameObject.SetActive(modelSystems[currentIndex].isWeaponEffect);
 
-        // setup the UI texts according to the strings in the array 
+        // configurar los textos de la interfaz de usuario de acuerdo con las cadenas de la matriz
         title.text = modelSystems[currentIndex].title;
         description.text = modelSystems[currentIndex].description;
         navigationDetails.text = "" + (currentIndex + 1) + " de " + modelSystems.Length.ToString();
@@ -179,13 +209,13 @@ public class ModelsMenu : MonoBehaviour
         if (nameModule == "Potenciometro")
         {
             module.AddComponent<Potenciometro>();
-        }else 
+        }
+        else
         if (nameModule == "MotorElectricoAC")
         {
             module.AddComponent<MotorElectricoAC>();
         }
         return module;
     }
-
-
+    #endregion
 }

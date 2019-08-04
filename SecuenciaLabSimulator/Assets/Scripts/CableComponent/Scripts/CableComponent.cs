@@ -2,7 +2,6 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-
 public class CableComponent : MonoBehaviour
 {
     #region Class members
@@ -50,6 +49,13 @@ public class CableComponent : MonoBehaviour
         get => endPoint;
         set => endPoint = value;
     }
+    public int TotalSegments { get => totalSegments; set => totalSegments = value; }
+    public float SegmentsPerUnit { get => segmentsPerUnit; set => segmentsPerUnit = value; }
+    public float CableWidth { get => cableWidth; set => cableWidth = value; }
+    public float OffsetLength { get => offsetLength; set => offsetLength = value; }
+    public int VerletIterations { get => verletIterations; set => verletIterations = value; }
+    public int SolverIterations { get => solverIterations; set => solverIterations = value; }
+    public float Stiffness { get => stiffness; set => stiffness = value; }
 
     #endregion
 
@@ -87,7 +93,7 @@ public class CableComponent : MonoBehaviour
             cableLength = (dist / 100) * 100; //+ offsetLength;
             Debug.Log("Distancia cable generado: " + cableLength);
         }
-        
+
         // Calculate segments to use
         if (totalSegments > 0)
         {

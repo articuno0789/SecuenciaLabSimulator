@@ -27,7 +27,7 @@ public class Modulo4 : MonoBehaviour
     }
 
     //Particulas
-    private string rutaParticulaElectricalSparksEffect = "Assets/Assets Descargados/EffectExamples/Misc Effects/Prefabs/ElectricalSparksEffect.prefab";
+    private readonly string rutaParticulaElectricalSparksEffect = "Assets/Assets Descargados/EffectExamples/Misc Effects/Prefabs/ElectricalSparksEffect.prefab";
 
     //Variables de debug
     public bool mostrarDiccionarioConexiones = false; // Variable
@@ -35,6 +35,8 @@ public class Modulo4 : MonoBehaviour
     public bool mostrarPlugNegros = false; // Variable
     public bool mostrarFocosVerdes = false; // Variable
     public bool mostrarFocosAmarillos = false; // Variable
+
+    public string RutaParticulaElectricalSparksEffect => rutaParticulaElectricalSparksEffect;
     #endregion
 
     #region Inicializacion
@@ -120,8 +122,26 @@ public class Modulo4 : MonoBehaviour
 
     private void ComportamientoModulo()
     {
-        focosVerdesDict["FocoVerde"].GetComponent<FocoVerde>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugNegrosDict["EntradaPlugNegro1"]);
-        focosAmarillosDict["FocoAmarilo"].GetComponent<FocoAmarillo>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado2"], plugNegrosDict["EntradaPlugNegro2"]);
+        GameObject FocoVerde = null;
+        GameObject FocoAmarillo = null;
+        if ((FocoVerde=focosVerdesDict["FocoVerde"]) != null)
+        {
+            FocoVerde focoVerdeComp = FocoVerde.GetComponent<FocoVerde>();
+            if (focoVerdeComp != null)
+            {
+                focoVerdeComp.ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugNegrosDict["EntradaPlugNegro1"]);
+            }
+            //focosVerdesDict["FocoVerde"].GetComponent<FocoVerde>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugNegrosDict["EntradaPlugNegro1"]);
+        }
+        if ((FocoAmarillo = focosAmarillosDict["FocoAmarilo"]) != null)
+        {
+            FocoAmarillo focoAmarilloComp = FocoAmarillo.GetComponent<FocoAmarillo>();
+            if (focoAmarilloComp != null)
+            {
+                focoAmarilloComp.GetComponent<FocoAmarillo>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado2"], plugNegrosDict["EntradaPlugNegro2"]);
+            }
+            //focosAmarillosDict["FocoAmarilo"].GetComponent<FocoAmarillo>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado2"], plugNegrosDict["EntradaPlugNegro2"]);
+        }
     }
     #endregion
 
