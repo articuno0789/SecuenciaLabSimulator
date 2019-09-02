@@ -6,15 +6,16 @@ using UnityEngine;
 public class Modulo3 : MonoBehaviour
 {
     #region Atributos
+    public bool moduloEncendido = true;
     public Dictionary<string, string> plugsConnections;
     [SerializeField] public List<GameObject> plugAnaranjados;
     [SerializeField] public List<GameObject> plugNegros;
     [SerializeField] public List<GameObject> botonesCircularesRojos;
-    [SerializeField] public List<GameObject> botonesCircularesVerdes;
+    //[SerializeField] public List<GameObject> botonesCircularesVerdes;
     public Dictionary<string, GameObject> plugAnaranjadosDict;
     public Dictionary<string, GameObject> plugNegrosDict;
     public Dictionary<string, GameObject> botonesCircularesRojosDict;
-    public Dictionary<string, GameObject> botonesCircularesVerdesDict;
+    //public Dictionary<string, GameObject> botonesCircularesVerdesDict;
     private string rutaAnimacionBotonCircular = "Assets/Animation/Modulos/Modulo3/Mod3PresBotonCircular.anim";
     private string nombreAnimacionBotonCircular = "Mod3PresBotonCircular";
 
@@ -33,19 +34,23 @@ public class Modulo3 : MonoBehaviour
         plugAnaranjadosDict = new Dictionary<string, GameObject>();
         plugNegrosDict = new Dictionary<string, GameObject>();
         botonesCircularesRojosDict = new Dictionary<string, GameObject>();
-        botonesCircularesVerdesDict = new Dictionary<string, GameObject>();
+        //botonesCircularesVerdesDict = new Dictionary<string, GameObject>();
 
         plugAnaranjados = new List<GameObject>();
         plugNegros = new List<GameObject>();
         botonesCircularesRojos = new List<GameObject>();
-        botonesCircularesVerdes = new List<GameObject>();
+        //botonesCircularesVerdes = new List<GameObject>();
         InicializarComponentes(gameObject);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        botonesCircularesRojosDict["BotonCircularVerde1"].GetComponent<Mod3PushButton>().EstablecerTipoVerde();
+        botonesCircularesRojosDict["BotonCircularVerde1"].GetComponent<Mod3PushButton>().EstablecerBotonDespresionado();
+        botonesCircularesRojosDict["BotonCircularRojo1"].GetComponent<Mod3PushButton>().EstablecerTipoRojo();
+        botonesCircularesRojosDict["BotonCircularRojo1"].GetComponent<Mod3PushButton>().EstablecerBotonDespresionado();
+        botonesCircularesRojosDict["BotonCircularRojo2"].GetComponent<Mod3PushButton>().EstablecerTipoRojo();
+        botonesCircularesRojosDict["BotonCircularRojo2"].GetComponent<Mod3PushButton>().EstablecerBotonDespresionado();
     }
 
     private void InicializarComponentes(GameObject nodo)
@@ -88,13 +93,15 @@ public class Modulo3 : MonoBehaviour
             }
             else if (child.name.Contains("BotonCircularVerde"))
             {
-                botonesCircularesVerdes.Add(child);
+                botonesCircularesRojos.Add(child);
+                //botonesCircularesVerdes.Add(child);
                 Animation ani = child.AddComponent<Animation>();
                 ani.playAutomatically = false;
                 ani.AddClip(((AnimationClip)AssetDatabase.LoadAssetAtPath(rutaAnimacionBotonCircular, typeof(AnimationClip))), nombreAnimacionBotonCircular);
                 child.AddComponent<Mod3PushButton>();
 
-                botonesCircularesVerdesDict.Add(child.name, child);
+                botonesCircularesRojosDict.Add(child.name, child);
+                //botonesCircularesVerdesDict.Add(child.name, child);
             }
             InicializarComponentes(child);
         }
@@ -106,7 +113,68 @@ public class Modulo3 : MonoBehaviour
     void Update()
     {
         ComprobarEstadosDiccionarios();
+        if (moduloEncendido)
+        {
+            //Circuito izquierdo
+            FuncionamientoContractorRojo("EntradaPlugAnaranjado1", "EntradaPlugAnaranjado2", "EntradaPlugAnaranjado3",
+                "EntradaPlugAnaranjado4", "BotonCircularRojo1");
+            //Circuito cenctro
+            FuncionamientoContractorRojo("EntradaPlugAnaranjado5", "EntradaPlugAnaranjado6", "EntradaPlugAnaranjado7",
+                "EntradaPlugAnaranjado8", "BotonCircularVerde1");
+            //Circuito Derecho
+            FuncionamientoContractorRojo("EntradaPlugAnaranjado9", "EntradaPlugAnaranjado10", "EntradaPlugAnaranjado11",
+                "EntradaPlugAnaranjado12", "BotonCircularRojo2");
+        }
+        else
+        {
+
+        }
     }
+
+    void FuncionamientoContractorRojo(string nPlugConexionArribaCerrado, string nPlugConexionAbajoCerrado, string nPlugConexionArribaAbierto,
+        string nPlugConexionAbajoAbierto, string nBoton)
+    {
+        Plugs plugConexionArribaCerrado = plugAnaranjadosDict[nPlugConexionArribaCerrado].GetComponent<Plugs>();
+        Plugs plugConexionAbajoCerrado = plugAnaranjadosDict[nPlugConexionAbajoCerrado].GetComponent<Plugs>();
+        Plugs plugConexionArribaAbierto = plugAnaranjadosDict[nPlugConexionArribaAbierto].GetComponent<Plugs>();
+        Plugs plugConexionAbajoAbierto = plugAnaranjadosDict[nPlugConexionAbajoAbierto].GetComponent<Plugs>();
+        Time.timeScale = 0.0F;
+        if (!botonesCircularesRojosDict[nBoton].GetComponent<Mod3PushButton>().EstaActivado())
+        {
+            plugConexionArribaAbierto.EstablecerValoresNoConexion2();
+            plugConexionAbajoAbierto.EstablecerValoresNoConexion2();
+        }
+        else
+        if (botonesCircularesRojosDict[nBoton].GetComponent<Mod3PushButton>().EstaActivado())
+        {
+            plugConexionArribaCerrado.EstablecerValoresNoConexion2();
+            plugConexionAbajoCerrado.EstablecerValoresNoConexion2();
+        }
+        Time.timeScale = 1.0F;
+        plugConexionArribaCerrado.EstablecerPropiedadesConexionesEntrantes();
+        plugConexionAbajoCerrado.EstablecerPropiedadesConexionesEntrantes();
+        plugConexionArribaAbierto.EstablecerPropiedadesConexionesEntrantes();
+        plugConexionAbajoAbierto.EstablecerPropiedadesConexionesEntrantes();
+        if (!botonesCircularesRojosDict[nBoton].GetComponent<Mod3PushButton>().EstaActivado() && plugConexionArribaCerrado.Conectado && plugConexionAbajoCerrado.Voltaje == 0 && plugConexionAbajoCerrado.TipoConexion == 0)
+        {
+            plugConexionAbajoCerrado.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugConexionArribaCerrado]);
+        }
+        else
+        if (!botonesCircularesRojosDict[nBoton].GetComponent<Mod3PushButton>().EstaActivado() && plugConexionAbajoCerrado.Conectado)
+        {
+            plugConexionArribaCerrado.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugConexionAbajoCerrado]);
+        }
+        else if (botonesCircularesRojosDict[nBoton].GetComponent<Mod3PushButton>().EstaActivado() && plugConexionArribaAbierto.Conectado && plugConexionAbajoAbierto.Voltaje == 0 && plugConexionAbajoAbierto.TipoConexion == 0)
+        {
+            plugConexionAbajoAbierto.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugConexionArribaAbierto]);
+        }
+        else
+        if (botonesCircularesRojosDict[nBoton].GetComponent<Mod3PushButton>().EstaActivado() && plugConexionAbajoAbierto.Conectado)
+        {
+            plugConexionArribaAbierto.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugConexionAbajoAbierto]);
+        }
+    }
+
     #endregion
 
     #region Conexiones Grafo
