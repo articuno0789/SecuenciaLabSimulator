@@ -5,6 +5,7 @@ using UnityEngine;
 public class Modulo15 : MonoBehaviour
 {
     #region Atributos
+    public bool moduloEncendido = true;
     public Dictionary<string, string> plugsConnections;
     [SerializeField] public List<GameObject> plugAnaranjados;
     [SerializeField] public List<GameObject> plugNegros;
@@ -33,6 +34,28 @@ public class Modulo15 : MonoBehaviour
         plugNegros = new List<GameObject>();
         lucesRojas = new List<GameObject>();
         inicializarComponentes(gameObject);
+        plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().TipoConexion = 1;
+        plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().voltaje = voltajeModulo;
+        plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().Linea = 1;
+        plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().TipoConexion = 1;
+        plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().voltaje = voltajeModulo;
+        plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().Linea = 1;
+        plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().TipoConexion = 1;
+        plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().voltaje = voltajeModulo;
+        plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().Linea = 2;
+        plugAnaranjadosDict["EntradaPlugAnaranjado4"].GetComponent<Plugs>().TipoConexion = 1;
+        plugAnaranjadosDict["EntradaPlugAnaranjado4"].GetComponent<Plugs>().voltaje = voltajeModulo;
+        plugAnaranjadosDict["EntradaPlugAnaranjado4"].GetComponent<Plugs>().Linea = 2;
+        plugAnaranjadosDict["EntradaPlugAnaranjado5"].GetComponent<Plugs>().TipoConexion = 1;
+        plugAnaranjadosDict["EntradaPlugAnaranjado5"].GetComponent<Plugs>().voltaje = voltajeModulo;
+        plugAnaranjadosDict["EntradaPlugAnaranjado5"].GetComponent<Plugs>().Linea = 3;
+        plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().TipoConexion = 1;
+        plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().voltaje = voltajeModulo;
+        plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().Linea = 3;
+        if (moduloEncendido)
+        {
+            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
+        }
     }
 
     // Start is called before the first frame update
@@ -86,6 +109,46 @@ public class Modulo15 : MonoBehaviour
     void Update()
     {
         ComprobarEstadosDiccionarios();
+        if (moduloEncendido)
+        {
+            //Hacer algo si el modulo esta encendido.
+            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
+            lucesRojasDict["LuzRoja2"].GetComponent<LuzRoja>().EncenderFoco();
+            lucesRojasDict["LuzRoja3"].GetComponent<LuzRoja>().EncenderFoco();
+
+            plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().TipoConexion = 1;
+            plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().voltaje = voltajeModulo;
+            plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().Linea = 1;
+            plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().TipoConexion = 1;
+            plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().voltaje = voltajeModulo;
+            plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().Linea = 1;
+            plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().TipoConexion = 1;
+            plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().voltaje = voltajeModulo;
+            plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().Linea = 2;
+            plugAnaranjadosDict["EntradaPlugAnaranjado4"].GetComponent<Plugs>().TipoConexion = 1;
+            plugAnaranjadosDict["EntradaPlugAnaranjado4"].GetComponent<Plugs>().voltaje = voltajeModulo;
+            plugAnaranjadosDict["EntradaPlugAnaranjado4"].GetComponent<Plugs>().Linea = 2;
+            plugAnaranjadosDict["EntradaPlugAnaranjado5"].GetComponent<Plugs>().TipoConexion = 1;
+            plugAnaranjadosDict["EntradaPlugAnaranjado5"].GetComponent<Plugs>().voltaje = voltajeModulo;
+            plugAnaranjadosDict["EntradaPlugAnaranjado5"].GetComponent<Plugs>().Linea = 3;
+            plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().TipoConexion = 1;
+            plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().voltaje = voltajeModulo;
+            plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().Linea = 3;
+
+            plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().estoConectado();
+            plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().estoConectado();
+            plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().estoConectado();
+            plugAnaranjadosDict["EntradaPlugAnaranjado4"].GetComponent<Plugs>().estoConectado();
+            plugAnaranjadosDict["EntradaPlugAnaranjado5"].GetComponent<Plugs>().estoConectado();
+            plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().estoConectado();
+        }
+        else
+        {
+            //Hacer algo si el modulo esta apagado.
+            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ApagarFoco();
+            lucesRojasDict["LuzRoja2"].GetComponent<LuzRoja>().ApagarFoco();
+            lucesRojasDict["LuzRoja3"].GetComponent<LuzRoja>().ApagarFoco();
+        }
     }
     #endregion
 
