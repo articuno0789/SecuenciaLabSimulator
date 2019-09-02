@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Modulo14_16 : MonoBehaviour
 {
     #region Atributos
+    public bool moduloEncendido = true;
     public Dictionary<string, string> plugsConnections;
     [SerializeField] public List<GameObject> plugAnaranjados;
     [SerializeField] public List<GameObject> plugNegros;
@@ -33,6 +35,10 @@ public class Modulo14_16 : MonoBehaviour
         plugNegros = new List<GameObject>();
         lucesRojas = new List<GameObject>();
         InicializarComponentes(gameObject);
+        if (moduloEncendido)
+        {
+            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
+        }
     }
 
     // Start is called before the first frame update
@@ -85,7 +91,77 @@ public class Modulo14_16 : MonoBehaviour
     void Update()
     {
         ComprobarEstadosDiccionarios();
+        if (moduloEncendido)
+        {
+            //Hacer algo si el modulo esta encendido.
+            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
+            ComportamientoModulo();
+        }
+        else
+        {
+            //Hacer algo si el modulo esta apagado.
+            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ApagarFoco();
+        }
     }
+
+    private void ComportamientoModulo()
+    {
+        if (lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugNegrosDict["EntradaPlugNegro1"]))
+        {
+            BotonesNormalmenteCerradosYAbiertos("EntradaPlugAnaranjado4", "EntradaPlugAnaranjado3", "EntradaPlugAnaranjado2", true); //Principal, abierto, cerrado
+            BotonesNormalmenteCerradosYAbiertos("EntradaPlugAnaranjado7", "EntradaPlugAnaranjado6", "EntradaPlugAnaranjado5", true);
+            BotonesNormalmenteCerradosYAbiertos("EntradaPlugAnaranjado10", "EntradaPlugAnaranjado9", "EntradaPlugAnaranjado8", true);
+        }
+        else
+        {
+            BotonesNormalmenteCerradosYAbiertos("EntradaPlugAnaranjado4", "EntradaPlugAnaranjado3", "EntradaPlugAnaranjado2", false); //Principal, abierto, cerrado
+            BotonesNormalmenteCerradosYAbiertos("EntradaPlugAnaranjado7", "EntradaPlugAnaranjado6", "EntradaPlugAnaranjado5", false);
+            BotonesNormalmenteCerradosYAbiertos("EntradaPlugAnaranjado10", "EntradaPlugAnaranjado9", "EntradaPlugAnaranjado8", false);
+        }
+    }
+
+    void BotonesNormalmenteCerradosYAbiertos(string nPlugPrincipal, string nPlugAbierto, string nPlugCerrado, bool botonLogicoActivo)
+    {
+        Plugs plugConexionIzquierdo = plugAnaranjadosDict[nPlugPrincipal].GetComponent<Plugs>();
+        Plugs plugConexionIzquierdoAbierto = plugAnaranjadosDict[nPlugAbierto].GetComponent<Plugs>();
+        Plugs plugConexionIzquierdoCerrado = plugAnaranjadosDict[nPlugCerrado].GetComponent<Plugs>();
+        Time.timeScale = 0.0F;
+        if (!botonLogicoActivo) //!botonLogicoActivo - botonCuadradoRojoIzquierdo.GetComponent<Mod2PushButton>().EstaActivado()
+        {
+            plugConexionIzquierdoAbierto.EstablecerValoresNoConexion2();
+            plugConexionIzquierdo.EstablecerValoresNoConexion2();
+        }
+        else
+        if (botonLogicoActivo) // botonLogicoActivo - botonCuadradoVerdeIzquierdo.GetComponent<Mod2PushButton>().EstaActivado()
+        {
+            plugConexionIzquierdoCerrado.EstablecerValoresNoConexion2();
+            plugConexionIzquierdo.EstablecerValoresNoConexion2();
+        }
+        Time.timeScale = 1.0F;
+        plugConexionIzquierdo.EstablecerPropiedadesConexionesEntrantes();
+        plugConexionIzquierdoAbierto.EstablecerPropiedadesConexionesEntrantes();
+        plugConexionIzquierdoCerrado.EstablecerPropiedadesConexionesEntrantes();
+        if (botonLogicoActivo && plugConexionIzquierdoAbierto.Conectado && plugConexionIzquierdo.Voltaje == 0 && plugConexionIzquierdo.TipoConexion == 0)
+        {
+            plugConexionIzquierdo.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugAbierto]);
+        }
+        else
+        if (botonLogicoActivo && plugConexionIzquierdo.Conectado)
+        {
+            plugConexionIzquierdoAbierto.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugPrincipal]);
+        }
+        else if (!botonLogicoActivo && plugConexionIzquierdoCerrado.Conectado && plugConexionIzquierdo.Voltaje == 0 && plugConexionIzquierdo.TipoConexion == 0)
+        {
+            plugConexionIzquierdo.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugCerrado]);
+        }
+        else
+       if (!botonLogicoActivo && plugConexionIzquierdo.Conectado)
+        {
+            plugConexionIzquierdoCerrado.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugPrincipal]);
+        }
+    }
+
+
     #endregion
 
     #region Conexiones Grafo
