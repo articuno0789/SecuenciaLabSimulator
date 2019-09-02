@@ -5,6 +5,7 @@ using UnityEngine;
 public class Modulo13 : MonoBehaviour
 {
     #region Atributos
+    public bool moduloEncendido = true;
     public Dictionary<string, string> plugsConnections;
     [SerializeField] public List<GameObject> plugAnaranjados;
     [SerializeField] public List<GameObject> plugNegros;
@@ -72,7 +73,15 @@ public class Modulo13 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ComprobarEstadosDiccionarios();
+        if (moduloEncendido)
+        {
+            //Hacer algo si el modulo esta encendido.
+            ComprobarEstadosDiccionarios();
+        }
+        else
+        {
+            //Hacer algo si el modulo esta apagado.
+        }
     }
     #endregion
 

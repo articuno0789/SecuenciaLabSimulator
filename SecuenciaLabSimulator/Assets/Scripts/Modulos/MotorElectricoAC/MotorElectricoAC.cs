@@ -5,6 +5,7 @@ using UnityEngine;
 public class MotorElectricoAC : MonoBehaviour
 {
     #region Atributos
+    public bool moduloEncendido = true;
     [SerializeField] public GameObject ejeMotor;
     [SerializeField] public float velocidadRotacion = 10;
     [SerializeField] public bool rotaMotorPrueba = true;
@@ -36,9 +37,17 @@ public class MotorElectricoAC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (rotaMotorPrueba)
+        if (moduloEncendido)
         {
-            ejeMotor.transform.Rotate(Vector3.right, -velocidadRotacion * Time.deltaTime);
+            //Hacer algo si el modulo esta encendido.
+            if (rotaMotorPrueba)
+            {
+                ejeMotor.transform.Rotate(Vector3.right, -velocidadRotacion * Time.deltaTime);
+            }
+        }
+        else
+        {
+            //Hacer algo si el modulo esta apagado.
         }
     }
     #endregion
