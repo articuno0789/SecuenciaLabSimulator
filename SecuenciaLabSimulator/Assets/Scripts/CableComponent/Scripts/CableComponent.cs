@@ -91,7 +91,7 @@ public class CableComponent : MonoBehaviour
         {
             float dist = Vector3.Distance(endPoint.transform.position, transform.position);
             cableLength = (dist / 100) * 100; //+ offsetLength;
-            Debug.Log("Distancia cable generado: " + cableLength);
+            //Debug.Log("Distancia cable generado: " + cableLength);
         }
 
         // Calculate segments to use
@@ -104,7 +104,7 @@ public class CableComponent : MonoBehaviour
             segments = Mathf.CeilToInt(cableLength * segmentsPerUnit);
         }
         Vector3 cableDirection = (endPoint.transform.position - transform.position).normalized;
-        Debug.Log("cableDirection: " + cableDirection);
+        //Debug.Log("cableDirection: " + cableDirection);
         float initialSegmentLength = cableLength / segments;
         points = new CableParticle[segments + 1];
 
