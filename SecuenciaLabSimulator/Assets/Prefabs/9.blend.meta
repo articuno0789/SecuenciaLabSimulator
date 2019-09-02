@@ -616,6 +616,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: EnchufesObscuros
+    second: {fileID: 2100000, guid: 9021e7ac2acf15b48bfff1a908cf7516, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: FocoAzul
     second: {fileID: 2100000, guid: 8f313ac47c5108e41b1856fdfa3b2559, type: 2}
   - first:
