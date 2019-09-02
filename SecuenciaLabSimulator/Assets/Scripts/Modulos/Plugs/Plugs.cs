@@ -8,12 +8,20 @@ public class Plugs : MonoBehaviour
     #region Atributos
     public GameObject padreTotalComponente;
     public bool estaConectado;
-    public int tipoConexion; //1 - Linea, 0 - Sin conexion, 2 - Neutro
-    public float voltaje;
+    public int tipoConexion = 0; //1 - Linea, 0 - Sin conexion, 2 - Neutro
+    public float voltaje = 0;
+    public int numeroDeLinea = 0; //0 - sin linea, 1 - primera linea, 2 - segunda linea, 3 - tercera linea
     GameObject padreTotalBuscado;
     #endregion
 
     #region Propiedades
+
+    public int Linea
+    {
+        get => numeroDeLinea;
+        set => numeroDeLinea = value;
+    }
+
     public bool Conectado
     {
         get => estaConectado;
@@ -30,11 +38,11 @@ public class Plugs : MonoBehaviour
                 throw new System.ArgumentOutOfRangeException(
                       $"{nameof(value)} debe ser un valor entre 0 y 2. 0 sin conexión, 1 - Línea, 2 - Neutro.");
             }
-            if (value == 1 || value == 2)
+            /*if (value == 1 || value == 2)
             {
                 estaConectado = true;
             }
-            else if (value == 0)
+            else*/ if (value == 0)
             {
                 estaConectado = false;
             }
@@ -61,10 +69,85 @@ public class Plugs : MonoBehaviour
 
     }
 
+    public bool EstaSinConexion()
+    {
+        if(tipoConexion == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public void EstablecerValoresNoConexion()
     {
+        Conectado = false;
         TipoConexion = 0;
         Voltaje = 0;
+        Linea = 0;
+    }
+
+
+    public void EstablecerValoresNoConexion2()
+    {
+        Conectado = false;
+        TipoConexion = 0;
+        Voltaje = 0;
+        Linea = 0;
+        CableComponent cableComp = this.GetComponent<CableComponent>();
+        if (cableComp != null)
+        {
+            GameObject conexionEntrante = cableComp.EndPoint;
+            if (conexionEntrante != null)
+            {
+                Plugs plugConexionEntrante = conexionEntrante.GetComponent<Plugs>();
+                EncontrarPadreTotal(conexionEntrante);
+                if (plugConexionEntrante != null && padreTotalBuscado.tag != "1" && padreTotalBuscado.tag != "15")
+                {
+                    Debug.Log(padreTotalBuscado.tag);
+                    plugConexionEntrante.Conectado = false;
+                    plugConexionEntrante.TipoConexion = 0;
+                    plugConexionEntrante.Voltaje = 0;
+                    plugConexionEntrante.Linea = 0;
+                    //plugConexionEntrante.EstablecerValoresNoConexion();
+                }
+            }
+        }
+    }
+
+    public bool estoConectado()
+    {
+        CableComponent cableComp = this.GetComponent<CableComponent>();
+        if (cableComp != null)
+        {
+            GameObject conexionEntrante = cableComp.EndPoint;
+            if (conexionEntrante != null)
+            {
+                Plugs plugConexionEntrante = conexionEntrante.GetComponent<Plugs>();
+                if (plugConexionEntrante != null)
+                {
+                    Conectado = true;
+                    return true;
+                }
+                else
+                {
+                    Conectado = false;
+                    return false;
+                }
+            }
+            else
+            {
+                Conectado = false;
+                return false;
+            }
+        }
+        else
+        {
+            Conectado = false;
+            return false;
+        }
     }
 
     public void EstablecerPropiedadesConexionesEntrantes()
@@ -81,6 +164,39 @@ public class Plugs : MonoBehaviour
                     Conectado = true;
                     TipoConexion = plugConexionEntrante.TipoConexion;
                     Voltaje = plugConexionEntrante.Voltaje;
+                    Linea = plugConexionEntrante.Linea;
+                }
+                else
+                {
+                    EstablecerValoresNoConexion();
+                }
+            }
+            else
+            {
+                EstablecerValoresNoConexion();
+            }
+        }
+        else
+        {
+            EstablecerValoresNoConexion();
+        }
+    }
+
+    public void EstablecerPropiedadesConexionesEntrantes(GameObject conexionQueEnergiza)
+    {
+        CableComponent cableComp = conexionQueEnergiza.GetComponent<CableComponent>();
+        if (cableComp != null)
+        {
+            GameObject conexionEntrante = cableComp.EndPoint;
+            if (conexionEntrante != null)
+            {
+                Plugs plugConexionEntrante = conexionEntrante.GetComponent<Plugs>();
+                if (plugConexionEntrante != null)
+                {
+                    //Conectado = true;
+                    TipoConexion = plugConexionEntrante.TipoConexion;
+                    Voltaje = plugConexionEntrante.Voltaje;
+                    Linea = plugConexionEntrante.Linea;
                 }
                 else
                 {
@@ -146,7 +262,6 @@ public class Plugs : MonoBehaviour
             EncontrarPadreTotal(padre);
         }
     }
-
 
     private void CrearConexionPorTipo(string startPoint, string endPoint, GameObject padreTotalComp)
     {
