@@ -6,14 +6,27 @@ using UnityEngine;
 public class Modulo1 : MonoBehaviour
 {
     #region Atributos
+    public bool moduloEncendido = true;
     public Dictionary<string, string> plugsConnections;
     public Dictionary<string, GameObject> plugAnaranjadosDict;
     public Dictionary<string, GameObject> plugNegrosDict;
+    public Dictionary<string, GameObject> lucesRojasDict;
     [SerializeField] public List<GameObject> plugAnaranjados;
     [SerializeField] public List<GameObject> plugNegros;
-    [SerializeField] public List<GameObject> luzRojos;
+    [SerializeField] public List<GameObject> lucesRojas;
     [SerializeField] public float voltajeModulo = 127; // Variable
     [SerializeField] public bool pruebaDeLuz = true; // Variable
+    public enum ParticlesErrorTypes
+    {
+        BigExplosion,
+        DrippingFlames,
+        ElectricalSparksEffect,
+        SmallExplosionEffect,
+        SmokeEffect,
+        SparksEffect,
+        RibbonSmoke,
+        PlasmaExplosionEffect
+    }
 
     //Variables de debug
     public bool mostrarDiccionarioConexiones = false; // Variable
@@ -28,15 +41,21 @@ public class Modulo1 : MonoBehaviour
         plugsConnections = new Dictionary<string, string>();
         plugAnaranjadosDict = new Dictionary<string, GameObject>();
         plugNegrosDict = new Dictionary<string, GameObject>();
+        lucesRojasDict = new Dictionary<string, GameObject>();
 
         plugAnaranjados = new List<GameObject>();
         plugNegros = new List<GameObject>();
-        luzRojos = new List<GameObject>();
+        lucesRojas = new List<GameObject>();
         InicializarComponentes(gameObject);
         plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().TipoConexion = 1;
         plugNegrosDict["EntradaPlugNegro1"].GetComponent<Plugs>().TipoConexion = 2;
         plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().voltaje = voltajeModulo;
         plugNegrosDict["EntradaPlugNegro1"].GetComponent<Plugs>().voltaje = voltajeModulo;
+        plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().Linea = 1;
+        if (moduloEncendido)
+        {
+            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
+        }
     }
 
     void Start()
@@ -74,7 +93,14 @@ public class Modulo1 : MonoBehaviour
             }
             else if (child.name.Contains("LuzRoja"))
             {
-                luzRojos.Add(child);
+                lucesRojas.Add(child);
+                LuzRoja luzRoja = child.AddComponent<LuzRoja>();
+                luzRoja.CurrentTypeParticleError = (int)ParticlesErrorTypes.SmokeEffect;
+                luzRoja.CurrentTypeParticleError = (int)ParticlesErrorTypes.ElectricalSparksEffect;
+                luzRoja.padreTotalComponente = this.gameObject;
+                lucesRojasDict.Add(child.name, child);
+
+                lucesRojas.Add(child);
                 child.AddComponent<LuzRoja>();
             }
             InicializarComponentes(child);
@@ -87,6 +113,23 @@ public class Modulo1 : MonoBehaviour
     void Update()
     {
         ComprobarEstadosDiccionarios();
+        if (moduloEncendido)
+        {
+            //Hacer algo si el modulo esta encendido.
+            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
+
+            plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().TipoConexion = 1;
+            plugNegrosDict["EntradaPlugNegro1"].GetComponent<Plugs>().TipoConexion = 2;
+            plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().voltaje = voltajeModulo;
+            plugNegrosDict["EntradaPlugNegro1"].GetComponent<Plugs>().voltaje = voltajeModulo;
+            plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().estoConectado();
+            plugNegrosDict["EntradaPlugNegro1"].GetComponent<Plugs>().estoConectado();
+        }
+        else
+        {
+            //Hacer algo si el modulo esta apagado.
+            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ApagarFoco();
+        }
     }
     #endregion
 
