@@ -6,6 +6,7 @@ using UnityEngine;
 public class Modulo2 : MonoBehaviour
 {
     #region Atributos
+    public bool moduloEncendido = true;
     public Dictionary<string, string> plugsConnections;
     [SerializeField] public List<GameObject> plugAnaranjados;
     [SerializeField] public List<GameObject> plugNegros;
@@ -41,7 +42,19 @@ public class Modulo2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        botonCuadradoVerdeIzquierdo.GetComponent<Mod2PushButton>().botonContrario = botonCuadradoRojoIzquierdo;
+        botonCuadradoVerdeIzquierdo.GetComponent<Mod2PushButton>().EstablecerTipoVerde();
+        botonCuadradoVerdeIzquierdo.GetComponent<Mod2PushButton>().EstablecerBotonDespresionado();
+        botonCuadradoRojoIzquierdo.GetComponent<Mod2PushButton>().botonContrario = botonCuadradoVerdeIzquierdo;
+        botonCuadradoRojoIzquierdo.GetComponent<Mod2PushButton>().EstablecerTipoRojo();
+        botonCuadradoRojoIzquierdo.GetComponent<Mod2PushButton>().EstablecerBotonPresionado();
+
+        botonCuadradoVerdeDerecho.GetComponent<Mod2PushButton>().botonContrario = botonCuadradoRojoDerecho;
+        botonCuadradoVerdeDerecho.GetComponent<Mod2PushButton>().EstablecerTipoVerde();
+        botonCuadradoVerdeDerecho.GetComponent<Mod2PushButton>().EstablecerBotonDespresionado();
+        botonCuadradoRojoDerecho.GetComponent<Mod2PushButton>().botonContrario = botonCuadradoVerdeDerecho;
+        botonCuadradoRojoDerecho.GetComponent<Mod2PushButton>().EstablecerTipoRojo();
+        botonCuadradoRojoDerecho.GetComponent<Mod2PushButton>().EstablecerBotonPresionado();
     }
 
     private void InicializarComponentes(GameObject nodo)
@@ -114,8 +127,60 @@ public class Modulo2 : MonoBehaviour
     void Update()
     {
         ComprobarEstadosDiccionarios();
-        
+        if (moduloEncendido)
+        {
+            //Circuito izquierdo
+            BotonesNormalmenteCerradosYAbiertos("EntradaPlugAnaranjado1", "EntradaPlugAnaranjado2", "EntradaPlugAnaranjado3");
+            //Circuito Derecho
+            BotonesNormalmenteCerradosYAbiertos("EntradaPlugAnaranjado4", "EntradaPlugAnaranjado5", "EntradaPlugAnaranjado6");
+        }
+        else
+        {
+            //Hacer algo si el modulo esta apagado.
+        }
     }
+
+    void BotonesNormalmenteCerradosYAbiertos(string nPlugPrincipal, string nPlugAbierto, string nPlugCerrado)
+    {
+        Plugs plugConexionIzquierdo = plugAnaranjadosDict[nPlugPrincipal].GetComponent<Plugs>();
+        Plugs plugConexionIzquierdoAbierto = plugAnaranjadosDict[nPlugAbierto].GetComponent<Plugs>();
+        Plugs plugConexionIzquierdoCerrado = plugAnaranjadosDict[nPlugCerrado].GetComponent<Plugs>();
+        Time.timeScale = 0.0F;
+        if (botonCuadradoRojoIzquierdo.GetComponent<Mod2PushButton>().EstaActivado())
+        {
+            plugConexionIzquierdoAbierto.EstablecerValoresNoConexion2();
+            plugConexionIzquierdo.EstablecerValoresNoConexion2();
+        }
+        else
+        if (botonCuadradoVerdeIzquierdo.GetComponent<Mod2PushButton>().EstaActivado())
+        {
+            plugConexionIzquierdoCerrado.EstablecerValoresNoConexion2();
+            plugConexionIzquierdo.EstablecerValoresNoConexion2();
+        }
+        Time.timeScale = 1.0F;
+        plugConexionIzquierdo.EstablecerPropiedadesConexionesEntrantes();
+        plugConexionIzquierdoAbierto.EstablecerPropiedadesConexionesEntrantes();
+        plugConexionIzquierdoCerrado.EstablecerPropiedadesConexionesEntrantes();
+        if (botonCuadradoVerdeIzquierdo.GetComponent<Mod2PushButton>().EstaActivado() && plugConexionIzquierdoAbierto.Conectado && plugConexionIzquierdo.Voltaje == 0 && plugConexionIzquierdo.TipoConexion == 0)
+        {
+            plugConexionIzquierdo.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugAbierto]);
+        }
+        else
+        if (botonCuadradoVerdeIzquierdo.GetComponent<Mod2PushButton>().EstaActivado() && plugConexionIzquierdo.Conectado)
+        {
+            plugConexionIzquierdoAbierto.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugPrincipal]);
+        }
+        else if (botonCuadradoRojoIzquierdo.GetComponent<Mod2PushButton>().EstaActivado() && plugConexionIzquierdoCerrado.Conectado && plugConexionIzquierdo.Voltaje == 0 && plugConexionIzquierdo.TipoConexion == 0)
+        {
+            plugConexionIzquierdo.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugCerrado]);
+        }
+        else
+       if (botonCuadradoRojoIzquierdo.GetComponent<Mod2PushButton>().EstaActivado() && plugConexionIzquierdo.Conectado)
+        {
+            plugConexionIzquierdoCerrado.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugPrincipal]);
+        }
+    }
+
     #endregion
 
     #region Conexiones Grafo
@@ -177,5 +242,4 @@ public class Modulo2 : MonoBehaviour
         Debug.Log("************************************************************************************");
     }
     #endregion
-
 }
