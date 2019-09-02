@@ -6,6 +6,7 @@ using UnityEngine;
 public class Modulo9 : MonoBehaviour
 {
     #region Atributos
+    public bool moduloEncendido = true;
     public Dictionary<string, string> plugsConnections;
     public Dictionary<string, GameObject> plugAnaranjadosDict;
     public Dictionary<string, GameObject> plugNegrosDict;
@@ -114,18 +115,26 @@ public class Modulo9 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ComportamientoModulo();
         ComprobarEstadosDiccionarios();
+        if (moduloEncendido)
+        {
+            //Hacer algo si el modulo esta encendido.
+            ComportamientoModulo();
+        }
+        else
+        {
+            //Hacer algo si el modulo esta apagado.
+        }
     }
     
     private void ComportamientoModulo()
     {
-        focosCircularesAzulesDict["FocoCircularAzul1"].GetComponent<FocoCircularAzul>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugAnaranjadosDict["EntradaPlugAnaranjado2"]);
-        focosCircularesAzulesDict["FocoCircularAzul2"].GetComponent<FocoCircularAzul>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado3"], plugAnaranjadosDict["EntradaPlugAnaranjado4"]);
-        focosCircularesAzulesDict["FocoCircularAzul3"].GetComponent<FocoCircularAzul>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado5"], plugAnaranjadosDict["EntradaPlugAnaranjado6"]);
-        focosCircularesAzulesDict["FocoCircularAzul4"].GetComponent<FocoCircularAzul>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado7"], plugAnaranjadosDict["EntradaPlugAnaranjado8"]);
-        focosCircularesAzulesDict["FocoCircularAzul5"].GetComponent<FocoCircularAzul>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado9"], plugAnaranjadosDict["EntradaPlugAnaranjado10"]);
-        focosCircularesAzulesDict["FocoCircularAzul6"].GetComponent<FocoCircularAzul>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado11"], plugAnaranjadosDict["EntradaPlugAnaranjado12"]);
+        focosCircularesAzulesDict["FocoCircularAzul1"].GetComponent<FocoCircularAzul>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugNegrosDict["EntradaPlugNegro1"]);
+        focosCircularesAzulesDict["FocoCircularAzul2"].GetComponent<FocoCircularAzul>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado2"], plugNegrosDict["EntradaPlugNegro2"]);
+        focosCircularesAzulesDict["FocoCircularAzul3"].GetComponent<FocoCircularAzul>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado3"], plugNegrosDict["EntradaPlugNegro3"]);
+        focosCircularesAzulesDict["FocoCircularAzul4"].GetComponent<FocoCircularAzul>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado4"], plugNegrosDict["EntradaPlugNegro4"]);
+        focosCircularesAzulesDict["FocoCircularAzul5"].GetComponent<FocoCircularAzul>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado5"], plugNegrosDict["EntradaPlugNegro5"]);
+        focosCircularesAzulesDict["FocoCircularAzul6"].GetComponent<FocoCircularAzul>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado6"], plugNegrosDict["EntradaPlugNegro6"]);
     }
     #endregion
 
