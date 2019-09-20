@@ -755,6 +755,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: PlasticoTraslucidoRojo
+    second: {fileID: 2100000, guid: 7840a46c2883627468d2616150ec4317, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Rojo
     second: {fileID: 2100000, guid: d0477f225988f7f4cbabdf5c8fa9ce27, type: 2}
   - first:

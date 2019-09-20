@@ -10,6 +10,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Madera
     second: {fileID: 2100000, guid: ba5dc86cb17d41641a00b1d22241d996, type: 2}
   materials:
