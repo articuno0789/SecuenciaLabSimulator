@@ -69,6 +69,30 @@ public class Plugs : MonoBehaviour
 
     }
 
+    public bool VoltajeValido(float voltajeMinimo, float voltajeMaximo)
+    {
+        if(voltaje >= voltajeMinimo && voltaje <= voltajeMaximo)
+        {
+            return true;
+        }
+        return true;
+    }
+
+    public bool ComprobaTipoLinea(int tipoLineaComprobar)
+    {
+        if (tipoLineaComprobar < 1 || tipoLineaComprobar > 3)
+        {
+            return false;
+        }else if(Linea != tipoLineaComprobar)
+        {
+            return false;
+        }
+        else //Linea == tipoLineaComprobar
+        {
+            return true;
+        }
+    }
+
     public bool EstaSinConexion()
     {
         if(tipoConexion == 0)
