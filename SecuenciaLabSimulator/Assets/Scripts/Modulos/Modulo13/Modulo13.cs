@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Modulo13 : MonoBehaviour
@@ -9,8 +10,25 @@ public class Modulo13 : MonoBehaviour
     public Dictionary<string, string> plugsConnections;
     [SerializeField] public List<GameObject> plugAnaranjados;
     [SerializeField] public List<GameObject> plugNegros;
+    [SerializeField] public List<GameObject> lucesRojas;
     public Dictionary<string, GameObject> plugAnaranjadosDict;
     public Dictionary<string, GameObject> plugNegrosDict;
+    public Dictionary<string, GameObject> lucesRojasDict;
+    [SerializeField] public string rutaPlasticoRojoApagado = "Assets/Materials/PLasticos/PlasticoTraslucidoRojoApagado.mat";
+    [SerializeField] public string rutaPlasticoRojoEncendido = "Assets/Materials/PLasticos/PlasticoTraslucidoRojoEncendido.mat";
+    [SerializeField] public Material plasticoRojoApagado;
+    [SerializeField] public Material plasticoRojoEncendido;
+    public enum ParticlesErrorTypes
+    {
+        BigExplosion,
+        DrippingFlames,
+        ElectricalSparksEffect,
+        SmallExplosionEffect,
+        SmokeEffect,
+        SparksEffect,
+        RibbonSmoke,
+        PlasmaExplosionEffect
+    }
 
     //Variables de debug
     public bool mostrarDiccionarioConexiones = false; // Variable
@@ -21,13 +39,22 @@ public class Modulo13 : MonoBehaviour
     #region Inicializacion
     private void Awake()
     {
+        plasticoRojoApagado = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoRojoApagado, typeof(Material));
+        plasticoRojoEncendido = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoRojoEncendido, typeof(Material));
+
         plugsConnections = new Dictionary<string, string>();
         plugAnaranjadosDict = new Dictionary<string, GameObject>();
         plugNegrosDict = new Dictionary<string, GameObject>();
+        lucesRojasDict = new Dictionary<string, GameObject>();
 
         plugAnaranjados = new List<GameObject>();
         plugNegros = new List<GameObject>();
+        lucesRojas = new List<GameObject>();
         InicializarComponentes(gameObject);
+        if (moduloEncendido)
+        {
+            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
+        }
     }
 
     // Start is called before the first frame update
@@ -64,6 +91,15 @@ public class Modulo13 : MonoBehaviour
 
                 plugNegrosDict.Add(child.name, child);
             }
+            else if (child.name.Contains("LuzRoja"))
+            {
+                lucesRojas.Add(child);
+                LuzRoja luzRoja = child.AddComponent<LuzRoja>();
+                luzRoja.CurrentTypeParticleError = (int)ParticlesErrorTypes.SmokeEffect;
+                luzRoja.CurrentTypeParticleError = (int)ParticlesErrorTypes.ElectricalSparksEffect;
+                luzRoja.padreTotalComponente = this.gameObject;
+                lucesRojasDict.Add(child.name, child);
+            }
             InicializarComponentes(child);
         }
     }
@@ -73,16 +109,73 @@ public class Modulo13 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ComprobarEstadosDiccionarios();
         if (moduloEncendido)
         {
             //Hacer algo si el modulo esta encendido.
-            ComprobarEstadosDiccionarios();
+            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
+            ComportamientoModulo();
         }
         else
         {
             //Hacer algo si el modulo esta apagado.
+            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ApagarFoco();
         }
     }
+
+    private void ComportamientoModulo()
+    {
+        if (lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugNegrosDict["EntradaPlugNegro1"]))
+        {
+            FuncionamientoContractorRojo("EntradaPlugAnaranjado2", "EntradaPlugAnaranjado3", true);
+            FuncionamientoContractorRojo("EntradaPlugAnaranjado4", "EntradaPlugAnaranjado5", true);
+            FuncionamientoContractorRojo("EntradaPlugAnaranjado6", "EntradaPlugAnaranjado7", true);
+            FuncionamientoContractorRojo("EntradaPlugAnaranjado8", "EntradaPlugAnaranjado9", true);
+            FuncionamientoContractorRojo("EntradaPlugAnaranjado10", "EntradaPlugAnaranjado11", false);
+            FuncionamientoContractorRojo("EntradaPlugAnaranjado12", "EntradaPlugAnaranjado13", false);
+            FuncionamientoContractorRojo("EntradaPlugAnaranjado14", "EntradaPlugAnaranjado15", false);
+            FuncionamientoContractorRojo("EntradaPlugAnaranjado16", "EntradaPlugAnaranjado17", false);
+        }
+        else
+        {
+            FuncionamientoContractorRojo("EntradaPlugAnaranjado2", "EntradaPlugAnaranjado3", false);
+            FuncionamientoContractorRojo("EntradaPlugAnaranjado4", "EntradaPlugAnaranjado5", false);
+            FuncionamientoContractorRojo("EntradaPlugAnaranjado6", "EntradaPlugAnaranjado7", false);
+            FuncionamientoContractorRojo("EntradaPlugAnaranjado8", "EntradaPlugAnaranjado9", false);
+            FuncionamientoContractorRojo("EntradaPlugAnaranjado10", "EntradaPlugAnaranjado11", true);
+            FuncionamientoContractorRojo("EntradaPlugAnaranjado12", "EntradaPlugAnaranjado13", true);
+            FuncionamientoContractorRojo("EntradaPlugAnaranjado14", "EntradaPlugAnaranjado15", true);
+            FuncionamientoContractorRojo("EntradaPlugAnaranjado16", "EntradaPlugAnaranjado17", true);
+        }
+        
+    }
+
+    void FuncionamientoContractorRojo(string nPlugConexionArribaCerrado, string nPlugConexionAbajoCerrado, bool botonLogicoActivo)
+    {
+        Plugs plugConexionArribaCerrado = plugAnaranjadosDict[nPlugConexionArribaCerrado].GetComponent<Plugs>();
+        Plugs plugConexionAbajoCerrado = plugAnaranjadosDict[nPlugConexionAbajoCerrado].GetComponent<Plugs>();
+        Time.timeScale = 0.0F;
+        if (botonLogicoActivo)
+        {
+            //plugConexionArribaCerrado.EstablecerValoresNoConexion2();
+            //plugConexionAbajoCerrado.EstablecerValoresNoConexion2();
+        }
+        plugConexionArribaCerrado.EstablecerValoresNoConexion2();
+        plugConexionAbajoCerrado.EstablecerValoresNoConexion2();
+        Time.timeScale = 1.0F;
+        plugConexionArribaCerrado.EstablecerPropiedadesConexionesEntrantes();
+        plugConexionAbajoCerrado.EstablecerPropiedadesConexionesEntrantes();
+        if (!botonLogicoActivo && plugConexionArribaCerrado.Conectado && plugConexionAbajoCerrado.Voltaje == 0 && plugConexionAbajoCerrado.TipoConexion == 0)
+        {
+            plugConexionAbajoCerrado.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugConexionArribaCerrado]);
+        }
+        else
+        if (!botonLogicoActivo && plugConexionAbajoCerrado.Conectado)
+        {
+            plugConexionArribaCerrado.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugConexionAbajoCerrado]);
+        }
+    }
+
     #endregion
 
     #region Conexiones Grafo

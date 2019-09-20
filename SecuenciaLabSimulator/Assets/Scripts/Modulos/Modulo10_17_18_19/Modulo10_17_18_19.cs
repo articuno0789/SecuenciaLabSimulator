@@ -175,7 +175,7 @@ public class Modulo10_17_18_19 : MonoBehaviour
             plugConexionIzquierdo.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugCerrado]);
         }
         else
-       if (!botonLogicoActivo && plugConexionIzquierdo.Conectado)
+        if (!botonLogicoActivo && plugConexionIzquierdo.Conectado)
         {
             plugConexionIzquierdoCerrado.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugPrincipal]);
         }

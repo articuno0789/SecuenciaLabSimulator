@@ -47,14 +47,37 @@ public class Modulo1 : MonoBehaviour
         plugNegros = new List<GameObject>();
         lucesRojas = new List<GameObject>();
         InicializarComponentes(gameObject);
-        plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().TipoConexion = 1;
-        plugNegrosDict["EntradaPlugNegro1"].GetComponent<Plugs>().TipoConexion = 2;
-        plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().voltaje = voltajeModulo;
-        plugNegrosDict["EntradaPlugNegro1"].GetComponent<Plugs>().voltaje = voltajeModulo;
-        plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().Linea = 1;
+        inicializarPlugAnaranjado("EntradaPlugAnaranjado1");
+        inicializarPlugAnaranjado("EntradaPlugAnaranjado2");
+        inicializarPlugAnaranjado("EntradaPlugAnaranjado3");
+
+        inicializarPlugNegro("EntradaPlugNegro1");
+        inicializarPlugNegro("EntradaPlugNegro2");
+        inicializarPlugNegro("EntradaPlugNegro3");
         if (moduloEncendido)
         {
             lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
+        }
+    }
+
+    private void inicializarPlugAnaranjado(string nombrePlug, bool estoyConectado = false)
+    {
+        plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().TipoConexion = 1;
+        plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().voltaje = voltajeModulo;
+        plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().Linea = 1;
+        if (estoyConectado)
+        {
+            plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().estoConectado();
+        }
+    }
+
+    private void inicializarPlugNegro(string nombrePlug, bool estoyConectado = false)
+    {
+        plugNegrosDict[nombrePlug].GetComponent<Plugs>().TipoConexion = 2;
+        plugNegrosDict[nombrePlug].GetComponent<Plugs>().voltaje = voltajeModulo;
+        if (estoyConectado)
+        {
+            plugNegrosDict[nombrePlug].GetComponent<Plugs>().estoConectado();
         }
     }
 
@@ -118,12 +141,29 @@ public class Modulo1 : MonoBehaviour
             //Hacer algo si el modulo esta encendido.
             lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
 
-            plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().TipoConexion = 1;
-            plugNegrosDict["EntradaPlugNegro1"].GetComponent<Plugs>().TipoConexion = 2;
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado1", true);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado2", true);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado3", true);
+
+            inicializarPlugNegro("EntradaPlugNegro1", true);
+            inicializarPlugNegro("EntradaPlugNegro2", true);
+            inicializarPlugNegro("EntradaPlugNegro3", true);
+
+            /*plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().TipoConexion = 1;
             plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().voltaje = voltajeModulo;
-            plugNegrosDict["EntradaPlugNegro1"].GetComponent<Plugs>().voltaje = voltajeModulo;
             plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().estoConectado();
-            plugNegrosDict["EntradaPlugNegro1"].GetComponent<Plugs>().estoConectado();
+
+            plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().TipoConexion = 1;
+            plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().voltaje = voltajeModulo;
+            plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().estoConectado();
+
+            plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().TipoConexion = 1;
+            plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().voltaje = voltajeModulo;
+            plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().estoConectado();
+
+            plugNegrosDict["EntradaPlugNegro1"].GetComponent<Plugs>().voltaje = voltajeModulo;
+            plugNegrosDict["EntradaPlugNegro1"].GetComponent<Plugs>().TipoConexion = 2;
+            plugNegrosDict["EntradaPlugNegro1"].GetComponent<Plugs>().estoConectado();*/
         }
         else
         {
