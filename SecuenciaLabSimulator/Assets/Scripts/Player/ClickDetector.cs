@@ -243,6 +243,8 @@ public class ClickDetector : MonoBehaviour
             cableCompEnd.endPoint = lastClickedGmObj;
             cableCompEnd.cableMaterial = cableMaterial;
 
+
+
             //lastClickedGmObj.GetComponent<Renderer>().material.color = Color.white;
             //clickedGmObj.GetComponent<Renderer>().material.color = Color.white;
             if (lastClickedGmObj.GetComponent<ChangeColorCables>() == null)
@@ -253,6 +255,12 @@ public class ClickDetector : MonoBehaviour
             {
                 clickedGmObj.AddComponent<ChangeColorCables>();
             }
+
+            //Pasar energia a todos los cables
+            lastClickedGmObj.GetComponent<Plugs>().EstablecerPropiedadesConexionesEntrantesPrueba();
+            clickedGmObj.GetComponent<Plugs>().EstablecerPropiedadesConexionesEntrantesPrueba();
+            lastClickedGmObj.GetComponent<Plugs>().Conectado = true;
+            clickedGmObj.GetComponent<Plugs>().Conectado = true;
         }
 
         //Crear conexiones entre plugs
@@ -272,6 +280,13 @@ public class ClickDetector : MonoBehaviour
             eliminarCable = true;
             GameObject endPoint = cableCompStart.endPoint;
             CableComponent cableCompLastEndPointStart = endPoint.GetComponent<CableComponent>();
+
+            //Deterner energia a todos los cables
+            objectStart.GetComponent<Plugs>().EliminarPropiedadesConexionesEntradaPrueba();
+            endPoint.GetComponent<Plugs>().EliminarPropiedadesConexionesEntradaPrueba();
+            objectStart.GetComponent<Plugs>().Conectado = false;
+            endPoint.GetComponent<Plugs>().Conectado = false;
+
             Debug.Log("GameObject endPoint = cableCompStart.endPoint;");
             cableCompLastEndPointStart.endPoint = null;
             cableCompStart.endPoint = null;
