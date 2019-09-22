@@ -26,6 +26,8 @@ TagManager:
   - 23
   - V0.1 - Aparato Control Secuencial
   - MotorElectricoAC
+  - PlugAnaranjado
+  - PlugNegro
   layers:
   - Default
   - TransparentFX

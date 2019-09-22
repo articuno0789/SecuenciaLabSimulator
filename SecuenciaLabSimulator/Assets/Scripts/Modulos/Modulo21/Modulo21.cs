@@ -6,6 +6,7 @@ public class Modulo21 : MonoBehaviour
 {
     #region Atributos
     public bool moduloEncendido = true;
+    public GameObject motorAControlar;
     public Dictionary<string, string> plugsConnections;
     [SerializeField] public List<GameObject> plugAnaranjados;
     [SerializeField] public List<GameObject> plugNegros;
@@ -28,12 +29,16 @@ public class Modulo21 : MonoBehaviour
         plugAnaranjados = new List<GameObject>();
         plugNegros = new List<GameObject>();
         InicializarComponentes(gameObject);
+        if (motorAControlar == null)
+        {
+            motorAControlar = GameObject.Find("MotorElectricoAC2");
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     private void InicializarComponentes(GameObject nodo)
@@ -48,10 +53,12 @@ public class Modulo21 : MonoBehaviour
                 child.AddComponent<CableComponent>();
 
                 Plugs plug = child.AddComponent<Plugs>();
+                plug.tipoNodo = 2;
                 plug.padreTotalComponente = this.gameObject;
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugAnaranjadosDict.Add(child.name, child);
+                child.tag = "PlugAnaranjado";
             }
             else if (child.name.Contains("EntradaPlugNegro"))
             {
@@ -59,14 +66,17 @@ public class Modulo21 : MonoBehaviour
                 child.AddComponent<CableComponent>();
 
                 Plugs plug = child.AddComponent<Plugs>();
+                plug.tipoNodo = 2;
                 plug.padreTotalComponente = this.gameObject;
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugNegrosDict.Add(child.name, child);
+                child.tag = "PlugNegro";
             }
             InicializarComponentes(child);
         }
     }
+
     #endregion
 
     #region Comportamiento Modulo
@@ -77,12 +87,86 @@ public class Modulo21 : MonoBehaviour
         if (moduloEncendido)
         {
             //Hacer algo si el modulo esta encendido.
+            comportamiento();
         }
         else
         {
             //Hacer algo si el modulo esta apagado.
         }
     }
+
+    void comportamiento()
+    {
+        float voltajeMinimo = motorAControlar.GetComponent<MotorElectricoAC>().voltajeMinimo;
+        float voltajeMaximo = motorAControlar.GetComponent<MotorElectricoAC>().voltajeMaximo;
+        Plugs plugConexion1 = plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>();
+        Plugs plugConexion2 = plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>();
+        Plugs plugConexion3 = plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>();
+        if (plugConexion1.estoConectado() && plugConexion2.estoConectado() && plugConexion3.estoConectado())
+        {
+            plugConexion1.EstablecerPropiedadesConexionesEntrantes();
+            plugConexion2.EstablecerPropiedadesConexionesEntrantes();
+            plugConexion3.EstablecerPropiedadesConexionesEntrantes();
+            if (plugConexion1.VoltajeValido(voltajeMinimo, voltajeMaximo) &&
+                plugConexion2.VoltajeValido(voltajeMinimo, voltajeMaximo) &&
+                plugConexion3.VoltajeValido(voltajeMinimo, voltajeMaximo))
+            {
+                float voltajePromedio = (plugConexion1.Voltaje + plugConexion2.Voltaje + plugConexion3.Voltaje) / 3;
+                if (plugConexion1.ComprobaTipoLinea(1) && plugConexion2.ComprobaTipoLinea(2) && plugConexion3.ComprobaTipoLinea(3))
+                {
+                    motorAControlar.GetComponent<MotorElectricoAC>().EstablecerParametrosMotor(true, 1, voltajePromedio);//EncenderMotor, lado rotacion, velocidad
+                }
+                else if (plugConexion1.ComprobaTipoLinea(1) && plugConexion2.ComprobaTipoLinea(3) && plugConexion3.ComprobaTipoLinea(2))
+                {
+                    motorAControlar.GetComponent<MotorElectricoAC>().EstablecerParametrosMotor(true, 2, voltajePromedio);//EncenderMotor, lado rotacion, velocidad
+                }
+                else if (plugConexion1.ComprobaTipoLinea(2) && plugConexion2.ComprobaTipoLinea(1) && plugConexion3.ComprobaTipoLinea(3))
+                {
+                    motorAControlar.GetComponent<MotorElectricoAC>().EstablecerParametrosMotor(true, 2, voltajePromedio);//EncenderMotor, lado rotacion, velocidad
+                }
+                else if (plugConexion1.ComprobaTipoLinea(2) && plugConexion2.ComprobaTipoLinea(3) && plugConexion3.ComprobaTipoLinea(1))
+                {
+                    motorAControlar.GetComponent<MotorElectricoAC>().EstablecerParametrosMotor(true, 1, voltajePromedio);//EncenderMotor, lado rotacion, velocidad
+                }
+                else if (plugConexion1.ComprobaTipoLinea(3) && plugConexion2.ComprobaTipoLinea(1) && plugConexion3.ComprobaTipoLinea(2))
+                {
+                    motorAControlar.GetComponent<MotorElectricoAC>().EstablecerParametrosMotor(true, 2, voltajePromedio);//EncenderMotor, lado rotacion, velocidad
+                }
+                else if (plugConexion1.ComprobaTipoLinea(3) && plugConexion2.ComprobaTipoLinea(2) && plugConexion3.ComprobaTipoLinea(1))
+                {
+                    motorAControlar.GetComponent<MotorElectricoAC>().EstablecerParametrosMotor(true, 1, voltajePromedio);//EncenderMotor, lado rotacion, velocidad
+                }
+                else
+                {
+                    Debug.LogError("Error." + name + ": La combinacion de lineas no es valida. Plug 1: "
+                        + plugConexion1.Linea + ", Plug 2: " + plugConexion2.Linea + ", Plug 3: " + plugConexion3.Linea);
+                    motorAControlar.GetComponent<MotorElectricoAC>().EstablecerParametrosMotor(false, 0, 0);//EncenderMotor, lado rotacion, velocidad
+                }
+            }
+            else
+            {
+                Debug.LogError("Error." + name + ": Algunos de los conectores tiene un voltaje invalido. Plug 1: "
+                        + plugConexion1.Voltaje + ", Plug 2: " + plugConexion2.Voltaje + ", Plug 3: " + plugConexion3.Voltaje);
+                motorAControlar.GetComponent<MotorElectricoAC>().EstablecerParametrosMotor(false, 0, 0);//EncenderMotor, lado rotacion, velocidad
+                motorAControlar.GetComponent<MotorElectricoAC>().CrearAveria();
+            }
+        }
+        else
+        {
+            /*Debug.LogError("Error." + name + ": Algunos de los conectores no esta conectadoo. Plug 1: "
+                        + plugConexion1.estoConectado() + ", Plug 2: " + plugConexion2.estoConectado() + ", Plug 3: " + plugConexion3.estoConectado());*/
+            motorAControlar.GetComponent<MotorElectricoAC>().EstablecerParametrosMotor(false, 0, 0);//EncenderMotor, lado rotacion, velocidad
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (motorAControlar != null)
+        {
+            motorAControlar.GetComponent<MotorElectricoAC>().ReiniciarMotor();
+        }
+    }
+
     #endregion
 
     #region Conexiones Grafo

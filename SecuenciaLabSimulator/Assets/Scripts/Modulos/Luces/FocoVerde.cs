@@ -91,20 +91,21 @@ public class FocoVerde : MonoBehaviour
                     ApagarFoco();
                     if (DebugMode)
                     {
-                        Debug.Log(padreTotalComponente.name + ") " + this.name + " - FOCO VERDE- (plugArribaCompPlug.TipoConexion == 2 && plugAbajoCompPlug.TipoConexion == 1) - Conectado - Debido a que los focos tienen polaridad, al invertir la conexión nom encienden.");
+                        Debug.Log(padreTotalComponente.name + ") " + this.name + " - FOCO VERDE - (plugArribaCompPlug.TipoConexion == 2 && plugAbajoCompPlug.TipoConexion == 1) - Conectado - Debido a que los focos tienen polaridad, al invertir la conexión nom encienden.");
                     }
                 }
                 else if (plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1) // Avaeria - Dos lineas conectadas al mismo tiempo
                 {
-                    if(plugArribaCompPlug.Linea == plugAbajoCompPlug.Linea)
+                    if (plugArribaCompPlug.Linea == plugAbajoCompPlug.Linea)
                     {
                         focoAveriado = false;
                         ApagarFoco();
                         if (DebugMode)
                         {
-                            Debug.Log(padreTotalComponente.name + ") " + this.name + " - FOCO VERDE- (plugArribaCompPlug.Linea == plugAbajoCompPlug.Linea) - Conectado - Debido a que son la misma linea simplemente no enciende.");
+                            Debug.Log(padreTotalComponente.name + ") " + this.name + " - FOCO VERDE - (plugArribaCompPlug.Linea == plugAbajoCompPlug.Linea) - Conectado - Debido a que son la misma linea simplemente no enciende.");
                         }
-                    }else if (plugArribaCompPlug.Linea != plugAbajoCompPlug.Linea)
+                    }
+                    else if (plugArribaCompPlug.Linea != plugAbajoCompPlug.Linea)
                     {
                         focoAveriado = true;
                         ApagarFoco();
@@ -121,7 +122,6 @@ public class FocoVerde : MonoBehaviour
                             Debug.LogError(padreTotalComponente.name + ") " + this.name + " - FOCO VERDE - NO DEBERIA ENTRAR AQUI - (plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1)");
                         }
                     }
-                        
                 }
                 else if (plugArribaCompPlug.TipoConexion == 2 && plugAbajoCompPlug.TipoConexion == 2) // Correcto - Dos neutros conectados, no pasa nada
                 {
@@ -129,13 +129,18 @@ public class FocoVerde : MonoBehaviour
                     ApagarFoco();
                     if (DebugMode)
                     {
-                        Debug.Log(padreTotalComponente.name + ") " + this.name + " - FOCO VERDE- (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
+                        Debug.Log(padreTotalComponente.name + ") " + this.name + " - FOCO VERDE - (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
                     }
                 }
                 else
                 {
-                    EliminarMaterial();
-                    Debug.LogError(padreTotalComponente.name + ") " + this.name + " - FOCO VERDE- Este caso de uso todavia no esta programado - No entro a ningun caso");
+                    //EliminarMaterial();
+                    focoAveriado = false;
+                    ApagarFoco();
+                    if (DebugMode)
+                    {
+                        Debug.LogError(padreTotalComponente.name + ") " + this.name + " - FOCO VERDE - Este caso de uso todavia no esta programado - No entro a ningun caso");
+                    }
                 }
             }
             else
@@ -150,7 +155,12 @@ public class FocoVerde : MonoBehaviour
         }
         else
         {
-            Debug.LogError(padreTotalComponente.name + ") " + this.name + " - FOCO VERDE- if(plugArribaCompPlug != null && plugAbajoCompPlug != null) - Alguno de los dos es nulo, plugArribaCompPlug: " + plugArribaCompPlug + ", plugAbajoCompPlug: " + plugAbajoCompPlug);
+            focoAveriado = false;
+            ApagarFoco();
+            if (DebugMode)
+            {
+                Debug.LogError(padreTotalComponente.name + ") " + this.name + " - FOCO VERDE- if(plugArribaCompPlug != null && plugAbajoCompPlug != null) - Alguno de los dos es nulo, plugArribaCompPlug: " + plugArribaCompPlug + ", plugAbajoCompPlug: " + plugAbajoCompPlug);
+            }
         }
     }
 

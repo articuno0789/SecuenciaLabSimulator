@@ -117,6 +117,8 @@ public class FocoCircularAzul : MonoBehaviour
                     else
                     {
                         EliminarMaterial();
+                        focoAveriado = false;
+                        ApagarFoco();
                         if (DebugMode)
                         {
                             Debug.LogError(padreTotalComponente.name + ") " + this.name + " - FOCO CiRCULAR AZUL - NO DEBERIA ENTRAR AQUI - (plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1)");
@@ -135,8 +137,13 @@ public class FocoCircularAzul : MonoBehaviour
                 }
                 else
                 {
-                    EliminarMaterial();
-                    Debug.LogError(padreTotalComponente.name + ") " + this.name + " - FOCO CiRCULAR AZUL - Este caso de uso todavia no esta programado - No entro a ningun caso");
+                    //EliminarMaterial();
+                    focoAveriado = false;
+                    ApagarFoco();
+                    if (DebugMode)
+                    {
+                        Debug.LogError(padreTotalComponente.name + ") " + this.name + " - FOCO CiRCULAR AZUL - Este caso de uso todavia no esta programado - No entro a ningun caso");
+                    }
                 }
             }
             else

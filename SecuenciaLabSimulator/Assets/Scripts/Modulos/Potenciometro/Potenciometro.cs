@@ -93,6 +93,7 @@ public class Potenciometro : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugAnaranjadosDict.Add(child.name, child);
+                child.tag = "PlugAnaranjado";
             }
             else if (child.name.Contains("EntradaPlugNegro"))
             {
@@ -104,6 +105,7 @@ public class Potenciometro : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugNegrosDict.Add(child.name, child);
+                child.tag = "PlugNegro";
             }
             else if (child.name.Contains("PerillaPotenciometro"))
             {

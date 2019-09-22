@@ -124,7 +124,7 @@ public class SetValueKnob : MonoBehaviour
                 limiteMinimo = mod7.valorMinimoPerilla;
                 limiteMaximo = mod7.valorMaximoPerilla;
             }
-            else if (Regex.IsMatch(padreTotal.name, patronModPotenciometro))
+            else if (padreTotal != null && Regex.IsMatch(padreTotal.name, patronModPotenciometro))
             {
                 Potenciometro modPoten = padreTotal.GetComponent<Potenciometro>();
                 limiteMinimo = modPoten.valorMinimoPerilla;

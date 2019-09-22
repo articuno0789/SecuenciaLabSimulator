@@ -122,7 +122,9 @@ public class LuzRoja : MonoBehaviour
                     else
                     {
                         estaCorrectaConexion = false;
-                        EliminarMaterial();
+                        focoAveriado = false;
+                        //ApagarFoco();
+                        //EliminarMaterial();
                         if (DebugMode)
                         {
                             Debug.LogError(padreTotalComponente.name + ") " + this.name + " - FOCO ROJO - NO DEBERIA ENTRAR AQUI - (plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1)");
@@ -143,7 +145,9 @@ public class LuzRoja : MonoBehaviour
                 else
                 {
                     estaCorrectaConexion = false;
-                    EliminarMaterial();
+                    focoAveriado = false;
+                    //ApagarFoco();
+                    //EliminarMaterial();
                     Debug.LogError(padreTotalComponente.name + ") " + this.name + " - FOCO ROJO - Este caso de uso todavia no esta programado - No entro a ningun caso");
                 }
             }

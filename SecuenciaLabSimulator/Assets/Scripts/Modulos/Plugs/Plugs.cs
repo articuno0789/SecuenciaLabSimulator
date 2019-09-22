@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Text.RegularExpressions;
 using UnityEngine;
-using System.Text.RegularExpressions;
 
 public class Plugs : MonoBehaviour
 {
@@ -11,10 +9,46 @@ public class Plugs : MonoBehaviour
     public int tipoConexion = 0; //1 - Linea, 0 - Sin conexion, 2 - Neutro
     public float voltaje = 0;
     public int numeroDeLinea = 0; //0 - sin linea, 1 - primera linea, 2 - segunda linea, 3 - tercera linea
+    public int tipoNodo = 1; // 0 - poder, 1 - intermedio, 2 - final
     GameObject padreTotalBuscado;
+    public GameObject plugRelacionado = null;
+    public bool relacionCerrada = false;
+
+    //Particulas de error
+    public GameObject currentParticle;
+    private ParticlesError particleError;
+    public int currentTypeParticleError = 2;
+    public bool plugEncendido = false;
+    public bool plugAveriado = false;
+    public bool debugMode = false;
+
     #endregion
 
     #region Propiedades
+
+    public bool DebugMode
+    {
+        get => debugMode;
+        set => debugMode = value;
+    }
+
+    public int CurrentTypeParticleError
+    {
+        get => currentTypeParticleError;
+        set => currentTypeParticleError = value;
+    }
+
+    public bool PlugAveriado
+    {
+        get => plugAveriado;
+        set => plugAveriado = value;
+    }
+
+    public bool PlugEncendido
+    {
+        get => plugEncendido;
+        set => plugEncendido = value;
+    }
 
     public int Linea
     {
@@ -25,7 +59,9 @@ public class Plugs : MonoBehaviour
     public bool Conectado
     {
         get => estaConectado;
-        set => estaConectado = value;
+        set {
+            estaConectado = value;
+        }
     }
 
     public int TipoConexion
@@ -42,10 +78,10 @@ public class Plugs : MonoBehaviour
             {
                 estaConectado = true;
             }
-            else*/ if (value == 0)
+            else*/ /*if (value == 0)
             {
                 estaConectado = false;
-            }
+            }*/
             tipoConexion = value;
         }
     }
@@ -57,10 +93,265 @@ public class Plugs : MonoBehaviour
     }
     #endregion
 
-    // Start is called before the first frame update
-    void Start()
+    public void EstablecerRelacionCerrado(bool cerrada)
+    {
+        if (plugRelacionado != null)
+        {
+            Plugs plugRela = plugRelacionado.GetComponent<Plugs>();
+            if (cerrada)
+            {
+                plugRela.EstablecerPropiedadesConexionesEntrantesPrueba();
+            }
+            else
+            {
+                plugRela.EliminarPropiedadesConexionesEntradaPrueba();
+            }
+            relacionCerrada = cerrada;
+            if (plugRela.relacionCerrada != relacionCerrada)
+            {
+                plugRela.relacionCerrada = relacionCerrada;
+            }
+        }
+    }
+
+    public bool ComprobarEstado(Plugs plugArriba, Plugs plugAbajo, bool plugAbierto)
+    {
+        bool estaCorrectaConexion = true;
+        Plugs plugArribaCompPlug = plugArriba;
+        Plugs plugAbajoCompPlug = plugAbajo;
+        if (!plugAbierto)
+        {
+            if (plugArribaCompPlug != null && plugAbajoCompPlug != null)
+            {
+                plugArribaCompPlug.EstablecerPropiedadesConexionesEntrantes();
+                plugAbajoCompPlug.EstablecerPropiedadesConexionesEntrantes();
+
+                if (plugArribaCompPlug.Conectado && plugAbajoCompPlug.Conectado)
+                {
+                    if (plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1 && plugArribaCompPlug.Linea != plugAbajoCompPlug.Linea)// Correcto - Linea y linea, las dos lineas son diferentes
+                    {
+                        //El mismo plug que llama y el primer plug
+                        plugArribaCompPlug.PlugAveriado = true;
+
+                        //El segundo plug involucrado
+                        plugAbajoCompPlug.PlugAveriado = true;
+                        plugAbajoCompPlug.ComprobarEstadoAveria();
+
+                        estaCorrectaConexion = false;
+                        PlugAveriado = true;
+                        if (DebugMode)
+                        {
+                            Debug.Log(padreTotalComponente.name + ") " + this.name + " - Plug - plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1 && plugArribaCompPlug.Linea != plugAbajoCompPlug.Linea");
+                        }
+                    }
+                    else
+                    {
+                        //El mismo plug que llama y el primer plug
+                        plugArribaCompPlug.PlugAveriado = false;
+
+                        //El segundo plug involucrado
+                        plugAbajoCompPlug.PlugAveriado = false;
+                        plugAbajoCompPlug.ComprobarEstadoAveria();
+
+                        estaCorrectaConexion = true;
+                        PlugAveriado = false;
+                        if (DebugMode)
+                        {
+                            Debug.Log(padreTotalComponente.name + ") " + this.name + " - Plug - plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1 && plugArribaCompPlug.Linea != plugAbajoCompPlug.Linea - ELSE TODO BIEN");
+                        }
+                    }
+                }
+                else
+                {
+                    //El mismo plug que llama y el primer plug
+                    plugArribaCompPlug.PlugAveriado = false;
+
+                    //El segundo plug involucrado
+                    plugAbajoCompPlug.PlugAveriado = false;
+                    plugAbajoCompPlug.ComprobarEstadoAveria();
+
+                    estaCorrectaConexion = false;
+                    PlugAveriado = false;
+                    //ApagarFoco();
+                    if (DebugMode)
+                    {
+                        Debug.Log(padreTotalComponente.name + ") " + this.name + " - PLUG - if (plugIzquierdoCompPlug.Conectado && plugDerechoCompPlug.Conectado) - NO esta conectados");
+                    }
+                }
+            }
+            else
+            {
+                estaCorrectaConexion = false;
+                Debug.LogError(padreTotalComponente.name + ") " + this.name + " - PLUG - if(plugArribaCompPlug != null && plugAbajoCompPlug != null) - Alguno de los dos es nulo, plugArribaCompPlug: " + plugArribaCompPlug + ", plugAbajoCompPlug: " + plugAbajoCompPlug);
+            }
+        }
+        else
+        {
+            //El mismo plug que llama y el primer plug
+            plugArribaCompPlug.PlugAveriado = false;
+
+            //El segundo plug involucrado
+            plugAbajoCompPlug.PlugAveriado = false;
+            plugAbajoCompPlug.ComprobarEstadoAveria();
+
+            estaCorrectaConexion = false;
+            PlugAveriado = false;
+            //ApagarFoco();
+            if (DebugMode)
+            {
+                Debug.Log(padreTotalComponente.name + ") " + this.name + " - PLUG - Los plug estan abiertos, es decir, no conectados.");
+            }
+        }
+        ComprobarEstadoAveria();
+        return estaCorrectaConexion;
+    }
+
+    public bool ComprobarEstado1Y15(Plugs plugArriba, Plugs plugAbajo, bool plugAbierto)
+    {
+        bool estaCorrectaConexion = true;
+        Plugs plugArribaCompPlug = plugArriba;
+        Plugs plugAbajoCompPlug = plugAbajo;
+        if (!plugAbierto)
+        {
+            if (plugArribaCompPlug != null && plugAbajoCompPlug != null)
+            {
+                /*if(plugArribaCompPlug.padreTotalComponente.tag != "1" || plugArribaCompPlug.padreTotalComponente.tag != "15")
+                {
+                    plugArribaCompPlug.EstablecerPropiedadesConexionesEntrantes();
+                }
+                if (plugAbajoCompPlug.padreTotalComponente.tag != "1" || plugAbajoCompPlug.padreTotalComponente.tag != "15")
+                {
+                    plugAbajoCompPlug.EstablecerPropiedadesConexionesEntrantes();
+                }*/
+                if (plugArribaCompPlug.Conectado && plugAbajoCompPlug.Conectado)
+                {
+                    if (plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1 
+                        && plugArribaCompPlug.Linea != plugAbajoCompPlug.Linea)// Correcto - Linea y linea, las dos lineas son diferentes
+                    {
+                        //El mismo plug que llama y el primer plug
+                        plugArribaCompPlug.PlugAveriado = true;
+
+                        //El segundo plug involucrado
+                        plugAbajoCompPlug.PlugAveriado = true;
+                        plugAbajoCompPlug.ComprobarEstadoAveria();
+
+                        estaCorrectaConexion = false;
+                        PlugAveriado = true;
+                        if (DebugMode)
+                        {
+                            Debug.Log(padreTotalComponente.name + ") " + this.name + " - Plug - plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1 && plugArribaCompPlug.Linea != plugAbajoCompPlug.Linea");
+                        }
+                    }
+                    else
+                    {
+                        //El mismo plug que llama y el primer plug
+                        plugArribaCompPlug.PlugAveriado = false;
+
+                        //El segundo plug involucrado
+                        plugAbajoCompPlug.PlugAveriado = false;
+                        plugAbajoCompPlug.ComprobarEstadoAveria();
+
+                        estaCorrectaConexion = true;
+                        PlugAveriado = false;
+                        if (DebugMode)
+                        {
+                            Debug.Log(padreTotalComponente.name + ") " + this.name + " - Plug - plugArribaCompPlug.TipoConexion == 1 &&" +
+                                " plugAbajoCompPlug.TipoConexion == 1 && " +
+                                "plugArribaCompPlug.Linea != plugAbajoCompPlug.Linea" +
+                                " - ELSE TODO BIEN, plugArribaCompPlug.Linea: " + plugArribaCompPlug.Linea + ", plugAbajoCompPlug.Linea: " + plugAbajoCompPlug.Linea);
+                        }
+                    }
+                }
+                else
+                {
+                    //El mismo plug que llama y el primer plug
+                    plugArribaCompPlug.PlugAveriado = false;
+
+                    //El segundo plug involucrado
+                    plugAbajoCompPlug.PlugAveriado = false;
+                    plugAbajoCompPlug.ComprobarEstadoAveria();
+
+                    estaCorrectaConexion = false;
+                    PlugAveriado = false;
+                    //ApagarFoco();
+                    if (DebugMode)
+                    {
+                        Debug.Log(padreTotalComponente.name + ") " + this.name + " - PLUG - if (plugIzquierdoCompPlug.Conectado && plugDerechoCompPlug.Conectado) - NO esta conectados");
+                    }
+                }
+            }
+            else
+            {
+                estaCorrectaConexion = false;
+                Debug.LogError(padreTotalComponente.name + ") " + this.name + " - PLUG - if(plugArribaCompPlug != null && plugAbajoCompPlug != null) - Alguno de los dos es nulo, plugArribaCompPlug: " + plugArribaCompPlug + ", plugAbajoCompPlug: " + plugAbajoCompPlug);
+            }
+        }
+        else
+        {
+            //El mismo plug que llama y el primer plug
+            plugArribaCompPlug.PlugAveriado = false;
+
+            //El segundo plug involucrado
+            plugAbajoCompPlug.PlugAveriado = false;
+            plugAbajoCompPlug.ComprobarEstadoAveria();
+
+            estaCorrectaConexion = false;
+            PlugAveriado = false;
+            //ApagarFoco();
+            if (DebugMode)
+            {
+                Debug.Log(padreTotalComponente.name + ") " + this.name + " - PLUG - Los plug estan abiertos, es decir, no conectados.");
+            }
+        }
+        ComprobarEstadoAveria();
+        return estaCorrectaConexion;
+    }
+
+
+    void ComprobarEstadoAveria()
+    {
+        if (plugAveriado)
+        {
+            if (currentParticle == null)
+            {
+                CrearAveria();
+            }
+        }
+        else
+        {
+            if (currentParticle != null)
+            {
+                QuitarAveria();
+            }
+        }
+    }
+
+    public void CrearAveria()
+    {
+        if(currentParticle == null)
+        {
+            currentParticle = particleError.CrearParticulasError(currentTypeParticleError, transform.position, transform.rotation.eulerAngles, new Vector3(0.5f, 0.5f, 0.5f));
+            currentParticle.transform.parent = this.gameObject.transform;
+            PlugAveriado = true;
+        }
+    }
+
+    public void QuitarAveria()
+    {
+        if(currentParticle != null)
+        {
+            particleError.DestruirParticulasError(currentParticle);
+            PlugAveriado = false;
+        }
+    }
+
+    void Awake()
     {
         padreTotalBuscado = null;
+
+        //Particulas de error
+        particleError = new ParticlesError();
+        padreTotalComponente = new GameObject();
     }
 
     // Update is called once per frame
@@ -113,6 +404,14 @@ public class Plugs : MonoBehaviour
         Linea = 0;
     }
 
+    public void EstablecerValoresNoConexion3(Plugs desconectar)
+    {
+        Conectado = false;
+        TipoConexion = 0;
+        Voltaje = 0;
+        Linea = 0;
+        desconectar.EstablecerValoresNoConexion();
+    }
 
     public void EstablecerValoresNoConexion2()
     {
@@ -128,9 +427,9 @@ public class Plugs : MonoBehaviour
             {
                 Plugs plugConexionEntrante = conexionEntrante.GetComponent<Plugs>();
                 EncontrarPadreTotal(conexionEntrante);
-                if (plugConexionEntrante != null && padreTotalBuscado.tag != "1" && padreTotalBuscado.tag != "15")
+                if (plugConexionEntrante != null && padreTotalBuscado.tag != "1" && padreTotalBuscado.tag != "15")//Se excluyen los modulos que dan energia, ya que estan conectados a una fuente
                 {
-                    Debug.Log(padreTotalBuscado.tag);
+                    //Debug.Log(padreTotalBuscado.tag);
                     plugConexionEntrante.Conectado = false;
                     plugConexionEntrante.TipoConexion = 0;
                     plugConexionEntrante.Voltaje = 0;
@@ -174,6 +473,219 @@ public class Plugs : MonoBehaviour
         }
     }
 
+    public Plugs RegresarConexionEntrante()
+    {
+        Plugs conexionEntrantePlug = null;
+        CableComponent cableComp = this.GetComponent<CableComponent>();
+        if (cableComp != null)
+        {
+            GameObject conexionEntrante = cableComp.EndPoint;
+            if (conexionEntrante != null)
+            {
+                conexionEntrantePlug = conexionEntrante.GetComponent<Plugs>();
+            }
+            else
+            {
+                conexionEntrantePlug = null;
+            }
+        }
+        else
+        {
+            conexionEntrantePlug = null;
+        }
+        return conexionEntrantePlug;
+    }
+
+    public void EliminarPropiedadesConexionesEntradaPrueba()
+    {
+        CableComponent cableComp = this.GetComponent<CableComponent>();
+        if (tipoNodo != 0) //Diferente a nodo de poder
+        {//Si es nodo final o intermedio entra aqui
+            if (cableComp != null)
+            {
+                GameObject conexionEntrante = cableComp.EndPoint;
+                if (conexionEntrante != null)
+                {
+                    Plugs plugConexionEntrante = conexionEntrante.GetComponent<Plugs>();
+                    if (plugConexionEntrante != null)//&& !plugConexionEntrante.PlugFinal&& plugConexionEntrante.tipoNodo != 2
+                    {
+                        //Conectado = false;
+                        TipoConexion = 0;
+                        Voltaje = 0;
+                        Linea = 0;
+                        if (relacionCerrada)
+                        {
+                            if (plugRelacionado != null)
+                            {
+                                Plugs plugRela = plugRelacionado.GetComponent<Plugs>();
+                                CableComponent plugRelaCable = plugRela.GetComponent<CableComponent>();
+                                plugRela.TipoConexion = TipoConexion;
+                                plugRela.Voltaje = Voltaje;
+                                plugRela.Linea = Linea;
+                                if (plugRela.Conectado)// && plugRelaCable.EndPoint!= null
+                                {
+                                    Plugs plugRelaCablePlug = plugRelaCable.EndPoint.GetComponent<Plugs>();
+                                    if (ComprobarCorto(plugRela, plugRelaCablePlug))
+                                    {
+                                        plugRelaCablePlug.EliminarPropiedadesConexionesEntradaPrueba();
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("Desconexion-Hubo un horrible corto - En la prubas");
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        EstablecerValoresNoConexion();
+                    }
+                }
+                else
+                {
+                    EstablecerValoresNoConexion();
+                }
+            }
+            else
+            {
+                EstablecerValoresNoConexion();
+            }
+        }
+    }
+
+    public void EstablecerPropiedadesConexionesEntrantesPrueba()
+    {
+        CableComponent cableComp = this.GetComponent<CableComponent>();
+        if (tipoNodo != 0) //Diferente a nodo de poder
+        {//Si es nodo final o intermedio entra aqui
+            if (cableComp != null)
+            {
+                GameObject conexionEntrante = cableComp.EndPoint;
+                if (conexionEntrante != null)
+                {
+                    Plugs plugConexionEntrante = conexionEntrante.GetComponent<Plugs>();
+                    if (plugConexionEntrante != null)//&& !plugConexionEntrante.PlugFinal&& plugConexionEntrante.tipoNodo != 2
+                    {
+                        //Conectado = true;
+                        TipoConexion = plugConexionEntrante.TipoConexion;
+                        Voltaje = plugConexionEntrante.Voltaje;
+                        Linea = plugConexionEntrante.Linea;
+                        if (relacionCerrada)
+                        {
+                            if (plugRelacionado != null)
+                            {
+                                Plugs plugRela = plugRelacionado.GetComponent<Plugs>();
+                                CableComponent plugRelaCable = plugRela.GetComponent<CableComponent>();
+                                plugRela.TipoConexion = TipoConexion;
+                                plugRela.Voltaje = Voltaje;
+                                plugRela.Linea = Linea;
+                                if (plugRela.Conectado)// && plugRelaCable.EndPoint!= null
+                                {
+                                    Plugs plugRelaCablePlug = plugRelaCable.EndPoint.GetComponent<Plugs>();
+                                    if (ComprobarCorto(plugRela, plugRelaCablePlug))
+                                    {
+                                        plugRelaCablePlug.EstablecerPropiedadesConexionesEntrantesPrueba();
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("Hubo un horrible corto - En la sprubas");
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }
+                    else
+                    {
+                        EstablecerValoresNoConexion();
+                    }
+                }
+                else
+                {
+                    EstablecerValoresNoConexion();
+                }
+            }
+            else
+            {
+                EstablecerValoresNoConexion();
+            }
+        }
+    }
+
+    public bool ComprobarCorto(Plugs primerPlug, Plugs segundoPlug)
+    {
+        bool estaCorrectaConexion = true;
+        Plugs primerPlugCompPlug = primerPlug;
+        Plugs segundoPlugCompPlug = segundoPlug;
+            if (primerPlugCompPlug != null && segundoPlugCompPlug != null)
+            {
+                //plugArribaCompPlug.EstablecerPropiedadesConexionesEntrantes();
+                //plugAbajoCompPlug.EstablecerPropiedadesConexionesEntrantes();
+                if (primerPlugCompPlug.Conectado && segundoPlugCompPlug.Conectado)
+                {
+                    if (primerPlugCompPlug.TipoConexion == 1 && segundoPlugCompPlug.TipoConexion == 1 && primerPlugCompPlug.Linea != segundoPlugCompPlug.Linea)// Correcto - Linea y linea, las dos lineas son diferentes
+                    {
+                        //El mismo plug que llama y el primer plug
+                        primerPlugCompPlug.PlugAveriado = true;
+
+                        //El segundo plug involucrado
+                        segundoPlugCompPlug.PlugAveriado = true;
+                        segundoPlugCompPlug.ComprobarEstadoAveria();
+
+                        estaCorrectaConexion = false;
+                        PlugAveriado = true;
+                        if (DebugMode)
+                        {
+                            Debug.Log(padreTotalComponente.name + ") " + this.name + " - Plug - plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1 && plugArribaCompPlug.Linea != plugAbajoCompPlug.Linea");
+                        }
+                    }
+                    else
+                    {
+                        //El mismo plug que llama y el primer plug
+                        primerPlugCompPlug.PlugAveriado = false;
+
+                        //El segundo plug involucrado
+                        segundoPlugCompPlug.PlugAveriado = false;
+                        segundoPlugCompPlug.ComprobarEstadoAveria();
+
+                        estaCorrectaConexion = true;
+                        PlugAveriado = false;
+                        if (DebugMode)
+                        {
+                            Debug.Log(padreTotalComponente.name + ") " + this.name + " - Plug - plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1 && plugArribaCompPlug.Linea != plugAbajoCompPlug.Linea - ELSE TODO BIEN");
+                        }
+                    }
+                }
+                else
+                {
+                    //El mismo plug que llama y el primer plug
+                    primerPlugCompPlug.PlugAveriado = false;
+
+                    //El segundo plug involucrado
+                    segundoPlugCompPlug.PlugAveriado = false;
+                    segundoPlugCompPlug.ComprobarEstadoAveria();
+
+                    estaCorrectaConexion = false;
+                    PlugAveriado = false;
+                    //ApagarFoco();
+                    if (DebugMode)
+                    {
+                        Debug.Log(padreTotalComponente.name + ") " + this.name + " - PLUG - if (plugIzquierdoCompPlug.Conectado && plugDerechoCompPlug.Conectado) - NO esta conectados");
+                    }
+                }
+            }
+            else
+            {
+                estaCorrectaConexion = false;
+                Debug.LogError(padreTotalComponente.name + ") " + this.name + " - PLUG - if(plugArribaCompPlug != null && plugAbajoCompPlug != null) - Alguno de los dos es nulo, plugArribaCompPlug: " + primerPlugCompPlug + ", plugAbajoCompPlug: " + segundoPlugCompPlug);
+            }
+        ComprobarEstadoAveria();
+        return estaCorrectaConexion;
+    }
+
+
     public void EstablecerPropiedadesConexionesEntrantes()
     {
         CableComponent cableComp = this.GetComponent<CableComponent>();
@@ -183,7 +695,7 @@ public class Plugs : MonoBehaviour
             if (conexionEntrante != null)
             {
                 Plugs plugConexionEntrante = conexionEntrante.GetComponent<Plugs>();
-                if (plugConexionEntrante != null)
+                if (plugConexionEntrante != null)//&& !plugConexionEntrante.PlugFinal&& plugConexionEntrante.tipoNodo != 2
                 {
                     Conectado = true;
                     TipoConexion = plugConexionEntrante.TipoConexion;
@@ -411,7 +923,7 @@ if (Regex.IsMatch(padreTotalComp.name, @"^Potenciometro__\d*$"))
     private bool ComprobarEliminarConexion(CableComponent cableCompStart, GameObject objectStart)
     {
         bool eliminarCable = false;
-        if (cableCompStart.endPoint != null)//Si este valor es diferente a nulo, kquiere decir que este plug ya tiene una conexión
+        if (cableCompStart.endPoint != null)//Si este valor es diferente a nulo, quiere decir que este plug ya tiene una conexión
         {
             eliminarCable = true;
             GameObject endPoint = cableCompStart.endPoint;
@@ -436,6 +948,8 @@ if (Regex.IsMatch(padreTotalComp.name, @"^Potenciometro__\d*$"))
                 Destroy(lineRenderStartPoint);
                 endPoint.AddComponent<LineRenderer>();
             }
+            //endPoint.GetComponent<Plugs>().EstablecerValoresNoConexion();
+            //objectStart.GetComponent<Plugs>().EstablecerValoresNoConexion();
         }
         return eliminarCable;
     }

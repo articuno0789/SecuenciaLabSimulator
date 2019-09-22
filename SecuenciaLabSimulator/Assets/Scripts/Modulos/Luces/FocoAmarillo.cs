@@ -135,8 +135,13 @@ public class FocoAmarillo : MonoBehaviour
                 }
                 else
                 {
-                    EliminarMaterial();
-                    Debug.LogError(padreTotalComponente.name + ") " + this.name + " - FOCO AMARILLO - Este caso de uso todavia no esta programado - No entro a ningun caso");
+                    //EliminarMaterial();
+                    focoAveriado = false;
+                    ApagarFoco();
+                    if (DebugMode)
+                    {
+                        Debug.LogError(padreTotalComponente.name + ") " + this.name + " - FOCO AMARILLO - Este caso de uso todavia no esta programado - No entro a ningun caso");
+                    }
                 }
             }
             else
@@ -151,7 +156,12 @@ public class FocoAmarillo : MonoBehaviour
         }
         else
         {
-            Debug.LogError(padreTotalComponente.name + ") " + this.name + " - FOCO AMARILLO - if(plugArribaCompPlug != null && plugAbajoCompPlug != null) - Alguno de los dos es nulo, plugArribaCompPlug: " + plugArribaCompPlug + ", plugAbajoCompPlug: " + plugAbajoCompPlug);
+            focoAveriado = false;
+            ApagarFoco();
+            if (DebugMode)
+            {
+                Debug.LogError(padreTotalComponente.name + ") " + this.name + " - FOCO AMARILLO - if(plugArribaCompPlug != null && plugAbajoCompPlug != null) - Alguno de los dos es nulo, plugArribaCompPlug: " + plugArribaCompPlug + ", plugAbajoCompPlug: " + plugAbajoCompPlug);
+            }
         }
     }
 

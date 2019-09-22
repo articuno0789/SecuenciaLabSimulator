@@ -2444,12 +2444,12 @@ MonoBehaviour:
   moduloControlador: {fileID: 0}
   ejeMotor: {fileID: 738870228}
   cajaElectrica: {fileID: 0}
-  velocidadRotacionActual: 500
-  velocidadMaximaRotacion: 1200
+  velocidadRotacionActual: 0
+  velocidadMaximaRotacion: 1750
   velocidadMinimaRotacion: 0
   direccionRotacion: 0
-  voltajeMaximo: 250
-  voltajeMinimo: 0
+  voltajeMaximo: 240
+  voltajeMinimo: 40
   voltajeActual: 0
   rotaMotorPrueba: 1
   motorAveriado: 0
@@ -10097,7 +10097,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 27.11
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_LocalRotation.x
@@ -10436,7 +10436,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &457683653
 Transform:
   m_ObjectHideFlags: 0
@@ -10868,12 +10868,21 @@ MonoBehaviour:
   moduloEncendido: 1
   plugAnaranjados: []
   plugNegros: []
+  lucesRojas: []
+  rutaPlasticoRojoApagado: Assets/Materials/PLasticos/PlasticoTraslucidoRojoApagado.mat
+  rutaPlasticoRojoEncendido: Assets/Materials/PLasticos/PlasticoTraslucidoRojoEncendido.mat
+  plasticoRojoApagado: {fileID: 0}
+  plasticoRojoEncendido: {fileID: 0}
   perilla: {fileID: 0}
   limiteGiroInferiorPerilla: -90
   limiteGiroSuperiorPerilla: 320
-  valorActualPerilla: 0
+  valorActualPerilla: 0.1
   valorMinimoPerilla: 0.1
   valorMaximoPerilla: 30
+  number: 0
+  couroutineStarted: 0
+  cuentaAtras: 0
+  cuentaIniciada: 0
   gradosActualesPerilla: -90
   velocidadRotacion: 10
   rotarPerillaPrueba: 0
@@ -10881,6 +10890,7 @@ MonoBehaviour:
   mostrarDiccionarioConexiones: 0
   mostrarPlugAnaranjados: 0
   mostrarPlugNegros: 0
+  estadoAnteriorEnergizado: 0
 --- !u!1 &491314049
 GameObject:
   m_ObjectHideFlags: 0
@@ -14882,6 +14892,7 @@ MonoBehaviour:
   mostrarDiccionarioConexiones: 0
   mostrarPlugAnaranjados: 0
   mostrarPlugNegros: 0
+  pLugs: []
 --- !u!1 &681261630
 GameObject:
   m_ObjectHideFlags: 0
@@ -15032,12 +15043,21 @@ MonoBehaviour:
   moduloEncendido: 1
   plugAnaranjados: []
   plugNegros: []
+  lucesRojas: []
+  rutaPlasticoRojoApagado: Assets/Materials/PLasticos/PlasticoTraslucidoRojoApagado.mat
+  rutaPlasticoRojoEncendido: Assets/Materials/PLasticos/PlasticoTraslucidoRojoEncendido.mat
+  plasticoRojoApagado: {fileID: 0}
+  plasticoRojoEncendido: {fileID: 0}
   perilla: {fileID: 0}
   limiteGiroInferiorPerilla: -90
   limiteGiroSuperiorPerilla: 320
   valorActualPerilla: 0
   valorMinimoPerilla: 0
   valorMaximoPerilla: 40
+  number: 0
+  couroutineStarted: 0
+  cuentaAtras: 0
+  cuentaIniciada: 0
   originalRotationKnob: {x: 0, y: 0, z: 0, w: 0}
   gradosActualesPerilla: -90
   velocidadRotacion: 10
@@ -18684,6 +18704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moduloEncendido: 1
+  motorAControlar: {fileID: 96791713}
   plugAnaranjados: []
   plugNegros: []
   mostrarDiccionarioConexiones: 0
@@ -41752,6 +41773,11 @@ MonoBehaviour:
   moduloEncendido: 1
   plugAnaranjados: []
   plugNegros: []
+  lucesRojas: []
+  rutaPlasticoRojoApagado: Assets/Materials/PLasticos/PlasticoTraslucidoRojoApagado.mat
+  rutaPlasticoRojoEncendido: Assets/Materials/PLasticos/PlasticoTraslucidoRojoEncendido.mat
+  plasticoRojoApagado: {fileID: 0}
+  plasticoRojoEncendido: {fileID: 0}
   botonStop: {fileID: 0}
   perillaMA: {fileID: 0}
   mostrarDiccionarioConexiones: 0

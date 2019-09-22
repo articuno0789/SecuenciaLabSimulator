@@ -63,6 +63,7 @@ public class Modulo14_16 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugAnaranjadosDict.Add(child.name, child);
+                child.tag = "PlugAnaranjado";
             }
             else if (child.name.Contains("EntradaPlugNegro"))
             {
@@ -74,6 +75,7 @@ public class Modulo14_16 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugNegrosDict.Add(child.name, child);
+                child.tag = "PlugNegro";
             }
             else if (child.name.Contains("LuzRoja"))
             {
@@ -126,6 +128,59 @@ public class Modulo14_16 : MonoBehaviour
         Plugs plugConexionIzquierdoAbierto = plugAnaranjadosDict[nPlugAbierto].GetComponent<Plugs>();
         Plugs plugConexionIzquierdoCerrado = plugAnaranjadosDict[nPlugCerrado].GetComponent<Plugs>();
         Time.timeScale = 0.0F;
+        bool cortoElectrico = false;
+        if (!botonLogicoActivo) //!botonLogicoActivo - botonCuadradoRojoIzquierdo.GetComponent<Mod2PushButton>().EstaActivado()
+        {
+            plugConexionIzquierdoAbierto.EstablecerValoresNoConexion2();
+            plugConexionIzquierdo.EstablecerValoresNoConexion2();
+            cortoElectrico = plugConexionIzquierdo.ComprobarEstado(plugConexionIzquierdo, plugConexionIzquierdoCerrado, false);
+        }
+        else
+        if (botonLogicoActivo) // botonLogicoActivo - botonCuadradoVerdeIzquierdo.GetComponent<Mod2PushButton>().EstaActivado()
+        {
+            plugConexionIzquierdoCerrado.EstablecerValoresNoConexion2();
+            plugConexionIzquierdo.EstablecerValoresNoConexion2();
+            cortoElectrico = plugConexionIzquierdo.ComprobarEstado(plugConexionIzquierdo, plugConexionIzquierdoAbierto, false);
+        }
+        Time.timeScale = 1.0F;
+        if (!cortoElectrico)
+        {
+            plugConexionIzquierdo.EstablecerPropiedadesConexionesEntrantes();
+            plugConexionIzquierdoAbierto.EstablecerPropiedadesConexionesEntrantes();
+            plugConexionIzquierdoCerrado.EstablecerPropiedadesConexionesEntrantes();
+            if (botonLogicoActivo && plugConexionIzquierdoAbierto.Conectado && plugConexionIzquierdo.Voltaje == 0 && plugConexionIzquierdo.TipoConexion == 0)
+            {
+                plugConexionIzquierdo.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugAbierto]);
+            }
+            else
+            if (botonLogicoActivo && plugConexionIzquierdo.Conectado)
+            {
+                plugConexionIzquierdoAbierto.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugPrincipal]);
+            }
+            else if (!botonLogicoActivo && plugConexionIzquierdoCerrado.Conectado && plugConexionIzquierdo.Voltaje == 0 && plugConexionIzquierdo.TipoConexion == 0)
+            {
+                plugConexionIzquierdo.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugCerrado]);
+            }
+            else
+            if (!botonLogicoActivo && plugConexionIzquierdo.Conectado)
+            {
+                plugConexionIzquierdoCerrado.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugPrincipal]);
+            }
+            //Debug.Log("No hay corto");
+        }
+        else
+        {
+            //Debug.Log("Hay corto");
+        }
+    }
+
+    //Implementacion anterior
+    /*void BotonesNormalmenteCerradosYAbiertos(string nPlugPrincipal, string nPlugAbierto, string nPlugCerrado, bool botonLogicoActivo)
+    {
+        Plugs plugConexionIzquierdo = plugAnaranjadosDict[nPlugPrincipal].GetComponent<Plugs>();
+        Plugs plugConexionIzquierdoAbierto = plugAnaranjadosDict[nPlugAbierto].GetComponent<Plugs>();
+        Plugs plugConexionIzquierdoCerrado = plugAnaranjadosDict[nPlugCerrado].GetComponent<Plugs>();
+        Time.timeScale = 0.0F;
         if (!botonLogicoActivo) //!botonLogicoActivo - botonCuadradoRojoIzquierdo.GetComponent<Mod2PushButton>().EstaActivado()
         {
             plugConexionIzquierdoAbierto.EstablecerValoresNoConexion2();
@@ -160,7 +215,7 @@ public class Modulo14_16 : MonoBehaviour
             plugConexionIzquierdoCerrado.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugPrincipal]);
         }
     }
-
+    */
 
     #endregion
 

@@ -74,10 +74,12 @@ public class Modulo4 : MonoBehaviour
                 child.AddComponent<CableComponent>();
 
                 Plugs plug = child.AddComponent<Plugs>();
+                plug.tipoNodo = 2;
                 plug.padreTotalComponente = this.gameObject;
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugAnaranjadosDict.Add(child.name, child);
+                child.tag = "PlugAnaranjado";
             }
             else if (child.name.Contains("EntradaPlugNegro"))
             {
@@ -85,10 +87,12 @@ public class Modulo4 : MonoBehaviour
                 child.AddComponent<CableComponent>();
 
                 Plugs plug = child.AddComponent<Plugs>();
+                plug.tipoNodo = 2;
                 plug.padreTotalComponente = this.gameObject;
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugNegrosDict.Add(child.name, child);
+                child.tag = "PlugNegro";
             }
             else if (child.name.Contains("FocoAmarilo"))
             {

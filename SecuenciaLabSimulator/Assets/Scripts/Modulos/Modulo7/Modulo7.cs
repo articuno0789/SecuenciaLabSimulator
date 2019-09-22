@@ -32,9 +32,15 @@ public class Modulo7 : MonoBehaviour
     [SerializeField] public GameObject perilla;
     [SerializeField] public float limiteGiroInferiorPerilla = -90.0f;
     [SerializeField] public float limiteGiroSuperiorPerilla = 320.0f;
-    public float valorActualPerilla = 0.0f;
+    public float valorActualPerilla = 0.1f;
     public float valorMinimoPerilla = 0.1f;
     public float valorMaximoPerilla = 30.0f;
+    //Timers---------------------------
+    public int number = 0;
+    public bool couroutineStarted = false;
+    public float cuentaAtras = 0.0f;
+    public bool cuentaIniciada = false;
+    //---------------------------------
     private Quaternion originalRotationKnob;
 
 
@@ -69,6 +75,36 @@ public class Modulo7 : MonoBehaviour
         {
             lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
         }
+
+        plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado3"];
+        plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().relacionCerrada = false;
+        plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado2"];
+        plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().relacionCerrada = false;
+
+        plugAnaranjadosDict["EntradaPlugAnaranjado4"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado5"];
+        plugAnaranjadosDict["EntradaPlugAnaranjado4"].GetComponent<Plugs>().relacionCerrada = false;
+        plugAnaranjadosDict["EntradaPlugAnaranjado5"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado4"];
+        plugAnaranjadosDict["EntradaPlugAnaranjado5"].GetComponent<Plugs>().relacionCerrada = false;
+
+        plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado7"];
+        plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().relacionCerrada = false;
+        plugAnaranjadosDict["EntradaPlugAnaranjado7"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado6"];
+        plugAnaranjadosDict["EntradaPlugAnaranjado7"].GetComponent<Plugs>().relacionCerrada = false;
+
+        plugAnaranjadosDict["EntradaPlugAnaranjado8"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado9"];
+        plugAnaranjadosDict["EntradaPlugAnaranjado8"].GetComponent<Plugs>().relacionCerrada = true;
+        plugAnaranjadosDict["EntradaPlugAnaranjado9"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado8"];
+        plugAnaranjadosDict["EntradaPlugAnaranjado9"].GetComponent<Plugs>().relacionCerrada = true;
+
+        plugAnaranjadosDict["EntradaPlugAnaranjado10"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado11"];
+        plugAnaranjadosDict["EntradaPlugAnaranjado10"].GetComponent<Plugs>().relacionCerrada = false;
+        plugAnaranjadosDict["EntradaPlugAnaranjado11"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado10"];
+        plugAnaranjadosDict["EntradaPlugAnaranjado11"].GetComponent<Plugs>().relacionCerrada = false;
+
+        plugAnaranjadosDict["EntradaPlugAnaranjado12"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado13"];
+        plugAnaranjadosDict["EntradaPlugAnaranjado12"].GetComponent<Plugs>().relacionCerrada = true;
+        plugAnaranjadosDict["EntradaPlugAnaranjado13"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado12"];
+        plugAnaranjadosDict["EntradaPlugAnaranjado13"].GetComponent<Plugs>().relacionCerrada = true;
     }
 
     // Start is called before the first frame update
@@ -93,6 +129,7 @@ public class Modulo7 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugAnaranjadosDict.Add(child.name, child);
+                child.tag = "PlugAnaranjado";
             }
             else if (child.name.Contains("EntradaPlugNegro"))
             {
@@ -104,6 +141,7 @@ public class Modulo7 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugNegrosDict.Add(child.name, child);
+                child.tag = "PlugNegro";
             }
             else if (child.name.Contains("Total_Perilla"))
             {
@@ -146,48 +184,199 @@ public class Modulo7 : MonoBehaviour
         }
     }
 
+    /*Comportamiento para timers off delay (Punta de flecha para abajo) (Retardo al desenergizar)
+    significa que cambiará de estado un tiempo predeterminado despupes que
+    el time haya recibido la señal de apagar.*/
+    public bool estadoAnteriorEnergizado;
     private void ComportamientoModulo()
     {
+        if (!cuentaIniciada)
+        {
+            cuentaAtras = valorActualPerilla;
+        }
         if (lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugNegrosDict["EntradaPlugNegro1"]))
         {
+            estadoAnteriorEnergizado = true;
+            if (cuentaIniciada)
+            {
+                cuentaIniciada = false;
+                number = 0;
+            }
+            //Normalmente Abiertos
+            plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+            plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+            plugAnaranjadosDict["EntradaPlugAnaranjado4"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+            plugAnaranjadosDict["EntradaPlugAnaranjado5"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+            plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+            plugAnaranjadosDict["EntradaPlugAnaranjado7"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+            //Normalmente cerrados
+            plugAnaranjadosDict["EntradaPlugAnaranjado8"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
+            plugAnaranjadosDict["EntradaPlugAnaranjado9"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
+
+            //Timers
+            plugAnaranjadosDict["EntradaPlugAnaranjado10"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+            plugAnaranjadosDict["EntradaPlugAnaranjado11"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+            plugAnaranjadosDict["EntradaPlugAnaranjado12"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
+            plugAnaranjadosDict["EntradaPlugAnaranjado13"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
+        }
+        else
+        {
+            cuentaIniciada = true;
+            if (!couroutineStarted && number <= cuentaAtras)
+            {
+                //InvokeRepeating("UsingInvokeRepeat", 0f, 0.1f);
+                StartCoroutine(UsingYield(1));
+            }
+            //Normalmente Abiertos
+            plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
+            plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
+            plugAnaranjadosDict["EntradaPlugAnaranjado4"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
+            plugAnaranjadosDict["EntradaPlugAnaranjado5"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
+            plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
+            plugAnaranjadosDict["EntradaPlugAnaranjado7"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
+            //Normalmente cerrados
+            plugAnaranjadosDict["EntradaPlugAnaranjado8"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+            plugAnaranjadosDict["EntradaPlugAnaranjado9"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+
+            //Timers
+            if (number >= cuentaAtras)
+            {
+                //Timers
+                plugAnaranjadosDict["EntradaPlugAnaranjado10"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
+                plugAnaranjadosDict["EntradaPlugAnaranjado11"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
+                plugAnaranjadosDict["EntradaPlugAnaranjado12"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+                plugAnaranjadosDict["EntradaPlugAnaranjado13"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+                estadoAnteriorEnergizado = false;
+            }
+            else if (estadoAnteriorEnergizado)
+            {
+                //Timers
+                plugAnaranjadosDict["EntradaPlugAnaranjado10"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+                plugAnaranjadosDict["EntradaPlugAnaranjado11"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+                plugAnaranjadosDict["EntradaPlugAnaranjado12"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
+                plugAnaranjadosDict["EntradaPlugAnaranjado13"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
+            }
+            else
+            {
+                //Timers
+                plugAnaranjadosDict["EntradaPlugAnaranjado10"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
+                plugAnaranjadosDict["EntradaPlugAnaranjado11"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
+                plugAnaranjadosDict["EntradaPlugAnaranjado12"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+                plugAnaranjadosDict["EntradaPlugAnaranjado13"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+                estadoAnteriorEnergizado = false;
+            }
+        }
+        Debug.Log("Numbre: " + number + ", cuentaAtras: " + cuentaAtras);
+        //Forma vieja
+        /*if (!cuentaIniciada)
+        {
+            cuentaAtras = valorActualPerilla;
+        }
+        if (lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugNegrosDict["EntradaPlugNegro1"]))
+        {
+            estadoAnteriorEnergizado = true;
+            if (cuentaIniciada)
+            {
+                cuentaIniciada = false;
+                number = 0;
+            }
             FuncionamientoContractorRojo("EntradaPlugAnaranjado2", "EntradaPlugAnaranjado3", false); //Normalmente abierto
             FuncionamientoContractorRojo("EntradaPlugAnaranjado4", "EntradaPlugAnaranjado5", false); //Normalmente abierto
             FuncionamientoContractorRojo("EntradaPlugAnaranjado6", "EntradaPlugAnaranjado7", false); //Normalmente abierto
             FuncionamientoContractorRojo("EntradaPlugAnaranjado8", "EntradaPlugAnaranjado9", true); //Normalmente cerrado
+
+            FuncionamientoContractorRojo("EntradaPlugAnaranjado10", "EntradaPlugAnaranjado11", false); //Normalmente abierto
+            FuncionamientoContractorRojo("EntradaPlugAnaranjado12", "EntradaPlugAnaranjado13", true); //Normalmente cerrado
         }
         else
         {
+            cuentaIniciada = true;
+            if (!couroutineStarted && number <= cuentaAtras)
+            {
+                //InvokeRepeating("UsingInvokeRepeat", 0f, 0.1f);
+                StartCoroutine(UsingYield(1));
+            }
             FuncionamientoContractorRojo("EntradaPlugAnaranjado2", "EntradaPlugAnaranjado3", true); //Normalmente abierto
             FuncionamientoContractorRojo("EntradaPlugAnaranjado4", "EntradaPlugAnaranjado5", true); //Normalmente abierto
             FuncionamientoContractorRojo("EntradaPlugAnaranjado6", "EntradaPlugAnaranjado7", true); //Normalmente abierto
             FuncionamientoContractorRojo("EntradaPlugAnaranjado8", "EntradaPlugAnaranjado9", false); //Normalmente cerrado
-        }
 
+            //Timers
+            if (number >= cuentaAtras)
+            {
+                //Timers
+                FuncionamientoContractorRojo("EntradaPlugAnaranjado10", "EntradaPlugAnaranjado11", true); //Normalmente abierto
+                FuncionamientoContractorRojo("EntradaPlugAnaranjado12", "EntradaPlugAnaranjado13", false); //Normalmente cerrado
+                estadoAnteriorEnergizado = false;
+            }
+            else if(estadoAnteriorEnergizado)
+            {
+                FuncionamientoContractorRojo("EntradaPlugAnaranjado10", "EntradaPlugAnaranjado11", false); //Normalmente abierto
+                FuncionamientoContractorRojo("EntradaPlugAnaranjado12", "EntradaPlugAnaranjado13", true); //Normalmente cerrado
+            }
+            else
+            {
+                FuncionamientoContractorRojo("EntradaPlugAnaranjado10", "EntradaPlugAnaranjado11", true); //Normalmente abierto
+                FuncionamientoContractorRojo("EntradaPlugAnaranjado12", "EntradaPlugAnaranjado13", false); //Normalmente cerrado
+                estadoAnteriorEnergizado = false;
+            }
+        }*/
+        //Debug.Log("Numbre: " + number + "");
     }
 
-    void FuncionamientoContractorRojo(string nPlugConexionArribaCerrado, string nPlugConexionAbajoCerrado, bool botonLogicoActivo)
+    void UsingInvokeRepeat()
+    {
+        number++;
+    }
+
+    IEnumerator UsingYield(float seconds)
+    {
+        couroutineStarted = true;
+
+        yield return new WaitForSeconds(seconds);
+        number++;
+
+        couroutineStarted = false;
+    }
+
+    void FuncionamientoContractorRojo(string nPlugConexionArribaCerrado, string nPlugConexionAbajoCerrado, bool conexionAbierta)
     {
         Plugs plugConexionArribaCerrado = plugAnaranjadosDict[nPlugConexionArribaCerrado].GetComponent<Plugs>();
         Plugs plugConexionAbajoCerrado = plugAnaranjadosDict[nPlugConexionAbajoCerrado].GetComponent<Plugs>();
         Time.timeScale = 0.0F;
-        if (botonLogicoActivo)
+        //reiniciarTodosPlugsAnaranjados();
+        //plugConexionArribaCerrado.EstablecerValoresNoConexion3(plugConexionAbajoCerrado);
+        //plugConexionAbajoCerrado.EstablecerValoresNoConexion3(plugConexionArribaCerrado);
+        /*if (!plugConexionArribaCerrado.estaConectado)
         {
-            //plugConexionArribaCerrado.EstablecerValoresNoConexion2();
-            //plugConexionAbajoCerrado.EstablecerValoresNoConexion2();
+            plugConexionArribaCerrado.EstablecerValoresNoConexion3(plugConexionAbajoCerrado);
         }
+        if (!plugConexionAbajoCerrado.estaConectado)
+        {
+            plugConexionAbajoCerrado.EstablecerValoresNoConexion3(plugConexionArribaCerrado);
+        }*/
         plugConexionArribaCerrado.EstablecerValoresNoConexion2();
         plugConexionAbajoCerrado.EstablecerValoresNoConexion2();
+        bool cortoElectrico = plugConexionArribaCerrado.ComprobarEstado(plugConexionArribaCerrado, plugConexionAbajoCerrado, conexionAbierta);
         Time.timeScale = 1.0F;
-        plugConexionArribaCerrado.EstablecerPropiedadesConexionesEntrantes();
-        plugConexionAbajoCerrado.EstablecerPropiedadesConexionesEntrantes();
-        if (!botonLogicoActivo && plugConexionArribaCerrado.Conectado && plugConexionAbajoCerrado.Voltaje == 0 && plugConexionAbajoCerrado.TipoConexion == 0)
+        if (!conexionAbierta && !cortoElectrico) // Para comprobar cortos
         {
-            plugConexionAbajoCerrado.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugConexionArribaCerrado]);
-        }
-        else
-        if (!botonLogicoActivo && plugConexionAbajoCerrado.Conectado)
-        {
-            plugConexionArribaCerrado.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugConexionAbajoCerrado]);
+            plugConexionArribaCerrado.EstablecerPropiedadesConexionesEntrantes();
+            plugConexionAbajoCerrado.EstablecerPropiedadesConexionesEntrantes();
+
+            if (!conexionAbierta && plugConexionArribaCerrado.Conectado && plugConexionAbajoCerrado.Voltaje == 0 && plugConexionAbajoCerrado.TipoConexion == 0)// 
+            {
+                plugConexionAbajoCerrado.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugConexionArribaCerrado]);
+            }
+            else
+            if (!conexionAbierta && plugConexionAbajoCerrado.Conectado)
+            {
+                plugConexionArribaCerrado.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugConexionAbajoCerrado]);
+            }
+            else
+            {
+                //Debug.Log("Modulo 13: No entra a ningun caso");
+            }
         }
     }
 

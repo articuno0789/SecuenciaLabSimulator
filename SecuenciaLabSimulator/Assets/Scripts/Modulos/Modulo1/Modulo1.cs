@@ -65,9 +65,9 @@ public class Modulo1 : MonoBehaviour
         plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().TipoConexion = 1;
         plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().voltaje = voltajeModulo;
         plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().Linea = 1;
-        if (estoyConectado)
+        if (!plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().estoConectado())
         {
-            plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().estoConectado();
+            plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().QuitarAveria();
         }
     }
 
@@ -102,6 +102,7 @@ public class Modulo1 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugAnaranjadosDict.Add(child.name, child);
+                child.tag = "PlugAnaranjado";
             }
             else if (child.name.Contains("EntradaPlugNegro"))
             {
@@ -113,6 +114,7 @@ public class Modulo1 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugNegrosDict.Add(child.name, child);
+                child.tag = "PlugNegro";
             }
             else if (child.name.Contains("LuzRoja"))
             {
@@ -149,6 +151,19 @@ public class Modulo1 : MonoBehaviour
             inicializarPlugNegro("EntradaPlugNegro2", true);
             inicializarPlugNegro("EntradaPlugNegro3", true);
 
+            MandarPulsoEnergia("EntradaPlugAnaranjado1");
+            MandarPulsoEnergia("EntradaPlugAnaranjado2");
+            MandarPulsoEnergia("EntradaPlugAnaranjado3");
+            MandarPulsoNeutro("EntradaPlugNegro1");
+            MandarPulsoNeutro("EntradaPlugNegro2");
+            MandarPulsoNeutro("EntradaPlugNegro3");
+
+            /*ComprobarCorto("EntradaPlugAnaranjado1");
+            ComprobarCorto("EntradaPlugAnaranjado2");
+            ComprobarCorto("EntradaPlugAnaranjado3");*/
+
+
+
             /*plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().TipoConexion = 1;
             plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().voltaje = voltajeModulo;
             plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().estoConectado();
@@ -169,6 +184,56 @@ public class Modulo1 : MonoBehaviour
         {
             //Hacer algo si el modulo esta apagado.
             lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ApagarFoco();
+        }
+    }
+
+    void MandarPulsoEnergia(string nombrePlug)
+    {
+        if (plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().Conectado)
+        {
+            CableComponent cable = plugAnaranjadosDict[nombrePlug].GetComponent<CableComponent>();
+            GameObject plugRelacionado = cable.EndPoint;
+            if (plugRelacionado != null)
+            {
+                Plugs plugRela = plugRelacionado.GetComponent<Plugs>();
+                if (plugRela != null)
+                {
+                    plugRela.EstablecerPropiedadesConexionesEntrantesPrueba();
+                }
+            }
+        }
+    }
+
+    void MandarPulsoNeutro(string nombrePlug)
+    {
+        if (plugNegrosDict[nombrePlug].GetComponent<Plugs>().Conectado)
+        {
+            CableComponent cable = plugNegrosDict[nombrePlug].GetComponent<CableComponent>();
+            GameObject plugRelacionado = cable.EndPoint;
+            if (plugRelacionado != null)
+            {
+                Plugs plugRela = plugRelacionado.GetComponent<Plugs>();
+                if (plugRela != null)
+                {
+                    plugRela.EstablecerPropiedadesConexionesEntrantesPrueba();
+                }
+            }
+        }
+    }
+
+    void ComprobarCorto(string nombrePlug)
+    {
+        Plugs plugConexionArribaCerrado = plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>();
+        //plugConexionArribaCerrado.DebugMode = true;
+        if (plugConexionArribaCerrado.estaConectado)
+        {
+            //Debug.Log("if (plugConexionArribaCerrado.estaConectado)");
+            Plugs conexionEntrante = plugConexionArribaCerrado.RegresarConexionEntrante();
+            if (conexionEntrante != null)
+            {
+                //Debug.Log("if (conexionEntrante != null)");
+                plugConexionArribaCerrado.ComprobarEstado1Y15(plugConexionArribaCerrado, conexionEntrante, false);
+            }
         }
     }
     #endregion
