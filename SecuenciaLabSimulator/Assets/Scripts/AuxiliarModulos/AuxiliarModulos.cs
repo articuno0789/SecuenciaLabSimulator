@@ -6,6 +6,32 @@ using UnityEngine;
 public static class AuxiliarModulos
 {
 
+    //Tipos de conexiones
+    //1 - Linea, 0 - Sin conexion, 2 - Neutro
+    public enum TiposConexiones
+    {
+        SinConexion = 0,
+        Linea = 1,
+        Neutro = 2
+    }
+    //Numeros de lineas
+    //0 - sin linea, 1 - primera linea, 2 - segunda linea, 3 - tercera linea
+    public enum NumeroLinea
+    {
+        SinLinea = 0,
+        PrimeraLinea = 1,
+        SegundaLinea = 2,
+        TerceraLinea = 3
+    }
+    //Tipo Nodo
+    // 0 - poder, 1 - intermedio, 2 - final
+    public enum TipoNodo
+    {
+        Poder = 0,
+        Intermedio = 1,
+        Final = 2
+    }
+
     //Tags
     public const string tagMod1 = "1";
     public const string tagMod2 = "2";
