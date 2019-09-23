@@ -86,22 +86,14 @@ public class Modulo15 : MonoBehaviour
 
     private void inicializarPlugAnaranjado(string nombrePlug, int tipoLinea, bool estoyConectado = false)
     {
-        plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().TipoConexion = 1;
+        plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().TipoConexion = (int)AuxiliarModulos.TiposConexiones.Linea;
         plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().voltaje = voltajeModulo;
         plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().Linea = tipoLinea;
-        plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().tipoNodo = 0;
+        plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().tipoNodo = (int)AuxiliarModulos.TipoNodo.Poder;
         if (!plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().EstoConectado())
         {
             plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().QuitarAveria();
         }
-        /*if (estoyConectado)
-        {
-            plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().estoConectado();
-        }
-        else
-        {
-            plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().QuitarAveria();
-        }*/
     }
 
     private void inicializarPlugNegro(string nombrePlug, bool estoyConectado = false)
@@ -169,15 +161,15 @@ public class Modulo15 : MonoBehaviour
             lucesRojasDict["LuzRoja2"].GetComponent<LuzRoja>().EncenderFoco();
             lucesRojasDict["LuzRoja3"].GetComponent<LuzRoja>().EncenderFoco();
             //Cargar plugs de energia
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado1", 1, true);
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado2", 1, true);
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado3", 1, true);
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado4", 2, true);
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado5", 2, true);
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado6", 2, true);
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado7", 3, true);
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado8", 3, true);
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado9", 3, true);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado1", (int)AuxiliarModulos.NumeroLinea.PrimeraLinea, true);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado2", (int)AuxiliarModulos.NumeroLinea.PrimeraLinea, true);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado3", (int)AuxiliarModulos.NumeroLinea.PrimeraLinea, true);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado4", (int)AuxiliarModulos.NumeroLinea.SegundaLinea, true);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado5", (int)AuxiliarModulos.NumeroLinea.SegundaLinea, true);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado6", (int)AuxiliarModulos.NumeroLinea.SegundaLinea, true);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado7", (int)AuxiliarModulos.NumeroLinea.TerceraLinea, true);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado8", (int)AuxiliarModulos.NumeroLinea.TerceraLinea, true);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado9", (int)AuxiliarModulos.NumeroLinea.TerceraLinea, true);
             //Pulso de nergi
             MandarPulsoEnergia("EntradaPlugAnaranjado1");
             MandarPulsoEnergia("EntradaPlugAnaranjado2");

@@ -82,7 +82,8 @@ public class FocoCircularAzul : MonoBehaviour
 
             if (plugArribaCompPlug.Conectado && plugAbajoCompPlug.Conectado)
             {
-                if (plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 2)// Correcto - Linea y neutro conectado en de manera correcta
+                if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea
+                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro)// Correcto - Linea y neutro conectado en de manera correcta
                 {
                     focoAveriado = false;
                     EncenderFoco();
@@ -91,7 +92,8 @@ public class FocoCircularAzul : MonoBehaviour
                         Debug.Log(padreTotalComponente.name + ") " + this.name + " - " + this.tag + " - if(plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
                     }
                 }
-                else if (plugArribaCompPlug.TipoConexion == 2 && plugAbajoCompPlug.TipoConexion == 1) //Averia - Linea y neutro invertido
+                else if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro
+                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea) //Averia - Linea y neutro invertido
                 {
                     focoAveriado = false;
                     ApagarFoco();
@@ -100,7 +102,8 @@ public class FocoCircularAzul : MonoBehaviour
                         Debug.Log(padreTotalComponente.name + ") " + this.name + " - " + this.tag + " - (plugArribaCompPlug.TipoConexion == 2 && plugAbajoCompPlug.TipoConexion == 1) - Conectado - Debido a que los focos tienen polaridad, al invertir la conexión nom encienden.");
                     }
                 }
-                else if (plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1) // Avaeria - Dos lineas conectadas al mismo tiempo
+                else if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea
+                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea) // Avaeria - Dos lineas conectadas al mismo tiempo
                 {
                     if (plugArribaCompPlug.Linea == plugAbajoCompPlug.Linea)
                     {
@@ -130,7 +133,8 @@ public class FocoCircularAzul : MonoBehaviour
                     }
 
                 }
-                else if (plugArribaCompPlug.TipoConexion == 2 && plugAbajoCompPlug.TipoConexion == 2) // Correcto - Dos neutros conectados, no pasa nada
+                else if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro
+                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro) // Correcto - Dos neutros conectados, no pasa nada
                 {
                     focoAveriado = false;
                     ApagarFoco();

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public static class AuxiliarModulos
 {
-
     //Tipos de conexiones
     //1 - Linea, 0 - Sin conexion, 2 - Neutro
     public enum TiposConexiones
@@ -88,14 +87,14 @@ public static class AuxiliarModulos
     //Particulas
     public enum ParticlesErrorTypes
     {
-        BigExplosion,
-        DrippingFlames,
-        ElectricalSparksEffect,
-        SmallExplosionEffect,
-        SmokeEffect,
-        SparksEffect,
-        RibbonSmoke,
-        PlasmaExplosionEffect
+        BigExplosion = 0,
+        DrippingFlames = 1,
+        ElectricalSparksEffect = 2,
+        SmallExplosionEffect = 3,
+        SmokeEffect = 4,
+        SparksEffect = 5,
+        RibbonSmoke = 6,
+        PlasmaExplosionEffect = 7
     }
 
     /*En este método se asigna la lógica de funcionamiento a un determinado módulo, de acuerdo a su tipo.*/

@@ -6,21 +6,22 @@ public class Plugs : MonoBehaviour
     #region Atributos
     public GameObject padreTotalComponente;
     public bool estaConectado;
-    public int tipoConexion = 0; //1 - Linea, 0 - Sin conexion, 2 - Neutro
+    public int tipoConexion = (int)AuxiliarModulos.TiposConexiones.SinConexion; //1 - Linea, 0 - Sin conexion, 2 - Neutro
     public float voltaje = 0;
-    public int numeroDeLinea = 0; //0 - sin linea, 1 - primera linea, 2 - segunda linea, 3 - tercera linea
-    public int tipoNodo = 1; // 0 - poder, 1 - intermedio, 2 - final
+    public int numeroDeLinea = (int)AuxiliarModulos.NumeroLinea.SinLinea; //0 - sin linea, 1 - primera linea, 2 - segunda linea, 3 - tercera linea
+    public int tipoNodo = (int)AuxiliarModulos.TipoNodo.Intermedio; // 0 - poder, 1 - intermedio, 2 - final
     GameObject padreTotalBuscado;
     public GameObject plugRelacionado = null;
     public bool relacionCerrada = false;
-
+    
     //Particulas de error
     public GameObject currentParticle;
     private ParticlesError particleError;
-    public int currentTypeParticleError = 2;
+    public int currentTypeParticleError = (int)AuxiliarModulos.ParticlesErrorTypes.ElectricalSparksEffect;
     public bool plugEncendido = false;
     public bool plugAveriado = false;
     public bool debugMode = false;
+    
 
     #endregion
 
@@ -150,7 +151,9 @@ public class Plugs : MonoBehaviour
 
                 if (plugArribaCompPlug.Conectado && plugAbajoCompPlug.Conectado)
                 {
-                    if (plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1 && plugArribaCompPlug.Linea != plugAbajoCompPlug.Linea)// Correcto - Linea y linea, las dos lineas son diferentes
+                    if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea 
+                        && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea 
+                        && plugArribaCompPlug.Linea != plugAbajoCompPlug.Linea)// Correcto - Linea y linea, las dos lineas son diferentes
                     {
                         //El mismo plug que llama y el primer plug
                         plugArribaCompPlug.PlugAveriado = true;
@@ -247,7 +250,8 @@ public class Plugs : MonoBehaviour
                 }*/
                 if (plugArribaCompPlug.Conectado && plugAbajoCompPlug.Conectado)
                 {
-                    if (plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1 
+                    if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea 
+                        && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea
                         && plugArribaCompPlug.Linea != plugAbajoCompPlug.Linea)// Correcto - Linea y linea, las dos lineas son diferentes
                     {
                         //El mismo plug que llama y el primer plug
@@ -392,7 +396,7 @@ public class Plugs : MonoBehaviour
 
     public bool EstaSinConexion()
     {
-        if(tipoConexion == 0)
+        if(tipoConexion == (int)AuxiliarModulos.TiposConexiones.SinConexion)
         {
             return true;
         }
@@ -405,26 +409,26 @@ public class Plugs : MonoBehaviour
     public void EstablecerValoresNoConexion()
     {
         Conectado = false;
-        TipoConexion = 0;
+        TipoConexion = (int)AuxiliarModulos.TiposConexiones.SinConexion;
         Voltaje = 0;
-        Linea = 0;
+        Linea = (int)AuxiliarModulos.NumeroLinea.SinLinea;
     }
 
     public void EstablecerValoresNoConexion3(Plugs desconectar)
     {
         Conectado = false;
-        TipoConexion = 0;
+        TipoConexion = (int)AuxiliarModulos.TiposConexiones.SinConexion;
         Voltaje = 0;
-        Linea = 0;
+        Linea = (int)AuxiliarModulos.NumeroLinea.SinLinea;
         desconectar.EstablecerValoresNoConexion();
     }
 
     public void EstablecerValoresNoConexion2()
     {
         Conectado = false;
-        TipoConexion = 0;
+        TipoConexion = (int)AuxiliarModulos.TiposConexiones.SinConexion;
         Voltaje = 0;
-        Linea = 0;
+        Linea = (int)AuxiliarModulos.NumeroLinea.SinLinea;
         CableComponent cableComp = this.GetComponent<CableComponent>();
         if (cableComp != null)
         {
@@ -437,9 +441,9 @@ public class Plugs : MonoBehaviour
                 {
                     //Debug.Log(padreTotalBuscado.tag);
                     plugConexionEntrante.Conectado = false;
-                    plugConexionEntrante.TipoConexion = 0;
+                    plugConexionEntrante.TipoConexion = (int)AuxiliarModulos.TiposConexiones.SinConexion;
                     plugConexionEntrante.Voltaje = 0;
-                    plugConexionEntrante.Linea = 0;
+                    plugConexionEntrante.Linea = (int)AuxiliarModulos.NumeroLinea.SinLinea;
                     //plugConexionEntrante.EstablecerValoresNoConexion();
                 }
             }
@@ -505,7 +509,7 @@ public class Plugs : MonoBehaviour
     public void EliminarPropiedadesConexionesEntradaPrueba()
     {
         CableComponent cableComp = this.GetComponent<CableComponent>();
-        if (tipoNodo != 0) //Diferente a nodo de poder
+        if (tipoNodo != (int)AuxiliarModulos.TipoNodo.Poder) //Diferente a nodo de poder
         {//Si es nodo final o intermedio entra aqui
             if (cableComp != null)
             {
@@ -516,9 +520,9 @@ public class Plugs : MonoBehaviour
                     if (plugConexionEntrante != null)//&& !plugConexionEntrante.PlugFinal&& plugConexionEntrante.tipoNodo != 2
                     {
                         //Conectado = false;
-                        TipoConexion = 0;
+                        TipoConexion = (int)AuxiliarModulos.TiposConexiones.SinConexion;
                         Voltaje = 0;
-                        Linea = 0;
+                        Linea = (int)AuxiliarModulos.NumeroLinea.SinLinea;
                         if (relacionCerrada)
                         {
                             if (plugRelacionado != null)
@@ -564,7 +568,7 @@ public class Plugs : MonoBehaviour
     public void EstablecerPropiedadesConexionesEntrantesPrueba()
     {
         CableComponent cableComp = this.GetComponent<CableComponent>();
-        if (tipoNodo != 0) //Diferente a nodo de poder
+        if (tipoNodo != (int)AuxiliarModulos.TipoNodo.Poder) //Diferente a nodo de poder
         {//Si es nodo final o intermedio entra aqui
             if (cableComp != null)
             {
@@ -631,7 +635,9 @@ public class Plugs : MonoBehaviour
                 //plugAbajoCompPlug.EstablecerPropiedadesConexionesEntrantes();
                 if (primerPlugCompPlug.Conectado && segundoPlugCompPlug.Conectado)
                 {
-                    if (primerPlugCompPlug.TipoConexion == 1 && segundoPlugCompPlug.TipoConexion == 1 && primerPlugCompPlug.Linea != segundoPlugCompPlug.Linea)// Correcto - Linea y linea, las dos lineas son diferentes
+                    if (primerPlugCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea 
+                    && segundoPlugCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea 
+                    && primerPlugCompPlug.Linea != segundoPlugCompPlug.Linea)// Correcto - Linea y linea, las dos lineas son diferentes
                     {
                         //El mismo plug que llama y el primer plug
                         primerPlugCompPlug.PlugAveriado = true;
