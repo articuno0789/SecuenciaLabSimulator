@@ -6,38 +6,34 @@ using UnityEngine;
 public class Modulo9 : MonoBehaviour
 {
     #region Atributos
+    [Header("Encendido")]
     public bool moduloEncendido = true;
+    [Header("Conexiones")]
     public Dictionary<string, string> plugsConnections;
+    [Header("Diccionarios de elementos")]
     public Dictionary<string, GameObject> plugAnaranjadosDict;
     public Dictionary<string, GameObject> plugNegrosDict;
     public Dictionary<string, GameObject> focosCircularesAzulesDict;
+    [Header("Listas de elementos")]
     public List<GameObject> plugAnaranjados;
     public List<GameObject> plugNegros;
     public List<GameObject> focosCircularesAzules;
+    [Header("Animaciones")]
     private readonly string rutaAnimacionBotonCircularAzul = "Assets/Animation/Modulos/Modulo9/Mod9PresBotonCircularAzul.anim";
     private readonly string nombreAnimacionBotonCircularAzul = "Mod9PresBotonCircularAzul";
-
-    public enum ParticlesErrorTypes
-    {
-        BigExplosion,
-        DrippingFlames,
-        ElectricalSparksEffect,
-        SmallExplosionEffect,
-        SmokeEffect,
-        SparksEffect,
-        RibbonSmoke,
-        PlasmaExplosionEffect
-    }
-
+    public string RutaAnimacionBotonCircularAzul => rutaAnimacionBotonCircularAzul;
+    public string NombreAnimacionBotonCircularAzul => nombreAnimacionBotonCircularAzul;
+    [Header("Parametros Plugs")]
+    private string nombreTagPlugAnaranjado = "PlugAnaranjado";
+    private string nombreTagPlugNegro = "PlugNegro";
+    [Header("Parametros Focos")]
+    private string nombreTagFocoAzul = "FocoAzul";
     //Variables de debug
+    [Header("Debug")]
     public bool mostrarDiccionarioConexiones = false; // Variable
     public bool mostrarPlugAnaranjados = false; // Variable
     public bool mostrarPlugNegros = false; // Variable
     public bool mostrarFocosCircularesAzules = false; // Variable
-
-    public string RutaAnimacionBotonCircularAzul => rutaAnimacionBotonCircularAzul;
-    public string NombreAnimacionBotonCircularAzul => nombreAnimacionBotonCircularAzul;
-
     #endregion
 
     #region Inicializacion
@@ -78,7 +74,7 @@ public class Modulo9 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugAnaranjadosDict.Add(child.name, child);
-                child.tag = "PlugAnaranjado";
+                child.tag = nombreTagPlugAnaranjado;
             }
             else if (child.name.Contains("EntradaPlugNegro"))
             {
@@ -91,14 +87,14 @@ public class Modulo9 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugNegrosDict.Add(child.name, child);
-                child.tag = "PlugNegro";
+                child.tag = nombreTagPlugNegro;
             }
             else if (child.name.Contains("FocoCircularAzul"))
             {
                 focosCircularesAzules.Add(child);
                 FocoCircularAzul fococircularAzul = child.AddComponent<FocoCircularAzul>();
-                fococircularAzul.CurrentTypeParticleError = (int)ParticlesErrorTypes.SmokeEffect;
-                fococircularAzul.CurrentTypeParticleError = (int)ParticlesErrorTypes.ElectricalSparksEffect;
+                fococircularAzul.CurrentTypeParticleError = (int)AuxiliarModulos.ParticlesErrorTypes.SmokeEffect;
+                fococircularAzul.CurrentTypeParticleError = (int)AuxiliarModulos.ParticlesErrorTypes.ElectricalSparksEffect;
                 fococircularAzul.padreTotalComponente = this.gameObject;
                 focosCircularesAzulesDict.Add(child.name, child);
 
@@ -108,6 +104,7 @@ public class Modulo9 : MonoBehaviour
                 ani.playAutomatically = false;
                 ani.AddClip(((AnimationClip)AssetDatabase.LoadAssetAtPath(rutaAnimacionBotonCircularAzul, typeof(AnimationClip))), nombreAnimacionBotonCircularAzul);
                 child.AddComponent<Mod9PushButton>();*/
+                child.tag = nombreTagFocoAzul;
             }
             InicializarComponentes(child);
         }
@@ -133,12 +130,31 @@ public class Modulo9 : MonoBehaviour
     
     private void ComportamientoModulo()
     {
-        focosCircularesAzulesDict["FocoCircularAzul1"].GetComponent<FocoCircularAzul>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugNegrosDict["EntradaPlugNegro1"]);
+        ComportamientoFocoAzul("FocoCircularAzul1", "EntradaPlugAnaranjado1", "EntradaPlugNegro1");
+        ComportamientoFocoAzul("FocoCircularAzul2", "EntradaPlugAnaranjado2", "EntradaPlugNegro2");
+        ComportamientoFocoAzul("FocoCircularAzul3", "EntradaPlugAnaranjado3", "EntradaPlugNegro3");
+        ComportamientoFocoAzul("FocoCircularAzul4", "EntradaPlugAnaranjado4", "EntradaPlugNegro4");
+        ComportamientoFocoAzul("FocoCircularAzul5", "EntradaPlugAnaranjado5", "EntradaPlugNegro5");
+        ComportamientoFocoAzul("FocoCircularAzul6", "EntradaPlugAnaranjado6", "EntradaPlugNegro6");
+        /*focosCircularesAzulesDict["FocoCircularAzul1"].GetComponent<FocoCircularAzul>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugNegrosDict["EntradaPlugNegro1"]);
         focosCircularesAzulesDict["FocoCircularAzul2"].GetComponent<FocoCircularAzul>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado2"], plugNegrosDict["EntradaPlugNegro2"]);
         focosCircularesAzulesDict["FocoCircularAzul3"].GetComponent<FocoCircularAzul>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado3"], plugNegrosDict["EntradaPlugNegro3"]);
         focosCircularesAzulesDict["FocoCircularAzul4"].GetComponent<FocoCircularAzul>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado4"], plugNegrosDict["EntradaPlugNegro4"]);
         focosCircularesAzulesDict["FocoCircularAzul5"].GetComponent<FocoCircularAzul>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado5"], plugNegrosDict["EntradaPlugNegro5"]);
-        focosCircularesAzulesDict["FocoCircularAzul6"].GetComponent<FocoCircularAzul>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado6"], plugNegrosDict["EntradaPlugNegro6"]);
+        focosCircularesAzulesDict["FocoCircularAzul6"].GetComponent<FocoCircularAzul>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado6"], plugNegrosDict["EntradaPlugNegro6"]);*/
+    }
+
+    private void ComportamientoFocoAzul(string nFocoAzul, string nPlug1, string nPlug2)
+    {
+        GameObject focoAzul = null;
+        if ((focoAzul = focosCircularesAzulesDict[nFocoAzul]) != null)
+        {
+            FocoCircularAzul focoAzulComp = focoAzul.GetComponent<FocoCircularAzul>();
+            if (focoAzulComp != null)
+            {
+                focoAzulComp.ComprobarEstado(plugAnaranjadosDict[nPlug1], plugNegrosDict[nPlug2]);
+            }
+        }
     }
     #endregion
 

@@ -6,22 +6,34 @@ using UnityEngine;
 public class Modulo2 : MonoBehaviour
 {
     #region Atributos
+    [Header("Encendido")]
     public bool moduloEncendido = true;
+    [Header("Conexiones")]
     public Dictionary<string, string> plugsConnections;
-    [SerializeField] public List<GameObject> plugAnaranjados;
-    [SerializeField] public List<GameObject> plugNegros;
+    [Header("Diccionarios de elementos")]
     public Dictionary<string, GameObject> plugAnaranjadosDict;
     public Dictionary<string, GameObject> plugNegrosDict;
+    [Header("Listas de elementos")]
+    public List<GameObject> plugAnaranjados;
+    [SerializeField] public List<GameObject> plugNegros;
+    [Header("Botones")]
     [SerializeField] public GameObject botonCuadradoVerdeIzquierdo;
     [SerializeField] public GameObject botonCuadradoRojoIzquierdo;
     [SerializeField] public GameObject botonCuadradoVerdeDerecho;
     [SerializeField] public GameObject botonCuadradoRojoDerecho;
+    [Header("Animaciones")]
     private string rutaAnimacionBotonCuadradoVerde = "Assets/Animation/Modulos/Modulo2/Mod2PresBotonCuadradoVerde.anim";
     private string rutaAnimacionBotonCuadradoRojo = "Assets/Animation/Modulos/Modulo2/Mod2PresBotonCuadradoRojo.anim";
     private string nombreAnimacionBotonCuadradoVerde = "Mod2PresBotonCuadradoVerde";
     private string nombreAnimacionBotonCuadradoRojo = "Mod2PresBotonCuadradoRojo";
-
+    [Header("Parametros Plugs")]
+    private string nombreTagPlugAnaranjado = "PlugAnaranjado";
+    private string nombreTagPlugNegro = "PlugNegro";
+    [Header("Parametros Botones")]
+    private string nombreTagPlugBotonVerdeCuadrado = "BotonVerdeCuadrado";
+    private string nombreTagPlugBotonRojoCuadrado = "BotonRojoCuadrado";
     //Variables de debug
+    [Header("Debug")]
     public bool mostrarDiccionarioConexiones = false; // Variable
     public bool mostrarPlugAnaranjados = false; // Variable
     public bool mostrarPlugNegros = false; // Variable
@@ -37,23 +49,38 @@ public class Modulo2 : MonoBehaviour
         plugAnaranjados = new List<GameObject>();
         plugNegros = new List<GameObject>();
         InicializarComponentes(gameObject);
-
-        plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado3"];
+        //Inicializar contractores
+        IncializacionContractores3("EntradaPlugAnaranjado1", "EntradaPlugAnaranjado2", "EntradaPlugAnaranjado3");
+        IncializacionContractores3("EntradaPlugAnaranjado4", "EntradaPlugAnaranjado5", "EntradaPlugAnaranjado6");
+        /*plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().EstablecerPlugRelacionado(plugAnaranjadosDict["EntradaPlugAnaranjado3"], true);
+        plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().EstablecerPlugRelacionado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], false);
+        plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().EstablecerPlugRelacionado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], true);*/
+        /*plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado3"];
         plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().relacionCerrada = true;
         plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado1"];
         plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().relacionCerrada = false;
         plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado1"];
-        plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().relacionCerrada = true;
-
-
-        plugAnaranjadosDict["EntradaPlugAnaranjado4"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado6"];
+        plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().relacionCerrada = true;*/
+        /*
+        plugAnaranjadosDict["EntradaPlugAnaranjado"].GetComponent<Plugs>().EstablecerPlugRelacionado(plugAnaranjadosDict["EntradaPlugAnaranjado3"], true);
+        plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().EstablecerPlugRelacionado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], false);
+        plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().EstablecerPlugRelacionado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], true);
+        */
+        /*plugAnaranjadosDict["EntradaPlugAnaranjado4"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado6"];
         plugAnaranjadosDict["EntradaPlugAnaranjado4"].GetComponent<Plugs>().relacionCerrada = true;
         plugAnaranjadosDict["EntradaPlugAnaranjado5"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado4"];
         plugAnaranjadosDict["EntradaPlugAnaranjado5"].GetComponent<Plugs>().relacionCerrada = false;
         plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado4"];
-        plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().relacionCerrada = true;
+        plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().relacionCerrada = true;*/
     }
 
+    void IncializacionContractores3(string nPlugComun, string nPlugNormalmenteAbierto, string nplugNormalmenteCerrado)
+    {
+        plugAnaranjadosDict[nPlugComun].GetComponent<Plugs>().EstablecerPlugRelacionado(plugAnaranjadosDict[nplugNormalmenteCerrado], true);
+        plugAnaranjadosDict[nPlugNormalmenteAbierto].GetComponent<Plugs>().EstablecerPlugRelacionado(plugAnaranjadosDict[nPlugComun], false);
+        plugAnaranjadosDict[nplugNormalmenteCerrado].GetComponent<Plugs>().EstablecerPlugRelacionado(plugAnaranjadosDict[nPlugComun], true);
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -88,7 +115,7 @@ public class Modulo2 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugAnaranjadosDict.Add(child.name, child);
-                child.tag = "PlugAnaranjado";
+                child.tag = nombreTagPlugAnaranjado;
             }
             else if (child.name.Contains("EntradaPlugNegro"))
             {
@@ -100,7 +127,7 @@ public class Modulo2 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugNegrosDict.Add(child.name, child);
-                child.tag = "PlugNegro";
+                child.tag = nombreTagPlugNegro;
             }
             else if (child.name.Contains("BotonCuadradoVerdeIzquierdo"))
             {
@@ -109,6 +136,7 @@ public class Modulo2 : MonoBehaviour
                 ani.playAutomatically = false;
                 ani.AddClip(((AnimationClip)AssetDatabase.LoadAssetAtPath(rutaAnimacionBotonCuadradoVerde, typeof(AnimationClip))), nombreAnimacionBotonCuadradoVerde);
                 child.AddComponent<Mod2PushButton>();
+                child.tag = nombreTagPlugBotonVerdeCuadrado;
             }
             else if (child.name.Contains("BotonCuadradoRojoIzquierdo"))
             {
@@ -117,6 +145,7 @@ public class Modulo2 : MonoBehaviour
                 ani.playAutomatically = false;
                 ani.AddClip(((AnimationClip)AssetDatabase.LoadAssetAtPath(rutaAnimacionBotonCuadradoRojo, typeof(AnimationClip))), nombreAnimacionBotonCuadradoRojo);
                 child.AddComponent<Mod2PushButton>();
+                child.tag = nombreTagPlugBotonRojoCuadrado;
             }
             else if (child.name.Contains("BotonCuadradoVerdeDerecho"))
             {
@@ -125,6 +154,7 @@ public class Modulo2 : MonoBehaviour
                 ani.playAutomatically = false;
                 ani.AddClip(((AnimationClip)AssetDatabase.LoadAssetAtPath(rutaAnimacionBotonCuadradoVerde, typeof(AnimationClip))), nombreAnimacionBotonCuadradoVerde);
                 child.AddComponent<Mod2PushButton>();
+                child.tag = nombreTagPlugBotonVerdeCuadrado;
             }
             else if (child.name.Contains("BotonCuadradoRojoDerecho"))
             {
@@ -133,6 +163,7 @@ public class Modulo2 : MonoBehaviour
                 ani.playAutomatically = false;
                 ani.AddClip(((AnimationClip)AssetDatabase.LoadAssetAtPath(rutaAnimacionBotonCuadradoRojo, typeof(AnimationClip))), nombreAnimacionBotonCuadradoRojo);
                 child.AddComponent<Mod2PushButton>();
+                child.tag = nombreTagPlugBotonRojoCuadrado;
             }
             InicializarComponentes(child);
         }
@@ -146,46 +177,52 @@ public class Modulo2 : MonoBehaviour
         ComprobarEstadosDiccionarios();
         if (moduloEncendido)
         {
+            //Lado izquierdo
             if (botonCuadradoRojoIzquierdo.GetComponent<Mod2PushButton>().EstaActivado())
             {
-                plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
-                plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado3"];
-                plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
-                plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().plugRelacionado = null;
-                plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().EliminarPropiedadesConexionesEntradaPrueba();
-                plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
-                plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado1"];
+                 ActivarContractorNormalmenteCerrado("EntradaPlugAnaranjado1", "EntradaPlugAnaranjado2", "EntradaPlugAnaranjado3");
+                 /*plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+                 plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado3"];
+                 plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
+                 plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().plugRelacionado = null;
+                 plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().EliminarPropiedadesConexionesEntradaPrueba();
+                 plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+                 plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado1"];*/
             }
             else
             {
-                plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+                ActivarContractorNormalmenteAbierto("EntradaPlugAnaranjado1", "EntradaPlugAnaranjado2", "EntradaPlugAnaranjado3");
+                /*plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
                 plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado2"];
                 plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
                 plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado1"];
                 plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
                 plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().plugRelacionado = null;
-                plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().EliminarPropiedadesConexionesEntradaPrueba();
+                plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().EliminarPropiedadesConexionesEntradaPrueba();*/
             }
 
+            //Lado Lado derecho
             if (botonCuadradoRojoDerecho.GetComponent<Mod2PushButton>().EstaActivado())
             {
-                plugAnaranjadosDict["EntradaPlugAnaranjado4"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+                ActivarContractorNormalmenteCerrado("EntradaPlugAnaranjado4", "EntradaPlugAnaranjado5", "EntradaPlugAnaranjado6");
+                /*plugAnaranjadosDict["EntradaPlugAnaranjado4"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
                 plugAnaranjadosDict["EntradaPlugAnaranjado4"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado6"];
                 plugAnaranjadosDict["EntradaPlugAnaranjado5"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
                 plugAnaranjadosDict["EntradaPlugAnaranjado5"].GetComponent<Plugs>().plugRelacionado = null;
                 plugAnaranjadosDict["EntradaPlugAnaranjado5"].GetComponent<Plugs>().EliminarPropiedadesConexionesEntradaPrueba();
                 plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
-                plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado4"];
+                plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado4"];*/
             }
             else
             {
-                plugAnaranjadosDict["EntradaPlugAnaranjado4"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+                ActivarContractorNormalmenteAbierto("EntradaPlugAnaranjado4", "EntradaPlugAnaranjado5", "EntradaPlugAnaranjado6");
+                /*plugAnaranjadosDict["EntradaPlugAnaranjado4"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
                 plugAnaranjadosDict["EntradaPlugAnaranjado4"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado5"];
                 plugAnaranjadosDict["EntradaPlugAnaranjado5"].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
                 plugAnaranjadosDict["EntradaPlugAnaranjado5"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado4"];
                 plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
                 plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().plugRelacionado = null;
-                plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().EliminarPropiedadesConexionesEntradaPrueba();
+                plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().EliminarPropiedadesConexionesEntradaPrueba();*/
             }
 
             //Viejo
@@ -207,6 +244,29 @@ public class Modulo2 : MonoBehaviour
         }
     }
     
+    void ActivarContractorNormalmenteCerrado(string nPlugComun, string nPlugNormalmenteAbierto, string nplugNormalmenteCerrado)
+    {
+        plugAnaranjadosDict[nPlugComun].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+        plugAnaranjadosDict[nPlugComun].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nplugNormalmenteCerrado];
+        plugAnaranjadosDict[nPlugNormalmenteAbierto].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
+        plugAnaranjadosDict[nPlugNormalmenteAbierto].GetComponent<Plugs>().plugRelacionado = null;
+        plugAnaranjadosDict[nPlugNormalmenteAbierto].GetComponent<Plugs>().EliminarPropiedadesConexionesEntradaPrueba();
+        plugAnaranjadosDict[nplugNormalmenteCerrado].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+        plugAnaranjadosDict[nplugNormalmenteCerrado].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nPlugComun];
+    }
+
+
+    void ActivarContractorNormalmenteAbierto(string nPlugComun, string nPlugNormalmenteAbierto, string nplugNormalmenteCerrado)
+    {
+        plugAnaranjadosDict[nPlugComun].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+        plugAnaranjadosDict[nPlugComun].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nPlugNormalmenteAbierto];
+        plugAnaranjadosDict[nPlugNormalmenteAbierto].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
+        plugAnaranjadosDict[nPlugNormalmenteAbierto].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nPlugComun];
+        plugAnaranjadosDict[nplugNormalmenteCerrado].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
+        plugAnaranjadosDict[nplugNormalmenteCerrado].GetComponent<Plugs>().plugRelacionado = null;
+        plugAnaranjadosDict[nplugNormalmenteCerrado].GetComponent<Plugs>().EliminarPropiedadesConexionesEntradaPrueba();
+    }
+
     void BotonesNormalmenteCerradosYAbiertos(string nPlugPrincipal, string nPlugAbierto, string nPlugCerrado, bool botonLogicoActivo)
     {
         Plugs plugConexionIzquierdo = plugAnaranjadosDict[nPlugPrincipal].GetComponent<Plugs>();

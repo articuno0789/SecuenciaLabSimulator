@@ -5,14 +5,21 @@ using UnityEngine;
 public class Modulo22_23 : MonoBehaviour
 {
     #region Atributos
+    [Header("Encendido")]
     public bool moduloEncendido = true;
+    [Header("Conexiones")]
     public Dictionary<string, string> plugsConnections;
-    [SerializeField] public List<GameObject> plugAnaranjados;
-    [SerializeField] public List<GameObject> plugNegros;
+    [Header("Diccionarios de elementos")]
     public Dictionary<string, GameObject> plugAnaranjadosDict;
     public Dictionary<string, GameObject> plugNegrosDict;
-
+    [Header("Listas de elementos")]
+    [SerializeField] public List<GameObject> plugAnaranjados;
+    [SerializeField] public List<GameObject> plugNegros;
+    [Header("Parametros Plugs")]
+    private string nombreTagPlugAnaranjado = "PlugAnaranjado";
+    private string nombreTagPlugNegro = "PlugNegro";
     //Variables de debug
+    [Header("Debug")]
     public bool mostrarDiccionarioConexiones = false; // Variable
     public bool mostrarPlugAnaranjados = false; // Variable
     public bool mostrarPlugNegros = false; // Variable
@@ -52,7 +59,7 @@ public class Modulo22_23 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugAnaranjadosDict.Add(child.name, child);
-                child.tag = "PlugAnaranjado";
+                child.tag = nombreTagPlugAnaranjado;
             }
             else if (child.name.Contains("EntradaPlugNegro"))
             {
@@ -64,12 +71,11 @@ public class Modulo22_23 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugNegrosDict.Add(child.name, child);
-                child.tag = "PlugNegro";
+                child.tag = nombreTagPlugNegro;
             }
             InicializarComponentes(child);
         }
     }
-
     #endregion
 
     #region Comportamiento Modulo

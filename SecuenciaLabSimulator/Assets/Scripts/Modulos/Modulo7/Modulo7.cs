@@ -6,51 +6,47 @@ using UnityEngine;
 public class Modulo7 : MonoBehaviour
 {
     #region Atributos
+    [Header("Encendido")]
     public bool moduloEncendido = true;
+    [Header("Conexiones")]
     public Dictionary<string, string> plugsConnections;
-    [SerializeField] public List<GameObject> plugAnaranjados;
-    [SerializeField] public List<GameObject> plugNegros;
-    [SerializeField] public List<GameObject> lucesRojas;
+    [Header("Diccionarios de elementos")]
     public Dictionary<string, GameObject> plugAnaranjadosDict;
     public Dictionary<string, GameObject> plugNegrosDict;
     public Dictionary<string, GameObject> lucesRojasDict;
-    [SerializeField] public string rutaPlasticoRojoApagado = "Assets/Materials/PLasticos/PlasticoTraslucidoRojoApagado.mat";
-    [SerializeField] public string rutaPlasticoRojoEncendido = "Assets/Materials/PLasticos/PlasticoTraslucidoRojoEncendido.mat";
-    [SerializeField] public Material plasticoRojoApagado;
-    [SerializeField] public Material plasticoRojoEncendido;
-    public enum ParticlesErrorTypes
-    {
-        BigExplosion,
-        DrippingFlames,
-        ElectricalSparksEffect,
-        SmallExplosionEffect,
-        SmokeEffect,
-        SparksEffect,
-        RibbonSmoke,
-        PlasmaExplosionEffect
-    }
+    [Header("Listas de elementos")]
+    [SerializeField] public List<GameObject> plugAnaranjados;
+    [SerializeField] public List<GameObject> plugNegros;
+    [SerializeField] public List<GameObject> lucesRojas;
+    [Header("Perilla")]
     [SerializeField] public GameObject perilla;
     [SerializeField] public float limiteGiroInferiorPerilla = -90.0f;
     [SerializeField] public float limiteGiroSuperiorPerilla = 320.0f;
     public float valorActualPerilla = 0.1f;
     public float valorMinimoPerilla = 0.1f;
     public float valorMaximoPerilla = 30.0f;
-    //Timers---------------------------
-    public int number = 0;
-    public bool couroutineStarted = false;
-    public float cuentaAtras = 0.0f;
-    public bool cuentaIniciada = false;
-    //---------------------------------
     private Quaternion originalRotationKnob;
-
-
     [SerializeField] public float gradosActualesPerilla = -90.0f;
     [SerializeField] public float velocidadRotacion = 10;
     public bool rotarPerillaPrueba = false;
     [SerializeField] public int estaLimiteRotacion = -1;
     private bool puederotar = true;
-
+    //Timers---------------------------
+    [Header("Timers")]
+    public int number = 0;
+    public bool couroutineStarted = false;
+    public float cuentaAtras = 0.0f;
+    public bool cuentaIniciada = false;
+    //---------------------------------
+    [Header("Parametros Plugs")]
+    private string nombreTagPlugAnaranjado = "PlugAnaranjado";
+    private string nombreTagPlugNegro = "PlugNegro";
+    [Header("Parametros Focos")]
+    private string nombreTagFocoRojo = "FocoRojo";
+    [Header("Parametros Perillas")]
+    private string nombreTagPerilla = "Perilla";
     //Variables de debug
+    [Header("Debug")]
     public bool mostrarDiccionarioConexiones = false; // Variable
     public bool mostrarPlugAnaranjados = false; // Variable
     public bool mostrarPlugNegros = false; // Variable
@@ -59,9 +55,6 @@ public class Modulo7 : MonoBehaviour
     #region Inicializacion
     private void Awake()
     {
-        plasticoRojoApagado = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoRojoApagado, typeof(Material));
-        plasticoRojoEncendido = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoRojoEncendido, typeof(Material));
-
         plugsConnections = new Dictionary<string, string>();
         plugAnaranjadosDict = new Dictionary<string, GameObject>();
         plugNegrosDict = new Dictionary<string, GameObject>();
@@ -75,8 +68,15 @@ public class Modulo7 : MonoBehaviour
         {
             lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
         }
+        //Contractores
+        IncializacionContractores("EntradaPlugAnaranjado2", "EntradaPlugAnaranjado3", false);
+        IncializacionContractores("EntradaPlugAnaranjado4", "EntradaPlugAnaranjado5", false);
+        IncializacionContractores("EntradaPlugAnaranjado6", "EntradaPlugAnaranjado7", false);
+        IncializacionContractores("EntradaPlugAnaranjado8", "EntradaPlugAnaranjado9", true);
+        IncializacionContractores("EntradaPlugAnaranjado10", "EntradaPlugAnaranjado11", false);
+        IncializacionContractores("EntradaPlugAnaranjado12", "EntradaPlugAnaranjado13", true);
 
-        plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado3"];
+        /*plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado3"];
         plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().relacionCerrada = false;
         plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado2"];
         plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().relacionCerrada = false;
@@ -104,13 +104,21 @@ public class Modulo7 : MonoBehaviour
         plugAnaranjadosDict["EntradaPlugAnaranjado12"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado13"];
         plugAnaranjadosDict["EntradaPlugAnaranjado12"].GetComponent<Plugs>().relacionCerrada = true;
         plugAnaranjadosDict["EntradaPlugAnaranjado13"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado12"];
-        plugAnaranjadosDict["EntradaPlugAnaranjado13"].GetComponent<Plugs>().relacionCerrada = true;
+        plugAnaranjadosDict["EntradaPlugAnaranjado13"].GetComponent<Plugs>().relacionCerrada = true;*/
     }
 
     // Start is called before the first frame update
     void Start()
     {
         
+    }
+
+    void IncializacionContractores(string nPlug1, string nPlug2, bool cerrado)
+    {
+        plugAnaranjadosDict[nPlug1].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nPlug2];
+        plugAnaranjadosDict[nPlug1].GetComponent<Plugs>().relacionCerrada = cerrado;
+        plugAnaranjadosDict[nPlug2].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nPlug1];
+        plugAnaranjadosDict[nPlug2].GetComponent<Plugs>().relacionCerrada = cerrado;
     }
 
     private void InicializarComponentes(GameObject nodo)
@@ -129,7 +137,7 @@ public class Modulo7 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugAnaranjadosDict.Add(child.name, child);
-                child.tag = "PlugAnaranjado";
+                child.tag = nombreTagPlugAnaranjado;
             }
             else if (child.name.Contains("EntradaPlugNegro"))
             {
@@ -141,21 +149,23 @@ public class Modulo7 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugNegrosDict.Add(child.name, child);
-                child.tag = "PlugNegro";
+                child.tag = nombreTagPlugNegro;
             }
             else if (child.name.Contains("Total_Perilla"))
             {
                 perilla = child;
                 originalRotationKnob = perilla.transform.rotation;
+                child.tag = nombreTagPerilla;
             }
             else if (child.name.Contains("LuzRoja"))
             {
                 lucesRojas.Add(child);
                 LuzRoja luzRoja = child.AddComponent<LuzRoja>();
-                luzRoja.CurrentTypeParticleError = (int)ParticlesErrorTypes.SmokeEffect;
-                luzRoja.CurrentTypeParticleError = (int)ParticlesErrorTypes.ElectricalSparksEffect;
+                luzRoja.CurrentTypeParticleError = (int)AuxiliarModulos.ParticlesErrorTypes.SmokeEffect;
+                luzRoja.CurrentTypeParticleError = (int)AuxiliarModulos.ParticlesErrorTypes.ElectricalSparksEffect;
                 luzRoja.padreTotalComponente = this.gameObject;
                 lucesRojasDict.Add(child.name, child);
+                child.tag = nombreTagFocoRojo;
             }
             InicializarComponentes(child);
         }
@@ -266,7 +276,7 @@ public class Modulo7 : MonoBehaviour
                 estadoAnteriorEnergizado = false;
             }
         }
-        Debug.Log("Numbre: " + number + ", cuentaAtras: " + cuentaAtras);
+        //Debug.Log("Numbre: " + number + ", cuentaAtras: " + cuentaAtras);
         //Forma vieja
         /*if (!cuentaIniciada)
         {

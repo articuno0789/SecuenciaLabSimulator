@@ -6,38 +6,33 @@ using UnityEngine;
 public class Modulo4 : MonoBehaviour
 {
     #region Atributos
+    [Header("Encendido")]
     public bool moduloEncendido = true;
+    [Header("Conexiones")]
     public Dictionary<string, string> plugsConnections;
-    [SerializeField] public List<GameObject> plugAnaranjados;
-    [SerializeField] public List<GameObject> plugNegros;
-    [SerializeField] public List<GameObject> focosVerde;
-    [SerializeField] public List<GameObject> focosAmarillos;
+    [Header("Diccionarios de elementos")]
     public Dictionary<string, GameObject> plugAnaranjadosDict;
     public Dictionary<string, GameObject> plugNegrosDict;
     public Dictionary<string, GameObject> focosVerdesDict;
     public Dictionary<string, GameObject> focosAmarillosDict;
-    public enum ParticlesError {
-        BigExplosion,
-        DrippingFlames,
-        ElectricalSparksEffect,
-        SmallExplosionEffect,
-        SmokeEffect,
-        SparksEffect,
-        RibbonSmoke,
-        PlasmaExplosionEffect
-    }
-
-    //Particulas
-    private readonly string rutaParticulaElectricalSparksEffect = "Assets/Assets Descargados/EffectExamples/Misc Effects/Prefabs/ElectricalSparksEffect.prefab";
-
+    [Header("Listas de elementos")]
+    [SerializeField] public List<GameObject> plugAnaranjados;
+    [SerializeField] public List<GameObject> plugNegros;
+    [SerializeField] public List<GameObject> focosVerde;
+    [SerializeField] public List<GameObject> focosAmarillos;
+    [Header("Parametros Plugs")]
+    private string nombreTagPlugAnaranjado = "PlugAnaranjado";
+    private string nombreTagPlugNegro = "PlugNegro";
+    [Header("Parametros Focos")]
+    private string nombreTagFocoVerde = "FocoVerde";
+    private string nombreTagFocoAmarillo = "FocoAmarillo";
     //Variables de debug
+    [Header("Debug")]
     public bool mostrarDiccionarioConexiones = false; // Variable
     public bool mostrarPlugAnaranjados = false; // Variable
     public bool mostrarPlugNegros = false; // Variable
     public bool mostrarFocosVerdes = false; // Variable
     public bool mostrarFocosAmarillos = false; // Variable
-
-    public string RutaParticulaElectricalSparksEffect => rutaParticulaElectricalSparksEffect;
     #endregion
 
     #region Inicializacion
@@ -79,7 +74,7 @@ public class Modulo4 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugAnaranjadosDict.Add(child.name, child);
-                child.tag = "PlugAnaranjado";
+                child.tag = nombreTagPlugAnaranjado;
             }
             else if (child.name.Contains("EntradaPlugNegro"))
             {
@@ -92,24 +87,26 @@ public class Modulo4 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugNegrosDict.Add(child.name, child);
-                child.tag = "PlugNegro";
+                child.tag = nombreTagPlugNegro;
             }
             else if (child.name.Contains("FocoAmarilo"))
             {
                 focosAmarillos.Add(child);
                 FocoAmarillo focoAmarillo = child.AddComponent<FocoAmarillo>();
-                focoAmarillo.currentTypeParticleError = (int)ParticlesError.SmokeEffect;
+                focoAmarillo.currentTypeParticleError = (int)AuxiliarModulos.ParticlesErrorTypes.SmokeEffect;
                 focoAmarillo.padreTotalComponente = this.gameObject;
                 focosAmarillosDict.Add(child.name, child);
+                child.tag = nombreTagFocoAmarillo;
             }
             else if (child.name.Contains("FocoVerde"))
             {
                 focosVerde.Add(child);
                 FocoVerde focoVerde = child.AddComponent<FocoVerde>();
                 focoVerde.padreTotalComponente = this.gameObject;
-                focoVerde.currentTypeParticleError = (int)ParticlesError.PlasmaExplosionEffect;
+                focoVerde.currentTypeParticleError = (int)AuxiliarModulos.ParticlesErrorTypes.SmokeEffect;
                 focoVerde.padreTotalComponente = this.gameObject;
                 focosVerdesDict.Add(child.name, child);
+                child.tag = nombreTagFocoVerde;
             }
             InicializarComponentes(child);
         }

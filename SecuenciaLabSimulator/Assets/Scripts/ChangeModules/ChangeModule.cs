@@ -79,7 +79,8 @@ public class ChangeModule : MonoBehaviour
     public void ComprobarRestricciones()
     {
         ClickDetector clickDetector = player.GetComponent<ClickDetector>();
-        GameObject module = clickDetector.lastClickedGmObj;
+        //GameObject module = clickDetector.lastClickedGmObj;
+        GameObject module = dropdown.GetComponent<ChangeModule>().selectedGameObjectRightClick;
 
         bool nuevoModuloNoRestringido = true;
         int m_DropdownValue = dropdown.value;
@@ -98,7 +99,7 @@ public class ChangeModule : MonoBehaviour
             if (padreTotal != null && padreTotal.tag == nombreModuloNuevo)
             {
                 string mensajePreMismoModulo = "";
-                mensajePreMismoModulo = "Precacición. Tiene seleccionado el mismo tipo de modulo que el modulo actual, por lo tanto no se puede realizar el cambio de modulo.";
+                mensajePreMismoModulo = "padreTotal.tag: " + padreTotal.tag + ", nombreModuloNuevo: " + nombreModuloNuevo + ", Precacición. Tiene seleccionado el mismo tipo de modulo que el modulo actual, por lo tanto no se puede realizar el cambio de modulo.";
                 Debug.LogWarning(mensajePreMismoModulo);
                 textInfoChangeModule.text = "Información: " + mensajePreMismoModulo;
                 buttonChangeModule.enabled = false;
@@ -167,7 +168,8 @@ public class ChangeModule : MonoBehaviour
     public void ReplaceModule()
     {
         ClickDetector clickDetector = player.GetComponent<ClickDetector>();
-        GameObject module = clickDetector.lastClickedGmObj;
+        //GameObject module = clickDetector.lastClickedGmObj;
+        GameObject module = dropdown.GetComponent<ChangeModule>().selectedGameObjectRightClick;
         int m_DropdownValue = dropdown.value;
         string tipoNuevoModulo = dropdown.options[m_DropdownValue].text;
         GameObject newModule;
@@ -282,7 +284,8 @@ public class ChangeModule : MonoBehaviour
         newModule = Instantiate(newModule, padreTotal.transform.position, padreTotal.transform.rotation);
         string terminacion = DeterminarTerminacionNuevoModulo(tipoModulo);
         newModule.name = tipoModulo + terminacion;
-        newModule = AsignarLogicaModulo(newModule, tipoModulo);
+        //newModule = AsignarLogicaModulo(newModule, tipoModulo);
+        newModule = AuxiliarModulos.AsignarLogicaModulo(newModule, tipoModulo);
         newModule.tag = tipoModulo;
         newModule.layer = moduleLayer;
         if (debug)
@@ -305,7 +308,8 @@ public class ChangeModule : MonoBehaviour
         newModule = Instantiate(newModule, padreTotal.transform.position, padreTotal.transform.rotation);
         string terminacion = DeterminarTerminacionNuevoModulo(tipoModulos);
         newModule.name = tipoModulos + terminacion;
-        newModule = AsignarLogicaModulo(newModule, tipoModulos);
+        //newModule = AsignarLogicaModulo(newModule, tipoModulos);
+        newModule = AuxiliarModulos.AsignarLogicaModulo(newModule, tipoModulos);
         newModule.tag = tipoModulos;
         newModule.layer = moduleLayer;
         if (debug)
@@ -361,8 +365,9 @@ public class ChangeModule : MonoBehaviour
         return terminacion;
     }
 
+    //Ya no se deberia usar
     /*En este método se asigna la lógica de funcionamiento a un determinado módulo, de acuerdo a su tipo.*/
-    private GameObject AsignarLogicaModulo(GameObject modulo, string tipoModulo)
+    /*private GameObject AsignarLogicaModulo(GameObject modulo, string tipoModulo)
     {
         if (modulo != null)
         {
@@ -461,6 +466,16 @@ public class ChangeModule : MonoBehaviour
                 modulo.AddComponent<Potenciometro>();
             }
             else
+            if (tipoModulo == "Multiconector")
+            {
+                modulo.AddComponent<Potenciometro>();
+            }
+            else
+            if (tipoModulo == "MotorElectricoAC")
+            {
+                modulo.AddComponent<MotorElectricoAC>();
+            }
+            else
             {
                 Debug.LogError("GameObject AsignarLogicaModulo(GameObject module, string tipo) - Tipo de modulo desconocido - " + tipoModulo + ".");
             }
@@ -471,7 +486,7 @@ public class ChangeModule : MonoBehaviour
         }
 
         return modulo;
-    }
+    }*/
 
     /*En este método se asigna la lógica de funcionamiento a los componentes de un determinado módulo´,
      * de acuerdo a su tipo.*/

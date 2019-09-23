@@ -5,11 +5,15 @@ using UnityEngine;
 public class MotorElectricoAC : MonoBehaviour
 {
     #region Atributos
+    [Header("Encendido")]
     public bool motorEncendido = false;
     public bool moduloExistente = false;
+    [Header("Módulo controlador")]
     public GameObject moduloControlador;
+    [Header("Listas de elementos")]
     public GameObject ejeMotor;
     public GameObject cajaElectrica;
+    [Header("Parametros Motor")]
     public float velocidadRotacionActual = 0;
     public float velocidadMaximaRotacion = 1750;
     public float velocidadMinimaRotacion = 0;
@@ -19,22 +23,17 @@ public class MotorElectricoAC : MonoBehaviour
     public float voltajeActual = 0; //velocidad actual
     public bool rotaMotorPrueba = true;
     public bool motorAveriado = false;
+    [Header("Panel Informativo")]
     public GameObject panelInformativo;
-
-    public enum ParticlesErrorTypes
-    {
-        BigExplosion,
-        DrippingFlames,
-        ElectricalSparksEffect,
-        SmallExplosionEffect,
-        SmokeEffect,
-        SparksEffect,
-        RibbonSmoke,
-        PlasmaExplosionEffect
-    }
+    [Header("Particulas")]
     public GameObject currentParticle;
     private ParticlesError particleError;
-    public int currentTypeParticleError = (int)ParticlesErrorTypes.SmokeEffect;
+    public int currentTypeParticleError = (int)AuxiliarModulos.ParticlesErrorTypes.SmokeEffect;
+    //Variables de debug
+    [Header("Debug")]
+    public bool mostrarDiccionarioConexiones = false; // Variable
+    public bool mostrarPlugAnaranjados = false; // Variable
+    public bool mostrarPlugNegros = false; // Variable
     #endregion
 
     #region Propiedades
@@ -274,6 +273,5 @@ public class MotorElectricoAC : MonoBehaviour
         }
         ActualizarPanelInfo();
     }
-
     #endregion
 }

@@ -28,6 +28,19 @@ TagManager:
   - MotorElectricoAC
   - PlugAnaranjado
   - PlugNegro
+  - BotonVerdeCuadrado
+  - BotonRojoCuadrado
+  - BotonVerdeCircular
+  - BotonRojoCircular
+  - FocoVerde
+  - FocoAmarillo
+  - FocoAzul
+  - FocoRojo
+  - AgujaMedidora
+  - Perilla
+  - BotonStop
+  - PerillaMA
+  - Multiconector
   layers:
   - Default
   - TransparentFX

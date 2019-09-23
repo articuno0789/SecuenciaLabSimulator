@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class OpenClosePerillas : MonoBehaviour
 {
     #region Atributos
+    [Header("Parametros Panel Perilla")]
     public GameObject panel;
     public GameObject player;
     public Text currentModuleSelected;
@@ -15,12 +16,8 @@ public class OpenClosePerillas : MonoBehaviour
     public InputField inputFieldCurrentValue;
     public GameObject padreTotal;
     public Button buttonSetValueKnob;
-    //Patrones Regex
-    private readonly string patronMod6 = @"^6_\d*$";
-    private readonly string patronMod7 = @"^7_\d*$";
-    private readonly string patronModPotenciometro = @"^Potenciometro_\d*$";
-    private readonly string patronNumerosReales = "^[0-9]*([.][0-9]+)?$";
     //Debug
+    [Header("Debug")]
     public bool debug = false;
     #endregion
 
@@ -72,10 +69,10 @@ public class OpenClosePerillas : MonoBehaviour
     {
         if (debug)
         {
-            Debug.Log(inputFieldCurrentValue.text + ": " + Regex.IsMatch(inputFieldCurrentValue.text, patronNumerosReales).ToString());
+            Debug.Log(inputFieldCurrentValue.text + ": " + Regex.IsMatch(inputFieldCurrentValue.text, AuxiliarModulos.expreRegNumerosReales).ToString());
         }
         //Comprobar si el valor introducido no es un número real.
-        if (!Regex.IsMatch(inputFieldCurrentValue.text, patronNumerosReales))
+        if (!Regex.IsMatch(inputFieldCurrentValue.text, AuxiliarModulos.expreRegNumerosReales))
         {
             inputFieldCurrentValue.text = "0.0";
             buttonSetValueKnob.enabled = false;
@@ -89,19 +86,19 @@ public class OpenClosePerillas : MonoBehaviour
             float valorCampoTexto = float.Parse(inputFieldCurrentValue.text);
 
             //Determinar los límites de los diferentes modulos con perilla.
-            if (padreTotal != null && Regex.IsMatch(padreTotal.name, patronMod6))
+            if (padreTotal != null && Regex.IsMatch(padreTotal.name, AuxiliarModulos.expreRegMod6))
             {
                 Modulo6 mod6 = padreTotal.GetComponent<Modulo6>();
                 limiteMinimo = mod6.valorMinimoPerilla;
                 limiteMaximo = mod6.valorMaximoPerilla;
             }
-            else if (padreTotal != null && Regex.IsMatch(padreTotal.name, patronMod7))
+            else if (padreTotal != null && Regex.IsMatch(padreTotal.name, AuxiliarModulos.expreRegMod7))
             {
                 Modulo7 mod7 = padreTotal.GetComponent<Modulo7>();
                 limiteMinimo = mod7.valorMinimoPerilla;
                 limiteMaximo = mod7.valorMaximoPerilla;
             }
-            else if (Regex.IsMatch(padreTotal.name, patronModPotenciometro))
+            else if (Regex.IsMatch(padreTotal.name, AuxiliarModulos.expreRegModPotenciometro))
             {
                 Potenciometro modPoten = padreTotal.GetComponent<Potenciometro>();
                 limiteMinimo = modPoten.valorMinimoPerilla;
@@ -158,21 +155,21 @@ public class OpenClosePerillas : MonoBehaviour
         {
             currentModuleSelected.text = "Seleccionado: Perilla del modulo " + padreTotal.name;
             textInfoValueKnob.text = "Información: OK";
-            if (Regex.IsMatch(padreTotal.name, patronMod6))
+            if (Regex.IsMatch(padreTotal.name, AuxiliarModulos.expreRegMod6))
             {
                 Modulo6 mod6 = padreTotal.GetComponent<Modulo6>();
                 minMaxKnobRange.text = "Valor [Min Max]: " + mod6.valorMinimoPerilla + " - " + mod6.valorMaximoPerilla;
                 inputFieldCurrentValue.text = mod6.valorActualPerilla + "";
                 ValidateValueKnob();
             }
-            else if (Regex.IsMatch(padreTotal.name, patronMod7))
+            else if (Regex.IsMatch(padreTotal.name, AuxiliarModulos.expreRegMod7))
             {
                 Modulo7 mod7 = padreTotal.GetComponent<Modulo7>();
                 minMaxKnobRange.text = "Valor [Min Max]: " + mod7.valorMinimoPerilla + " - " + mod7.valorMaximoPerilla;
                 inputFieldCurrentValue.text = mod7.valorActualPerilla + "";
                 ValidateValueKnob();
             }
-            else if (Regex.IsMatch(padreTotal.name, patronModPotenciometro))
+            else if (Regex.IsMatch(padreTotal.name, AuxiliarModulos.expreRegModPotenciometro))
             {
                 Potenciometro modPoten = padreTotal.GetComponent<Potenciometro>();
                 minMaxKnobRange.text = "Valor [Min Max]: " + modPoten.valorMinimoPerilla + " - " + modPoten.valorMaximoPerilla;

@@ -6,9 +6,13 @@ using UnityEngine;
 public class Mod2PushButton : MonoBehaviour
 {
     #region Atributos
+    [Header("Activado")]
     public bool botonActivado = false;
+    [Header("Botón Contrario")]
     public GameObject botonContrario;
+    [Header("Tipo Botón")]
     public int tipo = 0; //0) sin tipo, 1) boton verde, 2)boton rojo
+    [Header("Materiales")]
     [SerializeField] public string rutaPlasticoVerdeApagado = "Assets/Materials/Botones/RojoVerdesCuadrados/BotonVerdeCuadrado.mat";
     [SerializeField] public string rutaPlasticoVerdeEncendido = "Assets/Materials/Botones/RojoVerdesCuadrados/BotonVerdeCuadradoEncendido.mat";
     [SerializeField] public Material plasticoVerdeApagado;
@@ -18,7 +22,7 @@ public class Mod2PushButton : MonoBehaviour
     [SerializeField] public string rutaPlasticoRojoEncendido = "Assets/Materials/Botones/RojoVerdesCuadrados/BotonRojoCuadradoEncendido.mat";
     [SerializeField] public Material plasticoRojoApagado;
     [SerializeField] public Material plasticoRojoEncendido;
-
+    [Header("Animaciones")]
     private new Animation animation;
     public Animation Animation { get => animation; set => animation = value; }
     #endregion

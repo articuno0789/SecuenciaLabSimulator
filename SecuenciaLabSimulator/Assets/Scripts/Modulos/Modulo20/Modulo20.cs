@@ -5,15 +5,23 @@ using UnityEngine;
 public class Modulo20 : MonoBehaviour
 {
     #region Atributos
+    [Header("Encendido")]
     public bool moduloEncendido = true;
-    public GameObject motorAControlar;
+    [Header("Conexiones")]
     public Dictionary<string, string> plugsConnections;
-    [SerializeField] public List<GameObject> plugAnaranjados;
-    [SerializeField] public List<GameObject> plugNegros;
+    [Header("Diccionarios de elementos")]
     public Dictionary<string, GameObject> plugAnaranjadosDict;
     public Dictionary<string, GameObject> plugNegrosDict;
-
+    [Header("Listas de elementos")]
+    [SerializeField] public List<GameObject> plugAnaranjados;
+    [SerializeField] public List<GameObject> plugNegros;
+    [Header("Motor")]
+    public GameObject motorAControlar;
+    [Header("Parametros Plugs")]
+    private string nombreTagPlugAnaranjado = "PlugAnaranjado";
+    private string nombreTagPlugNegro = "PlugNegro";
     //Variables de debug
+    [Header("Debug")]
     public bool mostrarDiccionarioConexiones = false; // Variable
     public bool mostrarPlugAnaranjados = false; // Variable
     public bool mostrarPlugNegros = false; // Variable
@@ -58,7 +66,7 @@ public class Modulo20 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugAnaranjadosDict.Add(child.name, child);
-                child.tag = "PlugAnaranjado";
+                child.tag = nombreTagPlugAnaranjado;
             }
             else if (child.name.Contains("EntradaPlugNegro"))
             {
@@ -71,7 +79,7 @@ public class Modulo20 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugNegrosDict.Add(child.name, child);
-                child.tag = "PlugNegro";
+                child.tag = nombreTagPlugNegro;
             }
             InicializarComponentes(child);
         }
@@ -102,7 +110,7 @@ public class Modulo20 : MonoBehaviour
         Plugs plugConexion1 = plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>();
         Plugs plugConexion2 = plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>();
         Plugs plugConexion3 = plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>();
-        if (plugConexion1.estoConectado() && plugConexion2.estoConectado() && plugConexion3.estoConectado())
+        if (plugConexion1.EstoConectado() && plugConexion2.EstoConectado() && plugConexion3.EstoConectado())
         {
             plugConexion1.EstablecerPropiedadesConexionesEntrantes();
             plugConexion2.EstablecerPropiedadesConexionesEntrantes();

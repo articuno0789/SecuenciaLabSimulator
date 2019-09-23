@@ -5,17 +5,28 @@ using UnityEngine;
 public class Modulo15 : MonoBehaviour
 {
     #region Atributos
+    [Header("Encendido")]
     public bool moduloEncendido = true;
+    [Header("Conexiones")]
     public Dictionary<string, string> plugsConnections;
-    [SerializeField] public List<GameObject> plugAnaranjados;
-    [SerializeField] public List<GameObject> plugNegros;
-    [SerializeField] public List<GameObject> lucesRojas;
+    [Header("Diccionarios de elementos")]
     public Dictionary<string, GameObject> plugAnaranjadosDict;
     public Dictionary<string, GameObject> plugNegrosDict;
     public Dictionary<string, GameObject> lucesRojasDict;
+    [Header("Listas de elementos")]
+    [SerializeField] public List<GameObject> plugAnaranjados;
+    [SerializeField] public List<GameObject> plugNegros;
+    [SerializeField] public List<GameObject> lucesRojas;
+    [Header("Parametros módulo")]
     [SerializeField] public float voltajeModulo = 220;
+    [Header("Parametros Plugs")]
+    private string nombreTagPlugAnaranjado = "PlugAnaranjado";
+    private string nombreTagPlugNegro = "PlugNegro";
+    [Header("Parametros Focos")]
+    private string nombreTagFocoRojo = "FocoRojo";
 
     //Variables de debug
+    [Header("Debug")]
     public bool mostrarDiccionarioConexiones = false; // Variable
     public bool mostrarPlugAnaranjados = false; // Variable
     public bool mostrarPlugNegros = false; // Variable
@@ -79,7 +90,7 @@ public class Modulo15 : MonoBehaviour
         plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().voltaje = voltajeModulo;
         plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().Linea = tipoLinea;
         plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().tipoNodo = 0;
-        if (!plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().estoConectado())
+        if (!plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().EstoConectado())
         {
             plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().QuitarAveria();
         }
@@ -99,7 +110,7 @@ public class Modulo15 : MonoBehaviour
         plugNegrosDict[nombrePlug].GetComponent<Plugs>().voltaje = voltajeModulo;
         if (estoyConectado)
         {
-            plugNegrosDict[nombrePlug].GetComponent<Plugs>().estoConectado();
+            plugNegrosDict[nombrePlug].GetComponent<Plugs>().EstoConectado();
         }
     }
 
@@ -119,7 +130,7 @@ public class Modulo15 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugAnaranjadosDict.Add(child.name, child);
-                child.tag = "PlugAnaranjado";
+                child.tag = nombreTagPlugAnaranjado;
             }
             else if (child.name.Contains("EntradaPlugNegro"))
             {
@@ -131,7 +142,7 @@ public class Modulo15 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugNegrosDict.Add(child.name, child);
-                child.tag = "PlugNegro";
+                child.tag = nombreTagPlugNegro;
             }
             else if (child.name.Contains("LuzRoja"))
             {
@@ -139,6 +150,7 @@ public class Modulo15 : MonoBehaviour
                 child.AddComponent<LuzRoja>();
 
                 lucesRojasDict.Add(child.name, child);
+                child.tag = nombreTagFocoRojo;
             }
             inicializarComponentes(child);
         }
@@ -156,6 +168,7 @@ public class Modulo15 : MonoBehaviour
             lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
             lucesRojasDict["LuzRoja2"].GetComponent<LuzRoja>().EncenderFoco();
             lucesRojasDict["LuzRoja3"].GetComponent<LuzRoja>().EncenderFoco();
+            //Cargar plugs de energia
             inicializarPlugAnaranjado("EntradaPlugAnaranjado1", 1, true);
             inicializarPlugAnaranjado("EntradaPlugAnaranjado2", 1, true);
             inicializarPlugAnaranjado("EntradaPlugAnaranjado3", 1, true);
@@ -165,7 +178,7 @@ public class Modulo15 : MonoBehaviour
             inicializarPlugAnaranjado("EntradaPlugAnaranjado7", 3, true);
             inicializarPlugAnaranjado("EntradaPlugAnaranjado8", 3, true);
             inicializarPlugAnaranjado("EntradaPlugAnaranjado9", 3, true);
-
+            //Pulso de nergi
             MandarPulsoEnergia("EntradaPlugAnaranjado1");
             MandarPulsoEnergia("EntradaPlugAnaranjado2");
             MandarPulsoEnergia("EntradaPlugAnaranjado3");
@@ -216,6 +229,16 @@ public class Modulo15 : MonoBehaviour
             lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ApagarFoco();
             lucesRojasDict["LuzRoja2"].GetComponent<LuzRoja>().ApagarFoco();
             lucesRojasDict["LuzRoja3"].GetComponent<LuzRoja>().ApagarFoco();
+            //Descargar plugs de energia
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado1", 1, false);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado2", 1, false);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado3", 1, false);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado4", 2, false);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado5", 2, false);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado6", 2, false);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado7", 3, false);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado8", 3, false);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado9", 3, false);
         }
     }
 

@@ -5,12 +5,17 @@ using UnityEngine;
 public class Potenciometro : MonoBehaviour
 {
     #region Atributos
+    [Header("Encendido")]
     public bool moduloEncendido = true;
+    [Header("Conexiones")]
     public Dictionary<string, string> plugsConnections;
-    [SerializeField] public List<GameObject> plugAnaranjados;
-    [SerializeField] public List<GameObject> plugNegros;
+    [Header("Diccionarios de elementos")]
     public Dictionary<string, GameObject> plugAnaranjadosDict;
     public Dictionary<string, GameObject> plugNegrosDict;
+    [Header("Listas de elementos")]
+    [SerializeField] public List<GameObject> plugAnaranjados;
+    [SerializeField] public List<GameObject> plugNegros;
+    [Header("Perilla")]
     [SerializeField] public GameObject perilla;
     [SerializeField] public float limiteGiroInferiorPerilla = 135.0f;
     [SerializeField] public float limiteGiroSuperiorPerilla = -135.0f;
@@ -19,17 +24,22 @@ public class Potenciometro : MonoBehaviour
     public float valorMaximoPerilla = 100.0f;
     private Quaternion originalRotationKnob;
     public bool potenciometroAveriado = false;
-    private ParticlesError particleError;
-    public int currentTypeParticleError = 7;
-    public GameObject currentParticle;
-
     [SerializeField] public float gradosActualesPerilla = 0.0f;
     [SerializeField] public float velocidadRotacion = 10;
     public bool rotarPerillaPrueba = false;
     [SerializeField] public int estaLimiteRotacion = -1;
     private readonly bool puederotar = true;
-
+    [Header("Particulas")]
+    private ParticlesError particleError;
+    public int currentTypeParticleError = (int)AuxiliarModulos.ParticlesErrorTypes.SmokeEffect;
+    public GameObject currentParticle;
+    [Header("Parametros Plugs")]
+    private string nombreTagPlugAnaranjado = "PlugAnaranjado";
+    private string nombreTagPlugNegro = "PlugNegro";
+    [Header("Parametros Perillas")]
+    private string nombreTagPerilla = "Perilla";
     //Variables de debug
+    [Header("Debug")]
     public bool mostrarDiccionarioConexiones = false; // Variable
     public bool mostrarPlugAnaranjados = false; // Variable
     public bool mostrarPlugNegros = false; // Variable
@@ -93,7 +103,7 @@ public class Potenciometro : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugAnaranjadosDict.Add(child.name, child);
-                child.tag = "PlugAnaranjado";
+                child.tag = nombreTagPlugAnaranjado;
             }
             else if (child.name.Contains("EntradaPlugNegro"))
             {
@@ -105,12 +115,13 @@ public class Potenciometro : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugNegrosDict.Add(child.name, child);
-                child.tag = "PlugNegro";
+                child.tag = nombreTagPlugNegro;
             }
             else if (child.name.Contains("PerillaPotenciometro"))
             {
                 perilla = child;
                 originalRotationKnob = perilla.transform.rotation;
+                child.tag = nombreTagPerilla;
             }
             InicializarComponentes(child);
         }
@@ -152,7 +163,7 @@ public class Potenciometro : MonoBehaviour
                     float nuevoVoltaje = plugIzquierdoCompPlug.Voltaje * (valorActualPerilla / 100);
                     plugCentral.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict["EntradaPlugAnaranjado1"]);
                     plugCentral.Voltaje = nuevoVoltaje;
-                    plugCentral.estoConectado();
+                    plugCentral.EstoConectado();
                     if (DebugMode)
                     {
                         Debug.Log(name + ") " + this.name + " - POTENCIOMETRO - if(plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
@@ -164,7 +175,7 @@ public class Potenciometro : MonoBehaviour
                     float nuevoVoltaje = plugDerechoCompPlug.Voltaje * (valorActualPerilla / 100);
                     plugCentral.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict["EntradaPlugAnaranjado3"]);
                     plugCentral.Voltaje = nuevoVoltaje;
-                    plugCentral.estoConectado();
+                    plugCentral.EstoConectado();
                     if (DebugMode)
                     {
                         Debug.Log(name + ") " + this.name + " - POTENCIOMETRO - (plugArribaCompPlug.TipoConexion == 2 && plugAbajoCompPlug.TipoConexion == 1) - Conectado -");

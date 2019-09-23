@@ -100,7 +100,8 @@ public class ModelsMenu : MonoBehaviour
         transModel.originalPosition = spawnLocation.position + modelSystems[currentIndex].modelPosition;
         transModel.originalScale = modelSystems[currentIndex].modelScale;
         transModel.originalRotation = modelSystems[currentIndex].modelRotation;
-        currentGO = asignarLogicaModulo(currentGO, modelSystems[currentIndex].nameModel);
+        //currentGO = asignarLogicaModulo(currentGO, modelSystems[currentIndex].nameModel);//Ya no se deberia usar
+        currentGO = AuxiliarModulos.AsignarLogicaModulo(currentGO, modelSystems[currentIndex].nameModel);
         currentGO.transform.localScale = modelSystems[currentIndex].modelScale;
 
         // solo activa el arma GameObject si el efecto actual es un efecto de arma
@@ -113,7 +114,7 @@ public class ModelsMenu : MonoBehaviour
 
     }
 
-    private GameObject asignarLogicaModulo(GameObject module, string nameModule)
+    /*private GameObject asignarLogicaModulo(GameObject module, string nameModule)
     {
         Debug.Log(modelSystems[currentIndex].title);
         if (nameModule == "1")
@@ -217,5 +218,6 @@ public class ModelsMenu : MonoBehaviour
         }
         return module;
     }
+    */
     #endregion
 }

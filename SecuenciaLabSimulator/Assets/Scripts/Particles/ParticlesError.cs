@@ -5,17 +5,6 @@ using UnityEngine;
 public class ParticlesError : MonoBehaviour
 {
     #region Atributos
-    public enum ParticlesErrorType
-    {
-        BigExplosion,
-        DrippingFlames,
-        ElectricalSparksEffect,
-        SmallExplosionEffect,
-        SmokeEffect,
-        SparksEffect,
-        RibbonSmoke,
-        PlasmaExplosionEffect
-    }
     public ParticlesInformation[] particlesError;
     #endregion
 

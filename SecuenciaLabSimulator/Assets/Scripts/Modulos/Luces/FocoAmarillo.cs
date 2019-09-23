@@ -6,18 +6,24 @@ using UnityEngine;
 public class FocoAmarillo : MonoBehaviour
 {
     #region Atributos
-    [SerializeField] public bool pruebaDeFocoAmarillo = true;
+    [Header("Parametros Focos")]
+    [Header("Materiales")]
     [SerializeField] public string rutaPlasticoAmarilloApagado = "Assets/Materials/PLasticos/PlasticoTraslucidoAmarilloApagado.mat";
     [SerializeField] public string rutaPlasticoAmarilloEncendido = "Assets/Materials/PLasticos/PlasticoTraslucidoAmarilloEncendido.mat";
     [SerializeField] public Material plasticoAmarilloApagado;
     [SerializeField] public Material plasticoAmarilloEncendido;
+    [Header("Padre Total")]
     public GameObject padreTotalComponente;
+    [Header("Particulas")]
     public GameObject currentParticle;
     private ParticlesError particleError;
     public int currentTypeParticleError = 0;
     public bool focoAmarilloEncendido = false;
     public bool focoAveriado = false;
+    //Variables de debug
+    [Header("Debug")]
     public bool debugMode = false;
+    [SerializeField] public bool pruebaDeFocoAmarillo = true;
     #endregion
 
     #region Propiedades
@@ -82,7 +88,7 @@ public class FocoAmarillo : MonoBehaviour
                     EncenderFoco();
                     if (DebugMode)
                     {
-                        Debug.Log(padreTotalComponente.name + ") " + this.name + " - FOCO AMARILLO - if(plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
+                        Debug.Log(padreTotalComponente.name + ") " + this.name + " - " + this.tag + " - if(plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
                     }
                 }
                 else if (plugArribaCompPlug.TipoConexion == 2 && plugAbajoCompPlug.TipoConexion == 1) //Averia - Linea y neutro invertido
@@ -91,7 +97,7 @@ public class FocoAmarillo : MonoBehaviour
                     ApagarFoco();
                     if (DebugMode)
                     {
-                        Debug.Log(padreTotalComponente.name + ") " + this.name + " - FOCO AMARILLO - (plugArribaCompPlug.TipoConexion == 2 && plugAbajoCompPlug.TipoConexion == 1) - Conectado - Debido a que los focos tienen polaridad, al invertir la conexión nom encienden.");
+                        Debug.Log(padreTotalComponente.name + ") " + this.name + " - " + this.tag + " - (plugArribaCompPlug.TipoConexion == 2 && plugAbajoCompPlug.TipoConexion == 1) - Conectado - Debido a que los focos tienen polaridad, al invertir la conexión nom encienden.");
                     }
                 }
                 else if (plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1) // Avaeria - Dos lineas conectadas al mismo tiempo
@@ -102,7 +108,7 @@ public class FocoAmarillo : MonoBehaviour
                         ApagarFoco();
                         if (DebugMode)
                         {
-                            Debug.Log(padreTotalComponente.name + ") " + this.name + " - FOCO AMARILLO - (plugArribaCompPlug.Linea == plugAbajoCompPlug.Linea) - Conectado - Debido a que son la misma linea simplemente no enciende.");
+                            Debug.Log(padreTotalComponente.name + ") " + this.name + " - " + this.tag + " - (plugArribaCompPlug.Linea == plugAbajoCompPlug.Linea) - Conectado - Debido a que son la misma linea simplemente no enciende.");
                         }
                     }
                     else if (plugArribaCompPlug.Linea != plugAbajoCompPlug.Linea)
@@ -111,15 +117,15 @@ public class FocoAmarillo : MonoBehaviour
                         ApagarFoco();
                         if (DebugMode)
                         {
-                            Debug.LogError(padreTotalComponente.name + ") " + this.name + " - FOCO AMARILLO - if (plugArribaCompPlug.Linea != plugAbajoCompPlug.Linea) - Conectado - Debido a que son lineas diferentes el foco se quema.");
+                            Debug.LogError(padreTotalComponente.name + ") " + this.name + " - " + this.tag + " - if (plugArribaCompPlug.Linea != plugAbajoCompPlug.Linea) - Conectado - Debido a que son lineas diferentes el foco se quema.");
                         }
                     }
                     else
                     {
-                        EliminarMaterial();
+                        AuxiliarModulos.EliminarMaterial(this.gameObject);
                         if (DebugMode)
                         {
-                            Debug.LogError(padreTotalComponente.name + ") " + this.name + " - FOCO AMARILLO - NO DEBERIA ENTRAR AQUI - (plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1)");
+                            Debug.LogError(padreTotalComponente.name + ") " + this.name + " - " + this.tag + " - NO DEBERIA ENTRAR AQUI - (plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1)");
                         }
                     }
 
@@ -130,7 +136,7 @@ public class FocoAmarillo : MonoBehaviour
                     ApagarFoco();
                     if (DebugMode)
                     {
-                        Debug.Log(padreTotalComponente.name + ") " + this.name + " - FOCO AMARILLO - (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
+                        Debug.Log(padreTotalComponente.name + ") " + this.name + " - " + this.tag + " - (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
                     }
                 }
                 else
@@ -140,7 +146,7 @@ public class FocoAmarillo : MonoBehaviour
                     ApagarFoco();
                     if (DebugMode)
                     {
-                        Debug.LogError(padreTotalComponente.name + ") " + this.name + " - FOCO AMARILLO - Este caso de uso todavia no esta programado - No entro a ningun caso");
+                        Debug.LogError(padreTotalComponente.name + ") " + this.name + " - " + this.tag + " - Este caso de uso todavia no esta programado - No entro a ningun caso");
                     }
                 }
             }
@@ -150,7 +156,7 @@ public class FocoAmarillo : MonoBehaviour
                 ApagarFoco();
                 if (DebugMode)
                 {
-                    Debug.Log(padreTotalComponente.name + ") " + this.name + " - FOCO AMARILLO - if (plugIzquierdoCompPlug.Conectado && plugDerechoCompPlug.Conectado) - NO esta conectados");
+                    Debug.Log(padreTotalComponente.name + ") " + this.name + " - " + this.tag + " - if (plugIzquierdoCompPlug.Conectado && plugDerechoCompPlug.Conectado) - NO esta conectados");
                 }
             }
         }
@@ -160,16 +166,16 @@ public class FocoAmarillo : MonoBehaviour
             ApagarFoco();
             if (DebugMode)
             {
-                Debug.LogError(padreTotalComponente.name + ") " + this.name + " - FOCO AMARILLO - if(plugArribaCompPlug != null && plugAbajoCompPlug != null) - Alguno de los dos es nulo, plugArribaCompPlug: " + plugArribaCompPlug + ", plugAbajoCompPlug: " + plugAbajoCompPlug);
+                Debug.LogError(padreTotalComponente.name + ") " + this.name + " - " + this.tag + " - if(plugArribaCompPlug != null && plugAbajoCompPlug != null) - Alguno de los dos es nulo, plugArribaCompPlug: " + plugArribaCompPlug + ", plugAbajoCompPlug: " + plugAbajoCompPlug);
             }
         }
     }
 
-    void EliminarMaterial()
+    /*void EliminarMaterial()
     {
         Renderer focoAmarillo = transform.GetComponent<Renderer>();
         focoAmarillo.material = null;
-    }
+    }*/
 
     public void EncenderFoco()
     {

@@ -95,6 +95,7 @@ public class ProgressManager : MonoBehaviour
         DestruirObjetos("23");
         DestruirObjetos("Potenciometro");
         DestruirObjetos("ModuloVacio");
+        DestruirObjetos("Multiconector");
         if (debug)
         {
             Debug.Log("Modulos destruidos");
@@ -255,7 +256,7 @@ public class ProgressManager : MonoBehaviour
                     moduloActual = modList.modulesGroup[indiceModuloActual - 1].modelSystemGO;
                 }
                 GameObject.Find(nombreModulo);
-                Dictionary<string, string> plugsConnections = ObtenerPlugConnections(tipoModulo, moduloActual);
+                Dictionary<string, string> plugsConnections = AuxiliarModulos.ObtenerPlugConnections(tipoModulo, moduloActual);
                 int numeroPlugs = plugsConnections.Count;
                 int j = 0;
                 if (debug)
@@ -283,8 +284,8 @@ public class ProgressManager : MonoBehaviour
                         {
                             moduloDestino = modList.modulesGroup[indiceModuloDestino - 1].modelSystemGO;
                             //Debug.LogError("moduloActual: " + moduloActual.name + ", moduloDestino: " + moduloDestino.name);
-                            GameObject conexionOrigen = BuscarPlugConexion(moduloActual.tag, moduloActual, parametrosConexionOrigen[1]);
-                            GameObject conexionDestino = BuscarPlugConexion(moduloDestino.tag, moduloDestino, parametrosConexionDestino[1]);
+                            GameObject conexionOrigen = AuxiliarModulos.BuscarPlugConexion(moduloActual.tag, moduloActual, parametrosConexionOrigen[1]);
+                            GameObject conexionDestino = AuxiliarModulos.BuscarPlugConexion(moduloDestino.tag, moduloDestino, parametrosConexionDestino[1]);
                             if (conexionOrigen != null && conexionDestino != null)
                             {
                                 Color colorCable = new Color(0, 0, 0, 1);
@@ -364,6 +365,12 @@ public class ProgressManager : MonoBehaviour
             {
                 conexionDestino.AddComponent<ChangeColorCables>();
             }
+
+            //Pasar energia a todos los cables
+            conexionDestino.GetComponent<Plugs>().EstablecerPropiedadesConexionesEntrantesPrueba();
+            conexionOrigen.GetComponent<Plugs>().EstablecerPropiedadesConexionesEntrantesPrueba();
+            conexionDestino.GetComponent<Plugs>().Conectado = true;
+            conexionOrigen.GetComponent<Plugs>().Conectado = true;
         }
         //Crear conexiones entre plugs
         conexionDestino.SendMessage("CrearConexionPlugs", false, SendMessageOptions.DontRequireReceiver);
@@ -379,6 +386,13 @@ public class ProgressManager : MonoBehaviour
             eliminarCable = true;
             GameObject endPoint = cableCompStart.endPoint;
             CableComponent cableCompLastEndPointStart = endPoint.GetComponent<CableComponent>();
+
+            //Deterner energia a todos los cables
+            objectStart.GetComponent<Plugs>().EliminarPropiedadesConexionesEntradaPrueba();
+            endPoint.GetComponent<Plugs>().EliminarPropiedadesConexionesEntradaPrueba();
+            objectStart.GetComponent<Plugs>().Conectado = false;
+            endPoint.GetComponent<Plugs>().Conectado = false;
+
             Debug.Log("GameObject endPoint = cableCompStart.endPoint;");
             cableCompLastEndPointStart.endPoint = null;
             cableCompStart.endPoint = null;
@@ -405,7 +419,7 @@ public class ProgressManager : MonoBehaviour
 
     /*Este método se encarga de regresar el GameObject de un plug determinado, apartir del nombre del
      * plug y el módulo padre (Nodo raíz).*/
-    private GameObject BuscarPlugConexion(string tipoModulo, GameObject modulo, string nombrePlug)
+    /*private GameObject BuscarPlugConexion(string tipoModulo, GameObject modulo, string nombrePlug)
     {
         GameObject plugEncontrado = null;
         if (tipoModulo == "1")
@@ -660,9 +674,10 @@ public class ProgressManager : MonoBehaviour
         }
         return plugEncontrado;
     }
+    */
 
     /*Este método se encarga de regresar el diccionario de conexiones de un respectivo módulo.*/
-    private Dictionary<string, string> ObtenerPlugConnections(string tipoModulo, GameObject modulo)
+    /*private Dictionary<string, string> ObtenerPlugConnections(string tipoModulo, GameObject modulo)
     {
         Dictionary<string, string> diccionario = null;
         if (tipoModulo == "1")
@@ -784,6 +799,7 @@ public class ProgressManager : MonoBehaviour
         }
         return diccionario;
     }
+    */
 
     /*En este método se encarga de realizar la creación de los nuevos modulos y establecer sus carácteristicas,
       de acuerdo a un tipo de múdulo determinado.*/
@@ -795,12 +811,12 @@ public class ProgressManager : MonoBehaviour
         newModule.tag = tipo;
         newModule.name = nombreModulo;
         newModule.layer = moduleLayer;
-        newModule = AsignarLogicaModulo(newModule, tipo);
+        newModule = AuxiliarModulos.AsignarLogicaModulo(newModule, tipo);
         return newModule;
     }
 
     /*En este método se asigna la lógica de funcionamiento a un determinado módulo, de acuerdo a su tipo.*/
-    private GameObject AsignarLogicaModulo(GameObject module, string tipoModulo)
+    /*private GameObject AsignarLogicaModulo(GameObject module, string tipoModulo)
     {
         if (tipoModulo == "1")
         {
@@ -898,6 +914,7 @@ public class ProgressManager : MonoBehaviour
         }
         return module;
     }
+    */
 
     /*Este método recursivo se utiliza para encontrar el padretotal (Nodo raíz) de un componente*/
     private void EncontrarPadreTotal(GameObject nodo)
@@ -1078,6 +1095,7 @@ public class ProgressManager : MonoBehaviour
         string jsonMod22 = GenerarJsonModulo22();
         string jsonMod23 = GenerarJsonModulo23();
         string jsonModPotenciometro = GenerarJsonModuloPotenciometro();
+        string jsonModMulticonector = GenerarJsonModuloMulticonector();
         string jsonModVacio = GenerarJsonModuloVacio();
         string json = "{";
         if (jsonMod1.Length != 0)
@@ -1152,6 +1170,10 @@ public class ProgressManager : MonoBehaviour
         {
             json += jsonModPotenciometro + ",\n";
         }
+        if (jsonModMulticonector.Length != 0)
+        {
+            json += jsonModMulticonector + ",\n";
+        }
         if (jsonModVacio.Length != 0)
         {
             json += jsonModVacio;
@@ -1183,7 +1205,6 @@ public class ProgressManager : MonoBehaviour
             {
                 Debug.Log("Cambie el nombre de sua rchivo de guardado, por uno diferente.");
             }
-
         }
         else
         {
@@ -1200,7 +1221,7 @@ public class ProgressManager : MonoBehaviour
      * existentes en el simulador.*/
     string GenerarJsonModulo1()
     {
-        GameObject[] modulos1 = GameObject.FindGameObjectsWithTag("1");
+        GameObject[] modulos1 = GameObject.FindGameObjectsWithTag(AuxiliarModulos.tagMod1);
         string jsonModulo1 = "";
         int numeroDeModulos = 1;
         int numeroMaximoModulos = modulos1.Length;
@@ -1208,7 +1229,7 @@ public class ProgressManager : MonoBehaviour
         {
             Modulo1 mod1 = modulo.GetComponent<Modulo1>();
             jsonModulo1 += "\"" + modulo.name + "\":{\n";
-            jsonModulo1 += "\"Tipo\":\"1\",\n";
+            jsonModulo1 += "\"Tipo\":\"" + AuxiliarModulos.tagMod1 + "\",\n";
             jsonModulo1 += "\"Voltaje\":" + mod1.voltajeModulo + ",\n";
             jsonModulo1 += PosicionModulo(modulo) + ",\n";
             jsonModulo1 += "\"Conexiones\":{" + CrearConexionesModulo(mod1.plugsConnections, modulo) + "}";
@@ -1230,7 +1251,7 @@ public class ProgressManager : MonoBehaviour
     * existentes en el simulador.*/
     string GenerarJsonModulo2()
     {
-        GameObject[] modulos2 = GameObject.FindGameObjectsWithTag("2");
+        GameObject[] modulos2 = GameObject.FindGameObjectsWithTag(AuxiliarModulos.tagMod2);
         string jsonModulo2 = "";
         int numeroDeModulos = 1;
         int numeroMaximoModulos = modulos2.Length;
@@ -1238,7 +1259,7 @@ public class ProgressManager : MonoBehaviour
         {
             Modulo2 mod2 = modulo.GetComponent<Modulo2>();
             jsonModulo2 += "\"" + modulo.name + "\":{\n";
-            jsonModulo2 += "\"Tipo\":\"2\",\n";
+            jsonModulo2 += "\"Tipo\":\"" + AuxiliarModulos.tagMod2 + "\",\n";
             jsonModulo2 += PosicionModulo(modulo) + ",\n";
             jsonModulo2 += "\"Conexiones\":{" + CrearConexionesModulo(mod2.plugsConnections, modulo) + "}";
             jsonModulo2 += "}";
@@ -1259,7 +1280,7 @@ public class ProgressManager : MonoBehaviour
     * existentes en el simulador.*/
     string GenerarJsonModulo3()
     {
-        GameObject[] modulos3 = GameObject.FindGameObjectsWithTag("3");
+        GameObject[] modulos3 = GameObject.FindGameObjectsWithTag(AuxiliarModulos.tagMod3);
         string jsonModulo3 = "";
         int numeroDeModulos = 1;
         int numeroMaximoModulos = modulos3.Length;
@@ -1267,7 +1288,7 @@ public class ProgressManager : MonoBehaviour
         {
             Modulo3 mod3 = modulo.GetComponent<Modulo3>();
             jsonModulo3 += "\"" + modulo.name + "\":{\n";
-            jsonModulo3 += "\"Tipo\":\"3\",\n";
+            jsonModulo3 += "\"Tipo\":\"" + AuxiliarModulos.tagMod3 + "\",\n";
             jsonModulo3 += PosicionModulo(modulo) + ",\n";
             jsonModulo3 += "\"Conexiones\":{" + CrearConexionesModulo(mod3.plugsConnections, modulo) + "}";
             jsonModulo3 += "}";
@@ -1288,7 +1309,7 @@ public class ProgressManager : MonoBehaviour
     * existentes en el simulador.*/
     string GenerarJsonModulo4()
     {
-        GameObject[] modulos4 = GameObject.FindGameObjectsWithTag("4");
+        GameObject[] modulos4 = GameObject.FindGameObjectsWithTag(AuxiliarModulos.tagMod4);
         string jsonModulo4 = "";
         int numeroDeModulos = 1;
         int numeroMaximoModulos = modulos4.Length;
@@ -1296,7 +1317,7 @@ public class ProgressManager : MonoBehaviour
         {
             Modulo4 mod4 = modulo.GetComponent<Modulo4>();
             jsonModulo4 += "\"" + modulo.name + "\":{\n";
-            jsonModulo4 += "\"Tipo\":\"4\",\n";
+            jsonModulo4 += "\"Tipo\":\"" + AuxiliarModulos.tagMod4 + "\",\n";
             jsonModulo4 += PosicionModulo(modulo) + ",\n";
             jsonModulo4 += "\"Conexiones\":{" + CrearConexionesModulo(mod4.plugsConnections, modulo) + "}";
             jsonModulo4 += "}";
@@ -1317,7 +1338,7 @@ public class ProgressManager : MonoBehaviour
     * existentes en el simulador.*/
     string GenerarJsonModulo5()
     {
-        GameObject[] modulos5 = GameObject.FindGameObjectsWithTag("5");
+        GameObject[] modulos5 = GameObject.FindGameObjectsWithTag(AuxiliarModulos.tagMod5);
         string jsonModulo5 = "";
         int numeroDeModulos = 1;
         int numeroMaximoModulos = modulos5.Length;
@@ -1325,7 +1346,7 @@ public class ProgressManager : MonoBehaviour
         {
             Modulo5 mod5 = modulo.GetComponent<Modulo5>();
             jsonModulo5 += "\"" + modulo.name + "\":{\n";
-            jsonModulo5 += "\"Tipo\":\"5\",\n";
+            jsonModulo5 += "\"Tipo\":\"" + AuxiliarModulos.tagMod5 + "\",\n";
             jsonModulo5 += PosicionModulo(modulo) + ",\n";
             jsonModulo5 += "\"Conexiones\":{" + CrearConexionesModulo(mod5.plugsConnections, modulo) + "}";
             jsonModulo5 += "}";
@@ -1346,7 +1367,7 @@ public class ProgressManager : MonoBehaviour
     * existentes en el simulador.*/
     string GenerarJsonModulo6()
     {
-        GameObject[] modulos6 = GameObject.FindGameObjectsWithTag("6");
+        GameObject[] modulos6 = GameObject.FindGameObjectsWithTag(AuxiliarModulos.tagMod6);
         string jsonModulo6 = "";
         int numeroDeModulos = 1;
         int numeroMaximoModulos = modulos6.Length;
@@ -1354,7 +1375,7 @@ public class ProgressManager : MonoBehaviour
         {
             Modulo6 mod6 = modulo.GetComponent<Modulo6>();
             jsonModulo6 += "\"" + modulo.name + "\":{\n";
-            jsonModulo6 += "\"Tipo\":\"6\",\n";
+            jsonModulo6 += "\"Tipo\":\"" + AuxiliarModulos.tagMod6 + "\",\n";
             jsonModulo6 += "\"ValorPerilla\":" + mod6.valorActualPerilla + ",\n";
             jsonModulo6 += PosicionModulo(modulo) + ",\n";
             jsonModulo6 += "\"Conexiones\":{" + CrearConexionesModulo(mod6.plugsConnections, modulo) + "}";
@@ -1376,7 +1397,7 @@ public class ProgressManager : MonoBehaviour
     * existentes en el simulador.*/
     string GenerarJsonModulo7()
     {
-        GameObject[] modulos7 = GameObject.FindGameObjectsWithTag("7");
+        GameObject[] modulos7 = GameObject.FindGameObjectsWithTag(AuxiliarModulos.tagMod7);
         string jsonModulo7 = "";
         int numeroDeModulos = 1;
         int numeroMaximoModulos = modulos7.Length;
@@ -1384,7 +1405,7 @@ public class ProgressManager : MonoBehaviour
         {
             Modulo7 mod7 = modulo.GetComponent<Modulo7>();
             jsonModulo7 += "\"" + modulo.name + "\":{\n";
-            jsonModulo7 += "\"Tipo\":\"7\",\n";
+            jsonModulo7 += "\"Tipo\":\"" + AuxiliarModulos.tagMod7 + "\",\n";
             jsonModulo7 += "\"ValorPerilla\":" + mod7.valorActualPerilla + ",\n";
             jsonModulo7 += PosicionModulo(modulo) + ",\n";
             jsonModulo7 += "\"Conexiones\":{" + CrearConexionesModulo(mod7.plugsConnections, modulo) + "}";
@@ -1406,7 +1427,7 @@ public class ProgressManager : MonoBehaviour
     * existentes en el simulador.*/
     string GenerarJsonModulo8_11()
     {
-        GameObject[] modulos8_11 = GameObject.FindGameObjectsWithTag("8, 11");
+        GameObject[] modulos8_11 = GameObject.FindGameObjectsWithTag(AuxiliarModulos.tagtagMod8_11);
         string jsonModulo8_11 = "";
         int numeroDeModulos = 1;
         int numeroMaximoModulos = modulos8_11.Length;
@@ -1414,7 +1435,7 @@ public class ProgressManager : MonoBehaviour
         {
             Modulo8_11 mod8_11 = modulo.GetComponent<Modulo8_11>();
             jsonModulo8_11 += "\"" + modulo.name + "\":{\n";
-            jsonModulo8_11 += "\"Tipo\":\"8, 11\",\n";
+            jsonModulo8_11 += "\"Tipo\":\"" + AuxiliarModulos.tagtagMod8_11 + "\",\n";
             jsonModulo8_11 += PosicionModulo(modulo) + ",\n";
             jsonModulo8_11 += "\"Conexiones\":{" + CrearConexionesModulo(mod8_11.plugsConnections, modulo) + "}";
             jsonModulo8_11 += "}";
@@ -1435,7 +1456,7 @@ public class ProgressManager : MonoBehaviour
     * existentes en el simulador.*/
     string GenerarJsonModulo9()
     {
-        GameObject[] modulos9 = GameObject.FindGameObjectsWithTag("9");
+        GameObject[] modulos9 = GameObject.FindGameObjectsWithTag(AuxiliarModulos.tagMod9);
         string jsonModulo9 = "";
         int numeroDeModulos = 1;
         int numeroMaximoModulos = modulos9.Length;
@@ -1443,7 +1464,7 @@ public class ProgressManager : MonoBehaviour
         {
             Modulo9 mod9 = modulo.GetComponent<Modulo9>();
             jsonModulo9 += "\"" + modulo.name + "\":{\n";
-            jsonModulo9 += "\"Tipo\":\"9\",\n";
+            jsonModulo9 += "\"Tipo\":\"" + AuxiliarModulos.tagMod9 + "\",\n";
             jsonModulo9 += PosicionModulo(modulo) + ",\n";
             jsonModulo9 += "\"Conexiones\":{" + CrearConexionesModulo(mod9.plugsConnections, modulo) + "}";
             jsonModulo9 += "}";
@@ -1464,7 +1485,7 @@ public class ProgressManager : MonoBehaviour
     * existentes en el simulador.*/
     string GenerarJsonModulo10_17_18_19()
     {
-        GameObject[] modulos10_17_18_19 = GameObject.FindGameObjectsWithTag("10, 17, 18, 19");
+        GameObject[] modulos10_17_18_19 = GameObject.FindGameObjectsWithTag(AuxiliarModulos.tagMod10_17_18_19);
         string jsonModulo10_17_18_19 = "";
         int numeroDeModulos = 1;
         int numeroMaximoModulos = modulos10_17_18_19.Length;
@@ -1472,7 +1493,7 @@ public class ProgressManager : MonoBehaviour
         {
             Modulo10_17_18_19 mod10_17_18_19 = modulo.GetComponent<Modulo10_17_18_19>();
             jsonModulo10_17_18_19 += "\"" + modulo.name + "\":{\n";
-            jsonModulo10_17_18_19 += "\"Tipo\":\"10, 17, 18, 19\",\n";
+            jsonModulo10_17_18_19 += "\"Tipo\":\"" + AuxiliarModulos.tagMod10_17_18_19 + "\",\n";
             jsonModulo10_17_18_19 += PosicionModulo(modulo) + ",\n";
             jsonModulo10_17_18_19 += "\"Conexiones\":{" + CrearConexionesModulo(mod10_17_18_19.plugsConnections, modulo) + "}";
             jsonModulo10_17_18_19 += "}";
@@ -1493,7 +1514,7 @@ public class ProgressManager : MonoBehaviour
     * existentes en el simulador.*/
     string GenerarJsonModulo13()
     {
-        GameObject[] modulos13 = GameObject.FindGameObjectsWithTag("13");
+        GameObject[] modulos13 = GameObject.FindGameObjectsWithTag(AuxiliarModulos.tagMod13);
         string jsonModulo13 = "";
         int numeroDeModulos = 1;
         int numeroMaximoModulos = modulos13.Length;
@@ -1501,7 +1522,7 @@ public class ProgressManager : MonoBehaviour
         {
             Modulo13 mod13 = modulo.GetComponent<Modulo13>();
             jsonModulo13 += "\"" + modulo.name + "\":{\n";
-            jsonModulo13 += "\"Tipo\":\"13\",\n";
+            jsonModulo13 += "\"Tipo\":\"" + AuxiliarModulos.tagMod13 + "\",\n";
             jsonModulo13 += PosicionModulo(modulo) + ",\n";
             jsonModulo13 += "\"Conexiones\":{" + CrearConexionesModulo(mod13.plugsConnections, modulo) + "}";
             jsonModulo13 += "}";
@@ -1522,7 +1543,7 @@ public class ProgressManager : MonoBehaviour
     * existentes en el simulador.*/
     string GenerarJsonModulo14_16()
     {
-        GameObject[] modulos14_16 = GameObject.FindGameObjectsWithTag("14, 16");
+        GameObject[] modulos14_16 = GameObject.FindGameObjectsWithTag(AuxiliarModulos.tagMod14_16);
         string jsonModulo14_16 = "";
         int numeroDeModulos = 1;
         int numeroMaximoModulos = modulos14_16.Length;
@@ -1530,7 +1551,7 @@ public class ProgressManager : MonoBehaviour
         {
             Modulo14_16 mod14_16 = modulo.GetComponent<Modulo14_16>();
             jsonModulo14_16 += "\"" + modulo.name + "\":{\n";
-            jsonModulo14_16 += "\"Tipo\":\"14, 16\",\n";
+            jsonModulo14_16 += "\"Tipo\":\"" + AuxiliarModulos.tagMod14_16 + "\",\n";
             jsonModulo14_16 += PosicionModulo(modulo) + ",\n";
             jsonModulo14_16 += "\"Conexiones\":{" + CrearConexionesModulo(mod14_16.plugsConnections, modulo) + "}";
             jsonModulo14_16 += "}";
@@ -1551,7 +1572,7 @@ public class ProgressManager : MonoBehaviour
     * existentes en el simulador.*/
     string GenerarJsonModulo15()
     {
-        GameObject[] modulos15 = GameObject.FindGameObjectsWithTag("15");
+        GameObject[] modulos15 = GameObject.FindGameObjectsWithTag(AuxiliarModulos.tagMod15);
         string jsonModulo15 = "";
         int numeroDeModulos = 1;
         int numeroMaximoModulos = modulos15.Length;
@@ -1559,7 +1580,7 @@ public class ProgressManager : MonoBehaviour
         {
             Modulo15 mod15 = modulo.GetComponent<Modulo15>();
             jsonModulo15 += "\"" + modulo.name + "\":{\n";
-            jsonModulo15 += "\"Tipo\":\"15\",\n";
+            jsonModulo15 += "\"Tipo\":\"" + AuxiliarModulos.tagMod15 + "\",\n";
             jsonModulo15 += "\"Voltaje\":" + mod15.voltajeModulo + ",\n";
             jsonModulo15 += PosicionModulo(modulo) + ",\n";
             jsonModulo15 += "\"Conexiones\":{" + CrearConexionesModulo(mod15.plugsConnections, modulo) + "}";
@@ -1581,7 +1602,7 @@ public class ProgressManager : MonoBehaviour
     * existentes en el simulador.*/
     string GenerarJsonModulo20()
     {
-        GameObject[] modulos20 = GameObject.FindGameObjectsWithTag("20");
+        GameObject[] modulos20 = GameObject.FindGameObjectsWithTag(AuxiliarModulos.tagMod20);
         string jsonModulo20 = "";
         int numeroDeModulos = 1;
         int numeroMaximoModulos = modulos20.Length;
@@ -1589,7 +1610,7 @@ public class ProgressManager : MonoBehaviour
         {
             Modulo20 mod20 = modulo.GetComponent<Modulo20>();
             jsonModulo20 += "\"" + modulo.name + "\":{\n";
-            jsonModulo20 += "\"Tipo\":\"20\",\n";
+            jsonModulo20 += "\"Tipo\":\"" + AuxiliarModulos.tagMod20 + "\",\n";
             jsonModulo20 += PosicionModulo(modulo) + ",\n";
             jsonModulo20 += "\"Conexiones\":{" + CrearConexionesModulo(mod20.plugsConnections, modulo) + "}";
             jsonModulo20 += "}";
@@ -1610,7 +1631,7 @@ public class ProgressManager : MonoBehaviour
     * existentes en el simulador.*/
     string GenerarJsonModulo21()
     {
-        GameObject[] modulos21 = GameObject.FindGameObjectsWithTag("21");
+        GameObject[] modulos21 = GameObject.FindGameObjectsWithTag(AuxiliarModulos.tagMod21);
         string jsonModulo21 = "";
         int numeroDeModulos = 1;
         int numeroMaximoModulos = modulos21.Length;
@@ -1618,7 +1639,7 @@ public class ProgressManager : MonoBehaviour
         {
             Modulo21 mod21 = modulo.GetComponent<Modulo21>();
             jsonModulo21 += "\"" + modulo.name + "\":{\n";
-            jsonModulo21 += "\"Tipo\":\"21\",\n";
+            jsonModulo21 += "\"Tipo\":\"" + AuxiliarModulos.tagMod21 + "\",\n";
             jsonModulo21 += PosicionModulo(modulo) + ",\n";
             jsonModulo21 += "\"Conexiones\":{" + CrearConexionesModulo(mod21.plugsConnections, modulo) + "}";
             jsonModulo21 += "}";
@@ -1639,7 +1660,7 @@ public class ProgressManager : MonoBehaviour
     * existentes en el simulador.*/
     string GenerarJsonModulo22()
     {
-        GameObject[] modulos22 = GameObject.FindGameObjectsWithTag("22");
+        GameObject[] modulos22 = GameObject.FindGameObjectsWithTag(AuxiliarModulos.tagMod22);
         string jsonModulo22 = "";
         int numeroDeModulos = 1;
         int numeroMaximoModulos = modulos22.Length;
@@ -1647,7 +1668,7 @@ public class ProgressManager : MonoBehaviour
         {
             Modulo22_23 mod22 = modulo.GetComponent<Modulo22_23>();
             jsonModulo22 += "\"" + modulo.name + "\":{\n";
-            jsonModulo22 += "\"Tipo\":\"22\",\n";
+            jsonModulo22 += "\"Tipo\":\"" + AuxiliarModulos.tagMod22 + "\",\n";
             jsonModulo22 += PosicionModulo(modulo) + ",\n";
             jsonModulo22 += "\"Conexiones\":{" + CrearConexionesModulo(mod22.plugsConnections, modulo) + "}";
             jsonModulo22 += "}";
@@ -1668,7 +1689,7 @@ public class ProgressManager : MonoBehaviour
     * existentes en el simulador.*/
     string GenerarJsonModulo23()
     {
-        GameObject[] modulos23 = GameObject.FindGameObjectsWithTag("23");
+        GameObject[] modulos23 = GameObject.FindGameObjectsWithTag(AuxiliarModulos.tagMod23);
         string jsonModulo23 = "";
         int numeroDeModulos = 1;
         int numeroMaximoModulos = modulos23.Length;
@@ -1676,7 +1697,7 @@ public class ProgressManager : MonoBehaviour
         {
             Modulo22_23 mod23 = modulo.GetComponent<Modulo22_23>();
             jsonModulo23 += "\"" + modulo.name + "\":{\n";
-            jsonModulo23 += "\"Tipo\":\"23\",\n";
+            jsonModulo23 += "\"Tipo\":\"" + AuxiliarModulos.tagMod23 + "\",\n";
             jsonModulo23 += PosicionModulo(modulo) + ",\n";
             jsonModulo23 += "\"Conexiones\":{" + CrearConexionesModulo(mod23.plugsConnections, modulo) + "}";
             jsonModulo23 += "}";
@@ -1697,7 +1718,7 @@ public class ProgressManager : MonoBehaviour
     * existentes en el simulador.*/
     string GenerarJsonModuloPotenciometro()
     {
-        GameObject[] modulosPotenciometro = GameObject.FindGameObjectsWithTag("Potenciometro");
+        GameObject[] modulosPotenciometro = GameObject.FindGameObjectsWithTag(AuxiliarModulos.tagModPotenciometro);
         string jsonModuloPoten = "";
         int numeroDeModulos = 1;
         int numeroMaximoModulos = modulosPotenciometro.Length;
@@ -1705,7 +1726,7 @@ public class ProgressManager : MonoBehaviour
         {
             Potenciometro modPoten = modulo.GetComponent<Potenciometro>();
             jsonModuloPoten += "\"" + modulo.name + "\":{\n";
-            jsonModuloPoten += "\"Tipo\":\"Potenciometro\",\n";
+            jsonModuloPoten += "\"Tipo\":\"" + AuxiliarModulos.tagModPotenciometro + "\",\n";
             jsonModuloPoten += "\"ValorPerilla\":" + modPoten.valorActualPerilla + ",\n";
             jsonModuloPoten += PosicionModulo(modulo) + ",\n";
             jsonModuloPoten += "\"Conexiones\":{" + CrearConexionesModulo(modPoten.plugsConnections, modulo) + "}";
@@ -1721,6 +1742,35 @@ public class ProgressManager : MonoBehaviour
             Debug.Log(jsonModuloPoten);
         }
         return jsonModuloPoten;
+    }
+
+    /*Este método se encarga de generar la representación Json de todos los módulos de tipo "Multiconector", 
+    * existentes en el simulador.*/
+    string GenerarJsonModuloMulticonector()
+    {
+        GameObject[] modulosMulti = GameObject.FindGameObjectsWithTag(AuxiliarModulos.tagModMulticonector);
+        string jsonModuloMulti = "";
+        int numeroDeModulos = 1;
+        int numeroMaximoModulos = modulosMulti.Length;
+        foreach (GameObject modulo in modulosMulti)
+        {
+            Multiconector modMulticonector = modulo.GetComponent<Multiconector>();
+            jsonModuloMulti += "\"" + modulo.name + "\":{\n";
+            jsonModuloMulti += "\"Tipo\":\"" + AuxiliarModulos.tagModMulticonector + "\",\n";
+            jsonModuloMulti += PosicionModulo(modulo) + ",\n";
+            jsonModuloMulti += "\"Conexiones\":{" + CrearConexionesModulo(modMulticonector.plugsConnections, modulo) + "}";
+            jsonModuloMulti += "}";
+            if (numeroDeModulos != numeroMaximoModulos)
+            {
+                jsonModuloMulti += ",\n";
+            }
+            numeroDeModulos++;
+        }
+        if (debug)
+        {
+            Debug.Log(jsonModuloMulti);
+        }
+        return jsonModuloMulti;
     }
 
     /*Este método se encarga de generar la representación Json de todos los módulos de tipo "ModuloVacio", 
@@ -1788,7 +1838,7 @@ public class ProgressManager : MonoBehaviour
     {
         string colorString = "";
         string[] parametrosConexionOrigen = plugOrigenString.ToString().Split('|');
-        GameObject plugOrigen = BuscarPlugConexion(modulo.tag, modulo, parametrosConexionOrigen[1]);
+        GameObject plugOrigen = AuxiliarModulos.BuscarPlugConexion(modulo.tag, modulo, parametrosConexionOrigen[1]);
         CableComponent camble;
         if (plugOrigen != null)
         {

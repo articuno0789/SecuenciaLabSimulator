@@ -93,6 +93,28 @@ public class Plugs : MonoBehaviour
     }
     #endregion
 
+    #region Inicializacion
+    void Awake()
+    {
+        padreTotalBuscado = null;
+
+        //Particulas de error
+        particleError = new ParticlesError();
+        padreTotalComponente = new GameObject();
+    }
+    #endregion
+
+    #region Comportamiento
+
+    public void EstablecerPlugRelacionado(GameObject plug, bool relaCerrada)
+    {
+        if (plug != null)
+        {
+            plugRelacionado = plug;
+            relacionCerrada = relaCerrada;
+        }
+    }
+
     public void EstablecerRelacionCerrado(bool cerrada)
     {
         if (plugRelacionado != null)
@@ -307,7 +329,6 @@ public class Plugs : MonoBehaviour
         return estaCorrectaConexion;
     }
 
-
     void ComprobarEstadoAveria()
     {
         if (plugAveriado)
@@ -343,21 +364,6 @@ public class Plugs : MonoBehaviour
             particleError.DestruirParticulasError(currentParticle);
             PlugAveriado = false;
         }
-    }
-
-    void Awake()
-    {
-        padreTotalBuscado = null;
-
-        //Particulas de error
-        particleError = new ParticlesError();
-        padreTotalComponente = new GameObject();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public bool VoltajeValido(float voltajeMinimo, float voltajeMaximo)
@@ -440,7 +446,7 @@ public class Plugs : MonoBehaviour
         }
     }
 
-    public bool estoConectado()
+    public bool EstoConectado()
     {
         CableComponent cableComp = this.GetComponent<CableComponent>();
         if (cableComp != null)
@@ -685,7 +691,6 @@ public class Plugs : MonoBehaviour
         return estaCorrectaConexion;
     }
 
-
     public void EstablecerPropiedadesConexionesEntrantes()
     {
         CableComponent cableComp = this.GetComponent<CableComponent>();
@@ -801,118 +806,124 @@ public class Plugs : MonoBehaviour
 
     private void CrearConexionPorTipo(string startPoint, string endPoint, GameObject padreTotalComp)
     {
-        if (Regex.IsMatch(padreTotalComp.name, @"^1_\d*$"))
+        if (Regex.IsMatch(padreTotalComp.name, AuxiliarModulos.expreRegMod1))
         {
             Modulo1 mod1 = padreTotalComp.GetComponent<Modulo1>();
             mod1.CrearConexionPlugs(startPoint, endPoint);
         }
         else
-if (Regex.IsMatch(padreTotalComp.name, @"^2_\d*$"))
+        if (Regex.IsMatch(padreTotalComp.name, AuxiliarModulos.expreRegMod2))
         {
             Modulo2 mod2 = padreTotalComp.GetComponent<Modulo2>();
             mod2.CrearConexionPlugs(startPoint, endPoint);
         }
         else
-if (Regex.IsMatch(padreTotalComp.name, @"^3_\d*$"))
+        if (Regex.IsMatch(padreTotalComp.name, AuxiliarModulos.expreRegMod3))
         {
             Modulo3 mod3 = padreTotalComp.GetComponent<Modulo3>();
             mod3.CrearConexionPlugs(startPoint, endPoint);
         }
         else
-if (Regex.IsMatch(padreTotalComp.name, @"^4_\d*$"))
+        if (Regex.IsMatch(padreTotalComp.name, AuxiliarModulos.expreRegMod4))
         {
             Modulo4 mod4 = padreTotalComp.GetComponent<Modulo4>();
             mod4.CrearConexionPlugs(startPoint, endPoint);
         }
         else
-if (Regex.IsMatch(padreTotalComp.name, @"^5_\d*$"))
+        if (Regex.IsMatch(padreTotalComp.name, AuxiliarModulos.expreRegMod5))
         {
             Modulo5 mod5 = padreTotalComp.GetComponent<Modulo5>();
             mod5.CrearConexionPlugs(startPoint, endPoint);
         }
         else
-if (Regex.IsMatch(padreTotalComp.name, @"^6_\d*$"))
+        if (Regex.IsMatch(padreTotalComp.name, AuxiliarModulos.expreRegMod6))
         {
             Modulo6 mod6 = padreTotalComp.GetComponent<Modulo6>();
             mod6.CrearConexionPlugs(startPoint, endPoint);
         }
         else
-if (Regex.IsMatch(padreTotalComp.name, @"^7_\d*$"))
+        if (Regex.IsMatch(padreTotalComp.name, AuxiliarModulos.expreRegMod7))
         {
             Modulo7 mod7 = padreTotalComp.GetComponent<Modulo7>();
             mod7.CrearConexionPlugs(startPoint, endPoint);
         }
         else
-if (Regex.IsMatch(padreTotalComp.name, @"^8, 11_\d*$"))
+        if (Regex.IsMatch(padreTotalComp.name, AuxiliarModulos.expreRegMod8_11))
         {
             Modulo8_11 mod8_11 = padreTotalComp.GetComponent<Modulo8_11>();
             mod8_11.CrearConexionPlugs(startPoint, endPoint);
         }
         else
-if (Regex.IsMatch(padreTotalComp.name, @"^9_\d*$"))
+        if (Regex.IsMatch(padreTotalComp.name, AuxiliarModulos.expreRegMod9))
         {
             Modulo9 mod9 = padreTotalComp.GetComponent<Modulo9>();
             mod9.CrearConexionPlugs(startPoint, endPoint);
         }
         else
-if (Regex.IsMatch(padreTotalComp.name, @"^10, 17, 18, 19_\d*$"))
+        if (Regex.IsMatch(padreTotalComp.name, AuxiliarModulos.expreRegMod10_17_18_19))
         {
             Modulo10_17_18_19 mod10_17_18_19 = padreTotalComp.GetComponent<Modulo10_17_18_19>();
             mod10_17_18_19.CrearConexionPlugs(startPoint, endPoint);
         }
         else
-if (Regex.IsMatch(padreTotalComp.name, @"^13_\d*$"))
+        if (Regex.IsMatch(padreTotalComp.name, AuxiliarModulos.expreRegMod13))
         {
             Modulo13 mod13 = padreTotalComp.GetComponent<Modulo13>();
             mod13.CrearConexionPlugs(startPoint, endPoint);
         }
         else
-if (Regex.IsMatch(padreTotalComp.name, @"^14, 16_\d*$"))
+        if (Regex.IsMatch(padreTotalComp.name, AuxiliarModulos.expreRegMod14_16))
         {
             Modulo14_16 mod14_16 = padreTotalComp.GetComponent<Modulo14_16>();
             mod14_16.CrearConexionPlugs(startPoint, endPoint);
         }
         else
-if (Regex.IsMatch(padreTotalComp.name, @"^15_\d*$"))
+        if (Regex.IsMatch(padreTotalComp.name, AuxiliarModulos.expreRegMod15))
         {
             Modulo15 mod15 = padreTotalComp.GetComponent<Modulo15>();
             mod15.CrearConexionPlugs(startPoint, endPoint);
         }
         else
-if (Regex.IsMatch(padreTotalComp.name, @"^20_\d*$"))
+        if (Regex.IsMatch(padreTotalComp.name, AuxiliarModulos.expreRegMod20))
         {
             Modulo20 mod20 = padreTotalComp.GetComponent<Modulo20>();
             mod20.CrearConexionPlugs(startPoint, endPoint);
         }
         else
-if (Regex.IsMatch(padreTotalComp.name, @"^21_\d*$"))
+        if (Regex.IsMatch(padreTotalComp.name, AuxiliarModulos.expreRegMod21))
         {
             Modulo21 mod21 = padreTotalComp.GetComponent<Modulo21>();
             mod21.CrearConexionPlugs(startPoint, endPoint);
         }
         else
-if (Regex.IsMatch(padreTotalComp.name, @"^22, 23_\d*$"))
+        if (Regex.IsMatch(padreTotalComp.name, AuxiliarModulos.expreRegMod22_23))
         {
             Modulo22_23 mod22_23 = padreTotalComp.GetComponent<Modulo22_23>();
             mod22_23.CrearConexionPlugs(startPoint, endPoint);
         }
         else
-if (Regex.IsMatch(padreTotalComp.name, @"^22_\d*$"))
+        if (Regex.IsMatch(padreTotalComp.name, AuxiliarModulos.expreRegMod22))
         {
             Modulo22_23 mod22_23 = padreTotalComp.GetComponent<Modulo22_23>();
             mod22_23.CrearConexionPlugs(startPoint, endPoint);
         }
         else
-if (Regex.IsMatch(padreTotalComp.name, @"^23_\d*$"))
+        if (Regex.IsMatch(padreTotalComp.name, AuxiliarModulos.expreRegMod23))
         {
             Modulo22_23 mod22_23 = padreTotalComp.GetComponent<Modulo22_23>();
             mod22_23.CrearConexionPlugs(startPoint, endPoint);
         }
         else
-if (Regex.IsMatch(padreTotalComp.name, @"^Potenciometro__\d*$"))
+        if (Regex.IsMatch(padreTotalComp.name, AuxiliarModulos.expreRegModPotenciometro))
         {
             Potenciometro modPotenciometro = padreTotalComp.GetComponent<Potenciometro>();
             modPotenciometro.CrearConexionPlugs(startPoint, endPoint);
+        }
+        else
+        if (Regex.IsMatch(padreTotalComp.name, AuxiliarModulos.expreRegModMulticonector))
+        {
+            Multiconector modMulticonector = padreTotalComp.GetComponent<Multiconector>();
+            modMulticonector.CrearConexionPlugs(startPoint, endPoint);
         }
         else
         {
@@ -958,4 +969,5 @@ if (Regex.IsMatch(padreTotalComp.name, @"^Potenciometro__\d*$"))
     {
         CrearConexionPlugs(true);
     }
+    #endregion
 }

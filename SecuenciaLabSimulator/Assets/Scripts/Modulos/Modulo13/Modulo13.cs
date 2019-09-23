@@ -6,31 +6,25 @@ using UnityEngine;
 public class Modulo13 : MonoBehaviour
 {
     #region Atributos
+    [Header("Encendido")]
     public bool moduloEncendido = true;
+    [Header("Conexiones")]
     public Dictionary<string, string> plugsConnections;
-    [SerializeField] public List<GameObject> plugAnaranjados;
-    [SerializeField] public List<GameObject> plugNegros;
-    [SerializeField] public List<GameObject> lucesRojas;
+    [Header("Diccionarios de elementos")]
     public Dictionary<string, GameObject> plugAnaranjadosDict;
     public Dictionary<string, GameObject> plugNegrosDict;
     public Dictionary<string, GameObject> lucesRojasDict;
-    [SerializeField] public string rutaPlasticoRojoApagado = "Assets/Materials/PLasticos/PlasticoTraslucidoRojoApagado.mat";
-    [SerializeField] public string rutaPlasticoRojoEncendido = "Assets/Materials/PLasticos/PlasticoTraslucidoRojoEncendido.mat";
-    [SerializeField] public Material plasticoRojoApagado;
-    [SerializeField] public Material plasticoRojoEncendido;
-    public enum ParticlesErrorTypes
-    {
-        BigExplosion,
-        DrippingFlames,
-        ElectricalSparksEffect,
-        SmallExplosionEffect,
-        SmokeEffect,
-        SparksEffect,
-        RibbonSmoke,
-        PlasmaExplosionEffect
-    }
-
+    [Header("Listas de elementos")]
+    [SerializeField] public List<GameObject> plugAnaranjados;
+    [SerializeField] public List<GameObject> plugNegros;
+    [SerializeField] public List<GameObject> lucesRojas;
+    [Header("Parametros Plugs")]
+    private string nombreTagPlugAnaranjado = "PlugAnaranjado";
+    private string nombreTagPlugNegro = "PlugNegro";
+    [Header("Parametros Focos")]
+    private string nombreTagFocoRojo = "FocoRojo";
     //Variables de debug
+    [Header("Debug")]
     public bool mostrarDiccionarioConexiones = false; // Variable
     public bool mostrarPlugAnaranjados = false; // Variable
     public bool mostrarPlugNegros = false; // Variable
@@ -39,9 +33,6 @@ public class Modulo13 : MonoBehaviour
     #region Inicializacion
     private void Awake()
     {
-        plasticoRojoApagado = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoRojoApagado, typeof(Material));
-        plasticoRojoEncendido = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoRojoEncendido, typeof(Material));
-
         plugsConnections = new Dictionary<string, string>();
         plugAnaranjadosDict = new Dictionary<string, GameObject>();
         plugNegrosDict = new Dictionary<string, GameObject>();
@@ -55,8 +46,17 @@ public class Modulo13 : MonoBehaviour
         {
             lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
         }
-        BuscartodosLosPlugs();
-        plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado3"];
+        //Contractores
+        IncializacionContractores("EntradaPlugAnaranjado2", "EntradaPlugAnaranjado3", true);
+        IncializacionContractores("EntradaPlugAnaranjado4", "EntradaPlugAnaranjado5", true);
+        IncializacionContractores("EntradaPlugAnaranjado6", "EntradaPlugAnaranjado7", true);
+        IncializacionContractores("EntradaPlugAnaranjado8", "EntradaPlugAnaranjado9", true);
+        IncializacionContractores("EntradaPlugAnaranjado10", "EntradaPlugAnaranjado11", false);
+        IncializacionContractores("EntradaPlugAnaranjado12", "EntradaPlugAnaranjado13", false);
+        IncializacionContractores("EntradaPlugAnaranjado14", "EntradaPlugAnaranjado15", false);
+        IncializacionContractores("EntradaPlugAnaranjado16", "EntradaPlugAnaranjado17", false);
+
+        /*plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado3"];
         plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().relacionCerrada = true;
         plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado2"];
         plugAnaranjadosDict["EntradaPlugAnaranjado3"].GetComponent<Plugs>().relacionCerrada = true;
@@ -94,7 +94,7 @@ public class Modulo13 : MonoBehaviour
         plugAnaranjadosDict["EntradaPlugAnaranjado16"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado17"];
         plugAnaranjadosDict["EntradaPlugAnaranjado16"].GetComponent<Plugs>().relacionCerrada = false;
         plugAnaranjadosDict["EntradaPlugAnaranjado17"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado16"];
-        plugAnaranjadosDict["EntradaPlugAnaranjado17"].GetComponent<Plugs>().relacionCerrada = false;
+        plugAnaranjadosDict["EntradaPlugAnaranjado17"].GetComponent<Plugs>().relacionCerrada = false;*/
     }
 
 
@@ -113,12 +113,19 @@ public class Modulo13 : MonoBehaviour
             pLugs[i].GetComponent<Plugs>().EstablecerValoresNoConexion();
         }
     }
-
-
+    
     // Start is called before the first frame update
     void Start()
     {
         
+    }
+
+    void IncializacionContractores(string nPlug1, string nPlug2, bool cerrado)
+    {
+        plugAnaranjadosDict[nPlug1].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nPlug2];
+        plugAnaranjadosDict[nPlug1].GetComponent<Plugs>().relacionCerrada = cerrado;
+        plugAnaranjadosDict[nPlug2].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nPlug1];
+        plugAnaranjadosDict[nPlug2].GetComponent<Plugs>().relacionCerrada = cerrado;
     }
 
     private void InicializarComponentes(GameObject nodo)
@@ -137,7 +144,7 @@ public class Modulo13 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugAnaranjadosDict.Add(child.name, child);
-                child.tag = "PlugAnaranjado";
+                child.tag = nombreTagPlugAnaranjado;
             }
             else if (child.name.Contains("EntradaPlugNegro"))
             {
@@ -149,16 +156,17 @@ public class Modulo13 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugNegrosDict.Add(child.name, child);
-                child.tag = "PlugNegro";
+                child.tag = nombreTagPlugNegro;
             }
             else if (child.name.Contains("LuzRoja"))
             {
                 lucesRojas.Add(child);
                 LuzRoja luzRoja = child.AddComponent<LuzRoja>();
-                luzRoja.CurrentTypeParticleError = (int)ParticlesErrorTypes.SmokeEffect;
-                luzRoja.CurrentTypeParticleError = (int)ParticlesErrorTypes.ElectricalSparksEffect;
+                luzRoja.CurrentTypeParticleError = (int)AuxiliarModulos.ParticlesErrorTypes.SmokeEffect;
+                luzRoja.CurrentTypeParticleError = (int)AuxiliarModulos.ParticlesErrorTypes.ElectricalSparksEffect;
                 luzRoja.padreTotalComponente = this.gameObject;
                 lucesRojasDict.Add(child.name, child);
+                child.tag = nombreTagFocoRojo;
             }
             InicializarComponentes(child);
         }

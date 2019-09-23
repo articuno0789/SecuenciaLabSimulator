@@ -5,6 +5,7 @@ using UnityEngine;
 public class Mod9PushButton : MonoBehaviour
 {
     #region Atributos
+    [Header("Animaciones")]
     private new Animation animation;
     public Animation Animation { get => animation; set => animation = value; }
     #endregion

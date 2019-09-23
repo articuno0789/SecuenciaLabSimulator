@@ -5,6 +5,7 @@ using UnityEngine;
 public class Mod8_11_BotonStop : MonoBehaviour
 {
     #region Atributos
+    [Header("Animaciones")]
     private new Animation animation;
     public Animation Animation { get => animation; set => animation = value; }
     #endregion

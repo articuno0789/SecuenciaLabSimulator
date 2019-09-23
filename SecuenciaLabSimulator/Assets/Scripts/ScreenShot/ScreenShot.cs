@@ -6,8 +6,10 @@ public class ScreenShot : MonoBehaviour
 {
     #region Atributos
     //Sonidos
+    [Header("Sonidos")]
     public GameObject camaraSound;
     //Debug
+    [Header("Debug")]
     public bool debug = true;
     #endregion
 

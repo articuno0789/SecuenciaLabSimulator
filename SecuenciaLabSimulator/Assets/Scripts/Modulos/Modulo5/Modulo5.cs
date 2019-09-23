@@ -5,12 +5,17 @@ using UnityEngine;
 public class Modulo5 : MonoBehaviour
 {
     #region Atributos
+    [Header("Encendido")]
     public bool moduloEncendido = true;
+    [Header("Conexiones")]
     public Dictionary<string, string> plugsConnections;
-    [SerializeField] public List<GameObject> plugAnaranjados;
-    [SerializeField] public List<GameObject> plugNegros;
+    [Header("Diccionarios de elementos")]
     public Dictionary<string, GameObject> plugAnaranjadosDict;
     public Dictionary<string, GameObject> plugNegrosDict;
+    [Header("Listas de elementos")]
+    [SerializeField] public List<GameObject> plugAnaranjados;
+    [SerializeField] public List<GameObject> plugNegros;
+    [Header("Parametros Aguaja Medidora")]
     [SerializeField] public GameObject agujaMedidora;
     [SerializeField] public float limiteGiroInferiorAguja = -35.0f;
     [SerializeField] public float limiteGiroSuperiorAguja = -145.0f;
@@ -18,34 +23,26 @@ public class Modulo5 : MonoBehaviour
     public float valorMinimoAguja = 0.0f;
     public float valorMaximoAguja = 250.0f;
     private Quaternion originalRotationNeedle;
-
-
     [SerializeField] public float gradosActualesAguja = -90.0f;
     [SerializeField] public float velocidadRotacion = 10;
-    public bool rotarAgujaPrueba = false;
     [SerializeField] public int estaLimiteRotacion = -1;
     private bool puederotar = true;
-
+    [Header("Particulas")]
     public GameObject currentParticle;
     private ParticlesError particleError;
     public int currentTypeParticleError = 0;
     public bool moduloAveriado = false;
-    public enum ParticlesErrorTypes
-    {
-        BigExplosion,
-        DrippingFlames,
-        ElectricalSparksEffect,
-        SmallExplosionEffect,
-        SmokeEffect,
-        SparksEffect,
-        RibbonSmoke,
-        PlasmaExplosionEffect
-    }
-
+    [Header("Parametros Plugs")]
+    private string nombreTagPlugAnaranjado = "PlugAnaranjado";
+    private string nombreTagPlugNegro = "PlugNegro";
+    [Header("Parametros Aguja Medidora")]
+    private string nombreTagAgujaMedidora = "AgujaMedidora";
     //Variables de debug
+    [Header("Debug")]
     public bool mostrarDiccionarioConexiones = false; // Variable
     public bool mostrarPlugAnaranjados = false; // Variable
     public bool mostrarPlugNegros = false; // Variable
+    public bool rotarAgujaPrueba = false;
     public bool debug = false;
     #endregion
 
@@ -112,7 +109,7 @@ public class Modulo5 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugAnaranjadosDict.Add(child.name, child);
-                child.tag = "PlugAnaranjado";
+                child.tag = nombreTagPlugAnaranjado;
             }
             else if (child.name.Contains("EntradaPlugNegro"))
             {
@@ -125,13 +122,14 @@ public class Modulo5 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugNegrosDict.Add(child.name, child);
-                child.tag = "PlugNegro";
+                child.tag = nombreTagPlugNegro;
             }
             else if (child.name.Contains("AgujaMedidora"))
             {
                 agujaMedidora = child;
                 originalRotationNeedle = agujaMedidora.transform.rotation;
-                currentTypeParticleError = (int)ParticlesErrorTypes.ElectricalSparksEffect;
+                currentTypeParticleError = (int)AuxiliarModulos.ParticlesErrorTypes.ElectricalSparksEffect;
+                child.tag = nombreTagAgujaMedidora;
             }
             InicializarComponentes(child);
         }

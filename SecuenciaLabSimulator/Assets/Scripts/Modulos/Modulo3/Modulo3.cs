@@ -6,20 +6,29 @@ using UnityEngine;
 public class Modulo3 : MonoBehaviour
 {
     #region Atributos
+    [Header("Encendido")]
     public bool moduloEncendido = true;
+    [Header("Conexiones")]
     public Dictionary<string, string> plugsConnections;
-    [SerializeField] public List<GameObject> plugAnaranjados;
-    [SerializeField] public List<GameObject> plugNegros;
-    [SerializeField] public List<GameObject> botonesCircularesRojos;
-    //[SerializeField] public List<GameObject> botonesCircularesVerdes;
+    [Header("Diccionarios de elementos")]
     public Dictionary<string, GameObject> plugAnaranjadosDict;
     public Dictionary<string, GameObject> plugNegrosDict;
     public Dictionary<string, GameObject> botonesCircularesRojosDict;
-    //public Dictionary<string, GameObject> botonesCircularesVerdesDict;
+    [Header("Listas de elementos")]
+    [SerializeField] public List<GameObject> plugAnaranjados;
+    [SerializeField] public List<GameObject> plugNegros;
+    [SerializeField] public List<GameObject> botonesCircularesRojos;
+    [Header("Animaciones")]
     private string rutaAnimacionBotonCircular = "Assets/Animation/Modulos/Modulo3/Mod3PresBotonCircular.anim";
     private string nombreAnimacionBotonCircular = "Mod3PresBotonCircular";
-
+    [Header("Parametros Plugs")]
+    private string nombreTagPlugAnaranjado = "PlugAnaranjado";
+    private string nombreTagPlugNegro = "PlugNegro";
+    [Header("Parametros Botones")]
+    private string nombreTagPlugBotonVerdeCircular = "BotonVerdeCircular";
+    private string nombreTagPlugBotonRojoCircular = "BotonRojoCircular";
     //Variables de debug
+    [Header("Debug")]
     public bool mostrarDiccionarioConexiones = false; // Variable
     public bool mostrarPlugAnaranjados = false; // Variable
     public bool mostrarPlugNegros = false; // Variable
@@ -41,13 +50,21 @@ public class Modulo3 : MonoBehaviour
         botonesCircularesRojos = new List<GameObject>();
         //botonesCircularesVerdes = new List<GameObject>();
         InicializarComponentes(gameObject);
+        //Botones
         botonesCircularesRojosDict["BotonCircularVerde1"].GetComponent<Mod3PushButton>().EstablecerTipoVerde();
         botonesCircularesRojosDict["BotonCircularVerde1"].GetComponent<Mod3PushButton>().EstablecerBotonDespresionado();
         botonesCircularesRojosDict["BotonCircularRojo1"].GetComponent<Mod3PushButton>().EstablecerTipoRojo();
         botonesCircularesRojosDict["BotonCircularRojo1"].GetComponent<Mod3PushButton>().EstablecerBotonDespresionado();
         botonesCircularesRojosDict["BotonCircularRojo2"].GetComponent<Mod3PushButton>().EstablecerTipoRojo();
         botonesCircularesRojosDict["BotonCircularRojo2"].GetComponent<Mod3PushButton>().EstablecerBotonDespresionado();
-
+        //Contractores
+        IncializacionContractores("EntradaPlugAnaranjado1", "EntradaPlugAnaranjado2", true);
+        IncializacionContractores("EntradaPlugAnaranjado3", "EntradaPlugAnaranjado4", false);
+        IncializacionContractores("EntradaPlugAnaranjado5", "EntradaPlugAnaranjado6", true);
+        IncializacionContractores("EntradaPlugAnaranjado7", "EntradaPlugAnaranjado8", false);
+        IncializacionContractores("EntradaPlugAnaranjado9", "EntradaPlugAnaranjado10", true);
+        IncializacionContractores("EntradaPlugAnaranjado11", "EntradaPlugAnaranjado12", false);
+        /*
         plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado2"];
         plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>().relacionCerrada = true;
         plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado1"];
@@ -76,7 +93,7 @@ public class Modulo3 : MonoBehaviour
         plugAnaranjadosDict["EntradaPlugAnaranjado11"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado12"];
         plugAnaranjadosDict["EntradaPlugAnaranjado11"].GetComponent<Plugs>().relacionCerrada = false;
         plugAnaranjadosDict["EntradaPlugAnaranjado12"].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict["EntradaPlugAnaranjado11"];
-        plugAnaranjadosDict["EntradaPlugAnaranjado12"].GetComponent<Plugs>().relacionCerrada = false;
+        plugAnaranjadosDict["EntradaPlugAnaranjado12"].GetComponent<Plugs>().relacionCerrada = false;*/
     }
 
     void Start()
@@ -87,6 +104,14 @@ public class Modulo3 : MonoBehaviour
         botonesCircularesRojosDict["BotonCircularRojo1"].GetComponent<Mod3PushButton>().EstablecerBotonDespresionado();
         botonesCircularesRojosDict["BotonCircularRojo2"].GetComponent<Mod3PushButton>().EstablecerTipoRojo();
         botonesCircularesRojosDict["BotonCircularRojo2"].GetComponent<Mod3PushButton>().EstablecerBotonDespresionado();
+    }
+
+    void IncializacionContractores(string nPlug1, string nPlug2, bool cerrado)
+    {
+        plugAnaranjadosDict[nPlug1].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nPlug2];
+        plugAnaranjadosDict[nPlug1].GetComponent<Plugs>().relacionCerrada = cerrado;
+        plugAnaranjadosDict[nPlug2].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nPlug1];
+        plugAnaranjadosDict[nPlug2].GetComponent<Plugs>().relacionCerrada = cerrado;
     }
 
     private void InicializarComponentes(GameObject nodo)
@@ -105,7 +130,7 @@ public class Modulo3 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugAnaranjadosDict.Add(child.name, child);
-                child.tag = "PlugAnaranjado";
+                child.tag = nombreTagPlugAnaranjado;
             }
             else if (child.name.Contains("EntradaPlugNegro"))
             {
@@ -117,7 +142,7 @@ public class Modulo3 : MonoBehaviour
                 plugsConnections.Add(gameObject.name + "|" + child.name, "");
 
                 plugNegrosDict.Add(child.name, child);
-                child.tag = "PlugNegro";
+                child.tag = nombreTagPlugNegro;
             }
             else if (child.name.Contains("BotonCircularRojo"))
             {
@@ -128,6 +153,7 @@ public class Modulo3 : MonoBehaviour
                 child.AddComponent<Mod3PushButton>();
 
                 botonesCircularesRojosDict.Add(child.name, child);
+                child.tag = nombreTagPlugBotonRojoCircular;
             }
             else if (child.name.Contains("BotonCircularVerde"))
             {
@@ -140,6 +166,7 @@ public class Modulo3 : MonoBehaviour
 
                 botonesCircularesRojosDict.Add(child.name, child);
                 //botonesCircularesVerdesDict.Add(child.name, child);
+                child.tag = nombreTagPlugBotonVerdeCircular;
             }
             InicializarComponentes(child);
         }
@@ -213,6 +240,7 @@ public class Modulo3 : MonoBehaviour
         }
     }
 
+    //Estas funciones no se usan por el momento
     void FuncionamientoContractorRojo(string nPlugConexionArribaCerrado, string nPlugConexionAbajoCerrado, bool conexionAbierta)
     {
         Plugs plugConexionArribaCerrado = plugAnaranjadosDict[nPlugConexionArribaCerrado].GetComponent<Plugs>();
