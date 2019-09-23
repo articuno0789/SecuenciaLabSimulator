@@ -1,12 +1,42 @@
 fileFormatVersion: 2
-guid: 451ac414e1294064ea6161528891663e
+guid: e0b610fcdecf6ba488b0e98f9ea64187
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable:
   - first:
       74: 1989289236423521904
     second: Default Take
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EnchufesAnaranjados
+    second: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FondoEnchufe
+    second: {fileID: 2100000, guid: a95d693601ae798458d54cdfe89e3e21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lestras_006
+    second: {fileID: 2100000, guid: 6094e566c02ec2147b4ddc212862a6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Madera
+    second: {fileID: 2100000, guid: ba5dc86cb17d41641a00b1d22241d996, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ParteMetalicaInternaEnchufe
+    second: {fileID: 2100000, guid: f1c79b8647c71d14e8fb499da3996ae1, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -68,7 +98,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
@@ -79,7 +109,7 @@ ModelImporter:
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
-    preserveHierarchy: 0
+    preserveHierarchy: 1
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
