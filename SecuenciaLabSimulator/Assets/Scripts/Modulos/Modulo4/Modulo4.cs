@@ -127,6 +127,7 @@ public class Modulo4 : MonoBehaviour
         else
         {
             //Hacer algo si el modulo esta apagado.
+            ApagarFocos();
         }
     }
 
@@ -148,7 +149,31 @@ public class Modulo4 : MonoBehaviour
             FocoAmarillo focoAmarilloComp = FocoAmarillo.GetComponent<FocoAmarillo>();
             if (focoAmarilloComp != null)
             {
-                focoAmarilloComp.GetComponent<FocoAmarillo>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado2"], plugNegrosDict["EntradaPlugNegro2"]);
+                focoAmarilloComp.ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado2"], plugNegrosDict["EntradaPlugNegro2"]);
+            }
+            //focosAmarillosDict["FocoAmarilo"].GetComponent<FocoAmarillo>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado2"], plugNegrosDict["EntradaPlugNegro2"]);
+        }
+    }
+
+    private void ApagarFocos()
+    {
+        GameObject FocoVerde = null;
+        GameObject FocoAmarillo = null;
+        if ((FocoVerde = focosVerdesDict["FocoVerde"]) != null)
+        {
+            FocoVerde focoVerdeComp = FocoVerde.GetComponent<FocoVerde>();
+            if (focoVerdeComp != null)
+            {
+                focoVerdeComp.ApagarFoco();
+            }
+            //focosVerdesDict["FocoVerde"].GetComponent<FocoVerde>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugNegrosDict["EntradaPlugNegro1"]);
+        }
+        if ((FocoAmarillo = focosAmarillosDict["FocoAmarilo"]) != null)
+        {
+            FocoAmarillo focoAmarilloComp = FocoAmarillo.GetComponent<FocoAmarillo>();
+            if (focoAmarilloComp != null)
+            {
+                focoAmarilloComp.ApagarFoco();
             }
             //focosAmarillosDict["FocoAmarilo"].GetComponent<FocoAmarillo>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado2"], plugNegrosDict["EntradaPlugNegro2"]);
         }

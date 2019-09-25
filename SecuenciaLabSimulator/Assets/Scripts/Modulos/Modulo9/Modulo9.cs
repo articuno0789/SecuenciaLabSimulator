@@ -125,6 +125,7 @@ public class Modulo9 : MonoBehaviour
         else
         {
             //Hacer algo si el modulo esta apagado.
+            ApagarFocos();
         }
     }
     
@@ -153,6 +154,29 @@ public class Modulo9 : MonoBehaviour
             if (focoAzulComp != null)
             {
                 focoAzulComp.ComprobarEstado(plugAnaranjadosDict[nPlug1], plugNegrosDict[nPlug2]);
+            }
+        }
+    }
+
+    private void ApagarFocos()
+    {
+        ApagarFoco("FocoCircularAzul1", "EntradaPlugAnaranjado1", "EntradaPlugNegro1");
+        ApagarFoco("FocoCircularAzul2", "EntradaPlugAnaranjado2", "EntradaPlugNegro2");
+        ApagarFoco("FocoCircularAzul3", "EntradaPlugAnaranjado3", "EntradaPlugNegro3");
+        ApagarFoco("FocoCircularAzul4", "EntradaPlugAnaranjado4", "EntradaPlugNegro4");
+        ApagarFoco("FocoCircularAzul5", "EntradaPlugAnaranjado5", "EntradaPlugNegro5");
+        ApagarFoco("FocoCircularAzul6", "EntradaPlugAnaranjado6", "EntradaPlugNegro6");
+    }
+
+    private void ApagarFoco(string nFocoAzul, string nPlug1, string nPlug2)
+    {
+        GameObject focoAzul = null;
+        if ((focoAzul = focosCircularesAzulesDict[nFocoAzul]) != null)
+        {
+            FocoCircularAzul focoAzulComp = focoAzul.GetComponent<FocoCircularAzul>();
+            if (focoAzulComp != null)
+            {
+                focoAzulComp.ApagarFoco();
             }
         }
     }
