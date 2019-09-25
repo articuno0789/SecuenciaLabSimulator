@@ -58,7 +58,7 @@ public class ClickDetector : MonoBehaviour
                             //rend.material.shader = Shader.Find("_Color");
                             //rend.material.SetColor("_Color", Color.green);
                             rend.material = new Material(Shader.Find("Sprites/Default"));
-                            rend.material.color = Color.green;
+                            rend.material.color = AuxiliarModulos.colorPlugsDestacados;
                         }
                         else
                         {
@@ -94,7 +94,7 @@ public class ClickDetector : MonoBehaviour
                 {
                     Renderer rend = clickedGmObj.GetComponent<Renderer>();
                     rend.material = new Material(Shader.Find("Sprites/Default"));
-                    rend.material.color = Color.green;
+                    rend.material.color = AuxiliarModulos.colorPlugsDestacados;
                 }
                 else
                 {

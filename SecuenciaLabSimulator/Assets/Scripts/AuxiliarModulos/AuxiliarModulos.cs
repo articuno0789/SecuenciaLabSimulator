@@ -6,8 +6,13 @@ using UnityEngine;
 public static class AuxiliarModulos
 {
     //Colores cables
-    public static readonly Color startColor = new Color(0, 0, 0, 1);//Negro
-    public static readonly Color endColor = new Color(0, 1, 1, 1);//cyan
+    public static readonly Color startColor = new Color(0, 0, 0, 1); //Negro
+    public static readonly Color endColor = new Color(0, 1, 1, 1); //Cyan
+    public static readonly Color colorPlugsDestacados = new Color(0, 1, 0, 1); //Green
+    public static readonly Color colorPlugMultipleSeleccionado = new Color(0, 1, 1, 1); //Cyan
+                                                                                        //new Color(1, 0, 0, 1); //Red
+                                                                                        //new Color(0, 1, 0, 1); //Green
+                                                                                        //new Color(0, 0, 1, 1); //Blue
 
 
     //Tipos de conexiones
