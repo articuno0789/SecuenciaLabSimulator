@@ -21,8 +21,8 @@ public class ChangeModule : MonoBehaviour
     public GameObject modulesList;
     private GameObject padreTotal;
     //Constantes
-    public int moduleLayer = 11; //La capa 11, equivale a la capa "Modulo"
-    public int totalModulosSimulador = 28;
+    public int moduleLayer = AuxiliarModulos.capaModulos; //La capa 11, equivale a la capa "Modulo"
+    public int totalModulosSimulador = AuxiliarModulos.numModSimulador;
     //Debug
     public bool debug = false;
     #endregion

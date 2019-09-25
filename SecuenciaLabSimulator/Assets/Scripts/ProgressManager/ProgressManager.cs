@@ -57,7 +57,7 @@ public class ProgressManager : MonoBehaviour
     /*Este método se encarga de verificar las entradas por teclado.*/
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))//Se guarda el contenido actual del simulador en el archivo de prueba.
+        /*if (Input.GetKeyDown(KeyCode.G))//Se guarda el contenido actual del simulador en el archivo de prueba.
         {
             SaveSimulator(rutaGuardado, "SimulatorDataTest.txt");
         }
@@ -65,12 +65,20 @@ public class ProgressManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))//Se carga el contenido del archivo de pruebas guardado.
         {
             LoadSimulator(rutaGuardado, "SimulatorDataTest.txt");
-        }
+        }*/
 
-        if (Input.GetKeyDown(KeyCode.I))//Se destrullen los módulos actuales del siulador
+        if (Input.GetKeyDown(KeyCode.F3))//Se destrullen los módulos actuales del siulador y remplazarlos con modulos vaicos
         {
             DestruirModulos();
+            CrearMaquinaVacia();
         }
+    }
+
+    //Se destrullen los módulos actuales del siulador y remplazarlos con modulos vaicos
+    public void VaciarSimulador()
+    {
+        DestruirModulos();
+        CrearMaquinaVacia();
     }
 
     /*Este método se encarga de destruir todos los tipos de módulos especificados en el simulador.*/
@@ -134,6 +142,33 @@ public class ProgressManager : MonoBehaviour
         else
         {
             Debug.Log("//////////////JSON Invalido");
+        }
+    }
+
+    private void CrearMaquinaVacia()
+    {
+        int posicionModulesList = 0;
+        ModulesList modList = modulesList.GetComponent<ModulesList>();
+        int longitudModulos = AuxiliarModulos.numModSimulador;
+        for(int i=0; i< longitudModulos; i++)
+        {
+            string tipoModulo = AuxiliarModulos.tagModVacio;
+            Vector3 posicion = modList.modulesGroup[i].modelPosition;
+            Vector3 vectorPosicion = posicion;
+            Vector3 vectorRotacion = new Vector3(0, 180, 0);
+            GameObject newModule = CrearNuevoModulo(tipoModulo, vectorPosicion, vectorRotacion, tipoModulo+"_"+i);
+            AsignacionRecursivaLogicaComponentes(newModule);
+            modList.modulesGroup[posicionModulesList].modelSystemGO = newModule;
+            modList.modulesGroup[posicionModulesList].modelPosition = newModule.transform.position;
+            modList.modulesGroup[posicionModulesList].modelRotation = newModule.transform.rotation.eulerAngles;
+            modList.modulesGroup[posicionModulesList].nameModule = newModule.name;
+            modList.modulesGroup[posicionModulesList].title = newModule.name;
+            //EstablecerParametrosVariablesModulos(newModule, tipoModulo, contenido);
+            posicionModulesList++;
+        }
+        if (debug)
+        {
+            Debug.Log("Termina creación modulos vacios");
         }
     }
 
@@ -330,29 +365,69 @@ public class ProgressManager : MonoBehaviour
 
             //cableCompStart.cableMaterial = (Material)Resources.Load("CableMaterial.mat", typeof(Material));
             //Primer conector en  ser seleccionado
-            cableCompStart.originalColor = colorCable;
+            if (cableCompStart.todoCableMismoColor)
+            {
+                cableCompStart.startColor = colorCable;
+                cableCompStart.endColor = colorCable;
+            }
+            else
+            {
+                cableCompStart.startColor = AuxiliarModulos.startColor;
+                cableCompStart.endColor = colorCable;
+            }
+            //cableCompStart.startColor = colorCable;
             cableCompStart.cableMaterial = cableMaterial;
             cableCompStart.InitCableParticles();
             cableCompStart.InitLineRenderer();
 
             if (cableCompStart.line != null)
             {
-                cableCompStart.line.endColor = colorCable;
-                cableCompStart.line.startColor = colorCable;
-                cableCompStart.line.SetColors(colorCable, colorCable);
+                //cableCompStart.line.endColor = colorCable;
+                //cableCompStart.line.startColor = colorCable;
+                if (cableCompStart.todoCableMismoColor)
+                {
+                    cableCompStart.startColor = colorCable;
+                    cableCompStart.endColor = colorCable;
+                }
+                else
+                {
+                    cableCompStart.startColor = AuxiliarModulos.startColor;
+                    cableCompStart.endColor = colorCable;
+                }
+                cableCompStart.line.SetColors(cableCompStart.line.startColor, cableCompStart.line.endColor);
             }
 
             //Segundo conector en eser seleccionado
-            cableCompEnd.originalColor = colorCable;
+            if (cableCompEnd.todoCableMismoColor)
+            {
+                cableCompEnd.startColor = colorCable;
+                cableCompEnd.endColor = colorCable;
+            }
+            else
+            {
+                cableCompEnd.startColor = AuxiliarModulos.startColor;
+                cableCompEnd.endColor = colorCable;
+            }
+            cableCompEnd.startColor = colorCable;
             cableCompEnd.startPoint = conexionDestino;
             cableCompEnd.endPoint = conexionOrigen;
             cableCompEnd.cableMaterial = cableMaterial;
 
             if (cableCompEnd.line != null)
             {
-                cableCompStart.line.endColor = colorCable;
-                cableCompStart.line.startColor = colorCable;
-                cableCompEnd.line.SetColors(colorCable, colorCable);
+                //cableCompStart.line.endColor = colorCable;
+                //cableCompStart.line.startColor = colorCable;
+                if (cableCompEnd.todoCableMismoColor)
+                {
+                    cableCompEnd.startColor = colorCable;
+                    cableCompEnd.endColor = colorCable;
+                }
+                else
+                {
+                    cableCompEnd.startColor = AuxiliarModulos.startColor;
+                    cableCompEnd.endColor = colorCable;
+                }
+                cableCompEnd.line.SetColors(cableCompStart.line.startColor, cableCompStart.line.endColor);
             }
 
             //lastClickedGmObj.GetComponent<Renderer>().material.color = Color.white;
@@ -1849,7 +1924,7 @@ public class ProgressManager : MonoBehaviour
                 if (camble != null)
                 {
                     //Color color = line.startColor;
-                    Color color = camble.originalColor;
+                    Color color = camble.endColor;
                     colorString += "\"R\": " + color.r + ",\n";
                     colorString += "\"G\": " + color.g + ",\n";
                     colorString += "\"B\": " + color.b + ",\n";

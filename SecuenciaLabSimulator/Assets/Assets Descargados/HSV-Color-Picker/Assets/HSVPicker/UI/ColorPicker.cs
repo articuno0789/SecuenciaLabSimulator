@@ -309,6 +309,7 @@ public class ColorPicker : MonoBehaviour
 
     public void ChangeColorCables()
     {
+        bool todoElCableMismoColor = false;
         GameObject module = selectedPlug;
         if (module!= null && module.name.Contains("EntradaPlug"))
         {
@@ -318,22 +319,45 @@ public class ColorPicker : MonoBehaviour
                 CableComponent cableCompEnd = cableCompStart.endPoint.GetComponent<CableComponent>();
                 if (cableCompStart != null)
                 {
-                    cableCompStart.originalColor = CurrentColor;
+                    cableCompStart.startColor = AuxiliarModulos.startColor;
+                    cableCompStart.endColor = CurrentColor;
                     if (cableCompStart.line != null)
                     {
-                        cableCompStart.line.endColor = CurrentColor;
-                        cableCompStart.line.startColor = CurrentColor;
-                        cableCompStart.line.SetColors(CurrentColor, CurrentColor);
+                        todoElCableMismoColor = cableCompStart.todoCableMismoColor;
+                        if (todoElCableMismoColor)
+                        {
+                            cableCompStart.line.endColor = CurrentColor;
+                            cableCompStart.line.startColor = CurrentColor;
+                            cableCompStart.line.SetColors(cableCompStart.line.endColor, cableCompStart.line.endColor);
+                        }
+                        else
+                        {
+                            cableCompStart.line.endColor = CurrentColor;
+                            cableCompStart.line.startColor = AuxiliarModulos.startColor;
+                            cableCompStart.line.SetColors(cableCompStart.line.startColor, CurrentColor);
+                        }
+                        
                     }
                 }
                 if (cableCompEnd != null)
                 {
-                    cableCompEnd.originalColor = CurrentColor;
+                    todoElCableMismoColor = cableCompEnd.todoCableMismoColor;
+                    cableCompEnd.startColor = AuxiliarModulos.startColor;
+                    cableCompEnd.startColor = CurrentColor;
                     if (cableCompEnd.line != null)
                     {
-                        cableCompEnd.line.endColor = CurrentColor;
-                        cableCompEnd.line.startColor = CurrentColor;
-                        cableCompEnd.line.SetColors(CurrentColor, CurrentColor);
+                        if (todoElCableMismoColor)
+                        {
+                            cableCompEnd.line.endColor = CurrentColor;
+                            cableCompEnd.line.startColor = CurrentColor;
+                            cableCompEnd.line.SetColors(cableCompEnd.line.endColor, cableCompEnd.line.endColor);
+                        }
+                        else
+                        {
+                            cableCompEnd.line.endColor = CurrentColor;
+                            cableCompEnd.line.startColor = AuxiliarModulos.startColor;
+                            cableCompEnd.line.SetColors(cableCompEnd.line.startColor, CurrentColor);
+                        }
                     }
                 }
             }

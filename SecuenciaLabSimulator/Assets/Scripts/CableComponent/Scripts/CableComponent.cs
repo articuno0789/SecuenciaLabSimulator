@@ -10,7 +10,9 @@ public class CableComponent : MonoBehaviour
     [SerializeField] public GameObject startPoint;
     [SerializeField] public GameObject endPoint;
     [SerializeField] public Material cableMaterial;
-    [SerializeField] public Color originalColor = Color.black;
+    [SerializeField] public Color startColor = AuxiliarModulos.startColor;
+    [SerializeField] public Color endColor = AuxiliarModulos.endColor;
+    [SerializeField] public bool todoCableMismoColor = false;
 
     // Cable config
     [SerializeField] private float cableLength = 0.1f;
@@ -142,13 +144,26 @@ public class CableComponent : MonoBehaviour
         //line.material = cableMaterial;
         //line.colorGradient = Color.green;
         line.material = new Material(Shader.Find("Sprites/Default"));
-        if(originalColor == null)
+        if(startColor == null)
         {
-            originalColor = Color.black;
+            startColor = AuxiliarModulos.startColor;
         }
-        line.startColor = originalColor;
-        line.endColor = originalColor;
-        line.SetColors(originalColor, originalColor);
+        if (endColor == null)
+        {
+            endColor = AuxiliarModulos.endColor;
+        }
+        if (todoCableMismoColor)
+        {
+            line.startColor = endColor;
+            line.endColor = endColor;
+            line.SetColors(endColor, endColor);
+        }
+        else
+        {
+            line.startColor = startColor;
+            line.endColor = endColor;
+            line.SetColors(startColor, endColor);
+        }
         line.GetComponent<Renderer>().enabled = true;
     }
 

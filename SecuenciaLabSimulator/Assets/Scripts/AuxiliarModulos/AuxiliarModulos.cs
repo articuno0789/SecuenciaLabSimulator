@@ -5,6 +5,11 @@ using UnityEngine;
 
 public static class AuxiliarModulos
 {
+    //Colores cables
+    public static readonly Color startColor = new Color(0, 0, 0, 1);//Negro
+    public static readonly Color endColor = new Color(0, 1, 1, 1);//cyan
+
+
     //Tipos de conexiones
     //1 - Linea, 0 - Sin conexion, 2 - Neutro
     public enum TiposConexiones
@@ -31,6 +36,12 @@ public static class AuxiliarModulos
         Final = 2
     }
 
+    //Capa de los módulso
+    public const int capaModulos = 11;//La capa 11, equivale a la capa "Modulo"
+
+    //Numero de módulos en el simulador
+    public const int numModSimulador = 28;
+
     //Tags
     public const string tagMod1 = "1";
     public const string tagMod2 = "2";
@@ -50,6 +61,7 @@ public static class AuxiliarModulos
     public const string tagMod22 = "22";
     public const string tagMod23 = "23";
     public const string tagMod22_23 = "22, 23";
+    public const string tagModVacio = "ModuloVacio";
     public const string tagModMotorElectricoAC = "MotorElectricoAC";
     public const string tagModMulticonector = "Multiconector";
     public const string tagModPotenciometro = "Potenciometro";
@@ -77,6 +89,7 @@ public static class AuxiliarModulos
     public const string expreRegMod22_23 = @"^22, 23_\d*$";
     public const string expreRegModMotorElectricoAC = @"^MotorElectricoAC_\d*$";
     public const string expreRegModMulticonector = @"^Multiconector_\d*$";
+    public const string expreRegModVacio = @"^ModuloVacio_\d*$";
     public const string expreRegModPotenciometro = @"^Potenciometro_\d*$";
     public const string expreRegPlugAnaranjado = @"^EntradaPlugAnaranjado\d*$";
     public const string expreRegPlugNegro = @"^EntradaPlugNegro\d*$";
@@ -95,6 +108,151 @@ public static class AuxiliarModulos
         SparksEffect = 5,
         RibbonSmoke = 6,
         PlasmaExplosionEffect = 7
+    }
+
+    public static void EncenderApagarModulo(GameObject modulo, string tipoModulo, bool encendido)
+    {
+        if (modulo != null)
+        {
+            if (tipoModulo == tagMod1)
+            {
+                Modulo1 comp = modulo.GetComponent<Modulo1>();
+                comp.moduloEncendido = encendido;
+            }
+            else
+            if (tipoModulo == tagMod2)
+            {
+                Modulo2 comp = modulo.GetComponent<Modulo2>();
+                comp.moduloEncendido = encendido;
+            }
+            else
+            if (tipoModulo == tagMod3)
+            {
+                Modulo3 comp = modulo.GetComponent<Modulo3>();
+                comp.moduloEncendido = encendido;
+            }
+            else
+            if (tipoModulo == tagMod4)
+            {
+                Modulo4 comp = modulo.GetComponent<Modulo4>();
+                comp.moduloEncendido = encendido;
+            }
+            else
+            if (tipoModulo == tagMod5)
+            {
+                Modulo5 comp = modulo.GetComponent<Modulo5>();
+                comp.moduloEncendido = encendido;
+            }
+            else
+            if (tipoModulo == tagMod6)
+            {
+                Modulo6 comp = modulo.GetComponent<Modulo6>();
+                comp.moduloEncendido = encendido;
+            }
+            else
+            if (tipoModulo == tagMod7)
+            {
+                Modulo7 comp = modulo.GetComponent<Modulo7>();
+                comp.moduloEncendido = encendido;
+            }
+            else
+            if (tipoModulo == tagtagMod8_11)
+            {
+                Modulo8_11 comp = modulo.GetComponent<Modulo8_11>();
+                comp.moduloEncendido = encendido;
+            }
+            else
+            if (tipoModulo == tagMod9)
+            {
+                Modulo9 comp = modulo.GetComponent<Modulo9>();
+                comp.moduloEncendido = encendido;
+            }
+            else
+            if (tipoModulo == tagMod10_17_18_19)
+            {
+                Modulo10_17_18_19 comp = modulo.GetComponent<Modulo10_17_18_19>();
+                comp.moduloEncendido = encendido;
+            }
+            else
+            if (tipoModulo == tagMod13)
+            {
+                Modulo13 comp = modulo.GetComponent<Modulo13>();
+                comp.moduloEncendido = encendido;
+            }
+            else
+            if (tipoModulo == tagMod14_16)
+            {
+                Modulo14_16 comp = modulo.GetComponent<Modulo14_16>();
+                comp.moduloEncendido = encendido;
+            }
+            else
+            if (tipoModulo == tagMod15)
+            {
+                Modulo15 comp = modulo.GetComponent<Modulo15>();
+                comp.moduloEncendido = encendido;
+            }
+            else
+            if (tipoModulo == tagMod20)
+            {
+                Modulo20 comp = modulo.GetComponent<Modulo20>();
+                comp.moduloEncendido = encendido;
+            }
+            else
+            if (tipoModulo == tagMod21)
+            {
+                Modulo21 comp = modulo.GetComponent<Modulo21>();
+                comp.moduloEncendido = encendido;
+            }
+            else
+            if (tipoModulo == tagMod22_23)
+            {
+                Modulo22_23 comp = modulo.GetComponent<Modulo22_23>();
+                comp.moduloEncendido = encendido;
+            }
+            else
+            if (tipoModulo == tagMod22)
+            {
+                Modulo22_23 comp = modulo.GetComponent<Modulo22_23>();
+                comp.moduloEncendido = encendido;
+            }
+            else
+            if (tipoModulo == tagMod23)
+            {
+                Modulo22_23 comp = modulo.GetComponent<Modulo22_23>();
+                comp.moduloEncendido = encendido;
+            }
+            else
+            if (tipoModulo == tagModPotenciometro)
+            {
+                Potenciometro comp = modulo.GetComponent<Potenciometro>();
+                comp.moduloEncendido = encendido;
+            }
+            else
+            if (tipoModulo == tagModMulticonector)
+            {
+                Multiconector comp = modulo.GetComponent<Multiconector>();
+                comp.moduloEncendido = encendido;
+            }
+            else
+            if (tipoModulo == tagModMotorElectricoAC)
+            {
+                MotorElectricoAC comp = modulo.GetComponent<MotorElectricoAC>();
+                comp.motorEncendido = encendido;
+            }
+            else
+            if (tipoModulo == tagModVacio)
+            {
+                Debug.LogError("Asignación de lógica - Modulo vacio - No tiene logica");
+            }
+            else
+            {
+                Debug.LogError("GameObject AsignarLogicaModulo(GameObject module, string tipo) - Tipo de modulo desconocido - " + tipoModulo + ".");
+            }
+        }
+        else
+        {
+            Debug.LogError("GameObject AsignarLogicaModulo(GameObject module, string tipo) - Modulo no asignado, es decir, null.");
+        }
     }
 
     /*En este método se asigna la lógica de funcionamiento a un determinado módulo, de acuerdo a su tipo.*/
@@ -205,6 +363,11 @@ public static class AuxiliarModulos
             if (tipoModulo == tagModMotorElectricoAC)
             {
                 modulo.AddComponent<MotorElectricoAC>();
+            }
+            else
+            if (tipoModulo == tagModVacio)
+            {
+                Debug.LogError("Asignación de lógica - Modulo vacio - No tiene logica");
             }
             else
             {
