@@ -4,22 +4,31 @@ using UnityEditor;
 
 public class ClickDetector : MonoBehaviour
 {
-    public Material cableMaterial;
+    [Header("Camara")]
+    public Camera camara;
+    [Header("Capa")]
+    public LayerMask layerMask;
+    [Header("Objetos Seleccionados")]
+    public GameObject lastClickedGmObj;
+    public GameObject clickedGmObj;
+    [Header("Tipos de Clics Habilitados")]
     public bool HandleLeftClick = false;
     public bool HandleRightClick = true;
     public bool HandleMiddleClick = false;
+    [Header("Acciones por clic")]
     public string OnLeftClickMethodName = "Prueba";
     public string OnRightClickMethodName = "Prueba";
     public string OnMiddleClickMethodName = "Prueba";
-    public LayerMask layerMask;
-    public Camera camara;
-    public GameObject lastClickedGmObj;
-    public ColorPicker colorPicker;
+    [Header("Auxiliar Clic")]
+    public bool acabaDeCrearConexion = false;
+    [Header("Materiales")]
+    public Material cableMaterial;
     private string rutaMaterialPlugAnaranjado = "Assets/Materials/EntradaPlug/AnaranjadoPlug.mat";
     private string rutaMaterialPlugNegro = "Assets/Materials/EntradaPlug/ObscuroPlug.mat";
+    public ColorPicker colorPicker;
     void Update()
     {
-        GameObject clickedGmObj = null;
+        clickedGmObj = null;
         bool clickedGmObjAcquired = false;
         // Left click
         if (HandleLeftClick && Input.GetMouseButtonDown(0))
@@ -56,6 +65,7 @@ public class ClickDetector : MonoBehaviour
                             Renderer rend = clickedGmObj.GetComponent<Renderer>();
                             //rend.material.color = Color.yellow;
                             Debug.Log("-------CAMBIO DE COLOR");
+                            //changeOriginalColorPlug(lastClickedGmObj);
                             //Fetch the Renderer from the GameObject
                             //Renderer rend = clickedGmObj.GetComponent<Renderer>();
                             //Set the main Color of the Material to green
@@ -79,6 +89,18 @@ public class ClickDetector : MonoBehaviour
                         }
                     }
                 }
+
+                if (clickedGmObj.name.Contains("EntradaPlug") && !acabaDeCrearConexion)
+                {
+                    Renderer rend = clickedGmObj.GetComponent<Renderer>();
+                    rend.material = new Material(Shader.Find("Sprites/Default"));
+                    rend.material.color = Color.green;
+                }
+                else
+                {
+                    acabaDeCrearConexion = false;
+                }
+
                 lastClickedGmObj = clickedGmObj;
                 if (segundoPlug)
                 {
@@ -170,14 +192,22 @@ public class ClickDetector : MonoBehaviour
 
     private void changeOriginalColorPlug(GameObject objectClick)
     {
-        if (objectClick.name.Contains("EntradaPlugNegro"))
+        if (objectClick != null)
         {
-            objectClick.GetComponent<Renderer>().material = (Material)AssetDatabase.LoadAssetAtPath(rutaMaterialPlugNegro, typeof(Material));
+            if (objectClick.name.Contains("EntradaPlugNegro"))
+            {
+                objectClick.GetComponent<Renderer>().material = (Material)AssetDatabase.LoadAssetAtPath(rutaMaterialPlugNegro, typeof(Material));
+            }
+            else
+            {
+                objectClick.GetComponent<Renderer>().material = (Material)AssetDatabase.LoadAssetAtPath(rutaMaterialPlugAnaranjado, typeof(Material));
+            }
         }
         else
         {
-            objectClick.GetComponent<Renderer>().material = (Material)AssetDatabase.LoadAssetAtPath(rutaMaterialPlugAnaranjado, typeof(Material));
+            Debug.LogError(this.name + ", Error. changeOriginalColorPlug(GameObject objectClick), Mandaste un objeto vacio.");
         }
+        
     }
 
     private void CrearConexionCable(GameObject clickedGmObj)
@@ -232,13 +262,31 @@ public class ClickDetector : MonoBehaviour
 
             //cableCompStart.cableMaterial = (Material)Resources.Load("CableMaterial.mat", typeof(Material));
             //Primer conector en  ser seleccionado
-            cableCompStart.originalColor = Color.black;
+            if (cableCompStart.todoCableMismoColor)
+            {
+                cableCompStart.startColor = AuxiliarModulos.endColor;
+                cableCompStart.endColor = AuxiliarModulos.endColor;
+            }
+            else
+            {
+                cableCompStart.startColor = AuxiliarModulos.startColor;
+                cableCompStart.endColor = AuxiliarModulos.endColor;
+            }
             cableCompStart.cableMaterial = cableMaterial;
             cableCompStart.InitCableParticles();
             cableCompStart.InitLineRenderer();
 
             //Segundo conector en eser seleccionado
-            cableCompEnd.originalColor = Color.black;
+            if (cableCompEnd.todoCableMismoColor)
+            {
+                cableCompEnd.startColor = AuxiliarModulos.endColor;
+                cableCompEnd.endColor = AuxiliarModulos.endColor;
+            }
+            else
+            {
+                cableCompEnd.startColor = AuxiliarModulos.startColor;
+                cableCompEnd.endColor = AuxiliarModulos.endColor;
+            }
             cableCompEnd.startPoint = clickedGmObj;
             cableCompEnd.endPoint = lastClickedGmObj;
             cableCompEnd.cableMaterial = cableMaterial;
@@ -270,6 +318,8 @@ public class ClickDetector : MonoBehaviour
         //Regresar color original a conectores
         changeOriginalColorPlug(lastClickedGmObj);
         changeOriginalColorPlug(clickedGmObj);
+
+        acabaDeCrearConexion = true;
     }
 
     private bool ComprobarEliminarConexion(CableComponent cableCompStart, GameObject objectStart)
