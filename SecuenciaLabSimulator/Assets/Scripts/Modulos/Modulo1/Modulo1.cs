@@ -74,11 +74,13 @@ public class Modulo1 : MonoBehaviour
 
     private void inicializarPlugNegro(string nombrePlug, bool estoyConectado = false)
     {
-        plugNegrosDict[nombrePlug].GetComponent<Plugs>().TipoConexion = 2;
+        plugNegrosDict[nombrePlug].GetComponent<Plugs>().TipoConexion = (int)AuxiliarModulos.TiposConexiones.Neutro;
         plugNegrosDict[nombrePlug].GetComponent<Plugs>().voltaje = voltajeModulo;
-        if (estoyConectado)
+        plugNegrosDict[nombrePlug].GetComponent<Plugs>().Linea = (int)AuxiliarModulos.NumeroLinea.SinLinea;
+        plugNegrosDict[nombrePlug].GetComponent<Plugs>().tipoNodo = (int)AuxiliarModulos.TipoNodo.Poder;
+        if (!plugNegrosDict[nombrePlug].GetComponent<Plugs>().EstoConectado())
         {
-            plugNegrosDict[nombrePlug].GetComponent<Plugs>().EstoConectado();
+            plugNegrosDict[nombrePlug].GetComponent<Plugs>().QuitarAveria();
         }
     }
 
