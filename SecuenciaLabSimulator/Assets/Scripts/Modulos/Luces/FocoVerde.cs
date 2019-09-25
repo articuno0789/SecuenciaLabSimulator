@@ -23,6 +23,7 @@ public class FocoVerde : MonoBehaviour
     //Variables de debug
     [Header("Debug")]
     public bool debugMode = false;
+    [SerializeField] public bool OnMouseDownActivo = false;
     [SerializeField] public bool pruebaDeFocoVerde = true;
     #endregion
 
@@ -232,21 +233,24 @@ public class FocoVerde : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Renderer focoVerdeRen = transform.GetComponent<Renderer>();
-        if (pruebaDeFocoVerde)
+        if (OnMouseDownActivo)
         {
-            focoVerdeRen.material = plasticoVerdeEncendido;
-            Debug.Log("Cambio de material Luminoso - Foco Verde");
-            pruebaDeFocoVerde = false;
-            currentParticle = particleError.CrearParticulasError(currentTypeParticleError, transform.position, transform.rotation.eulerAngles);
-            currentParticle.transform.parent = this.gameObject.transform;
-        }
-        else
-        {
-            focoVerdeRen.material = plasticoVerdeApagado;
-            Debug.Log("Cambio de material Opaco - Foco Verde");
-            pruebaDeFocoVerde = true;
-            particleError.DestruirParticulasError(currentParticle);
+            Renderer focoVerdeRen = transform.GetComponent<Renderer>();
+            if (pruebaDeFocoVerde)
+            {
+                focoVerdeRen.material = plasticoVerdeEncendido;
+                Debug.Log("Cambio de material Luminoso - Foco Verde");
+                pruebaDeFocoVerde = false;
+                currentParticle = particleError.CrearParticulasError(currentTypeParticleError, transform.position, transform.rotation.eulerAngles);
+                currentParticle.transform.parent = this.gameObject.transform;
+            }
+            else
+            {
+                focoVerdeRen.material = plasticoVerdeApagado;
+                Debug.Log("Cambio de material Opaco - Foco Verde");
+                pruebaDeFocoVerde = true;
+                particleError.DestruirParticulasError(currentParticle);
+            }
         }
     }
 }

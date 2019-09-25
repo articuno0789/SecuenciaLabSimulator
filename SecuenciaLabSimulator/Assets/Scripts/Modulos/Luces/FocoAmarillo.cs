@@ -23,6 +23,7 @@ public class FocoAmarillo : MonoBehaviour
     //Variables de debug
     [Header("Debug")]
     public bool debugMode = false;
+    [SerializeField] public bool OnMouseDownActivo = false;
     [SerializeField] public bool pruebaDeFocoAmarillo = true;
     #endregion
 
@@ -231,21 +232,24 @@ public class FocoAmarillo : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Renderer focoVerdeRen = transform.GetComponent<Renderer>();
-        if (pruebaDeFocoAmarillo)
+        if (OnMouseDownActivo)
         {
-            focoVerdeRen.material = plasticoAmarilloEncendido;
-            Debug.Log("Cambio de material Luminoso - Foco Amarillo");
-            pruebaDeFocoAmarillo = false;
-            currentParticle = particleError.CrearParticulasError(currentTypeParticleError, transform.position, transform.rotation.eulerAngles);
-            currentParticle.transform.parent = this.gameObject.transform;
-        }
-        else
-        {
-            focoVerdeRen.material = plasticoAmarilloApagado;
-            Debug.Log("Cambio de material Opaco - Foco Amarillo");
-            pruebaDeFocoAmarillo = true;
-            particleError.DestruirParticulasError(currentParticle);
+            Renderer focoVerdeRen = transform.GetComponent<Renderer>();
+            if (pruebaDeFocoAmarillo)
+            {
+                focoVerdeRen.material = plasticoAmarilloEncendido;
+                Debug.Log("Cambio de material Luminoso - Foco Amarillo");
+                pruebaDeFocoAmarillo = false;
+                currentParticle = particleError.CrearParticulasError(currentTypeParticleError, transform.position, transform.rotation.eulerAngles);
+                currentParticle.transform.parent = this.gameObject.transform;
+            }
+            else
+            {
+                focoVerdeRen.material = plasticoAmarilloApagado;
+                Debug.Log("Cambio de material Opaco - Foco Amarillo");
+                pruebaDeFocoAmarillo = true;
+                particleError.DestruirParticulasError(currentParticle);
+            }
         }
     }
 }

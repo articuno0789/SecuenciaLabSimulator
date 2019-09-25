@@ -23,6 +23,7 @@ public class FocoCircularAzul : MonoBehaviour
     //Variables de debug
     [Header("Debug")]
     public bool debugMode = false;
+    [SerializeField] public bool OnMouseDownActivo = false;
     [SerializeField] public bool pruebaDeFocoCircularAzul = true;
     #endregion
 
@@ -231,23 +232,26 @@ public class FocoCircularAzul : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Renderer focoCircularAzul = transform.GetComponent<Renderer>();
-        if (pruebaDeFocoCircularAzul)
+        if (OnMouseDownActivo)
         {
-            focoCircularAzul.material = plasticoCircularAzulEncendido;
-            Debug.Log("Cambio de material Luminoso - Foco Circular Azul");
-            pruebaDeFocoCircularAzul = false;
-            //currentParticle = particleError.CrearParticulasError(currentTypeParticleError, transform.position, transform.rotation.eulerAngles);
-            //currentParticle.transform.parent = this.gameObject.transform;
-            focoCircularAzulEncendido = true;
-        }
-        else
-        {
-            focoCircularAzul.material = plasticoCircularAzulApagado;
-            Debug.Log("Cambio de material Opaco - Foco Circular Azul");
-            pruebaDeFocoCircularAzul = true;
-            //particleError.DestruirParticulasError(currentParticle);
-            focoCircularAzulEncendido = false;
+            Renderer focoCircularAzul = transform.GetComponent<Renderer>();
+            if (pruebaDeFocoCircularAzul)
+            {
+                focoCircularAzul.material = plasticoCircularAzulEncendido;
+                Debug.Log("Cambio de material Luminoso - Foco Circular Azul");
+                pruebaDeFocoCircularAzul = false;
+                //currentParticle = particleError.CrearParticulasError(currentTypeParticleError, transform.position, transform.rotation.eulerAngles);
+                //currentParticle.transform.parent = this.gameObject.transform;
+                focoCircularAzulEncendido = true;
+            }
+            else
+            {
+                focoCircularAzul.material = plasticoCircularAzulApagado;
+                Debug.Log("Cambio de material Opaco - Foco Circular Azul");
+                pruebaDeFocoCircularAzul = true;
+                //particleError.DestruirParticulasError(currentParticle);
+                focoCircularAzulEncendido = false;
+            }
         }
     }
 }

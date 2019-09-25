@@ -23,6 +23,7 @@ public class LuzRoja : MonoBehaviour
     //Variables de debug
     [Header("Debug")]
     public bool debugMode = false;
+    [SerializeField] public bool OnMouseDownActivo = false;
     [SerializeField] public bool pruebaDeLuz = true;
     #endregion
 
@@ -54,7 +55,7 @@ public class LuzRoja : MonoBehaviour
 
     #region Inicializacion
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         particleError = new ParticlesError();
         padreTotalComponente = new GameObject();
@@ -238,18 +239,21 @@ public class LuzRoja : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Renderer luzRojaRen = transform.GetComponent<Renderer>();
-        if (pruebaDeLuz)
+        if (OnMouseDownActivo)
         {
-            luzRojaRen.material = plasticoRojoEncendido;
-            Debug.Log("Cambio de material Luminoso - Luz Roja");
-            pruebaDeLuz = false;
-        }
-        else
-        {
-            luzRojaRen.material = plasticoRojoApagado;
-            Debug.Log("Cambio de material Opaco - Luz Roja");
-            pruebaDeLuz = true;
+            Renderer luzRojaRen = transform.GetComponent<Renderer>();
+            if (pruebaDeLuz)
+            {
+                luzRojaRen.material = plasticoRojoEncendido;
+                Debug.Log("Cambio de material Luminoso - Luz Roja");
+                pruebaDeLuz = false;
+            }
+            else
+            {
+                luzRojaRen.material = plasticoRojoApagado;
+                Debug.Log("Cambio de material Opaco - Luz Roja");
+                pruebaDeLuz = true;
+            }
         }
     }
 }
