@@ -17,6 +17,7 @@ namespace GreatArcStudios
     /// </summary>
     public class PauseManager : MonoBehaviour
     {
+        public ModulesList modulos;
         public bool menuOpen;
         public GameObject saverManager;
         public String currentLevelName;
@@ -940,7 +941,7 @@ namespace GreatArcStudios
 
             if (currentLevelName != "MainMenu")
             {
-                if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.activeSelf == false)
+                if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.activeSelf == false)//Abrir menú
                 {
                     if (MenuShowModules != null)
                     {
@@ -980,12 +981,21 @@ namespace GreatArcStudios
                         playerController.m_rotateViewPermission = false;
                         playerController.m_movementPermission = false;
                     }
+                    if (modulos != null)
+                    {
+                        ModuleExample[] todosModulos = modulos.modulesGroup;
+                        for (int i = 0; i < todosModulos.Length; i++)
+                        {
+                            int position = todosModulos[i].nameModule.IndexOf("_");
+                            AuxiliarModulos.EncenderApagarModulo(todosModulos[i].modelSystemGO, todosModulos[i].nameModule.Substring(0, position), false);
+                        }
+                    }
                     /* if (blurBool == false)
                       {
                          blurEffect.enabled = true;
                      }  */
                 }
-                else if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.activeSelf == true)
+                else if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.activeSelf == true)//Cerrar menú
                 {
                     if (MenuShowModules != null)
                     {
@@ -1023,6 +1033,15 @@ namespace GreatArcStudios
                         FirstPersonController playerController = player.GetComponent<FirstPersonController>();
                         playerController.m_rotateViewPermission = Player_m_rotateViewPermission;
                         playerController.m_movementPermission = true;
+                    }
+                    if (modulos != null)
+                    {
+                        ModuleExample[] todosModulos = modulos.modulesGroup;
+                        for (int i = 0; i < todosModulos.Length; i++)
+                        {
+                            int position = todosModulos[i].nameModule.IndexOf("_");
+                            AuxiliarModulos.EncenderApagarModulo(todosModulos[i].modelSystemGO, todosModulos[i].nameModule.Substring(0, position), true);
+                        }
                     }
                 }
             }
