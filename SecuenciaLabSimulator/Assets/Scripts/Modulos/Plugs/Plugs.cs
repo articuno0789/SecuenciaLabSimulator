@@ -414,6 +414,38 @@ public class Plugs : MonoBehaviour
         Linea = (int)AuxiliarModulos.NumeroLinea.SinLinea;
     }
 
+    public void EstablecerValoresNoConexionVolLin()
+    {
+        //Conectado = false;
+        TipoConexion = (int)AuxiliarModulos.TiposConexiones.SinConexion;
+        Voltaje = 0;
+        Linea = (int)AuxiliarModulos.NumeroLinea.SinLinea;
+    }
+
+    public void EstablecerValoresPlugDefinido(GameObject plugDefinido, float multiplicador, float valorOriginal)
+    {
+        if (plugDefinido != null)
+        {
+            Plugs plugDef = plugDefinido.GetComponent<Plugs>();
+            //Conectado = false;
+            //TipoConexion = (int)AuxiliarModulos.TiposConexiones.SinConexion;
+            Voltaje = (plugDef.Voltaje * multiplicador * valorOriginal);
+            Linea = plugDef.Linea;
+        }
+    }
+
+    public void EstablecerValoresPlugDefinidoCompleto(GameObject plugDefinido)
+    {
+        if (plugDefinido != null)
+        {
+            Plugs plugDef = plugDefinido.GetComponent<Plugs>();
+            //Conectado = false;
+            TipoConexion = plugDef.TipoConexion;
+            Voltaje = plugDef.Voltaje;
+            Linea = plugDef.Linea;
+        }
+    }
+
     public void EstablecerValoresNoConexion3(Plugs desconectar)
     {
         Conectado = false;
