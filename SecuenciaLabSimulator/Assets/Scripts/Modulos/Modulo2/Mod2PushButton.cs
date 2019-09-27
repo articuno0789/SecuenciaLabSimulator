@@ -11,7 +11,7 @@ public class Mod2PushButton : MonoBehaviour
     [Header("Botón Contrario")]
     public GameObject botonContrario;
     [Header("Tipo Botón")]
-    public int tipo = 0; //0) sin tipo, 1) boton verde, 2)boton rojo
+    public int tipo = (int)AuxiliarModulos.TipoBoton.SinTipo; //0) sin tipo, 1) boton verde, 2)boton rojo
     [Header("Materiales")]
     [SerializeField] public string rutaPlasticoVerdeApagado = "Assets/Materials/Botones/RojoVerdesCuadrados/BotonVerdeCuadrado.mat";
     [SerializeField] public string rutaPlasticoVerdeEncendido = "Assets/Materials/Botones/RojoVerdesCuadrados/BotonVerdeCuadradoEncendido.mat";
@@ -32,20 +32,24 @@ public class Mod2PushButton : MonoBehaviour
     void Awake()
     {
         animation = GetComponent<Animation>();
-        plasticoVerdeApagado = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoVerdeApagado, typeof(Material));
-        plasticoVerdeEncendido = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoVerdeEncendido, typeof(Material));
-        plasticoRojoApagado = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoRojoApagado, typeof(Material));
-        plasticoRojoEncendido = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoRojoEncendido, typeof(Material));
+        plasticoVerdeApagado = AuxiliarModulos.RegresarObjetoMaterial("BotonVerdeCuadrado");
+        plasticoVerdeEncendido = AuxiliarModulos.RegresarObjetoMaterial("BotonVerdeCuadradoEncendido");
+        plasticoRojoApagado = AuxiliarModulos.RegresarObjetoMaterial("BotonRojoCuadrado");
+        plasticoRojoEncendido = AuxiliarModulos.RegresarObjetoMaterial("BotonRojoCuadradoEncendido");
+        //plasticoVerdeApagado = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoVerdeApagado, typeof(Material));
+        //plasticoVerdeEncendido = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoVerdeEncendido, typeof(Material));
+        //plasticoRojoApagado = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoRojoApagado, typeof(Material));
+        //plasticoRojoEncendido = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoRojoEncendido, typeof(Material));
     }
 
     public void EstablecerTipoVerde()
     {
-        tipo = 1;
+        tipo = (int)AuxiliarModulos.TipoBoton.BotonVerde;
     }
 
     public void EstablecerTipoRojo()
     {
-        tipo = 2;
+        tipo = (int)AuxiliarModulos.TipoBoton.BotonRojo;
     }
     
     public bool EstaActivado()
@@ -68,12 +72,12 @@ public class Mod2PushButton : MonoBehaviour
     public void IluminarBotonSeleccionado()
     {
         Renderer botonSeleccionado = transform.GetComponent<Renderer>();
-        if(tipo == 1)
+        if(botonSeleccionado != null && tipo == (int)AuxiliarModulos.TipoBoton.BotonVerde)
         {
             botonSeleccionado.materials[0] = plasticoVerdeEncendido;
             botonSeleccionado.material = plasticoVerdeEncendido;
             botonActivado = true;
-        }else if(tipo == 2)
+        }else if(botonSeleccionado != null && tipo == (int)AuxiliarModulos.TipoBoton.BotonRojo)
         {
             botonSeleccionado.materials[0] = plasticoRojoEncendido;
             botonSeleccionado.material = plasticoRojoEncendido;
@@ -81,26 +85,26 @@ public class Mod2PushButton : MonoBehaviour
         }
         else
         {
-            Debug.LogError("No se ha asignado el tipo para el botón.");
+            Debug.LogError(this.name + ", void IluminarBotonSeleccionado() - Error. No se ha asignado el tipo para el botón.");
         }
     }
 
     public void DesiluminarBotonSeleccionado()
     {
         Renderer botonSeleccionado = transform.GetComponent<Renderer>();
-        if (tipo == 1)
+        if (botonSeleccionado != null && tipo == (int)AuxiliarModulos.TipoBoton.BotonVerde)
         {
             botonSeleccionado.material = plasticoVerdeApagado;
             botonActivado = false;
         }
-        else if (tipo == 2)
+        else if (botonSeleccionado != null && tipo == (int)AuxiliarModulos.TipoBoton.BotonRojo)
         {
             botonSeleccionado.material = plasticoRojoApagado;
             botonActivado = false;
         }
         else
         {
-            Debug.LogError("No se ha asignado el tipo para el botón.");
+            Debug.LogError(this.name + ", void DesiluminarBotonSeleccionado() - Error. No se ha asignado el tipo para el botón.");
         }
     }
 
