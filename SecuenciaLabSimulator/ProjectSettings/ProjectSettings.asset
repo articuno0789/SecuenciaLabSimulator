@@ -41,7 +41,7 @@ PlayerSettings:
     height: 1
   m_SplashScreenLogos:
   - logo: {fileID: 21300000, guid: 518202714c63a894f9d241306fd68327, type: 3}
-    duration: 10
+    duration: 5
   - logo: {fileID: 10404, guid: 0000000000000000e000000000000000, type: 0}
     duration: 2
   m_VirtualRealitySplashScreen: {fileID: 0}
@@ -96,7 +96,7 @@ PlayerSettings:
   visibleInBackground: 1
   allowFullscreenSwitch: 1
   graphicsJobMode: 0
-  fullscreenMode: 1
+  fullscreenMode: 2
   xboxSpeechDB: 0
   xboxEnableHeadOrientation: 0
   xboxEnableGuest: 0
@@ -122,10 +122,10 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.1
+  bundleVersion: 1.0.0.0
   preloadedAssets: []
   metroInputSource: 0
-  wsaTransparentSwapchain: 0
+  wsaTransparentSwapchain: 1
   m_HolographicPauseOnTrackingLoss: 1
   xboxOneDisableKinectGpuReservation: 0
   xboxOneEnable7thCore: 0
@@ -162,7 +162,8 @@ PlayerSettings:
   resolutionScalingMode: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
-  applicationIdentifier: {}
+  applicationIdentifier:
+    Standalone: com.CUCEI.SecuenciaLab
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 16
@@ -726,14 +727,14 @@ PlayerSettings:
     objetivo permitir al usuario experimentar con el comportamiento de una m\xE1quina
     de control secuencial en un ambiente controlado y seguro."
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: SecuenciaLabSimulator
   metroTileShowName: 0
   metroMediumTileShowName: 0
-  metroLargeTileShowName: 0
+  metroLargeTileShowName: 1
   metroWideTileShowName: 0
   metroSupportStreamingInstall: 0
   metroLastRequiredScene: 0
-  metroDefaultTileSize: 1
+  metroDefaultTileSize: 2
   metroTileForegroundText: 2
   metroTileBackgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21568628, a: 0}
   metroSplashScreenBackgroundColor: {r: 0.12941177, g: 0.17254902, b: 0.21568628,
