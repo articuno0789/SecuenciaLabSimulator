@@ -2137,6 +2137,90 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 196861698}
   m_CullTransparentMesh: 0
+--- !u!1001 &210232944
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6595265915519236244, guid: e99a37f40cf2f66438c48463525f7a10,
+        type: 3}
+      propertyPath: m_Name
+      value: AllComponents
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595265915519236243, guid: e99a37f40cf2f66438c48463525f7a10,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 20.898876
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595265915519236243, guid: e99a37f40cf2f66438c48463525f7a10,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 42.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595265915519236243, guid: e99a37f40cf2f66438c48463525f7a10,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -290.37115
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595265915519236243, guid: e99a37f40cf2f66438c48463525f7a10,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595265915519236243, guid: e99a37f40cf2f66438c48463525f7a10,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.008961438
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595265915519236243, guid: e99a37f40cf2f66438c48463525f7a10,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595265915519236243, guid: e99a37f40cf2f66438c48463525f7a10,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9999598
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595265915519236243, guid: e99a37f40cf2f66438c48463525f7a10,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595265915519236243, guid: e99a37f40cf2f66438c48463525f7a10,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595265915519236243, guid: e99a37f40cf2f66438c48463525f7a10,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595265915519236243, guid: e99a37f40cf2f66438c48463525f7a10,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595265915519236243, guid: e99a37f40cf2f66438c48463525f7a10,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 9.546301
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595265915519236243, guid: e99a37f40cf2f66438c48463525f7a10,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595265915519236243, guid: e99a37f40cf2f66438c48463525f7a10,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 9.546305
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e99a37f40cf2f66438c48463525f7a10, type: 3}
 --- !u!1 &213959642
 GameObject:
   m_ObjectHideFlags: 0
@@ -2707,7 +2791,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &242997192
 GameObject:
@@ -3451,7 +3535,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &306470727
 GameObject:
@@ -4975,7 +5059,7 @@ PrefabInstance:
     - target: {fileID: 6181636107476044762, guid: 4bd175c64a5b8684aa12b241844767b3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6181636107476044762, guid: 4bd175c64a5b8684aa12b241844767b3,
         type: 3}
@@ -11584,7 +11668,7 @@ RectTransform:
   - {fileID: 1077734314}
   - {fileID: 738997240}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11607,8 +11691,11 @@ MonoBehaviour:
   modelSystems:
   - title: Modulo 1
     nameModel: 1
-    description: "Descipc\xF3n del modulo. Aqui va a ir una descripcion de que es
-      cada modulo y como funciona."
+    description: "Este m\xF3dulo se encarga de suministrar energ\xEDa y neutro a los
+      dem\xE1s m\xF3dulos del simulador.\r\nSuministra la L\xEDnea 1 del sistema con
+      127 Volts. \r\nEste m\xF3dulo cuenta con 6 bornes de conexi\xF3n, de los cuales,
+      3 est\xE1n dedicados a la suministraci\xF3n de L\xEDnea y los otros 3 a la suministraci\xF3n
+      de neutro.\r\n"
     isWeaponEffect: 0
     modelSystemGO: {fileID: 100000, guid: ccc8c32bf918fd84cb219a97cf65d793, type: 3}
     modelPosition: {x: 3, y: 3, z: 10}
@@ -11616,8 +11703,13 @@ MonoBehaviour:
     modelScale: {x: 1, y: 1, z: 1}
   - title: Modulo 2
     nameModel: 2
-    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
-      es cada modulo y como funciona."
+    description: "Este m\xF3dulo est\xE1 compuesto de dos botones de paso de corriente.
+      El m\xF3dulo inicia su funcionamiento encontr\xE1ndose activado el bot\xF3n
+      rojo, es decir, dejando pasar corriente desde el borne com\xFAn hacia el borne
+      normalmente cerrado.\r\nCuando se presiona el bot\xF3n verde, el borne normalmente
+      cerrado se abre y deja de recibir energ\xEDa del borne com\xFAn. Al mismo tiempo
+      el borne normalmente abierto se cierra y recibe energ\xEDa del borne com\xFAn.\r\nEste
+      equipo soporta trabajar hasta con 320 Volts.\r\n"
     isWeaponEffect: 0
     modelSystemGO: {fileID: 100000, guid: 41f58192ebeabc240a546f38836dc051, type: 3}
     modelPosition: {x: 3, y: 3, z: 10}
@@ -11625,8 +11717,12 @@ MonoBehaviour:
     modelScale: {x: 1, y: 1, z: 1}
   - title: Modulo 3
     nameModel: 3
-    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
-      es cada modulo y como funciona."
+    description: "Este m\xF3dulo est\xE1 compuesto por un tr\xEDo de pares de contractores
+      (uno normalmente cerrado y otro normalmente abierto) y su bot\xF3n de cambio
+      respectivo.\r\nCuando el bot\xF3n se encuentra desactivado (Sin iluminar), el
+      contractor normalmente cerrado y abierto se encuentran en su estado inicial.
+      Sin embargo, si el bot\xF3n se energiza los contractares cambian al estado contrario.\r\nEste
+      equipo soporta trabajar hasta con 320 Volts.\r\n"
     isWeaponEffect: 0
     modelSystemGO: {fileID: 100000, guid: e8b67ee3dc661b343b11f8122a323d89, type: 3}
     modelPosition: {x: 3, y: 3, z: 10}
@@ -11634,8 +11730,14 @@ MonoBehaviour:
     modelScale: {x: 1, y: 1, z: 1}
   - title: Modulo 4
     nameModel: 4
-    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
-      es cada modulo y como funciona."
+    description: "Este m\xF3dulo es un m\xF3dulo indicador mediante luces indicadoras.
+      Este m\xF3dulo est\xE1 compuesto por un par de focos indicadores, uno de color
+      verde y otro de color amarillo.\r\nEstos focos indicadores debido a tener polaridad
+      necesitan se energizado mediante una l\xEDnea y un neutro, de la manera tal
+      cual se indica.\r\nCuando el bot\xF3n se encuentra desactivado (Sin iluminar),
+      el contractor normalmente cerrado y abierto se encuentran en su estado inicial.
+      Sin embargo, si el bot\xF3n se energiza los contractares cambian al estado contrario.\r\nEste
+      equipo soporta trabajar hasta con 320 Volts.\r\n"
     isWeaponEffect: 0
     modelSystemGO: {fileID: 100000, guid: a03e1fe6515a0b244b7506429e42cf78, type: 3}
     modelPosition: {x: 3, y: 3, z: 10}
@@ -11643,8 +11745,9 @@ MonoBehaviour:
     modelScale: {x: 1, y: 1, z: 1}
   - title: Modulo 5
     nameModel: 5
-    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
-      es cada modulo y como funciona."
+    description: "Este m\xF3dulo es un medidor de voltaje, su funci\xF3n es indicar
+      la cantidad de voltaje (diferencia de voltaje) existente entre dos pares de
+      conexiones.\r\nEste medidor puede realizar mediciones de 0 Volts hasta 250 Volts.\r\n"
     isWeaponEffect: 0
     modelSystemGO: {fileID: -927199367670048503, guid: ef88a7c7f61c28d4dbe45654974177d8,
       type: 3}
@@ -11653,8 +11756,13 @@ MonoBehaviour:
     modelScale: {x: 1, y: 1, z: 1}
   - title: Modulo 6, 12
     nameModel: 6
-    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
-      es cada modulo y como funciona."
+    description: "Este m\xF3dulo es un temporizador on-delay (Retraso de energizaci\xF3n
+      a la carga). Estos son temporizadores que inicial su conteo o retardo de tiempo
+      para hacer cambiar sus contactos en el mismo instante en que su bobina es energizada.\r\nOn-delay
+      (Punta de flecha para arriba - Retardo al energizar) significa que una vez que
+      un timer ha recibido una se\xF1al de encendido, su salida cambiar\xE1 de estado
+      despu\xE9s de un retardo predeterminado.\r\nEste m\xF3dulo puede establecerse
+      desde los 0 segundos hasta 40 segundos, en el temporizador.\r\n"
     isWeaponEffect: 0
     modelSystemGO: {fileID: 100000, guid: a634cffc3990c524ea02433dc0b4e5eb, type: 3}
     modelPosition: {x: 3, y: 3, z: 10}
@@ -11662,8 +11770,13 @@ MonoBehaviour:
     modelScale: {x: 1, y: 1, z: 1}
   - title: Modulo 7
     nameModel: 7
-    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
-      es cada modulo y como funciona."
+    description: "Este m\xF3dulo es un temporizador off-delay (Retraso de desenergizaci\xF3n
+      a la carga). Estos son temporizadores que inicial su conteo o retardo de tiempo
+      para hacer cambiar sus contactos en el mismo instante en que su bobina es desenergizada.\r\nOff-delay
+      (Punta de flecha para abajo - Retardo al desenergizar) significa que cambiar\xE1
+      de estado un tiempo predeterminado despu\xE9s que el time haya recibido la se\xF1al
+      de apagar.\r\nEste m\xF3dulo puede establecerse desde los 0.1 segundos hasta
+      30 segundos, en el temporizador.\r\n"
     isWeaponEffect: 0
     modelSystemGO: {fileID: -927199367670048503, guid: 67d80975d7a113a4d9605e4023e2df18,
       type: 3}
@@ -11672,8 +11785,14 @@ MonoBehaviour:
     modelScale: {x: 1, y: 1, z: 1}
   - title: Modulo 8, 11
     nameModel: 8, 11
-    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
-      es cada modulo y como funciona."
+    description: "Este m\xF3dulo es un guardamotor. \r\nUn guardamotor es un interruptor
+      magnetot\xE9rmico, especialmente dise\xF1ado para la protecci\xF3n de motores
+      el\xE9ctricos. Este dise\xF1o especial proporciona al dispositivo una curva
+      de disparo que lo hace m\xE1s robusto frente a las sobreintensidades transitorias
+      t\xEDpicas de los arranques de los motores. El disparo magn\xE9tico es equivalente
+      al de otros interruptores autom\xE1ticos pero el disparo t\xE9rmico se produce
+      con una intensidad y tiempo mayores. Su curva caracter\xEDstica se denomina
+      D o K.\r\n"
     isWeaponEffect: 0
     modelSystemGO: {fileID: -927199367670048503, guid: 518ad8d144485914cb323d27d16807ac,
       type: 3}
@@ -11682,8 +11801,14 @@ MonoBehaviour:
     modelScale: {x: 1, y: 1, z: 1}
   - title: Modulo 9
     nameModel: 9
-    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
-      es cada modulo y como funciona."
+    description: "Este m\xF3dulo es un m\xF3dulo indicador mediante luces indicadoras.
+      Este m\xF3dulo est\xE1 compuesto por 6 luces indicadoras de color azul.\r\nEstos
+      focos indicadores debido a tener polaridad necesitan se energizado mediante
+      una l\xEDnea y un neutro, de la manera tal cual se indica.\r\nCuando el bot\xF3n
+      se encuentra desactivado (Sin iluminar), el contractor normalmente cerrado y
+      abierto se encuentran en su estado inicial. Sin embargo, si el bot\xF3n se energiza
+      los contractares cambian al estado contrario.\r\nEste equipo soporta trabajar
+      hasta con 320 Volts.\r\n"
     isWeaponEffect: 0
     modelSystemGO: {fileID: 100000, guid: d0ae01b8e3427d149a54b578500800fd, type: 3}
     modelPosition: {x: 3, y: 3, z: 10}
@@ -11691,8 +11816,12 @@ MonoBehaviour:
     modelScale: {x: 1, y: 1, z: 1}
   - title: Modulo 10, 17, 18, 19
     nameModel: 10, 17, 18, 19
-    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
-      es cada modulo y como funciona."
+    description: "Este m\xF3dulo est\xE1 compuesto por un tr\xEDo de pares de contractores
+      (uno normalmente cerrado y otro normalmente abierto) y su bobina de cambio respectivo.\r\nCuando
+      la bobina se encuentra desenergizada, el contractor normalmente cerrado y abierto
+      se encuentran en su estado inicial. Sin embargo, si el bot\xF3n se energiza
+      los contractares cambian al estado contrario.\r\nEste equipo soporta trabajar
+      hasta con 320 Volts.\r\n"
     isWeaponEffect: 0
     modelSystemGO: {fileID: 100000, guid: 6adf574545f4218488b6b94249e71008, type: 3}
     modelPosition: {x: 3, y: 3, z: 10}
@@ -11700,8 +11829,11 @@ MonoBehaviour:
     modelScale: {x: 1, y: 1, z: 1}
   - title: Modulo 13
     nameModel: 13
-    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
-      es cada modulo y como funciona."
+    description: "Este m\xF3dulo es una unidad auxiliar de contractores, es decir,
+      brinda la utilizaci\xF3n de 4 contractores normalmente cerrados y 4 contractores
+      normalmente abiertos.\r\nCuando la bobina de este m\xF3dulo es energizada el
+      estado de los contractores cambia a su estado contrario. \r\nEste equipo soporta
+      trabajar hasta con 320 Volts.\r\n"
     isWeaponEffect: 0
     modelSystemGO: {fileID: 100000, guid: 1c78066f0cc3d5b47bb1a3b2246e2322, type: 3}
     modelPosition: {x: 3, y: 3, z: 10}
@@ -11709,8 +11841,12 @@ MonoBehaviour:
     modelScale: {x: 1, y: 1, z: 1}
   - title: Modulo 14, 16
     nameModel: 14, 16
-    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
-      es cada modulo y como funciona."
+    description: "Este m\xF3dulo est\xE1 compuesto por un tr\xEDo de pares de contractores
+      (uno normalmente cerrado y otro normalmente abierto) y su bobina de cambio respectivo.\r\nCuando
+      la bobina se encuentra desenergizada, el contractor normalmente cerrado y abierto
+      se encuentran en su estado inicial. Sin embargo, si el bot\xF3n se energiza
+      los contractares cambian al estado contrario.\r\nEste equipo soporta trabajar
+      hasta con 320 Volts.\r\n"
     isWeaponEffect: 0
     modelSystemGO: {fileID: 100000, guid: 2134c314f5c8b56468f17c94c3e7dbd7, type: 3}
     modelPosition: {x: 3, y: 3, z: 10}
@@ -11718,8 +11854,14 @@ MonoBehaviour:
     modelScale: {x: 1, y: 1, z: 1}
   - title: Modulo 15
     nameModel: 15
-    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
-      es cada modulo y como funciona."
+    description: "Este m\xF3dulo se encarga de suministrar energ\xEDa por medio de
+      diferentes l\xEDneas. De manera puntual existen tres l\xEDneas de conexi\xF3n,
+      es decir, que trabaja mediante corriente trif\xE1sica a 220 Volts.\r\nEste m\xF3dulo
+      cuenta con 9 bornes de conexi\xF3n, de los cuales, 3 est\xE1n dedicados a la
+      suministraci\xF3n de L\xEDnea 1, 3 est\xE1n dedicados a la suministraci\xF3n
+      de L\xEDnea 2 y los otros 3 est\xE1n dedicados a la suministraci\xF3n de L\xEDnea
+      3.\r\nCabe mencionar que la L\xEDnea 1 de este m\xF3dulo es la misma que la
+      del m\xF3dulo 1.\r\n"
     isWeaponEffect: 0
     modelSystemGO: {fileID: 100000, guid: a47ec56129d97e946afd77c9e7644519, type: 3}
     modelPosition: {x: 3, y: 3, z: 10}
@@ -11727,8 +11869,10 @@ MonoBehaviour:
     modelScale: {x: 1, y: 1, z: 1}
   - title: Modulo 20
     nameModel: 20
-    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
-      es cada modulo y como funciona."
+    description: "Este m\xF3dulo es el panel de control del motor 1. Este m\xF3dulo
+      cuenta con 9 bornes de conexi\xF3n, los cuales se utilizan para controlar el
+      funcionamiento de velocidad, encendido y apagado, entre otros par\xE1metros
+      del funcionamiento del motor 1, de acuerdo a la configuraci\xF3n de las conexiones."
     isWeaponEffect: 0
     modelSystemGO: {fileID: 100000, guid: a76eaf78cf2721b4cb493c2b427277f0, type: 3}
     modelPosition: {x: 3, y: 3, z: 10}
@@ -11736,8 +11880,10 @@ MonoBehaviour:
     modelScale: {x: 1, y: 1, z: 1}
   - title: Modulo 21
     nameModel: 21
-    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
-      es cada modulo y como funciona."
+    description: "Este m\xF3dulo es el panel de control del motor 2. Este m\xF3dulo
+      cuenta con 9 bornes de conexi\xF3n, los cuales se utilizan para controlar el
+      funcionamiento de velocidad, encendido y apagado, entre otros par\xE1metros
+      del funcionamiento del motor 2, de acuerdo a la configuraci\xF3n de las conexiones."
     isWeaponEffect: 0
     modelSystemGO: {fileID: 100000, guid: 9fe14597492278c45921a089e0d14854, type: 3}
     modelPosition: {x: 3, y: 3, z: 10}
@@ -11745,8 +11891,14 @@ MonoBehaviour:
     modelScale: {x: 1, y: 1, z: 1}
   - title: Modulo 22
     nameModel: 22
-    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
-      es cada modulo y como funciona."
+    description: "Este m\xF3dulo en conjunto con el m\xF3dulo 23, ejecutan la funci\xF3n
+      de un transformador el\xE9ctrico.\r\nSe denomina transformador a un elemento
+      el\xE9ctrico que permite aumentar o disminuir la tensi\xF3n en un circuito el\xE9ctrico
+      de corriente alterna, manteniendo la potencia. La potencia que ingresa al equipo,
+      en el caso de un transformador ideal (esto es, sin p\xE9rdidas), es igual a
+      la que se obtiene a la salida. Las m\xE1quinas reales presentan un peque\xF1o
+      porcentaje de p\xE9rdidas, dependiendo de su dise\xF1o y tama\xF1o, entre otros
+      factores.\r\n"
     isWeaponEffect: 0
     modelSystemGO: {fileID: -927199367670048503, guid: cc15e27c40e22df4abfbc7704ab7ef15,
       type: 3}
@@ -11755,8 +11907,14 @@ MonoBehaviour:
     modelScale: {x: 1, y: 1, z: 1}
   - title: Modulo 23
     nameModel: 23
-    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
-      es cada modulo y como funciona."
+    description: "Este m\xF3dulo en conjunto con el m\xF3dulo 22, ejecutan la funci\xF3n
+      de un transformador el\xE9ctrico.\r\nSe denomina transformador a un elemento
+      el\xE9ctrico que permite aumentar o disminuir la tensi\xF3n en un circuito el\xE9ctrico
+      de corriente alterna, manteniendo la potencia. La potencia que ingresa al equipo,
+      en el caso de un transformador ideal (esto es, sin p\xE9rdidas), es igual a
+      la que se obtiene a la salida. Las m\xE1quinas reales presentan un peque\xF1o
+      porcentaje de p\xE9rdidas, dependiendo de su dise\xF1o y tama\xF1o, entre otros
+      factores.\r\n"
     isWeaponEffect: 0
     modelSystemGO: {fileID: -927199367670048503, guid: cb9a25c9bc516e441866b1b1182bf556,
       type: 3}
@@ -11765,8 +11923,11 @@ MonoBehaviour:
     modelScale: {x: 1, y: 1, z: 1}
   - title: Potenciometro
     nameModel: Potenciometro
-    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
-      es cada modulo y como funciona."
+    description: "Este m\xF3dulo es un potenci\xF3metro. Un potenci\xF3metro es uno
+      de los dos usos que posee la resistencia o resistor variable mec\xE1nica (con
+      cursor y de al menos tres terminales). El usuario al manipularlo, obtiene entre
+      el terminal central (cursor) y uno de los extremos una fracci\xF3n de la diferencia
+      de potencial total, se comporta como un divisor de tensi\xF3n o voltaje."
     isWeaponEffect: 0
     modelSystemGO: {fileID: 100030, guid: bb38d14ba55496e42871b676bb4f4a60, type: 3}
     modelPosition: {x: 3, y: 3, z: 10}
@@ -11774,8 +11935,23 @@ MonoBehaviour:
     modelScale: {x: 1, y: 1, z: 1}
   - title: MotorElectricoAC1
     nameModel: MotorElectricoAC1
-    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
-      es cada modulo y como funciona."
+    description: "Este m\xF3dulo es un motor trif\xE1sico de corriente alterna. Este
+      motor sigue las especificaciones de funcionamiento del mismo tipo de motor que
+      se encuentra en el laboratorio de control secuencial en Centro Universitario
+      de Ciencia Exacta e Ingenier\xEDa (CUCEI). Este motor tiene una velocidad m\xE1xima
+      de 1750 rpm, opera con un voltaje m\xEDnimo de 40 Volts y un voltaje m\xE1ximo
+      de 250 volts.\r\nEste motor se opera mediante las conexiones realizadas al m\xF3dulo
+      20 de este simulador.\r\nUn motor trif\xE1sico es una m\xE1quina el\xE9ctrica
+      rotativa, capaz de convertir la energ\xEDa el\xE9ctrica trif\xE1sica suministrada,
+      en energ\xEDa mec\xE1nica. La energ\xEDa el\xE9ctrica trif\xE1sica origina campos
+      magn\xE9ticos rotativos en el bobinado del estator lo que provoca que el arranque
+      de estos motores no necesite circuito auxiliar, son m\xE1s peque\xF1os y livianos
+      que uno monof\xE1sico de inducci\xF3n de la misma potencia, debido a esto su
+      fabricaci\xF3n representa un costo menor.\r\nLos motores el\xE9ctricos trif\xE1sicos,
+      se fabrican en las m\xE1s diversas potencias, desde una fracci\xF3n de caballo
+      hasta varios miles de caballos de fuerza (HP), se los construye para pr\xE1cticamente,
+      todas las tensiones y frecuencias (50 y 60 Hz) normalizadas y muy a menudo,
+      est\xE1n equipados para trabajar a dos tensiones nominales distintas.\r\n"
     isWeaponEffect: 0
     modelSystemGO: {fileID: -927199367670048503, guid: 896d1196af6bb0a46bac7ed6663db850,
       type: 3}
@@ -11784,23 +11960,55 @@ MonoBehaviour:
     modelScale: {x: 3.5, y: 3.5, z: 3.5}
   - title: MotorElectricoAC2
     nameModel: MotorElectricoAC2
-    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
-      es cada modulo y como funciona."
+    description: "Este m\xF3dulo es un motor trif\xE1sico de corriente alterna. Este
+      motor sigue las especificaciones de funcionamiento del mismo tipo de motor que
+      se encuentra en el laboratorio de control secuencial en Centro Universitario
+      de Ciencia Exacta e Ingenier\xEDa (CUCEI). Este motor tiene una velocidad m\xE1xima
+      de 1750 rpm, opera con un voltaje m\xEDnimo de 40 Volts y un voltaje m\xE1ximo
+      de 250 volts.\r\nEste motor se opera mediante las conexiones realizadas al m\xF3dulo
+      21 de este simulador.\r\nUn motor trif\xE1sico es una m\xE1quina el\xE9ctrica
+      rotativa, capaz de convertir la energ\xEDa el\xE9ctrica trif\xE1sica suministrada,
+      en energ\xEDa mec\xE1nica. La energ\xEDa el\xE9ctrica trif\xE1sica origina campos
+      magn\xE9ticos rotativos en el bobinado del estator lo que provoca que el arranque
+      de estos motores no necesite circuito auxiliar, son m\xE1s peque\xF1os y livianos
+      que uno monof\xE1sico de inducci\xF3n de la misma potencia, debido a esto su
+      fabricaci\xF3n representa un costo menor.\r\nLos motores el\xE9ctricos trif\xE1sicos,
+      se fabrican en las m\xE1s diversas potencias, desde una fracci\xF3n de caballo
+      hasta varios miles de caballos de fuerza (HP), se los construye para pr\xE1cticamente,
+      todas las tensiones y frecuencias (50 y 60 Hz) normalizadas y muy a menudo,
+      est\xE1n equipados para trabajar a dos tensiones nominales distintas.\r\n"
     isWeaponEffect: 0
     modelSystemGO: {fileID: -927199367670048503, guid: ff83c82897448894f893f58892d18bc2,
       type: 3}
     modelPosition: {x: 2.9, y: 0.6, z: 10}
     modelRotation: {x: 0, y: -116, z: 0}
     modelScale: {x: 3.5, y: 3.5, z: 3.5}
-  - title: "Estaci\xF3n de control secuencial"
+  - title: "Estaci\U000EE8E4e control secuencial"
     nameModel: V0.1 - Aparato Control Secuencial
-    description: "Descipc\U000EE8E4el modulo. Aqui va a ir una descripcion de que
-      es cada modulo y como funciona."
+    description: "Este modelo representa la estructura principal del simulador, en
+      esta estructura es donde se encuentran cableados todos los m\xF3dulos del simulador.
+      \r\nEste modelo de estructura fue tomado como base de acuerdo al existente en
+      el laboratorio de control secuencial en Centro Universitario de Ciencia Exacta
+      e Ingenier\xEDa (CUCEI). \r\n"
     isWeaponEffect: 0
     modelSystemGO: {fileID: 100082, guid: 98659572095f1974f8f334637fa9459e, type: 3}
     modelPosition: {x: 1.5, y: 0, z: 9}
     modelRotation: {x: 0, y: 90, z: 0}
     modelScale: {x: 0.6, y: 0.5, z: 0.6}
+  - title: Multiconector
+    nameModel: Multiconector
+    description: "Este m\xF3dulo es una unidad de multiconexiones. Es decir, que sirve
+      para poder distribuir en diferentes bornes de conexi\xF3n las caracter\xEDsticas
+      de una conexi\xF3n entrante en el borne central de cada conjunto de multiconexi\xF3n.\r\nCabe
+      mencionar, que \xFAnicamente se distribuyen las caracter\xEDsticas del borne
+      central al resto de los 8 bornes. Por tal motivo NO distribuye las caracter\xEDsticas
+      de conexi\xF3n de ninguno de los dem\xE1s bornes.\r\n"
+    isWeaponEffect: 0
+    modelSystemGO: {fileID: -927199367670048503, guid: e0b610fcdecf6ba488b0e98f9ea64187,
+      type: 3}
+    modelPosition: {x: 3, y: 3, z: 10}
+    modelRotation: {x: 0, y: 0, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
   gunGameObject: {fileID: 1547811597}
   BackgroundImage: {fileID: 1077734313}
   hideBackgroundImage: 1
@@ -14229,6 +14437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc997a6468b3484fb1dc2380fa842f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  modulos: {fileID: 0}
   menuOpen: 0
   saverManager: {fileID: 0}
   currentLevelName: MenuShowModule
@@ -17836,7 +18045,7 @@ Transform:
   - {fileID: 1637003723}
   - {fileID: 1427767288}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1363003822
 GameObject:
@@ -19364,7 +19573,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1483215957
 GameObject:
@@ -20166,7 +20375,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1574598836
 GameObject:
@@ -21336,7 +21545,7 @@ Transform:
   m_Children:
   - {fileID: 1015100563}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1609200092
 GameObject:
@@ -23637,7 +23846,7 @@ Transform:
   m_Children:
   - {fileID: 1033700481}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1736930803
 GameObject:
@@ -23924,7 +24133,7 @@ Transform:
   - {fileID: 1185268627}
   - {fileID: 1908232632}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1750199216
 GameObject:
@@ -25780,7 +25989,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1880027038
 GameObject:
@@ -27541,7 +27750,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2002433233
 GameObject:
