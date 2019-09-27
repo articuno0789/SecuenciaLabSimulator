@@ -67,66 +67,74 @@ public class OpenClosePerillas : MonoBehaviour
      si el valor introducido cumple con las especificaciones del componente.*/
     public void ValidateValueKnob()
     {
-        if (debug)
+        if (inputFieldCurrentValue != null && textInfoValueKnob != null)
         {
-            Debug.Log(inputFieldCurrentValue.text + ": " + Regex.IsMatch(inputFieldCurrentValue.text, AuxiliarModulos.expreRegNumerosReales).ToString());
-        }
-        //Comprobar si el valor introducido no es un número real.
-        if (!Regex.IsMatch(inputFieldCurrentValue.text, AuxiliarModulos.expreRegNumerosReales))
-        {
-            inputFieldCurrentValue.text = "0.0";
-            buttonSetValueKnob.enabled = false;
-        }
-        /*Si entra en este caso la entrada es un número real, pero hay que 
-         * comprobar si esta dentro de los límites de cada perilla.*/
-        else
-        {
-            float limiteMinimo = 0.0f;
-            float limiteMaximo = 0.0f;
-            float valorCampoTexto = float.Parse(inputFieldCurrentValue.text);
-
-            //Determinar los límites de los diferentes modulos con perilla.
-            if (padreTotal != null && Regex.IsMatch(padreTotal.name, AuxiliarModulos.expreRegMod6))
-            {
-                Modulo6 mod6 = padreTotal.GetComponent<Modulo6>();
-                limiteMinimo = mod6.valorMinimoPerilla;
-                limiteMaximo = mod6.valorMaximoPerilla;
-            }
-            else if (padreTotal != null && Regex.IsMatch(padreTotal.name, AuxiliarModulos.expreRegMod7))
-            {
-                Modulo7 mod7 = padreTotal.GetComponent<Modulo7>();
-                limiteMinimo = mod7.valorMinimoPerilla;
-                limiteMaximo = mod7.valorMaximoPerilla;
-            }
-            else if (Regex.IsMatch(padreTotal.name, AuxiliarModulos.expreRegModPotenciometro))
-            {
-                Potenciometro modPoten = padreTotal.GetComponent<Potenciometro>();
-                limiteMinimo = modPoten.valorMinimoPerilla;
-                limiteMaximo = modPoten.valorMaximoPerilla;
-            }
             if (debug)
             {
-                Debug.Log("void ValidateValueKnob() - valorCampoTexto: " + valorCampoTexto + ", limiteMinimo: " + limiteMinimo + ", limiteMaximo: " + limiteMaximo + ", " + padreTotal);
+                Debug.Log(inputFieldCurrentValue.text + ": " + Regex.IsMatch(inputFieldCurrentValue.text, AuxiliarModulos.expreRegNumerosReales).ToString());
             }
-            /*Establecer los difernes mensajes de notificación de acuerdo cada situación.*/
-            if (padreTotal != null && valorCampoTexto < limiteMinimo) // El valor es menor al mínimo permitido.
+            //Comprobar si el valor introducido no es un número real.
+            if (!Regex.IsMatch(inputFieldCurrentValue.text, AuxiliarModulos.expreRegNumerosReales))
             {
                 inputFieldCurrentValue.text = "0.0";
-                textInfoValueKnob.text = "Información: Error. El valor introducido es menor al limite mínimo de la perilla.";
                 buttonSetValueKnob.enabled = false;
+                Debug.LogError(this.name + ", Error. void ValidateValueKnob() - El valor introducido no es un número real.");
             }
+            /*Si entra en este caso la entrada es un número real, pero hay que 
+             * comprobar si esta dentro de los límites de cada perilla.*/
             else
-            if (padreTotal != null && valorCampoTexto > limiteMaximo)// El valor es mayor al máximo permitido.
             {
-                inputFieldCurrentValue.text = "0.0";
-                textInfoValueKnob.text = "Información: Error. El valor introducido es mayor al limite máximo de la perilla.";
-                buttonSetValueKnob.enabled = false;
+                float limiteMinimo = 0.0f;
+                float limiteMaximo = 0.0f;
+                float valorCampoTexto = float.Parse(inputFieldCurrentValue.text);
+
+                //Determinar los límites de los diferentes modulos con perilla.
+                if (padreTotal != null && Regex.IsMatch(padreTotal.name, AuxiliarModulos.expreRegMod6))
+                {
+                    Modulo6 mod6 = padreTotal.GetComponent<Modulo6>();
+                    limiteMinimo = mod6.valorMinimoPerilla;
+                    limiteMaximo = mod6.valorMaximoPerilla;
+                }
+                else if (padreTotal != null && Regex.IsMatch(padreTotal.name, AuxiliarModulos.expreRegMod7))
+                {
+                    Modulo7 mod7 = padreTotal.GetComponent<Modulo7>();
+                    limiteMinimo = mod7.valorMinimoPerilla;
+                    limiteMaximo = mod7.valorMaximoPerilla;
+                }
+                else if (Regex.IsMatch(padreTotal.name, AuxiliarModulos.expreRegModPotenciometro))
+                {
+                    Potenciometro modPoten = padreTotal.GetComponent<Potenciometro>();
+                    limiteMinimo = modPoten.valorMinimoPerilla;
+                    limiteMaximo = modPoten.valorMaximoPerilla;
+                }
+                if (debug)
+                {
+                    Debug.Log("void ValidateValueKnob() - valorCampoTexto: " + valorCampoTexto + ", limiteMinimo: " + limiteMinimo + ", limiteMaximo: " + limiteMaximo + ", " + padreTotal);
+                }
+                /*Establecer los difernes mensajes de notificación de acuerdo cada situación.*/
+                if (padreTotal != null && valorCampoTexto < limiteMinimo) // El valor es menor al mínimo permitido.
+                {
+                    inputFieldCurrentValue.text = "0.0";
+                    textInfoValueKnob.text = "Información: Error. El valor introducido es menor al limite mínimo de la perilla.";
+                    buttonSetValueKnob.enabled = false;
+                }
+                else
+                if (padreTotal != null && valorCampoTexto > limiteMaximo)// El valor es mayor al máximo permitido.
+                {
+                    inputFieldCurrentValue.text = "0.0";
+                    textInfoValueKnob.text = "Información: Error. El valor introducido es mayor al limite máximo de la perilla.";
+                    buttonSetValueKnob.enabled = false;
+                }
+                else // El valor esta dentro de los límites adecuados.
+                {
+                    textInfoValueKnob.text = "Información: OK";
+                    buttonSetValueKnob.enabled = true;
+                }
             }
-            else // El valor esta dentro de los límites adecuados.
-            {
-                textInfoValueKnob.text = "Información: OK";
-                buttonSetValueKnob.enabled = true;
-            }
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. void ValidateValueKnob() - inputFieldCurrentValue o textInfoValueKnob es nulo.");
         }
     }
 
@@ -136,59 +144,94 @@ public class OpenClosePerillas : MonoBehaviour
     {
         ClickDetector clickDetector = player.GetComponent<ClickDetector>();
         GameObject module = clickDetector.lastClickedGmObj;
-        EncontrarPadreTotal(module);
-        //module = padreTotal;
-        if (debug)
+        if(module != null)
         {
-            Debug.Log("Entra al LookAt-------------------");
-            Debug.Log("transform.position.x: " + transform.position.x +
-                ", transform.position.y: " + transform.position.y +
-                ", transform.position.z: " + transform.position.z);
-        }
-        Vector3 targetPosition = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
-        panel.transform.LookAt(targetPosition);
-        panel.transform.rotation = player.transform.rotation;
-        Vector3 menuPosition = new Vector3(module.transform.position.x, module.transform.position.y + 2, module.transform.position.z + 0);
-        panel.transform.position = menuPosition;
-        //Se muestra en el panel el valor mínimo y máximo de ese componente.
-        if (padreTotal != null && currentModuleSelected != null)
-        {
-            currentModuleSelected.text = "Seleccionado: Perilla del modulo " + padreTotal.name;
-            textInfoValueKnob.text = "Información: OK";
-            if (Regex.IsMatch(padreTotal.name, AuxiliarModulos.expreRegMod6))
+            EncontrarPadreTotal(module);
+            //module = padreTotal;
+            if (debug)
             {
-                Modulo6 mod6 = padreTotal.GetComponent<Modulo6>();
-                minMaxKnobRange.text = "Valor [Min Max]: " + mod6.valorMinimoPerilla + " - " + mod6.valorMaximoPerilla;
-                inputFieldCurrentValue.text = mod6.valorActualPerilla + "";
-                ValidateValueKnob();
+                Debug.Log("Entra al LookAt-------------------");
+                Debug.Log("transform.position.x: " + transform.position.x +
+                    ", transform.position.y: " + transform.position.y +
+                    ", transform.position.z: " + transform.position.z);
             }
-            else if (Regex.IsMatch(padreTotal.name, AuxiliarModulos.expreRegMod7))
+            if(panel!=null && player != null)
             {
-                Modulo7 mod7 = padreTotal.GetComponent<Modulo7>();
-                minMaxKnobRange.text = "Valor [Min Max]: " + mod7.valorMinimoPerilla + " - " + mod7.valorMaximoPerilla;
-                inputFieldCurrentValue.text = mod7.valorActualPerilla + "";
-                ValidateValueKnob();
-            }
-            else if (Regex.IsMatch(padreTotal.name, AuxiliarModulos.expreRegModPotenciometro))
-            {
-                Potenciometro modPoten = padreTotal.GetComponent<Potenciometro>();
-                minMaxKnobRange.text = "Valor [Min Max]: " + modPoten.valorMinimoPerilla + " - " + modPoten.valorMaximoPerilla;
-                inputFieldCurrentValue.text = modPoten.valorActualPerilla + "";
-                ValidateValueKnob();
-            }
-        }
-        //Aparece o desaparece el panl bajandole o subiendo la opacidad.
-        if(panel != null)
-        {
-            CanvasGroup canvasGP = panel.GetComponent<CanvasGroup>();
-            if(canvasGP.alpha == 1)
-            {
-                canvasGP.alpha = 0;
+                Vector3 targetPosition = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
+                panel.transform.LookAt(targetPosition);
+                panel.transform.rotation = player.transform.rotation;
+                Vector3 menuPosition = new Vector3(module.transform.position.x, module.transform.position.y + 2, module.transform.position.z + 0);
+                panel.transform.position = menuPosition;
             }
             else
             {
-                canvasGP.alpha = 1;
+                Debug.LogError(this.name + ", void OpenCloseMenuSetValueKnob() - El panel o el player es nulo.");
             }
+            //Se muestra en el panel el valor mínimo y máximo de ese componente.
+            if (padreTotal != null && currentModuleSelected != null)
+            {
+                currentModuleSelected.text = "Seleccionado: Perilla del modulo " + padreTotal.name;
+                textInfoValueKnob.text = "Información: OK";
+                if (Regex.IsMatch(padreTotal.name, AuxiliarModulos.expreRegMod6))
+                {
+                    Modulo6 mod6 = padreTotal.GetComponent<Modulo6>();
+                    if (mod6 != null)
+                    {
+                        minMaxKnobRange.text = "Valor [Min Max]: " + mod6.valorMinimoPerilla + " - " + mod6.valorMaximoPerilla;
+                        inputFieldCurrentValue.text = mod6.valorActualPerilla + "";
+                        ValidateValueKnob();
+                    }
+                    else
+                    {
+                        Debug.LogError(this.name + ", void OpenCloseMenuSetValueKnob() - El módulo no tiene lógica de módulo 6.");
+                    }
+                }
+                else if (Regex.IsMatch(padreTotal.name, AuxiliarModulos.expreRegMod7))
+                {
+                    Modulo7 mod7 = padreTotal.GetComponent<Modulo7>();
+                    if (mod7 != null)
+                    {
+                        minMaxKnobRange.text = "Valor [Min Max]: " + mod7.valorMinimoPerilla + " - " + mod7.valorMaximoPerilla;
+                        inputFieldCurrentValue.text = mod7.valorActualPerilla + "";
+                        ValidateValueKnob();
+                    }
+                    else
+                    {
+                        Debug.LogError(this.name + ", void OpenCloseMenuSetValueKnob() - El módulo no tiene lógica de módulo 7.");
+                    }
+                }
+                else if (Regex.IsMatch(padreTotal.name, AuxiliarModulos.expreRegModPotenciometro))
+                {
+                    Potenciometro modPoten = padreTotal.GetComponent<Potenciometro>();
+                    if (modPoten != null)
+                    {
+                        minMaxKnobRange.text = "Valor [Min Max]: " + modPoten.valorMinimoPerilla + " - " + modPoten.valorMaximoPerilla;
+                        inputFieldCurrentValue.text = modPoten.valorActualPerilla + "";
+                        ValidateValueKnob();
+                    }
+                    else
+                    {
+                        Debug.LogError(this.name + ", void OpenCloseMenuSetValueKnob() - El módulo no tiene lógica de potenciometro.");
+                    }
+                }
+            }
+            //Aparece o desaparece el panl bajandole o subiendo la opacidad.
+            if (panel != null)
+            {
+                CanvasGroup canvasGP = panel.GetComponent<CanvasGroup>();
+                if (canvasGP.alpha == 1)
+                {
+                    canvasGP.alpha = 0;
+                }
+                else
+                {
+                    canvasGP.alpha = 1;
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError(this.name + ", void OpenCloseMenuSetValueKnob() - El modulo recibido del clicdetector es nulo.");
         }
     }
 
