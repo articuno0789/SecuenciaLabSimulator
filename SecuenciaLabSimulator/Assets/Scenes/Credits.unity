@@ -1192,6 +1192,7 @@ MonoBehaviour:
     Musica:
 
 
+
     Coodinadores de proyecto: '
 --- !u!222 &384611292
 CanvasRenderer:
@@ -2473,7 +2474,14 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: skjadbskhadsnjadsnklsdmklasdkmlkmsldmkl-asldkmsadmlkdlskmakdsamk.dskjasdjdsadsjkjasdkjadskjsdkmm
+  m_Text: "Son muchas personas que han contribuido al proceso y conclusi\xF3n de este
+    trabajo. En primer lugar, queremos agradecerle a la Dra. Alejandra Santoyo, asesora
+    del proyecto: ella fue la primera que crey\xF3 en este proyecto, nos apoy\xF3
+    de manera personal e institucional y nos alent\xF3 para que se concluyera este
+    proyecto.\r\nAdem\xE1s, nos gustar\xEDa agradecer al Dr. Carlos L\xF3pez de Alba,
+    por sus ense\xF1anzas con respecto a las m\xE1quinas de control secuencial y por
+    tenernos paciencia para aprender acerca de los temas de mec\xE1nica el\xE9ctrica
+    relacionados con este simulador.\r\n"
 --- !u!222 &810505590
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3255,17 +3263,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5716ed79632cb54db10a5f2fa84e027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
-  minSpeed: -200
-  maxSpeed: 200
-  limiteMaximoCreditos: 2700
-  limiteMinimoCreditos: 0
-  pause: 0
-  finCreditos: 0
   elementsCredits: {fileID: 1019253248}
   navegationInstruction: {fileID: 682079023}
   loading: {fileID: 1760462371}
   mainMusic: {fileID: 899321682}
+  speed: 30
+  minSpeed: -200
+  maxSpeed: 200
+  pause: 0
+  finCreditos: 0
+  limiteMaximoCreditos: 2700
+  limiteMinimoCreditos: 0
+  nombreMenuRetorno: MainMenuPrueba
 --- !u!1 &1025211645
 GameObject:
   m_ObjectHideFlags: 0
@@ -5122,8 +5131,8 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "Cristian Castillo\n\nCristian Castillo\nAlex Salgado\n\nCristian Castillo\nAlex
     Salgado\n\nCristian Castillo\nAlex Salgado\n\nCristian Castillo\n\nCristian Castillo\nAlex
-    Salgado\n\n---------------\n\nDra. Alejandra Santoyo S\xE1nchez\r\nMtro. Carlos
-    L\xF3pez De Alba\r\n"
+    Salgado\n\nMas vale tarde que nunca - Robot\nAtr\xE1s - Nora Glitter\n\nDra. Alejandra
+    Santoyo S\xE1nchez\r\nMtro. Carlos L\xF3pez De Alba\r\n"
 --- !u!222 &1743248146
 CanvasRenderer:
   m_ObjectHideFlags: 0
