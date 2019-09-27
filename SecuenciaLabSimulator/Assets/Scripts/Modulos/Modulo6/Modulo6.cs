@@ -55,6 +55,7 @@ public class Modulo6 : MonoBehaviour
     #region Inicializacion
     private void Awake()
     {
+        //Inicialización de listas y diccionarios de elementos.
         plugsConnections = new Dictionary<string, string>();
         plugAnaranjadosDict = new Dictionary<string, GameObject>();
         plugNegrosDict = new Dictionary<string, GameObject>();
@@ -66,7 +67,7 @@ public class Modulo6 : MonoBehaviour
         InicializarComponentes(gameObject);
         if (moduloEncendido)
         {
-            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
+            EncenderApagarLuzRoja(true);
         }
         //Contractores
         IncializacionContractores("EntradaPlugAnaranjado2", "EntradaPlugAnaranjado3", false);
@@ -114,10 +115,19 @@ public class Modulo6 : MonoBehaviour
 
     void IncializacionContractores(string nPlug1, string nPlug2, bool cerrado)
     {
-        plugAnaranjadosDict[nPlug1].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nPlug2];
-        plugAnaranjadosDict[nPlug1].GetComponent<Plugs>().relacionCerrada = cerrado;
-        plugAnaranjadosDict[nPlug2].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nPlug1];
-        plugAnaranjadosDict[nPlug2].GetComponent<Plugs>().relacionCerrada = cerrado;
+        Plugs primerPlug = plugAnaranjadosDict[nPlug1].GetComponent<Plugs>();
+        Plugs segundoPlug = plugAnaranjadosDict[nPlug2].GetComponent<Plugs>();
+        if (primerPlug != null && segundoPlug != null)
+        {
+            primerPlug.plugRelacionado = plugAnaranjadosDict[nPlug2];
+            primerPlug.relacionCerrada = cerrado;
+            segundoPlug.plugRelacionado = plugAnaranjadosDict[nPlug1];
+            segundoPlug.relacionCerrada = cerrado;
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. IncializacionContractores(string nPlug1, string nPlug2, bool cerrado) - primerPlug o segundoPlug es nulo.");
+        }
     }
 
     private void InicializarComponentes(GameObject nodo)
@@ -184,13 +194,33 @@ public class Modulo6 : MonoBehaviour
             {
                 RotarPerillaPrueba();
             }
-            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
+            EncenderApagarLuzRoja(true);
             ComportamientoModulo();
         }
         else
         {
             //Hacer algo si el modulo esta apagado.
-            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ApagarFoco();
+            EncenderApagarLuzRoja(false);
+        }
+    }
+
+    void EncenderApagarLuzRoja(bool encendida)
+    {
+        LuzRoja luz = lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>();
+        if (luz != null)
+        {
+            if (encendida)
+            {
+                luz.EncenderFoco();
+            }
+            else
+            {
+                luz.ApagarFoco();
+            }
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. EncenderApagarLuz(bool encendida) - No se pudo obtener el componente LuzRoja.");
         }
     }
 
@@ -204,7 +234,8 @@ public class Modulo6 : MonoBehaviour
         {
             cuentaAtras = valorActualPerilla;
         }
-        if (lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugNegrosDict["EntradaPlugNegro1"]))
+        LuzRoja luzRoja = lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>();
+        if (luzRoja != null && luzRoja.ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugNegrosDict["EntradaPlugNegro1"]))
         {
             cuentaIniciada = true;
             if (!couroutineStarted && number <= cuentaAtras)
@@ -311,7 +342,8 @@ public class Modulo6 : MonoBehaviour
         couroutineStarted = false;
     }
 
-    void FuncionamientoContractorRojo(string nPlugConexionArribaCerrado, string nPlugConexionAbajoCerrado, bool conexionAbierta)
+    //Comportamiento sin uso
+    /*void FuncionamientoContractorRojo(string nPlugConexionArribaCerrado, string nPlugConexionAbajoCerrado, bool conexionAbierta)
     {
         Plugs plugConexionArribaCerrado = plugAnaranjadosDict[nPlugConexionArribaCerrado].GetComponent<Plugs>();
         Plugs plugConexionAbajoCerrado = plugAnaranjadosDict[nPlugConexionAbajoCerrado].GetComponent<Plugs>();
@@ -335,7 +367,7 @@ public class Modulo6 : MonoBehaviour
             }
         }
     }
-
+    */
 
     public void RotarPerilla()
     {
@@ -357,7 +389,7 @@ public class Modulo6 : MonoBehaviour
 
     public void RotarPerillaPrueba()
     {
-        Vector3 perillaRotation = UnityEditor.TransformUtils.GetInspectorRotation(perilla.gameObject.transform);
+        /*Vector3 perillaRotation = UnityEditor.TransformUtils.GetInspectorRotation(perilla.gameObject.transform);
         //Debug.Log("perillaRotation: " + perillaRotation);
         if (perillaRotation.z >= limiteGiroSuperiorPerilla && puederotar)
         {
@@ -380,7 +412,7 @@ public class Modulo6 : MonoBehaviour
             {
                 puederotar = true;
             }
-        }
+        }*/
     }
     #endregion
 
