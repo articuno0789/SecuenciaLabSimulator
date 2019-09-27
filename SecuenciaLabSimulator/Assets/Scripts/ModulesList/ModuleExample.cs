@@ -6,6 +6,7 @@ using UnityEngine;
 public class ModuleExample
 {
     #region Atributos
+    [Header("Atributos Módulo")]
     public string title;
     public string nameModule;
     [TextArea]
