@@ -13,29 +13,36 @@ public class ProgressManager : MonoBehaviour
 {
     #region Atributos
     //Variables
+    [Header("GUI - Interfaces Auxiliares")]
     public Material cableMaterial;
     public Dropdown dropdown;
     public GameObject panel;
     private GameObject padreTotal;
     private GameObject modulesList;
-    private GameObject[] saveModules;
-    //Variables
+    //Opciones de Guardado
+    [Header("Parametros de Guardado")]
     public string rutaGuardado;
     public string nombreArchivoGuardado = "";
+    //Cifrado
+    [Header("Parametros de cifrado")]
     public bool cifrar = false;
-    //Patrones Regex
-    private readonly string patronPlugAnaranjado = @"^EntradaPlugAnaranjado\d*$";
-    private readonly string patronPlugNegro = @"^EntradaPlugNegro\d*$";
-    //Constantes
-    private readonly int moduleLayer = 11; //La capa 11, equivale a la capa "Modulo"
     private readonly string palabraClave = "ProyectoModular";
     //Debug
+    [Header("Debug")]
     public bool debug = false;
     #endregion
 
     #region Inicializacion
     // Start is called before the first frame update
     void Start()
+    {
+        rutaGuardado = Path.Combine(Application.persistentDataPath, "SimulatorDataTest.txt");
+    }
+    #endregion
+
+    #region Comportamiento
+
+    void ConfirmarElemetosExternos()
     {
         if (dropdown == null)
         {
@@ -49,11 +56,8 @@ public class ProgressManager : MonoBehaviour
         {
             modulesList = GameObject.Find("ModulesGroup");
         }
-        rutaGuardado = Path.Combine(Application.persistentDataPath, "SimulatorDataTest.txt");
     }
-    #endregion
 
-    #region Comportamiento
     /*Este método se encarga de verificar las entradas por teclado.*/
     void Update()
     {
@@ -69,14 +73,14 @@ public class ProgressManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F3))//Se destrullen los módulos actuales del siulador y remplazarlos con modulos vaicos
         {
-            DestruirModulos();
-            CrearMaquinaVacia();
+            VaciarSimulador();
         }
     }
 
     //Se destrullen los módulos actuales del siulador y remplazarlos con modulos vaicos
     public void VaciarSimulador()
     {
+        ConfirmarElemetosExternos();
         DestruirModulos();
         CrearMaquinaVacia();
     }
@@ -129,6 +133,7 @@ public class ProgressManager : MonoBehaviour
 
     public void LoadSimulator(string path, string nameFile)
     {
+        ConfirmarElemetosExternos();
         string jsonString = ObtenerCadenaJson(path);
         JSONObject j = new JSONObject(jsonString);
         nombreArchivoGuardado = nameFile;
@@ -149,26 +154,33 @@ public class ProgressManager : MonoBehaviour
     {
         int posicionModulesList = 0;
         ModulesList modList = modulesList.GetComponent<ModulesList>();
-        int longitudModulos = AuxiliarModulos.numModSimulador;
-        for(int i=0; i< longitudModulos; i++)
+        if (modList != null)
         {
-            string tipoModulo = AuxiliarModulos.tagModVacio;
-            Vector3 posicion = modList.modulesGroup[i].modelPosition;
-            Vector3 vectorPosicion = posicion;
-            Vector3 vectorRotacion = new Vector3(0, 180, 0);
-            GameObject newModule = CrearNuevoModulo(tipoModulo, vectorPosicion, vectorRotacion, tipoModulo+"_"+i);
-            AsignacionRecursivaLogicaComponentes(newModule);
-            modList.modulesGroup[posicionModulesList].modelSystemGO = newModule;
-            modList.modulesGroup[posicionModulesList].modelPosition = newModule.transform.position;
-            modList.modulesGroup[posicionModulesList].modelRotation = newModule.transform.rotation.eulerAngles;
-            modList.modulesGroup[posicionModulesList].nameModule = newModule.name;
-            modList.modulesGroup[posicionModulesList].title = newModule.name;
-            //EstablecerParametrosVariablesModulos(newModule, tipoModulo, contenido);
-            posicionModulesList++;
+            int longitudModulos = AuxiliarModulos.numModSimulador;
+            for (int i = 0; i < longitudModulos; i++)
+            {
+                string tipoModulo = AuxiliarModulos.tagModVacio;
+                Vector3 posicion = modList.modulesGroup[i].modelPosition;
+                Vector3 vectorPosicion = posicion;
+                Vector3 vectorRotacion = new Vector3(0, 180, 0);
+                GameObject newModule = CrearNuevoModulo(tipoModulo, vectorPosicion, vectorRotacion, tipoModulo + "_" + i);
+                AsignacionRecursivaLogicaComponentes(newModule);
+                modList.modulesGroup[posicionModulesList].modelSystemGO = newModule;
+                modList.modulesGroup[posicionModulesList].modelPosition = newModule.transform.position;
+                modList.modulesGroup[posicionModulesList].modelRotation = newModule.transform.rotation.eulerAngles;
+                modList.modulesGroup[posicionModulesList].nameModule = newModule.name;
+                modList.modulesGroup[posicionModulesList].title = newModule.name;
+                //EstablecerParametrosVariablesModulos(newModule, tipoModulo, contenido);
+                posicionModulesList++;
+            }
+            if (debug)
+            {
+                Debug.Log("Termina creación modulos vacios");
+            }
         }
-        if (debug)
+        else
         {
-            Debug.Log("Termina creación modulos vacios");
+            Debug.LogError(this.name + ", Error. CrearMaquinaVacia() - modList es nulo.");
         }
     }
 
@@ -178,33 +190,47 @@ public class ProgressManager : MonoBehaviour
         var jo = JObject.Parse(jsonString);
         int posicionModulesList = 0;
         ModulesList modList = modulesList.GetComponent<ModulesList>();
-        foreach (var x in jo)
+        if (jo != null)
         {
-            string nombreModulo = x.Key;
-            JToken contenido = x.Value;
-            if (debug)
+            if (modList != null)
             {
-                Debug.Log("name: " + nombreModulo);
-                Debug.Log("value: " + contenido);
-                Debug.Log("Tipo: " + contenido["Tipo"]);
+                foreach (var x in jo)
+                {
+                    string nombreModulo = x.Key;
+                    JToken contenido = x.Value;
+                    if (debug)
+                    {
+                        Debug.Log("name: " + nombreModulo);
+                        Debug.Log("value: " + contenido);
+                        Debug.Log("Tipo: " + contenido["Tipo"]);
+                    }
+                    string tipoModulo = contenido["Tipo"].ToString();
+                    JToken posicion = contenido["Posicion"];
+                    Vector3 vectorPosicion = new Vector3(float.Parse(posicion["X"].ToString()), float.Parse(posicion["Y"].ToString()), float.Parse(posicion["Z"].ToString()));
+                    Vector3 vectorRotacion = new Vector3(0, 180, 0);
+                    GameObject newModule = CrearNuevoModulo(tipoModulo, vectorPosicion, vectorRotacion, nombreModulo);
+                    AsignacionRecursivaLogicaComponentes(newModule);
+                    modList.modulesGroup[posicionModulesList].modelSystemGO = newModule;
+                    modList.modulesGroup[posicionModulesList].modelPosition = newModule.transform.position;
+                    modList.modulesGroup[posicionModulesList].modelRotation = newModule.transform.rotation.eulerAngles;
+                    modList.modulesGroup[posicionModulesList].nameModule = newModule.name;
+                    modList.modulesGroup[posicionModulesList].title = newModule.name;
+                    EstablecerParametrosVariablesModulos(newModule, tipoModulo, contenido);
+                    posicionModulesList++;
+                }
+                if (debug)
+                {
+                    Debug.Log("Termina creación modulos");
+                }
             }
-            string tipoModulo = contenido["Tipo"].ToString();
-            JToken posicion = contenido["Posicion"];
-            Vector3 vectorPosicion = new Vector3(float.Parse(posicion["X"].ToString()), float.Parse(posicion["Y"].ToString()), float.Parse(posicion["Z"].ToString()));
-            Vector3 vectorRotacion = new Vector3(0, 180, 0);
-            GameObject newModule = CrearNuevoModulo(tipoModulo, vectorPosicion, vectorRotacion, nombreModulo);
-            AsignacionRecursivaLogicaComponentes(newModule);
-            modList.modulesGroup[posicionModulesList].modelSystemGO = newModule;
-            modList.modulesGroup[posicionModulesList].modelPosition = newModule.transform.position;
-            modList.modulesGroup[posicionModulesList].modelRotation = newModule.transform.rotation.eulerAngles;
-            modList.modulesGroup[posicionModulesList].nameModule = newModule.name;
-            modList.modulesGroup[posicionModulesList].title = newModule.name;
-            EstablecerParametrosVariablesModulos(newModule, tipoModulo, contenido);
-            posicionModulesList++;
+            else
+            {
+                Debug.LogError(this.name + ", Error. CrearModulosDesdeJson(string jsonString)- modList es nulo.");
+            }
         }
-        if (debug)
+        else
         {
-            Debug.Log("Termina creación modulos");
+            Debug.LogError(this.name + ", Error. CrearModulosDesdeJson(string jsonString)- jo es nulo.");
         }
     }
 
@@ -213,27 +239,27 @@ public class ProgressManager : MonoBehaviour
     private void EstablecerParametrosVariablesModulos(GameObject newModule, string tipoModulo, JToken contenido)
     {
         /*En esta sección se establecen los valores variables a cada modulo*/
-        if (tipoModulo == "1")
+        if (tipoModulo == AuxiliarModulos.tagMod1)
         {
             float voltaje = float.Parse(contenido["Voltaje"].ToString());
             Modulo1 mod1 = newModule.GetComponent<Modulo1>();
             mod1.voltajeModulo = voltaje;
         }
-        else if (tipoModulo == "6")
+        else if (tipoModulo == AuxiliarModulos.tagMod6)
         {
             float valorPerilla = float.Parse(contenido["ValorPerilla"].ToString());
             Modulo6 mod6 = newModule.GetComponent<Modulo6>();
             mod6.valorActualPerilla = valorPerilla;
             mod6.RotarPerilla();
         }
-        else if (tipoModulo == "7")
+        else if (tipoModulo == AuxiliarModulos.tagMod7)
         {
             float valorPerilla = float.Parse(contenido["ValorPerilla"].ToString());
             Modulo7 mod7 = newModule.GetComponent<Modulo7>();
             mod7.valorActualPerilla = valorPerilla;
             mod7.RotarPerilla();
         }
-        else if (tipoModulo == "Potenciometro")
+        else if (tipoModulo == AuxiliarModulos.tagModPotenciometro)
         {
             float valorPerilla = float.Parse(contenido["ValorPerilla"].ToString());
             Potenciometro modPoten = newModule.GetComponent<Potenciometro>();
@@ -250,7 +276,7 @@ public class ProgressManager : MonoBehaviour
         if (modulesList != null)
         {
             ModulesList modelusList = modulesList.GetComponent<ModulesList>();
-            for (int i = 0; i < 28; i++)
+            for (int i = 0; i < AuxiliarModulos.numModSimulador; i++)
             {
                 if (modelusList.modulesGroup[i].modelSystemGO.name == nombreModuloBuscar)
                 {
@@ -270,85 +296,99 @@ public class ProgressManager : MonoBehaviour
         var jo = JObject.Parse(jsonString);
         int posicionModulesList = 0;
         ModulesList modList = modulesList.GetComponent<ModulesList>();
-        foreach (var x in jo)
+        if (jo != null)
         {
-            string nombreModulo = x.Key;
-            JToken contenido = x.Value;
-            if (debug)
+            if (modList != null)
             {
-                Debug.Log("name: " + nombreModulo);
-                Debug.Log("value: " + contenido);
-                Debug.Log("Tipo: " + contenido["Tipo"]);
-            }
-            string tipoModulo = contenido["Tipo"].ToString();
-            JToken posicion = contenido["Posicion"];
-            JToken Conexiones = contenido["Conexiones"];
-            if (tipoModulo != "ModuloVacio")
-            {
-                int indiceModuloActual = RecuperarIndiceModuloPorNombre(nombreModulo);
-                if (indiceModuloActual != -1)
+                foreach (var x in jo)
                 {
-                    moduloActual = modList.modulesGroup[indiceModuloActual - 1].modelSystemGO;
-                }
-                GameObject.Find(nombreModulo);
-                Dictionary<string, string> plugsConnections = AuxiliarModulos.ObtenerPlugConnections(tipoModulo, moduloActual);
-                int numeroPlugs = plugsConnections.Count;
-                int j = 0;
-                if (debug)
-                {
-                    Debug.Log(nombreModulo + " - Numero de plugs: " + numeroPlugs);
-                }
-                //foreach (KeyValuePair<string, string> entry in plugsConnections)
-                for (int i = 0; i < numeroPlugs; i++)
-                {
-                    string conexionActual = "Conexion" + (j + 1);
-                    string[] parametrosConexionOrigen = Conexiones[conexionActual]["Origen"].ToString().Split('|');
-                    string[] parametrosConexionDestino = Conexiones[conexionActual]["Destino"].ToString().Split('|');
+                    string nombreModulo = x.Key;
+                    JToken contenido = x.Value;
                     if (debug)
                     {
-                        Debug.Log("parametrosConexionDestino.Length: " + parametrosConexionDestino.Length);
+                        Debug.Log("name: " + nombreModulo);
+                        Debug.Log("value: " + contenido);
+                        Debug.Log("Tipo: " + contenido["Tipo"]);
                     }
-                    if (parametrosConexionDestino.Length != 0 && parametrosConexionDestino[0] != "")
+                    string tipoModulo = contenido["Tipo"].ToString();
+                    JToken posicion = contenido["Posicion"];
+                    JToken Conexiones = contenido["Conexiones"];
+                    if (tipoModulo != "ModuloVacio")
                     {
-                        //Debug.LogError("parametrosConexionDestino.Length: " + parametrosConexionDestino.Length);
-                        //Debug.LogError("parametrosConexionDestino[0]: " + parametrosConexionDestino[0]);
-                        //Debug.LogError(parametrosConexionDestino[0] + " " + parametrosConexionDestino[1]);
-                        GameObject moduloDestino = null;
-                        int indiceModuloDestino = RecuperarIndiceModuloPorNombre(parametrosConexionDestino[0]);
-                        if (indiceModuloDestino != -1)
+                        int indiceModuloActual = RecuperarIndiceModuloPorNombre(nombreModulo);
+                        if (indiceModuloActual != -1)
                         {
-                            moduloDestino = modList.modulesGroup[indiceModuloDestino - 1].modelSystemGO;
-                            //Debug.LogError("moduloActual: " + moduloActual.name + ", moduloDestino: " + moduloDestino.name);
-                            GameObject conexionOrigen = AuxiliarModulos.BuscarPlugConexion(moduloActual.tag, moduloActual, parametrosConexionOrigen[1]);
-                            GameObject conexionDestino = AuxiliarModulos.BuscarPlugConexion(moduloDestino.tag, moduloDestino, parametrosConexionDestino[1]);
-                            if (conexionOrigen != null && conexionDestino != null)
+                            moduloActual = modList.modulesGroup[indiceModuloActual - 1].modelSystemGO;
+                        }
+                        GameObject.Find(nombreModulo);
+                        Dictionary<string, string> plugsConnections = AuxiliarModulos.ObtenerPlugConnections(tipoModulo, moduloActual);
+                        int numeroPlugs = plugsConnections.Count;
+                        int j = 0;
+                        if (debug)
+                        {
+                            Debug.Log(nombreModulo + " - Numero de plugs: " + numeroPlugs);
+                        }
+                        //foreach (KeyValuePair<string, string> entry in plugsConnections)
+                        for (int i = 0; i < numeroPlugs; i++)
+                        {
+                            string conexionActual = "Conexion" + (j + 1);
+                            string[] parametrosConexionOrigen = Conexiones[conexionActual]["Origen"].ToString().Split('|');
+                            string[] parametrosConexionDestino = Conexiones[conexionActual]["Destino"].ToString().Split('|');
+                            if (debug)
                             {
-                                Color colorCable = new Color(0, 0, 0, 1);
-                                Debug.LogError("Longitud error: " + parametrosConexionDestino.Length);
-                                if (parametrosConexionDestino.Length == 2)
+                                Debug.Log("parametrosConexionDestino.Length: " + parametrosConexionDestino.Length);
+                            }
+                            if (parametrosConexionDestino.Length != 0 && parametrosConexionDestino[0] != "")
+                            {
+                                //Debug.LogError("parametrosConexionDestino.Length: " + parametrosConexionDestino.Length);
+                                //Debug.LogError("parametrosConexionDestino[0]: " + parametrosConexionDestino[0]);
+                                //Debug.LogError(parametrosConexionDestino[0] + " " + parametrosConexionDestino[1]);
+                                GameObject moduloDestino = null;
+                                int indiceModuloDestino = RecuperarIndiceModuloPorNombre(parametrosConexionDestino[0]);
+                                if (indiceModuloDestino != -1)
                                 {
-                                    //Debug.LogError("Color ROJO: " + Conexiones[conexionActual]["Color"]["R"].ToString());
-                                    colorCable = new Color(float.Parse(Conexiones[conexionActual]["Color"]["R"].ToString()),
-                                        float.Parse(Conexiones[conexionActual]["Color"]["G"].ToString()),
-                                        float.Parse(Conexiones[conexionActual]["Color"]["B"].ToString()),
-                                        float.Parse(Conexiones[conexionActual]["Color"]["A"].ToString()));
-                                    Debug.LogError("Color leido: " + colorCable.ToString());
-                                }
-                                CrearConexionCable(conexionOrigen, conexionDestino, colorCable);
-                                if (debug)
-                                {
-                                    Debug.Log("Se creo una conexion");
+                                    moduloDestino = modList.modulesGroup[indiceModuloDestino - 1].modelSystemGO;
+                                    //Debug.LogError("moduloActual: " + moduloActual.name + ", moduloDestino: " + moduloDestino.name);
+                                    GameObject conexionOrigen = AuxiliarModulos.BuscarPlugConexion(moduloActual.tag, moduloActual, parametrosConexionOrigen[1]);
+                                    GameObject conexionDestino = AuxiliarModulos.BuscarPlugConexion(moduloDestino.tag, moduloDestino, parametrosConexionDestino[1]);
+                                    if (conexionOrigen != null && conexionDestino != null)
+                                    {
+                                        Color colorCable = new Color(0, 0, 0, 1);
+                                        Debug.LogError("Longitud error: " + parametrosConexionDestino.Length);
+                                        if (parametrosConexionDestino.Length == 2)
+                                        {
+                                            //Debug.LogError("Color ROJO: " + Conexiones[conexionActual]["Color"]["R"].ToString());
+                                            colorCable = new Color(float.Parse(Conexiones[conexionActual]["Color"]["R"].ToString()),
+                                                float.Parse(Conexiones[conexionActual]["Color"]["G"].ToString()),
+                                                float.Parse(Conexiones[conexionActual]["Color"]["B"].ToString()),
+                                                float.Parse(Conexiones[conexionActual]["Color"]["A"].ToString()));
+                                            Debug.LogError("Color leido: " + colorCable.ToString());
+                                        }
+                                        CrearConexionCable(conexionOrigen, conexionDestino, colorCable);
+                                        if (debug)
+                                        {
+                                            Debug.Log("Se creo una conexion");
+                                        }
+                                    }
+
                                 }
                             }
-
+                            j++;
                         }
                     }
-                    j++;
+                    posicionModulesList++;
                 }
+                Debug.Log("Termina creación conexiones");
             }
-            posicionModulesList++;
+            else
+            {
+                Debug.LogError(this.name + ", CrearConexionesDesdeJson(string jsonString) - modList es nulo");
+            }
         }
-        Debug.Log("Termina creación conexiones");
+        else
+        {
+            Debug.LogError(this.name + ", CrearConexionesDesdeJson(string jsonString) - jo es nulo");
+        }
     }
 
     /*Este método se encarga de realizar y establecer la conexión entre dos plugs de dos módulos determinados.*/
@@ -881,12 +921,20 @@ public class ProgressManager : MonoBehaviour
     private GameObject CrearNuevoModulo(string tipo, Vector3 vectorPosicion, Vector3 vectorRotacion, string nombreModulo)
     {
         string ruta = "Assets/Prefabs/" + tipo + ".blend";
-        GameObject newModule = (GameObject)AssetDatabase.LoadAssetAtPath(ruta, typeof(GameObject));
-        newModule = Instantiate(newModule, vectorPosicion, Quaternion.Euler(vectorRotacion)) as GameObject;
-        newModule.tag = tipo;
-        newModule.name = nombreModulo;
-        newModule.layer = moduleLayer;
-        newModule = AuxiliarModulos.AsignarLogicaModulo(newModule, tipo);
+        //GameObject newModule = (GameObject)AssetDatabase.LoadAssetAtPath(ruta, typeof(GameObject));
+        GameObject newModule = AuxiliarModulos.RegresarObjetoModulo(tipo);
+        if (newModule != null)
+        {
+            newModule = Instantiate(newModule, vectorPosicion, Quaternion.Euler(vectorRotacion)) as GameObject;
+            newModule.tag = tipo;
+            newModule.name = nombreModulo;
+            newModule.layer = AuxiliarModulos.capaModulos;
+            newModule = AuxiliarModulos.AsignarLogicaModulo(newModule, tipo);
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. GameObject CrearNuevoModulo(string tipo, Vector3 vectorPosicion, Vector3 vectorRotacion, string nombreModulo) - newModule es nulo.");
+        }
         return newModule;
     }
 
@@ -1009,7 +1057,7 @@ public class ProgressManager : MonoBehaviour
      * de acuerdo a su tipo.*/
     private void AsignacionRecursivaLogicaComponentes(GameObject nodo)
     {
-        nodo.layer = moduleLayer;
+        nodo.layer = AuxiliarModulos.capaModulos;
         if (nodo.name.Contains("BaseModulo"))
         {
             nodo.AddComponent<OpenCloseChangeModule>();
@@ -1151,7 +1199,6 @@ public class ProgressManager : MonoBehaviour
      * guardar dicho contenido en disco.*/
     public void SaveSimulator(string path, string nameFile)
     {
-        saveModules = GameObject.FindGameObjectsWithTag("1");
         string jsonMod1 = GenerarJsonModulo1();
         string jsonMod2 = GenerarJsonModulo2();
         string jsonMod3 = GenerarJsonModulo3();
@@ -1852,14 +1899,14 @@ public class ProgressManager : MonoBehaviour
     * existentes en el simulador.*/
     string GenerarJsonModuloVacio()
     {
-        GameObject[] modulosVacio = GameObject.FindGameObjectsWithTag("ModuloVacio");
+        GameObject[] modulosVacio = GameObject.FindGameObjectsWithTag(AuxiliarModulos.tagModVacio);
         string jsonModuloPoten = "";
         int numeroDeModulos = 1;
         int numeroMaximoModulos = modulosVacio.Length;
         foreach (GameObject modulo in modulosVacio)
         {
             jsonModuloPoten += "\"" + modulo.name + "\":{\n";
-            jsonModuloPoten += "\"Tipo\":\"ModuloVacio\",\n";
+            jsonModuloPoten += "\"Tipo\":\"" + AuxiliarModulos.tagModVacio + "\",\n";
             jsonModuloPoten += PosicionModulo(modulo) + "\n";
             jsonModuloPoten += "}";
             if (numeroDeModulos != numeroMaximoModulos)
@@ -1879,10 +1926,18 @@ public class ProgressManager : MonoBehaviour
     string PosicionModulo(GameObject modulo)
     {
         string jsonPosicion = "";
-        jsonPosicion += "\"Posicion\":{\n";
-        jsonPosicion += "\"X\":" + modulo.transform.position.x + ",\n";
-        jsonPosicion += "\"Y\":" + modulo.transform.position.y + ",\n";
-        jsonPosicion += "\"Z\":" + modulo.transform.position.z + "\n}";
+        if (modulo != null)
+        {
+            jsonPosicion += "\"Posicion\":{\n";
+            jsonPosicion += "\"X\":" + modulo.transform.position.x + ",\n";
+            jsonPosicion += "\"Y\":" + modulo.transform.position.y + ",\n";
+            jsonPosicion += "\"Z\":" + modulo.transform.position.z + "\n}";
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. PosicionModulo(GameObject modulo) - modulo es nulo.");
+        }
+        
         return jsonPosicion;
     }
 
@@ -1893,18 +1948,25 @@ public class ProgressManager : MonoBehaviour
         string jsonConexiones = "";
         int numeroConexion = 1;
         int numeroMaximoConexiones = conexionesDict.Count;
-        foreach (KeyValuePair<string, string> entry in conexionesDict)
+        if(conexionesDict != null && modulo != null)
         {
-            string colorCable = ColorCable(entry.Key, modulo);
-            jsonConexiones += "\"Conexion" + numeroConexion + "\":{\n";
-            jsonConexiones += "\"Origen\": \"" + entry.Key + "\",\n";
-            jsonConexiones += "\"Destino\": \"" + entry.Value + "\",\n";
-            jsonConexiones += "\"Color\": {" + colorCable + "}\n}";
-            if (numeroConexion != numeroMaximoConexiones)
+            foreach (KeyValuePair<string, string> entry in conexionesDict)
             {
-                jsonConexiones += ",\n";
+                string colorCable = ColorCable(entry.Key, modulo);
+                jsonConexiones += "\"Conexion" + numeroConexion + "\":{\n";
+                jsonConexiones += "\"Origen\": \"" + entry.Key + "\",\n";
+                jsonConexiones += "\"Destino\": \"" + entry.Value + "\",\n";
+                jsonConexiones += "\"Color\": {" + colorCable + "}\n}";
+                if (numeroConexion != numeroMaximoConexiones)
+                {
+                    jsonConexiones += ",\n";
+                }
+                numeroConexion++;
             }
-            numeroConexion++;
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. CrearConexionesModulo(Dictionary<string, string> conexionesDict, GameObject modulo) - conexionesDict o modulo es nulo.");
         }
         return jsonConexiones;
     }
