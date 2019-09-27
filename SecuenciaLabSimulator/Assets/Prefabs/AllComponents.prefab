@@ -1,0 +1,480 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6595265914877043631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6595265914877043630}
+  - component: {fileID: 6595265914877043629}
+  m_Layer: 0
+  m_Name: AllMaterials
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6595265914877043630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6595265914877043631}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -2.0199995, y: 0, z: 6.8200006}
+  m_LocalScale: {x: 0.20000006, y: 0.2, z: 0.20000006}
+  m_Children: []
+  m_Father: {fileID: 6595265915519236243}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6595265914877043629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6595265914877043631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1ecd0afcb08c06418ff587f385f71f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialsGroup:
+  - title: plasticoAmarilloApagado
+    nameMaterial: plasticoAmarilloApagado
+    description: plasticoAmarilloApagado
+    materialSystemGO: {fileID: 2100000, guid: 65bdb8b712c01e547988415651fbecf9, type: 2}
+  - title: plasticoAmarilloEncendido
+    nameMaterial: plasticoAmarilloEncendido
+    description: plasticoAmarilloEncendido
+    materialSystemGO: {fileID: 2100000, guid: 10071655bac88ce4aa1bb5f52476f7d0, type: 2}
+  - title: plasticoCircularAzulApagado
+    nameMaterial: plasticoCircularAzulApagado
+    description: plasticoCircularAzulApagado
+    materialSystemGO: {fileID: 2100000, guid: 8f313ac47c5108e41b1856fdfa3b2559, type: 2}
+  - title: plasticoCircularAzulEncendido
+    nameMaterial: plasticoCircularAzulEncendido
+    description: plasticoCircularAzulEncendido
+    materialSystemGO: {fileID: 2100000, guid: 8f0ed80fc65b6ca4c85bf8ec730d8291, type: 2}
+  - title: plasticoVerdeApagado
+    nameMaterial: plasticoVerdeApagado
+    description: plasticoVerdeApagado
+    materialSystemGO: {fileID: 2100000, guid: 30363afd7f3a3974999eb0e69962204e, type: 2}
+  - title: plasticoVerdeEncendido
+    nameMaterial: plasticoVerdeEncendido
+    description: plasticoVerdeEncendido
+    materialSystemGO: {fileID: 2100000, guid: 3d49dfc5e96aecf489016cdb1c02bd7a, type: 2}
+  - title: plasticoRojoApagado
+    nameMaterial: plasticoRojoApagado
+    description: plasticoRojoApagado
+    materialSystemGO: {fileID: 2100000, guid: 7840a46c2883627468d2616150ec4317, type: 2}
+  - title: plasticoRojoEncendido
+    nameMaterial: plasticoRojoEncendido
+    description: plasticoRojoEncendido
+    materialSystemGO: {fileID: 2100000, guid: c1583337d57a9fd4081677d9949b0146, type: 2}
+  - title: plasticoVerdeApagado
+    nameMaterial: plasticoVerdeApagado
+    description: plasticoVerdeApagado
+    materialSystemGO: {fileID: 2100000, guid: 30363afd7f3a3974999eb0e69962204e, type: 2}
+  - title: BotonAzul
+    nameMaterial: BotonAzul
+    description: BotonAzul
+    materialSystemGO: {fileID: 2100000, guid: 0b9ada22244c4d443beb410b0d59647b, type: 2}
+  - title: BotonRojoCircular
+    nameMaterial: BotonRojoCircular
+    description: BotonRojoCircular
+    materialSystemGO: {fileID: 2100000, guid: 5116c3d69eed4714ab84f076a11a442b, type: 2}
+  - title: BotonRojoCircularEncendido
+    nameMaterial: BotonRojoCircularEncendido
+    description: BotonRojoCircularEncendido
+    materialSystemGO: {fileID: 2100000, guid: 86b3cc78db7ee6644aae1cf68a4c9c43, type: 2}
+  - title: BotonVerderCircular
+    nameMaterial: BotonVerderCircular
+    description: BotonVerderCircular
+    materialSystemGO: {fileID: 2100000, guid: 44840a2f1482bfe449a8e8b8d8fb32b2, type: 2}
+  - title: BotonVerderCircularEncendido
+    nameMaterial: BotonVerderCircularEncendido
+    description: BotonVerderCircularEncendido
+    materialSystemGO: {fileID: 2100000, guid: 421134ddcd88f6a4fb0e11671c2ad9fe, type: 2}
+  - title: CajaBotonesCirculares
+    nameMaterial: CajaBotonesCirculares
+    description: CajaBotonesCirculares
+    materialSystemGO: {fileID: 2100000, guid: a93ac4159efe35346b26b25ad941c10d, type: 2}
+  - title: BotonRojoCuadrado
+    nameMaterial: BotonRojoCuadrado
+    description: BotonRojoCuadrado
+    materialSystemGO: {fileID: 2100000, guid: 64f2e6b9c08634f40be88bb532285583, type: 2}
+  - title: BotonRojoCuadradoEncendido
+    nameMaterial: BotonRojoCuadradoEncendido
+    description: BotonRojoCuadradoEncendido
+    materialSystemGO: {fileID: 2100000, guid: c61d2e4af8052f44d8e6efc554b5f478, type: 2}
+  - title: BotonVerdeCuadrado
+    nameMaterial: BotonVerdeCuadrado
+    description: BotonVerdeCuadrado
+    materialSystemGO: {fileID: 2100000, guid: 5422756e09cc0ea4792bd5dd1a602876, type: 2}
+  - title: BotonVerdeCuadradoEncendido
+    nameMaterial: BotonVerdeCuadradoEncendido
+    description: BotonVerdeCuadradoEncendido
+    materialSystemGO: {fileID: 2100000, guid: 7a431cdfeb1530e4f803ee7dc377e7a0, type: 2}
+  - title: CajaBotonesCuadrados
+    nameMaterial: CajaBotonesCuadrados
+    description: CajaBotonesCuadrados
+    materialSystemGO: {fileID: 2100000, guid: 6414c39933a431f4b80773f288b551fd, type: 2}
+  - title: SombraBotonVerdeCuadrado
+    nameMaterial: SombraBotonVerdeCuadrado
+    description: SombraBotonVerdeCuadrado
+    materialSystemGO: {fileID: 2100000, guid: b1557b8ffedccce4e948da7012f2cb8a, type: 2}
+  - title: EntradaPlugNegro
+    nameMaterial: EntradaPlugNegro
+    description: EntradaPlugNegro
+    materialSystemGO: {fileID: 2100000, guid: 9021e7ac2acf15b48bfff1a908cf7516, type: 2}
+  - title: EntradaPlugAnaranjado
+    nameMaterial: EntradaPlugAnaranjado
+    description: EntradaPlugAnaranjado
+    materialSystemGO: {fileID: 2100000, guid: 80da7f75db4d58b45add5762ccdb6034, type: 2}
+--- !u!1 &6595265915519236244
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6595265915519236243}
+  m_Layer: 0
+  m_Name: AllComponents
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6595265915519236243
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6595265915519236244}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 34.1, y: 0, z: 10.1}
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_Children:
+  - {fileID: 6595265914877043630}
+  - {fileID: 6595265916574966572}
+  - {fileID: 6595265916214125558}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6595265916214125448
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6595265916214125558}
+  - component: {fileID: 6595265916214125559}
+  m_Layer: 0
+  m_Name: AllModules
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6595265916214125558
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6595265916214125448}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -2.0199995, y: 0, z: 6.8200006}
+  m_LocalScale: {x: 0.20000006, y: 0.2, z: 0.20000006}
+  m_Children: []
+  m_Father: {fileID: 6595265915519236243}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6595265916214125559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6595265916214125448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7023ffe7ae64504c88c3f1d5cebbadf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modulesGroup:
+  - title: 1_0
+    nameModule: 1_0
+    description: 
+    modelSystemGO: {fileID: 100000, guid: ccc8c32bf918fd84cb219a97cf65d793, type: 3}
+    modelPosition: {x: 7, y: 57.4, z: 17.45}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: 2_0
+    nameModule: 2_0
+    description: 
+    modelSystemGO: {fileID: 100000, guid: 41f58192ebeabc240a546f38836dc051, type: 3}
+    modelPosition: {x: -0.1, y: 57.4, z: 17.45}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: 3_0
+    nameModule: 3_0
+    description: 
+    modelSystemGO: {fileID: 100000, guid: e8b67ee3dc661b343b11f8122a323d89, type: 3}
+    modelPosition: {x: -7.2, y: 57.4, z: 17.45}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: 4_0
+    nameModule: 4_0
+    description: 
+    modelSystemGO: {fileID: 100000, guid: a03e1fe6515a0b244b7506429e42cf78, type: 3}
+    modelPosition: {x: -14.3, y: 57.4, z: 17.45}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: 5_0
+    nameModule: 5_0
+    description: 
+    modelSystemGO: {fileID: -927199367670048503, guid: ef88a7c7f61c28d4dbe45654974177d8,
+      type: 3}
+    modelPosition: {x: 7, y: 51.9, z: 17.3}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: 6_0
+    nameModule: 6_0
+    description: 
+    modelSystemGO: {fileID: 100000, guid: a634cffc3990c524ea02433dc0b4e5eb, type: 3}
+    modelPosition: {x: -0.1, y: 51.9, z: 17.3}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: 7_0
+    nameModule: 7_0
+    description: 
+    modelSystemGO: {fileID: -927199367670048503, guid: 67d80975d7a113a4d9605e4023e2df18,
+      type: 3}
+    modelPosition: {x: -7.2, y: 46.5, z: 17.37}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: 8, 11_0
+    nameModule: 8, 11_0
+    description: 
+    modelSystemGO: {fileID: -927199367670048503, guid: 518ad8d144485914cb323d27d16807ac,
+      type: 3}
+    modelPosition: {x: -7.2, y: 51.9, z: 17.3}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: 9_0
+    nameModule: 9_0
+    description: 
+    modelSystemGO: {fileID: 100000, guid: d0ae01b8e3427d149a54b578500800fd, type: 3}
+    modelPosition: {x: -14.3, y: 51.9, z: 17.3}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: 10, 17, 18, 19_0
+    nameModule: 10, 17, 18, 19_0
+    description: 
+    modelSystemGO: {fileID: 100000, guid: 6adf574545f4218488b6b94249e71008, type: 3}
+    modelPosition: {x: 7, y: 46.5, z: 17.3}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: 14, 16_0
+    nameModule: 14, 16_0
+    description: 
+    modelSystemGO: {fileID: 100000, guid: 2134c314f5c8b56468f17c94c3e7dbd7, type: 3}
+    modelPosition: {x: -14.3, y: 46.5, z: 17.3}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: 13_0
+    nameModule: 13_0
+    description: 
+    modelSystemGO: {fileID: 100000, guid: 1c78066f0cc3d5b47bb1a3b2246e2322, type: 3}
+    modelPosition: {x: -0.1, y: 46.5, z: 17.25}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: 15_0
+    nameModule: 15_0
+    description: 
+    modelSystemGO: {fileID: 100000, guid: a47ec56129d97e946afd77c9e7644519, type: 3}
+    modelPosition: {x: 7, y: 41, z: 17.3}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: 20_0
+    nameModule: 20_0
+    description: 
+    modelSystemGO: {fileID: 100000, guid: a76eaf78cf2721b4cb493c2b427277f0, type: 3}
+    modelPosition: {x: -0.1, y: 41, z: 17.3}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: 21_0
+    nameModule: 21_0
+    description: 
+    modelSystemGO: {fileID: 100000, guid: 9fe14597492278c45921a089e0d14854, type: 3}
+    modelPosition: {x: -7.2, y: 41, z: 17.3}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: 22_0
+    nameModule: 22_0
+    description: 
+    modelSystemGO: {fileID: -927199367670048503, guid: cc15e27c40e22df4abfbc7704ab7ef15,
+      type: 3}
+    modelPosition: {x: -7.2, y: 41, z: 17.3}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: 22, 23_0
+    nameModule: 22, 23_0
+    description: 
+    modelSystemGO: {fileID: 100000, guid: c12b23a4b19125b4f9e8676c03753526, type: 3}
+    modelPosition: {x: -7.2, y: 41, z: 17.3}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: 23_0
+    nameModule: 23_0
+    description: 
+    modelSystemGO: {fileID: -927199367670048503, guid: cb9a25c9bc516e441866b1b1182bf556,
+      type: 3}
+    modelPosition: {x: -7.2, y: 41, z: 17.3}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: BaseMotor1
+    nameModule: BaseMotor1
+    description: 
+    modelSystemGO: {fileID: -927199367670048503, guid: ee18af17747e30c468e94f5dc14759d1,
+      type: 3}
+    modelPosition: {x: -7.2, y: 41, z: 17.3}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: BaseMotor2
+    nameModule: BaseMotor2
+    description: 
+    modelSystemGO: {fileID: -927199367670048503, guid: a90d2165e29bc8648968ecc3257b5c48,
+      type: 3}
+    modelPosition: {x: -7.2, y: 41, z: 17.3}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: ModuloVacio_0
+    nameModule: ModuloVacio_0
+    description: 
+    modelSystemGO: {fileID: -927199367670048503, guid: 78a8e6cf812d86d47a2332eb2db8ad58,
+      type: 3}
+    modelPosition: {x: -7.2, y: 41, z: 17.3}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: MotorElectricoAC1
+    nameModule: MotorElectricoAC1
+    description: 
+    modelSystemGO: {fileID: -927199367670048503, guid: 896d1196af6bb0a46bac7ed6663db850,
+      type: 3}
+    modelPosition: {x: -7.2, y: 41, z: 17.3}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: MotorElectricoAC2
+    nameModule: MotorElectricoAC2
+    description: 
+    modelSystemGO: {fileID: -927199367670048503, guid: ff83c82897448894f893f58892d18bc2,
+      type: 3}
+    modelPosition: {x: -7.2, y: 41, z: 17.3}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: Multiconector
+    nameModule: Multiconector
+    description: 
+    modelSystemGO: {fileID: -927199367670048503, guid: e0b610fcdecf6ba488b0e98f9ea64187,
+      type: 3}
+    modelPosition: {x: -7.2, y: 41, z: 17.3}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: Potenciometro
+    nameModule: Potenciometro
+    description: 
+    modelSystemGO: {fileID: 100030, guid: bb38d14ba55496e42871b676bb4f4a60, type: 3}
+    modelPosition: {x: -7.2, y: 41, z: 17.3}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+  - title: V0.1 - Aparato Control Secuencial
+    nameModule: V0.1 - Aparato Control Secuencial
+    description: 
+    modelSystemGO: {fileID: 100082, guid: 98659572095f1974f8f334637fa9459e, type: 3}
+    modelPosition: {x: -7.2, y: 41, z: 17.3}
+    modelRotation: {x: 0, y: 180, z: 0}
+    modelScale: {x: 1, y: 1, z: 1}
+--- !u!1 &6595265916574966573
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6595265916574966572}
+  - component: {fileID: 6595265916574966571}
+  m_Layer: 0
+  m_Name: AllAnimations
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6595265916574966572
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6595265916574966573}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6595265915519236243}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6595265916574966571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6595265916574966573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 507d1d32dc84adb42bcb5cd2be22995c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationsGroup:
+  - title: PerillaAM
+    nameAnimation: PerillaAM
+    description: PerillaAM
+    animationSystemGO: {fileID: 7400000, guid: 94955be7958dec24d879d53f90466549, type: 2}
+  - title: PerillaMA
+    nameAnimation: PerillaMA
+    description: PerillaMA
+    animationSystemGO: {fileID: 7400000, guid: 55c0ccf23522f584b827ddae1b1d78fb, type: 2}
+  - title: StopButton
+    nameAnimation: StopButton
+    description: StopButton
+    animationSystemGO: {fileID: 7400000, guid: 8660242e3c196e042bdfaecf9fc93bac, type: 2}
+  - title: Mod2PresBotonCuadradoRojo
+    nameAnimation: Mod2PresBotonCuadradoRojo
+    description: Mod2PresBotonCuadradoRojo
+    animationSystemGO: {fileID: 7400000, guid: c3bc2262cb1da2e43b4e15107699c5b6, type: 2}
+  - title: Mod2PresBotonCuadradoVerde
+    nameAnimation: Mod2PresBotonCuadradoVerde
+    description: Mod2PresBotonCuadradoVerde
+    animationSystemGO: {fileID: 7400000, guid: 00c22ad4a487ed94fa9d7c38f4bca854, type: 2}
+  - title: Mod3PresBotonCircular
+    nameAnimation: Mod3PresBotonCircular
+    description: Mod3PresBotonCircular
+    animationSystemGO: {fileID: 7400000, guid: 2438571dbf460b54298643d1eb8a20b6, type: 2}
+  - title: Mod9PresBotonCircularAzul
+    nameAnimation: Mod9PresBotonCircularAzul
+    description: Mod9PresBotonCircularAzul
+    animationSystemGO: {fileID: 7400000, guid: 40e680a9cdf629c4ea16131a7e62f31e, type: 2}
