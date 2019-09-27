@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class ModelsExamples
 {
+    [Header("Atributos Modelo")]
     public string title;
     public string nameModel;
     [TextArea]
