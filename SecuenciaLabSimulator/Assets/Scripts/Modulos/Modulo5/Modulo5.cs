@@ -76,6 +76,7 @@ public class Modulo5 : MonoBehaviour
     #region Inicializacion
     private void Awake()
     {
+        //Inicialización de listas y diccionarios de elementos.
         plugsConnections = new Dictionary<string, string>();
         plugAnaranjadosDict = new Dictionary<string, GameObject>();
         plugNegrosDict = new Dictionary<string, GameObject>();
@@ -159,12 +160,13 @@ public class Modulo5 : MonoBehaviour
     {
         Plugs plugIzquierdoCompPlug = plugAnaranjadosDict["EntradaPlugAnaranjado1"].GetComponent<Plugs>();
         Plugs plugDerechoCompPlug = plugNegrosDict["EntradaPlugNegro1"].GetComponent<Plugs>();
-
-        plugIzquierdoCompPlug.EstablecerPropiedadesConexionesEntrantes();
-        plugDerechoCompPlug.EstablecerPropiedadesConexionesEntrantes();
         if (plugIzquierdoCompPlug.Conectado && plugDerechoCompPlug.Conectado)
         {
-            if (plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 2) //Caso exito - Medir voltaje
+            plugIzquierdoCompPlug.EstablecerPropiedadesConexionesEntrantes();
+            plugDerechoCompPlug.EstablecerPropiedadesConexionesEntrantes();
+            //Caso exito - Medir voltaje
+            if (plugIzquierdoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea &&
+                plugDerechoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro) 
             {
                 ValorActualAguja = plugIzquierdoCompPlug.Voltaje;
                 if (ValorActualAguja > ValorMaximoAguja) // Caso Avaria - El voltaje suministrado supera los limites de medición
@@ -178,21 +180,27 @@ public class Modulo5 : MonoBehaviour
                     Debug.Log(this.name + " - if (plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 2)");
                 }
             }
-            else if (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 1) //Caso averia????? - Conectores conectados, pero estan invertidos.
+            else //Caso averia????? - Conectores conectados, pero estan invertidos.
+            if (plugIzquierdoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro &&
+                plugDerechoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea) 
             {
                 //-----------------Falta comportamiento
                 if (debug)
                 {
                     Debug.Log(this.name + " - if (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 1)");
                 }
-            }
-            else if (plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 1) //Caso averia - Dos conectores de linea conectados, en lugar de una linea y un neutro.
+            }//Caso averia - Dos conectores de linea conectados, en lugar de una linea y un neutro.
+            else 
+            if (plugIzquierdoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea &&
+                plugDerechoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea) 
             {
                 ModuloAveriado = true;
                 ComprobarEstadoAveria();
                 Debug.LogError(this.name + " - if (plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 1)- Conectado");
-            }
-            else if (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 2) //Caso Neutro - Dos conectores neutros, No se va a averiar, pero no mide el voltaje.
+            }//Caso Neutro - Dos conectores neutros, No se va a averiar, pero no mide el voltaje.
+            else 
+            if (plugIzquierdoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro &&
+                plugDerechoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro) 
             {
                 if (debug)
                 {
@@ -276,7 +284,7 @@ public class Modulo5 : MonoBehaviour
             {
                 //valorRotacionGrados = -1 * (limiteGiroSuperiorAguja * valorActualAguja) / valorMaximoAguja;
                 valorRotacionGrados = ((Mathf.Abs(limiteGiroSuperiorAguja) - Mathf.Abs(limiteGiroInferiorAguja)) / valorMaximoAguja) * valorActualAguja;
-                Debug.LogError("Error. Modulo 5: El valor actual de la aguja supera el limite maximo establecido");
+                Debug.LogError(this.name + ", Error. Modulo 5: El valor actual de la aguja supera el limite maximo establecido");
             }
             //agujaMedidora.transform.Rotate(0, 0, valorRotacionGrados, Space.Self); //z
             agujaMedidora.transform.Rotate(0, valorRotacionGrados, 0); //y
@@ -290,13 +298,13 @@ public class Modulo5 : MonoBehaviour
         else
         {
             //agujaMedidora.transform.rotation = originalRotationNeedle;
-            Debug.LogError("Error. Modulo 5: rotarPerilla(float valorActual): El valor actual recibido sobrepasa los limites establecidos");
+            Debug.LogError(this.name + ", Error. Modulo 5: rotarPerilla(float valorActual): El valor actual recibido sobrepasa los limites establecidos");
         }
     }
 
     public void RotarAguajaPrueba()
     {
-        Vector3 agujaMedidoraRotation = UnityEditor.TransformUtils.GetInspectorRotation(agujaMedidora.gameObject.transform);
+        /*Vector3 agujaMedidoraRotation = UnityEditor.TransformUtils.GetInspectorRotation(agujaMedidora.gameObject.transform);
         if (agujaMedidoraRotation.x >= limiteGiroInferiorAguja && puederotar)
         {
             agujaMedidora.transform.Rotate(Vector3.up, velocidadRotacion * Time.deltaTime);
@@ -316,7 +324,7 @@ public class Modulo5 : MonoBehaviour
             {
                 puederotar = true;
             }
-        }
+        }*/
     }
     #endregion
 
