@@ -4,11 +4,10 @@ using System.Collections;
 public class CableParticle
 {
     #region Class member variables
-
+    [Header("Variables de Clase")]
     private Vector3 _position, _oldPosition;
     private Transform _boundTo = null;
     private Rigidbody _boundRigid = null;
-
     #endregion
 
 
