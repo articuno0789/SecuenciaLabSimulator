@@ -36,6 +36,7 @@ public class Modulo15 : MonoBehaviour
     #region Inicializacion
     private void Awake()
     {
+        //Inicialización de listas y diccionarios de elementos.
         plugsConnections = new Dictionary<string, string>();
         plugAnaranjadosDict = new Dictionary<string, GameObject>();
         plugNegrosDict = new Dictionary<string, GameObject>();
@@ -45,6 +46,12 @@ public class Modulo15 : MonoBehaviour
         plugNegros = new List<GameObject>();
         lucesRojas = new List<GameObject>();
         inicializarComponentes(gameObject);
+        if (moduloEncendido)
+        {
+            EncenderApagarLuzRoja(true, "LuzRoja1");
+            EncenderApagarLuzRoja(true, "LuzRoja2");
+            EncenderApagarLuzRoja(true, "LuzRoja3");
+        }
         inicializarPlugAnaranjado("EntradaPlugAnaranjado1", 1);
         inicializarPlugAnaranjado("EntradaPlugAnaranjado2", 1);
         inicializarPlugAnaranjado("EntradaPlugAnaranjado3", 1);
@@ -72,10 +79,6 @@ public class Modulo15 : MonoBehaviour
         plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().TipoConexion = 1;
         plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().voltaje = voltajeModulo;
         plugAnaranjadosDict["EntradaPlugAnaranjado6"].GetComponent<Plugs>().Linea = 3;*/
-        if (moduloEncendido)
-        {
-            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
-        }
     }
 
     // Start is called before the first frame update
@@ -157,9 +160,9 @@ public class Modulo15 : MonoBehaviour
         if (moduloEncendido)
         {
             //Hacer algo si el modulo esta encendido.
-            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
-            lucesRojasDict["LuzRoja2"].GetComponent<LuzRoja>().EncenderFoco();
-            lucesRojasDict["LuzRoja3"].GetComponent<LuzRoja>().EncenderFoco();
+            EncenderApagarLuzRoja(true, "LuzRoja1");
+            EncenderApagarLuzRoja(true, "LuzRoja2");
+            EncenderApagarLuzRoja(true, "LuzRoja3");
             //Cargar plugs de energia
             inicializarPlugAnaranjado("EntradaPlugAnaranjado1", (int)AuxiliarModulos.NumeroLinea.PrimeraLinea, true);
             inicializarPlugAnaranjado("EntradaPlugAnaranjado2", (int)AuxiliarModulos.NumeroLinea.PrimeraLinea, true);
@@ -218,19 +221,39 @@ public class Modulo15 : MonoBehaviour
         else
         {
             //Hacer algo si el modulo esta apagado.
-            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ApagarFoco();
-            lucesRojasDict["LuzRoja2"].GetComponent<LuzRoja>().ApagarFoco();
-            lucesRojasDict["LuzRoja3"].GetComponent<LuzRoja>().ApagarFoco();
+            EncenderApagarLuzRoja(false, "LuzRoja1");
+            EncenderApagarLuzRoja(false, "LuzRoja2");
+            EncenderApagarLuzRoja(false, "LuzRoja3");
             //Descargar plugs de energia
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado1", 1, false);
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado2", 1, false);
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado3", 1, false);
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado4", 2, false);
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado5", 2, false);
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado6", 2, false);
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado7", 3, false);
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado8", 3, false);
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado9", 3, false);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado1", (int)AuxiliarModulos.NumeroLinea.PrimeraLinea, false);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado2", (int)AuxiliarModulos.NumeroLinea.PrimeraLinea, false);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado3", (int)AuxiliarModulos.NumeroLinea.PrimeraLinea, false);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado4", (int)AuxiliarModulos.NumeroLinea.SegundaLinea, false);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado5", (int)AuxiliarModulos.NumeroLinea.SegundaLinea, false);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado6", (int)AuxiliarModulos.NumeroLinea.SegundaLinea, false);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado7", (int)AuxiliarModulos.NumeroLinea.TerceraLinea, false);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado8", (int)AuxiliarModulos.NumeroLinea.TerceraLinea, false);
+            inicializarPlugAnaranjado("EntradaPlugAnaranjado9", (int)AuxiliarModulos.NumeroLinea.TerceraLinea, false);
+        }
+    }
+
+    void EncenderApagarLuzRoja(bool encendida, string nombreLuz = "LuzRoja1")
+    {
+        LuzRoja luz = lucesRojasDict[nombreLuz].GetComponent<LuzRoja>();
+        if (luz != null)
+        {
+            if (encendida)
+            {
+                luz.EncenderFoco();
+            }
+            else
+            {
+                luz.ApagarFoco();
+            }
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. EncenderApagarLuz(bool encendida) - No se pudo obtener el componente LuzRoja.");
         }
     }
 
@@ -266,7 +289,6 @@ public class Modulo15 : MonoBehaviour
             }
         }
     }
-
     #endregion
 
     #region Conexiones Grafo
