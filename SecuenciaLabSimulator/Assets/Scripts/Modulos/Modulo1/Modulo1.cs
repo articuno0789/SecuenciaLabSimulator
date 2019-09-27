@@ -38,6 +38,7 @@ public class Modulo1 : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        //Inicialización de listas y diccionarios de elementos.
         plugsConnections = new Dictionary<string, string>();
         plugAnaranjadosDict = new Dictionary<string, GameObject>();
         plugNegrosDict = new Dictionary<string, GameObject>();
@@ -46,42 +47,60 @@ public class Modulo1 : MonoBehaviour
         plugAnaranjados = new List<GameObject>();
         plugNegros = new List<GameObject>();
         lucesRojas = new List<GameObject>();
+
         InicializarComponentes(gameObject);
         if (moduloEncendido)
         {
-            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
+            EncenderApagarLuzRoja(true);
         }
-        inicializarPlugAnaranjado("EntradaPlugAnaranjado1");
-        inicializarPlugAnaranjado("EntradaPlugAnaranjado2");
-        inicializarPlugAnaranjado("EntradaPlugAnaranjado3");
+        InicializarPlugAnaranjado("EntradaPlugAnaranjado1");
+        InicializarPlugAnaranjado("EntradaPlugAnaranjado2");
+        InicializarPlugAnaranjado("EntradaPlugAnaranjado3");
 
-        inicializarPlugNegro("EntradaPlugNegro1");
-        inicializarPlugNegro("EntradaPlugNegro2");
-        inicializarPlugNegro("EntradaPlugNegro3");
+        InicializarPlugNegro("EntradaPlugNegro1");
+        InicializarPlugNegro("EntradaPlugNegro2");
+        InicializarPlugNegro("EntradaPlugNegro3");
     }
 
-    private void inicializarPlugAnaranjado(string nombrePlug, bool estoyConectado = false)
+    private void InicializarPlugAnaranjado(string nombrePlug, bool estoyConectado = false)
     {
-        plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().TipoConexion = (int)AuxiliarModulos.TiposConexiones.Linea;
-        plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().voltaje = voltajeModulo;
-        plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().Linea = (int)AuxiliarModulos.NumeroLinea.PrimeraLinea;
-        plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().tipoNodo = (int)AuxiliarModulos.TipoNodo.Poder;
-        if (!plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().EstoConectado())
+        Plugs plug = plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>();
+        if (plug != null)
         {
-            plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().QuitarAveria();
+            plug.TipoConexion = (int)AuxiliarModulos.TiposConexiones.Linea;
+            plug.voltaje = voltajeModulo;
+            plug.Linea = (int)AuxiliarModulos.NumeroLinea.PrimeraLinea;
+            plug.tipoNodo = (int)AuxiliarModulos.TipoNodo.Poder;
+            if (!plug.EstoConectado())
+            {
+                plug.QuitarAveria();
+            }
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. InicializarPlugAnaranjado(string nombrePlug, bool estoyConectado = false) - Elemento sin logica de plug.");
         }
     }
 
-    private void inicializarPlugNegro(string nombrePlug, bool estoyConectado = false)
+    private void InicializarPlugNegro(string nombrePlug, bool estoyConectado = false)
     {
-        plugNegrosDict[nombrePlug].GetComponent<Plugs>().TipoConexion = (int)AuxiliarModulos.TiposConexiones.Neutro;
-        plugNegrosDict[nombrePlug].GetComponent<Plugs>().voltaje = voltajeModulo;
-        plugNegrosDict[nombrePlug].GetComponent<Plugs>().Linea = (int)AuxiliarModulos.NumeroLinea.SinLinea;
-        plugNegrosDict[nombrePlug].GetComponent<Plugs>().tipoNodo = (int)AuxiliarModulos.TipoNodo.Poder;
-        if (!plugNegrosDict[nombrePlug].GetComponent<Plugs>().EstoConectado())
+        Plugs plug = plugNegrosDict[nombrePlug].GetComponent<Plugs>();
+        if(plug != null)
         {
-            plugNegrosDict[nombrePlug].GetComponent<Plugs>().QuitarAveria();
+            plug.TipoConexion = (int)AuxiliarModulos.TiposConexiones.Neutro;
+            plug.voltaje = voltajeModulo;
+            plug.Linea = (int)AuxiliarModulos.NumeroLinea.SinLinea;
+            plug.tipoNodo = (int)AuxiliarModulos.TipoNodo.Poder;
+            if (!plug.EstoConectado())
+            {
+                plug.QuitarAveria();
+            }
         }
+        else
+        {
+            Debug.LogError(this.name + ", Error. InicializarPlugNegro(string nombrePlug, bool estoyConectado = false) - Elemento sin logica de plug.");
+        }
+        
     }
 
     void Start()
@@ -145,14 +164,14 @@ public class Modulo1 : MonoBehaviour
         if (moduloEncendido)
         {
             //Hacer algo si el modulo esta encendido.
-            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
+            EncenderApagarLuzRoja(true);
             //Cargar plugs de energia
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado1", true);
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado2", true);
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado3", true);
-            inicializarPlugNegro("EntradaPlugNegro1", true);
-            inicializarPlugNegro("EntradaPlugNegro2", true);
-            inicializarPlugNegro("EntradaPlugNegro3", true);
+            InicializarPlugAnaranjado("EntradaPlugAnaranjado1", true);
+            InicializarPlugAnaranjado("EntradaPlugAnaranjado2", true);
+            InicializarPlugAnaranjado("EntradaPlugAnaranjado3", true);
+            InicializarPlugNegro("EntradaPlugNegro1", true);
+            InicializarPlugNegro("EntradaPlugNegro2", true);
+            InicializarPlugNegro("EntradaPlugNegro3", true);
             //Pulso de nergia
             MandarPulsoEnergia("EntradaPlugAnaranjado1");
             MandarPulsoEnergia("EntradaPlugAnaranjado2");
@@ -185,48 +204,84 @@ public class Modulo1 : MonoBehaviour
         else
         {
             //Hacer algo si el modulo esta apagado.
-            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ApagarFoco();
+            EncenderApagarLuzRoja(false);
             //Descargar plugs de energia
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado1", false);
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado2", false);
-            inicializarPlugAnaranjado("EntradaPlugAnaranjado3", false);
-            inicializarPlugNegro("EntradaPlugNegro1", false);
-            inicializarPlugNegro("EntradaPlugNegro2", false);
-            inicializarPlugNegro("EntradaPlugNegro3", false);
+            InicializarPlugAnaranjado("EntradaPlugAnaranjado1", false);
+            InicializarPlugAnaranjado("EntradaPlugAnaranjado2", false);
+            InicializarPlugAnaranjado("EntradaPlugAnaranjado3", false);
+            InicializarPlugNegro("EntradaPlugNegro1", false);
+            InicializarPlugNegro("EntradaPlugNegro2", false);
+            InicializarPlugNegro("EntradaPlugNegro3", false);
+        }
+    }
+
+    void EncenderApagarLuzRoja(bool encendida,string nombreLuz = "LuzRoja1")
+    {
+        LuzRoja luz = lucesRojasDict[nombreLuz].GetComponent<LuzRoja>();
+        if (luz != null)
+        {
+            if (encendida)
+            {
+                luz.EncenderFoco();
+            }
+            else
+            {
+                luz.ApagarFoco();
+            }
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. EncenderApagarLuz(bool encendida) - No se pudo obtener el componente LuzRoja.");
         }
     }
 
     void MandarPulsoEnergia(string nombrePlug)
     {
-        if (plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>().Conectado)
+        Plugs plug = plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>();
+        if (plug != null)
         {
-            CableComponent cable = plugAnaranjadosDict[nombrePlug].GetComponent<CableComponent>();
-            GameObject plugRelacionado = cable.EndPoint;
-            if (plugRelacionado != null)
+            if (plug.Conectado)
             {
-                Plugs plugRela = plugRelacionado.GetComponent<Plugs>();
-                if (plugRela != null)
+                CableComponent cable = plugAnaranjadosDict[nombrePlug].GetComponent<CableComponent>();
+                GameObject plugRelacionado = cable.EndPoint;
+                if (plugRelacionado != null)
                 {
-                    plugRela.EstablecerPropiedadesConexionesEntrantesPrueba();
+                    Plugs plugRela = plugRelacionado.GetComponent<Plugs>();
+                    if (plugRela != null)
+                    {
+                        plugRela.EstablecerPropiedadesConexionesEntrantesPrueba();
+                    }
                 }
             }
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. MandarPulsoEnergia(string nombrePlug) - No se pudo obtener el componente Plugs.");
         }
     }
 
     void MandarPulsoNeutro(string nombrePlug)
     {
-        if (plugNegrosDict[nombrePlug].GetComponent<Plugs>().Conectado)
+        Plugs plug = plugNegrosDict[nombrePlug].GetComponent<Plugs>();
+        if (plug != null)
         {
-            CableComponent cable = plugNegrosDict[nombrePlug].GetComponent<CableComponent>();
-            GameObject plugRelacionado = cable.EndPoint;
-            if (plugRelacionado != null)
+            if (plug.Conectado)
             {
-                Plugs plugRela = plugRelacionado.GetComponent<Plugs>();
-                if (plugRela != null)
+                CableComponent cable = plugNegrosDict[nombrePlug].GetComponent<CableComponent>();
+                GameObject plugRelacionado = cable.EndPoint;
+                if (plugRelacionado != null)
                 {
-                    plugRela.EstablecerPropiedadesConexionesEntrantesPrueba();
+                    Plugs plugRela = plugRelacionado.GetComponent<Plugs>();
+                    if (plugRela != null)
+                    {
+                        plugRela.EstablecerPropiedadesConexionesEntrantesPrueba();
+                    }
                 }
             }
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. MandarPulsoNeutro(string nombrePlug) - No se pudo obtener el componente Plugs.");
         }
     }
 
@@ -234,15 +289,22 @@ public class Modulo1 : MonoBehaviour
     {
         Plugs plugConexionArribaCerrado = plugAnaranjadosDict[nombrePlug].GetComponent<Plugs>();
         //plugConexionArribaCerrado.DebugMode = true;
-        if (plugConexionArribaCerrado.estaConectado)
+        if (plugConexionArribaCerrado != null)
         {
-            //Debug.Log("if (plugConexionArribaCerrado.estaConectado)");
-            Plugs conexionEntrante = plugConexionArribaCerrado.RegresarConexionEntrante();
-            if (conexionEntrante != null)
+            if (plugConexionArribaCerrado.estaConectado)
             {
-                //Debug.Log("if (conexionEntrante != null)");
-                plugConexionArribaCerrado.ComprobarEstado1Y15(plugConexionArribaCerrado, conexionEntrante, false);
+                //Debug.Log("if (plugConexionArribaCerrado.estaConectado)");
+                Plugs conexionEntrante = plugConexionArribaCerrado.RegresarConexionEntrante();
+                if (conexionEntrante != null)
+                {
+                    //Debug.Log("if (conexionEntrante != null)");
+                    plugConexionArribaCerrado.ComprobarEstado1Y15(plugConexionArribaCerrado, conexionEntrante, false);
+                }
             }
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. ComprobarCorto(string nombrePlug) - No se pudo obtener el componente Plugs.");
         }
     }
     #endregion
