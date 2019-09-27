@@ -39,24 +39,18 @@ public class Modulo3 : MonoBehaviour
     #region Inicializacion
     private void Awake()
     {
+        //Inicialización de listas y diccionarios de elementos.
         plugsConnections = new Dictionary<string, string>();
         plugAnaranjadosDict = new Dictionary<string, GameObject>();
         plugNegrosDict = new Dictionary<string, GameObject>();
         botonesCircularesRojosDict = new Dictionary<string, GameObject>();
-        //botonesCircularesVerdesDict = new Dictionary<string, GameObject>();
 
         plugAnaranjados = new List<GameObject>();
         plugNegros = new List<GameObject>();
         botonesCircularesRojos = new List<GameObject>();
-        //botonesCircularesVerdes = new List<GameObject>();
         InicializarComponentes(gameObject);
         //Botones
-        botonesCircularesRojosDict["BotonCircularVerde1"].GetComponent<Mod3PushButton>().EstablecerTipoVerde();
-        botonesCircularesRojosDict["BotonCircularVerde1"].GetComponent<Mod3PushButton>().EstablecerBotonDespresionado();
-        botonesCircularesRojosDict["BotonCircularRojo1"].GetComponent<Mod3PushButton>().EstablecerTipoRojo();
-        botonesCircularesRojosDict["BotonCircularRojo1"].GetComponent<Mod3PushButton>().EstablecerBotonDespresionado();
-        botonesCircularesRojosDict["BotonCircularRojo2"].GetComponent<Mod3PushButton>().EstablecerTipoRojo();
-        botonesCircularesRojosDict["BotonCircularRojo2"].GetComponent<Mod3PushButton>().EstablecerBotonDespresionado();
+        InicializarTiposBotones();
         //Contractores
         IncializacionContractores("EntradaPlugAnaranjado1", "EntradaPlugAnaranjado2", true);
         IncializacionContractores("EntradaPlugAnaranjado3", "EntradaPlugAnaranjado4", false);
@@ -98,6 +92,11 @@ public class Modulo3 : MonoBehaviour
 
     void Start()
     {
+        InicializarTiposBotones();
+    }
+
+    void InicializarTiposBotones()
+    {
         botonesCircularesRojosDict["BotonCircularVerde1"].GetComponent<Mod3PushButton>().EstablecerTipoVerde();
         botonesCircularesRojosDict["BotonCircularVerde1"].GetComponent<Mod3PushButton>().EstablecerBotonDespresionado();
         botonesCircularesRojosDict["BotonCircularRojo1"].GetComponent<Mod3PushButton>().EstablecerTipoRojo();
@@ -108,10 +107,19 @@ public class Modulo3 : MonoBehaviour
 
     void IncializacionContractores(string nPlug1, string nPlug2, bool cerrado)
     {
-        plugAnaranjadosDict[nPlug1].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nPlug2];
-        plugAnaranjadosDict[nPlug1].GetComponent<Plugs>().relacionCerrada = cerrado;
-        plugAnaranjadosDict[nPlug2].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nPlug1];
-        plugAnaranjadosDict[nPlug2].GetComponent<Plugs>().relacionCerrada = cerrado;
+        Plugs primerPlug = plugAnaranjadosDict[nPlug1].GetComponent<Plugs>();
+        Plugs segundoPlug = plugAnaranjadosDict[nPlug2].GetComponent<Plugs>();
+        if(primerPlug != null && segundoPlug != null)
+        {
+            primerPlug.plugRelacionado = plugAnaranjadosDict[nPlug2];
+            primerPlug.relacionCerrada = cerrado;
+            segundoPlug.plugRelacionado = plugAnaranjadosDict[nPlug1];
+            segundoPlug.relacionCerrada = cerrado;
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. IncializacionContractores(string nPlug1, string nPlug2, bool cerrado) - primero o segundo plug es nulo.");
+        }
     }
 
     private void InicializarComponentes(GameObject nodo)
@@ -149,8 +157,11 @@ public class Modulo3 : MonoBehaviour
                 botonesCircularesRojos.Add(child);
                 Animation ani = child.AddComponent<Animation>();
                 ani.playAutomatically = false;
-                ani.AddClip(((AnimationClip)AssetDatabase.LoadAssetAtPath(rutaAnimacionBotonCircular, typeof(AnimationClip))), nombreAnimacionBotonCircular);
-                child.AddComponent<Mod3PushButton>();
+                ani.AddClip(((AnimationClip)AuxiliarModulos.RegresarObjetoAnimation(nombreAnimacionBotonCircular)), nombreAnimacionBotonCircular);
+                //ani.AddClip(((AnimationClip)AssetDatabase.LoadAssetAtPath(rutaAnimacionBotonCircular, typeof(AnimationClip))), nombreAnimacionBotonCircular);
+                Mod3PushButton boton = child.AddComponent<Mod3PushButton>();
+                boton.EstablecerTipoRojo();
+                boton.EstablecerBotonDespresionado();
 
                 botonesCircularesRojosDict.Add(child.name, child);
                 child.tag = nombreTagPlugBotonRojoCircular;
@@ -161,8 +172,11 @@ public class Modulo3 : MonoBehaviour
                 //botonesCircularesVerdes.Add(child);
                 Animation ani = child.AddComponent<Animation>();
                 ani.playAutomatically = false;
-                ani.AddClip(((AnimationClip)AssetDatabase.LoadAssetAtPath(rutaAnimacionBotonCircular, typeof(AnimationClip))), nombreAnimacionBotonCircular);
-                child.AddComponent<Mod3PushButton>();
+                ani.AddClip(((AnimationClip)AuxiliarModulos.RegresarObjetoAnimation(nombreAnimacionBotonCircular)), nombreAnimacionBotonCircular);
+                //ani.AddClip(((AnimationClip)AssetDatabase.LoadAssetAtPath(rutaAnimacionBotonCircular, typeof(AnimationClip))), nombreAnimacionBotonCircular);
+                Mod3PushButton boton = child.AddComponent<Mod3PushButton>();
+                boton.EstablecerTipoVerde();
+                boton.EstablecerBotonDespresionado();
 
                 botonesCircularesRojosDict.Add(child.name, child);
                 //botonesCircularesVerdesDict.Add(child.name, child);
@@ -241,7 +255,7 @@ public class Modulo3 : MonoBehaviour
     }
 
     //Estas funciones no se usan por el momento
-    void FuncionamientoContractorRojo(string nPlugConexionArribaCerrado, string nPlugConexionAbajoCerrado, bool conexionAbierta)
+    /*void FuncionamientoContractorRojo(string nPlugConexionArribaCerrado, string nPlugConexionAbajoCerrado, bool conexionAbierta)
     {
         Plugs plugConexionArribaCerrado = plugAnaranjadosDict[nPlugConexionArribaCerrado].GetComponent<Plugs>();
         Plugs plugConexionAbajoCerrado = plugAnaranjadosDict[nPlugConexionAbajoCerrado].GetComponent<Plugs>();
@@ -311,7 +325,7 @@ public class Modulo3 : MonoBehaviour
         {
             plugConexionArribaAbierto.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict[nPlugConexionAbajoAbierto]);
         }
-    }
+    }*/
 
     #endregion
 
