@@ -49,6 +49,7 @@ public class Multiconector : MonoBehaviour
     #region Inicializacion
     private void Awake()
     {
+        //Inicialización de listas y diccionarios de elementos.
         plugsConnections = new Dictionary<string, string>();
         plugAnaranjadosDict = new Dictionary<string, GameObject>();
 
@@ -115,7 +116,7 @@ public class Multiconector : MonoBehaviour
             //Hacer algo si el modulo esta encendido.
             //Desde el cualquier nodo con cambio de color*****************************************************************************************************
             //Izquierdo
-            if (NumeroPlugsConectados(true) > 0)
+            /*if (NumeroPlugsConectados(true) > 0)
             {
                 if(primerPlugConectadoIzquierdo.Length != 0)
                 {
@@ -173,15 +174,18 @@ public class Multiconector : MonoBehaviour
                     changeOriginalColorPlug(plugAnaranjadosDict[primerPlugConectadoDerecho]);
                 }
                 primerPlugConectadoDerecho = "";
-            }
+            }*/
             //*********************************************************************************************************************
 
 
             //Desde el centro con cambio de color*****************************************************************************************************
             //Izquierdo
-            /*if (plugAnaranjadosDict["EntradaPlugAnaranjado5"].GetComponent<Plugs>().EstoConectado())
+            if (plugAnaranjadosDict["EntradaPlugAnaranjado5"].GetComponent<Plugs>().EstoConectado())
             {
                 DestacarPlugSelect("EntradaPlugAnaranjado5");
+                EstablecerPropiedadesMultiples("EntradaPlugAnaranjado1", "EntradaPlugAnaranjado2", "EntradaPlugAnaranjado3",
+                                 "EntradaPlugAnaranjado4", "EntradaPlugAnaranjado5", "EntradaPlugAnaranjado6",
+                                 "EntradaPlugAnaranjado7", "EntradaPlugAnaranjado8", "EntradaPlugAnaranjado9");
             }
             else
             {
@@ -197,6 +201,9 @@ public class Multiconector : MonoBehaviour
             if (plugAnaranjadosDict["EntradaPlugAnaranjado14"].GetComponent<Plugs>().EstoConectado())
             {
                 DestacarPlugSelect("EntradaPlugAnaranjado14");
+                EstablecerPropiedadesMultiples("EntradaPlugAnaranjado10", "EntradaPlugAnaranjado11", "EntradaPlugAnaranjado12",
+                                 "EntradaPlugAnaranjado13", "EntradaPlugAnaranjado14", "EntradaPlugAnaranjado15",
+                                 "EntradaPlugAnaranjado16", "EntradaPlugAnaranjado17", "EntradaPlugAnaranjado18");
             }
             else
             {
@@ -207,7 +214,7 @@ public class Multiconector : MonoBehaviour
                                  "EntradaPlugAnaranjado13", "EntradaPlugAnaranjado14", "EntradaPlugAnaranjado15",
                                  "EntradaPlugAnaranjado16", "EntradaPlugAnaranjado17", "EntradaPlugAnaranjado18", true);
                 changeOriginalColorPlug(plugAnaranjadosDict["EntradaPlugAnaranjado14"]);
-            }*/
+            }
             //*********************************************************************************************************************
 
             //Desde el centro sin cambio de color
@@ -250,19 +257,28 @@ public class Multiconector : MonoBehaviour
     void DestacarPlugSelect(string nPlug)
     {
         Renderer rend = plugAnaranjadosDict[nPlug].GetComponent<Renderer>();
-        rend.material = new Material(Shader.Find("Sprites/Default"));
-        rend.material.color = Color.cyan;
+        if (rend != null)
+        {
+            rend.material = new Material(Shader.Find("Sprites/Default"));
+            rend.material.color = Color.cyan;
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. DestacarPlugSelect(string nPlug) - rend es nulo.");
+        }
     }
 
     private void changeOriginalColorPlug(GameObject objectClick)
     {
         if (objectClick.name.Contains("EntradaPlugNegro"))
         {
-            objectClick.GetComponent<Renderer>().material = (Material)AssetDatabase.LoadAssetAtPath(RutaMaterialPlugNegro, typeof(Material));
+            objectClick.GetComponent<Renderer>().material = AuxiliarModulos.RegresarObjetoMaterial("EntradaPlugNegro");
+            //objectClick.GetComponent<Renderer>().material = (Material)AssetDatabase.LoadAssetAtPath(RutaMaterialPlugNegro, typeof(Material));
         }
         else
         {
-            objectClick.GetComponent<Renderer>().material = (Material)AssetDatabase.LoadAssetAtPath(RutaMaterialPlugAnaranjado, typeof(Material));
+            objectClick.GetComponent<Renderer>().material = AuxiliarModulos.RegresarObjetoMaterial("EntradaPlugAnaranjado");
+            //objectClick.GetComponent<Renderer>().material = (Material)AssetDatabase.LoadAssetAtPath(RutaMaterialPlugAnaranjado, typeof(Material));
         }
     }
 
@@ -314,16 +330,20 @@ public class Multiconector : MonoBehaviour
         int numeroPlusConectados = 0;
         for (int i = 0; i < lonLista; i++)
         {
-            if (plugAnaranjados[i].GetComponent<Plugs>().EstoConectado())
+            Plugs plug = plugAnaranjados[i].GetComponent<Plugs>();
+            if (plug != null)
             {
-                numeroPlusConectados++;
-                if (numeroPlusConectados == 1)
+                if (plug.EstoConectado())
                 {
-                    plug1 = plugAnaranjados[i].GetComponent<Plugs>().name;
-                }
-                else if (numeroPlusConectados == 2)
-                {
-                    plug2 = plugAnaranjados[i].GetComponent<Plugs>().name;
+                    numeroPlusConectados++;
+                    if (numeroPlusConectados == 1)
+                    {
+                        plug1 = plug.name;
+                    }
+                    else if (numeroPlusConectados == 2)
+                    {
+                        plug2 = plug.name;
+                    }
                 }
             }
         }
@@ -374,7 +394,9 @@ public class Multiconector : MonoBehaviour
         return numeroPlusConectados;
     }
 
-    public int NombresDemasConectores(bool izquierdo, ref string plug1, ref string plug2, ref string plug3,
+
+    //Código en desuso
+    /*public int NombresDemasConectores(bool izquierdo, ref string plug1, ref string plug2, ref string plug3,
                                       ref string plug4, ref string plug5, ref string plug6, ref string plug7, 
                                       ref string plug8)
     {
@@ -464,7 +486,6 @@ public class Multiconector : MonoBehaviour
         return numeroPlusConectados;
     }
 
-
     void ActivarRelacionPlugComun(string nplugCentro, string nPlugObjetivo)
     {
         plugAnaranjadosDict[nplugCentro].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nPlugObjetivo];
@@ -497,7 +518,7 @@ public class Multiconector : MonoBehaviour
         ActivarRelacionPlugComun(nplugCentro, nplugInferiorDerecho);
         plugAnaranjadosDict[nplugInferiorDerecho].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
         /*plugAnaranjadosDict[nplugCentro].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
-        plugAnaranjadosDict[nplugCentro].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nplugSuperiorIzquierdo];*/
+        plugAnaranjadosDict[nplugCentro].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nplugSuperiorIzquierdo];
 
         /*plugAnaranjadosDict[nplugSuperiorIzquierdo].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
         plugAnaranjadosDict[nplugSuperiorCentro].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
@@ -507,13 +528,13 @@ public class Multiconector : MonoBehaviour
         plugAnaranjadosDict[nplugDerecho].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
         plugAnaranjadosDict[nplugInferiorIzquierdo].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
         plugAnaranjadosDict[nplugInferiorCentro].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
-        plugAnaranjadosDict[nplugInferiorDerecho].GetComponent<Plugs>().EstablecerRelacionCerrado(true);*/
+        plugAnaranjadosDict[nplugInferiorDerecho].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
 
-        /*plugAnaranjadosDict[nPlugNormalmenteAbierto].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
+        plugAnaranjadosDict[nPlugNormalmenteAbierto].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
         plugAnaranjadosDict[nPlugNormalmenteAbierto].GetComponent<Plugs>().plugRelacionado = null;
         plugAnaranjadosDict[nPlugNormalmenteAbierto].GetComponent<Plugs>().EliminarPropiedadesConexionesEntradaPrueba();
         plugAnaranjadosDict[nplugNormalmenteCerrado].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
-        plugAnaranjadosDict[nplugNormalmenteCerrado].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nPlugComun];*/
+        plugAnaranjadosDict[nplugNormalmenteCerrado].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nPlugComun];
     }
 
 
@@ -527,6 +548,7 @@ public class Multiconector : MonoBehaviour
         plugAnaranjadosDict[nplugNormalmenteCerrado].GetComponent<Plugs>().plugRelacionado = null;
         plugAnaranjadosDict[nplugNormalmenteCerrado].GetComponent<Plugs>().EliminarPropiedadesConexionesEntradaPrueba();
     }
+    */
     #endregion
 
     #region Conexiones Grafo
