@@ -59,8 +59,10 @@ public class FocoVerde : MonoBehaviour
     {
         particleError = new ParticlesError();
         padreTotalComponente = new GameObject();
-        plasticoVerdeApagado = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoVerdeApagado, typeof(Material));
-        plasticoVerdeEncendido = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoVerdeEncendido, typeof(Material));
+        plasticoVerdeApagado = AuxiliarModulos.RegresarObjetoMaterial("plasticoVerdeApagado");
+        plasticoVerdeEncendido = AuxiliarModulos.RegresarObjetoMaterial("plasticoVerdeEncendido");
+        //plasticoVerdeApagado = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoVerdeApagado, typeof(Material));
+        //plasticoVerdeEncendido = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoVerdeEncendido, typeof(Material));
     }
     #endregion
 
@@ -83,8 +85,9 @@ public class FocoVerde : MonoBehaviour
 
             if (plugArribaCompPlug.Conectado && plugAbajoCompPlug.Conectado)
             {
+                //Correcto - Linea y neutro conectado en de manera correcta
                 if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea
-                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro)// Correcto - Linea y neutro conectado en de manera correcta
+                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro)
                 {
                     focoAveriado = false;
                     EncenderFoco();
@@ -93,8 +96,9 @@ public class FocoVerde : MonoBehaviour
                         Debug.Log(padreTotalComponente.name + ") " + this.name + " - " + this.tag + " - if(plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
                     }
                 }
-                else if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro
-                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea) //Averia - Linea y neutro invertido
+                else //Averia - Linea y neutro invertido
+                if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro
+                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea) 
                 {
                     focoAveriado = false;
                     ApagarFoco();
@@ -103,8 +107,9 @@ public class FocoVerde : MonoBehaviour
                         Debug.Log(padreTotalComponente.name + ") " + this.name + " - " + this.tag + " - (plugArribaCompPlug.TipoConexion == 2 && plugAbajoCompPlug.TipoConexion == 1) - Conectado - Debido a que los focos tienen polaridad, al invertir la conexión nom encienden.");
                     }
                 }
-                else if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea
-                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea) // Avaeria - Dos lineas conectadas al mismo tiempo
+                else //Avaeria - Dos lineas conectadas al mismo tiempo
+                if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea
+                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea) 
                 {
                     if (plugArribaCompPlug.Linea == plugAbajoCompPlug.Linea)
                     {
@@ -132,10 +137,10 @@ public class FocoVerde : MonoBehaviour
                             Debug.LogError(padreTotalComponente.name + ") " + this.name + " - " + this.tag + " - NO DEBERIA ENTRAR AQUI - (plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1)");
                         }
                     }
-
                 }
-                else if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro
-                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro) // Correcto - Dos neutros conectados, no pasa nada
+                else //Correcto - Dos neutros conectados, no pasa nada
+                if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro
+                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro) 
                 {
                     focoAveriado = false;
                     ApagarFoco();
