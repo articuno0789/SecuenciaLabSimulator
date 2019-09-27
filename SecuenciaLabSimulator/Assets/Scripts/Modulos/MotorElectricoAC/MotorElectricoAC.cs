@@ -42,10 +42,10 @@ public class MotorElectricoAC : MonoBehaviour
         get => direccionRotacion;
         set
         {
-            if (value < 0 || value > 2)
+            if (value < (int)AuxiliarModulos.DireccionRotacion.SinRotar || value > (int)AuxiliarModulos.DireccionRotacion.Antihorario)
             {
                 throw new System.ArgumentOutOfRangeException(
-                      $"{nameof(value)} debe ser un valor entre 0 y 2. 0 sin rotacion, 1 - rotacion derecha, 2 - rotacion izquierda.");
+                      $"{nameof(value)} debe ser un valor entre 0 y 2. 0) sin rotación, 1) Horario, 2) Antihorario");
             }
             direccionRotacion = value;
         }
@@ -142,16 +142,16 @@ public class MotorElectricoAC : MonoBehaviour
             if(voltajeActual > voltajeMinimo && voltajeActual < voltajeMaximo)
             {
                 float velo = velocidadRotacionActual/2;
-                if (direccionRotacion == 0) //Sin rotacion
+                if (direccionRotacion == (int)AuxiliarModulos.DireccionRotacion.SinRotar) //Sin rotacion
                 {
                     //Sin rotacion
                 }
                 else
-            if (direccionRotacion == 1) //Rotacion derecha - Sentido horario
+                if (direccionRotacion == (int)AuxiliarModulos.DireccionRotacion.Horario) //Rotacion derecha - Sentido horario
                 {
                     ejeMotor.transform.Rotate(Vector3.right, velo * Time.deltaTime);
                 }
-                else if (direccionRotacion == 2)// Rotacion Sentido antiorario
+                else if (direccionRotacion == (int)AuxiliarModulos.DireccionRotacion.Antihorario)// Rotacion Sentido antiorario
                 {
                     ejeMotor.transform.Rotate(Vector3.left, velo * Time.deltaTime);
                 }
@@ -176,6 +176,10 @@ public class MotorElectricoAC : MonoBehaviour
             {
                 Debug.LogError("Error." + name + " Modulo 6: rotarPerilla(float valorActual): El valor actual recibido sobrepasa los limites establecidos");
             }*/
+        }
+        else
+        {
+            Debug.LogError(this.name + ", void RotarEjeMotor() - ejeMotor es nulo.");
         }
     }
 
@@ -232,23 +236,31 @@ public class MotorElectricoAC : MonoBehaviour
 
     public void ActualizarPanelInfo()
     {
-        if(panelInformativo!= null)
+        if(panelInformativo != null)
         {
-            panelInformativo.GetComponent<MotorStatePanel>().EstablecerTextoVoltajeMotor(voltajeActual);
-            panelInformativo.GetComponent<MotorStatePanel>().EstablecerTextoVeloMotor(velocidadRotacionActual);
-            panelInformativo.GetComponent<MotorStatePanel>().EstablecerTextoDireccionGiroMotor(direccionRotacion);
-            if (!motorAveriado)
+            MotorStatePanel motorState = panelInformativo.GetComponent<MotorStatePanel>();
+            if (motorState != null)
             {
-                panelInformativo.GetComponent<MotorStatePanel>().EstablecerTextoEstadoMotor(!motorAveriado);
+                motorState.EstablecerTextoVoltajeMotor(voltajeActual);
+                motorState.EstablecerTextoVeloMotor(velocidadRotacionActual);
+                motorState.EstablecerTextoDireccionGiroMotor(direccionRotacion);
+                if (!motorAveriado)
+                {
+                    motorState.EstablecerTextoEstadoMotor(!motorAveriado);
+                }
+                else
+                {
+                    motorState.EstablecerTextoEstadoMotor(motorAveriado, "Descripcion de falla de pueba");
+                }
             }
             else
             {
-                panelInformativo.GetComponent<MotorStatePanel>().EstablecerTextoEstadoMotor(motorAveriado, "Descripcion de falla de pueba");
+                Debug.LogError(this.name + ", void ActualizarPanelInfo() - motorState es nulo.");
             }
         }
         else
         {
-
+            Debug.LogError(this.name + ", void ActualizarPanelInfo() - panelInformativo es nulo.");
         }
     }
 
