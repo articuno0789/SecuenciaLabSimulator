@@ -8,22 +8,27 @@ public class ChangeModule : MonoBehaviour
 {
     #region Atributos
     //Atributos de componentes no alterables
-        //GUI
+    //GUI
+    [Header("GUI - Cambiar Módulos")]
     public Button buttonChangeModule;
     public Dropdown dropdown;
     public Text myText;
     public Text textInfoChangeModule;
-        //Elementos interactuables
+    //Elementos interactuables
+    [Header("Elementos Interactuablesor")]
     public GameObject panel;
     public GameObject player;
     //Variables
+    [Header("Variables")]
     public GameObject selectedGameObjectRightClick;
     public GameObject modulesList;
     private GameObject padreTotal;
     //Constantes
+    [Header("Constantes")]
     public int moduleLayer = AuxiliarModulos.capaModulos; //La capa 11, equivale a la capa "Modulo"
     public int totalModulosSimulador = AuxiliarModulos.numModSimulador;
     //Debug
+    [Header("Debug")]
     public bool debug = false;
     #endregion
 
@@ -36,7 +41,7 @@ public class ChangeModule : MonoBehaviour
     void Start()
     {
         //Busqueda de todos los elementos necesarios para el cambio de modulos
-        if(player == null)
+        if (player == null)
         {
             player = GameObject.Find("FirstPersonCharacter");
         }
@@ -99,7 +104,7 @@ public class ChangeModule : MonoBehaviour
             if (padreTotal != null && padreTotal.tag == nombreModuloNuevo)
             {
                 string mensajePreMismoModulo = "";
-                mensajePreMismoModulo = "padreTotal.tag: " + padreTotal.tag + ", nombreModuloNuevo: " + nombreModuloNuevo + ", Precacición. Tiene seleccionado el mismo tipo de modulo que el modulo actual, por lo tanto no se puede realizar el cambio de modulo.";
+                mensajePreMismoModulo = "padreTotal.tag: " + padreTotal.tag + ", nombreModuloNuevo: " + nombreModuloNuevo + ", Precaución. Tiene seleccionado el mismo tipo de modulo que el modulo actual, por lo tanto no se puede realizar el cambio de modulo.";
                 Debug.LogWarning(mensajePreMismoModulo);
                 textInfoChangeModule.text = "Información: " + mensajePreMismoModulo;
                 buttonChangeModule.enabled = false;
@@ -280,14 +285,15 @@ public class ChangeModule : MonoBehaviour
     {
         string tipoModulo = tipo;
         string ruta = "Assets/Prefabs/" + tipoModulo + ".blend";
-        GameObject newModule = (GameObject)AssetDatabase.LoadAssetAtPath(ruta, typeof(GameObject));
+        //GameObject newModule = (GameObject)AssetDatabase.LoadAssetAtPath(ruta, typeof(GameObject));
+        //newModule = AsignarLogicaModulo(newModule, tipoModulo);
+        GameObject newModule = AuxiliarModulos.RegresarObjetoModulo(tipoModulo);
         newModule = Instantiate(newModule, padreTotal.transform.position, padreTotal.transform.rotation);
         string terminacion = DeterminarTerminacionNuevoModulo(tipoModulo);
         newModule.name = tipoModulo + terminacion;
-        //newModule = AsignarLogicaModulo(newModule, tipoModulo);
-        newModule = AuxiliarModulos.AsignarLogicaModulo(newModule, tipoModulo);
         newModule.tag = tipoModulo;
         newModule.layer = moduleLayer;
+        newModule = AuxiliarModulos.AsignarLogicaModulo(newModule, tipoModulo);
         if (debug)
         {
             Debug.Log("Ruta: " + ruta);
@@ -303,10 +309,15 @@ public class ChangeModule : MonoBehaviour
         int m_DropdownValue = dropdown.value;
         //Change the message to say the name of the current Dropdown selection using the value
         string tipoModulos = dropdown.options[m_DropdownValue].text;
-        string ruta = "Assets/Prefabs/" + tipoModulos + ".blend";
-        GameObject newModule = (GameObject)AssetDatabase.LoadAssetAtPath(ruta, typeof(GameObject));
-        newModule = Instantiate(newModule, padreTotal.transform.position, padreTotal.transform.rotation);
+        //string ruta = "Assets/Prefabs/" + tipoModulos + ".blend";
+        string ruta = tipoModulos + ".blend";
+        //AuxiliarModulos.RegresarObjetoModulo(tipoModulos);
+        //GameObject newModule = (GameObject)AssetDatabase.LoadAssetAtPath(ruta, typeof(GameObject));
+        GameObject newModule = null;
         string terminacion = DeterminarTerminacionNuevoModulo(tipoModulos);
+        //newModule = Instantiate(Resources.Load("Prefabs/" + tipoModulos, typeof(GameObject))) as GameObject;
+        newModule = Instantiate(AuxiliarModulos.RegresarObjetoModulo(tipoModulos), padreTotal.transform.position, padreTotal.transform.rotation);
+        Debug.LogError("Terminacion: " + terminacion);
         newModule.name = tipoModulos + terminacion;
         //newModule = AsignarLogicaModulo(newModule, tipoModulos);
         newModule = AuxiliarModulos.AsignarLogicaModulo(newModule, tipoModulos);
@@ -338,6 +349,7 @@ public class ChangeModule : MonoBehaviour
                 Debug.Log(sameTypeObject.name);
                 int position = sameTypeObject.name.IndexOf("_");
                 string numeroElementoString = sameTypeObject.name.Substring(position + 1);
+                Debug.LogError("numeroElementoString: " + numeroElementoString);
                 int numeroElemento = int.Parse(numeroElementoString);
                 listaTerminacion.Add(numeroElemento);
             }
