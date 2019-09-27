@@ -35,6 +35,7 @@ public class Modulo10_17_18_19 : MonoBehaviour
     #region Inicializacion
     private void Awake()
     {
+        //Inicialización de listas y diccionarios de elementos.
         plugsConnections = new Dictionary<string, string>();
         plugAnaranjadosDict = new Dictionary<string, GameObject>();
         plugNegrosDict = new Dictionary<string, GameObject>();
@@ -46,7 +47,7 @@ public class Modulo10_17_18_19 : MonoBehaviour
         InicializarComponentes(gameObject);
         if (moduloEncendido)
         {
-            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
+            EncenderApagarLuzRoja(true);
         }
         //Inicializar contractores
         IncializacionContractores3("EntradaPlugAnaranjado4", "EntradaPlugAnaranjado2", "EntradaPlugAnaranjado3");
@@ -69,9 +70,19 @@ public class Modulo10_17_18_19 : MonoBehaviour
 
     void IncializacionContractores3(string nPlugComun, string nPlugNormalmenteAbierto, string nplugNormalmenteCerrado)
     {
-        plugAnaranjadosDict[nPlugComun].GetComponent<Plugs>().EstablecerPlugRelacionado(plugAnaranjadosDict[nplugNormalmenteCerrado], true);
-        plugAnaranjadosDict[nPlugNormalmenteAbierto].GetComponent<Plugs>().EstablecerPlugRelacionado(plugAnaranjadosDict[nPlugComun], false);
-        plugAnaranjadosDict[nplugNormalmenteCerrado].GetComponent<Plugs>().EstablecerPlugRelacionado(plugAnaranjadosDict[nPlugComun], true);
+        Plugs plugnComun = plugAnaranjadosDict[nPlugComun].GetComponent<Plugs>();
+        Plugs plugnNormAbier = plugAnaranjadosDict[nPlugNormalmenteAbierto].GetComponent<Plugs>();
+        Plugs plugnNormCerra = plugAnaranjadosDict[nplugNormalmenteCerrado].GetComponent<Plugs>();
+        if (plugnComun != null && plugnNormAbier != null && plugnNormCerra != null)
+        {
+            plugnComun.EstablecerPlugRelacionado(plugAnaranjadosDict[nplugNormalmenteCerrado], true);
+            plugnNormAbier.EstablecerPlugRelacionado(plugAnaranjadosDict[nPlugComun], false);
+            plugnNormCerra.EstablecerPlugRelacionado(plugAnaranjadosDict[nPlugComun], true);
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. IncializacionContractores3(string nPlugComun, string nPlugNormalmenteAbierto, string nplugNormalmenteCerrado) - Alguno de los plugs es nulo.");
+        }
     }
 
     // Start is called before the first frame update
@@ -133,19 +144,40 @@ public class Modulo10_17_18_19 : MonoBehaviour
         if (moduloEncendido)
         {
             //Hacer algo si el modulo esta encendido.
-            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
+            EncenderApagarLuzRoja(true);
             ComportamientoModulo();
         }
         else
         {
             //Hacer algo si el modulo esta apagado.
-            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ApagarFoco();
+            EncenderApagarLuzRoja(false);
+        }
+    }
+
+    void EncenderApagarLuzRoja(bool encendida)
+    {
+        LuzRoja luz = lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>();
+        if (luz != null)
+        {
+            if (encendida)
+            {
+                luz.EncenderFoco();
+            }
+            else
+            {
+                luz.ApagarFoco();
+            }
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. EncenderApagarLuz(bool encendida) - No se pudo obtener el componente LuzRoja.");
         }
     }
 
     private void ComportamientoModulo()
     {
-        if (lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugNegrosDict["EntradaPlugNegro1"]))
+        LuzRoja luzRoja = lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>();
+        if (luzRoja != null && luzRoja.ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugNegrosDict["EntradaPlugNegro1"]))
         {
             //Lado izquierdo
             ActivarContractorNormalmenteAbierto("EntradaPlugAnaranjado4", "EntradaPlugAnaranjado2", "EntradaPlugAnaranjado3");
