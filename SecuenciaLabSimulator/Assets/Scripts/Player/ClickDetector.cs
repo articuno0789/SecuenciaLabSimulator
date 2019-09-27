@@ -196,11 +196,13 @@ public class ClickDetector : MonoBehaviour
         {
             if (objectClick.name.Contains("EntradaPlugNegro"))
             {
-                objectClick.GetComponent<Renderer>().material = (Material)AssetDatabase.LoadAssetAtPath(rutaMaterialPlugNegro, typeof(Material));
+                objectClick.GetComponent<Renderer>().material = AuxiliarModulos.RegresarObjetoMaterial("EntradaPlugNegro");
+                //objectClick.GetComponent<Renderer>().material = (Material)AssetDatabase.LoadAssetAtPath(rutaMaterialPlugNegro, typeof(Material));
             }
             else
             {
-                objectClick.GetComponent<Renderer>().material = (Material)AssetDatabase.LoadAssetAtPath(rutaMaterialPlugAnaranjado, typeof(Material));
+                objectClick.GetComponent<Renderer>().material = AuxiliarModulos.RegresarObjetoMaterial("EntradaPlugAnaranjado");
+                //objectClick.GetComponent<Renderer>().material = (Material)AssetDatabase.LoadAssetAtPath(rutaMaterialPlugAnaranjado, typeof(Material));
             }
         }
         else
@@ -360,5 +362,4 @@ public class ClickDetector : MonoBehaviour
         }
         return eliminarCable;
     }
-
 }
