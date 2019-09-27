@@ -9,17 +9,20 @@ public class Credits : MonoBehaviour
     #region Atributos
     //Atributos variables
     //GUI
+    [Header("GUI - Créditos")]
     public GameObject elementsCredits;
     public GameObject navegationInstruction;
     public GameObject loading;
     public GameObject mainMusic;
     //Variables
+    [Header("Párametros de Manipulación Creditos")]
     public float speed = 30;
     public float minSpeed = -200;
     public float maxSpeed = 200;
     public bool pause = false;
     public bool finCreditos = false;
     //Constantes
+    [Header("Constantes")]
     public float limiteMaximoCreditos = 2700;
     public float limiteMinimoCreditos = 0;
     public string nombreMenuRetorno = "MainMenuPrueba";
