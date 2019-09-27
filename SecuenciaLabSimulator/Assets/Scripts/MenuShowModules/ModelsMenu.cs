@@ -9,14 +9,16 @@ public class ModelsMenu : MonoBehaviour
 {
     #region Atributos
     // nuestra clase ParticleExamples se convierte en una variedad de cosas a las que se puede hacer referencia
+    [Header("Pause Manager")]
     public GameObject PauseMenuManager;
+    [Header("Losta de Modelos")]
     public ModelsExamples[] modelSystems;
 
     // La pistola GameObject
+    [Header("Arma")]
     public GameObject gunGameObject;
-
+    [Header("Imagen de Fondo")]
     public GameObject BackgroundImage;
-
     public bool hideBackgroundImage;
 
     // Un entero privado para almacenar la posición actual en la matriz
@@ -26,9 +28,11 @@ public class ModelsMenu : MonoBehaviour
     private GameObject currentGO;
 
     // donde generar prefabricados
+    [Header("Spawn")]
     public Transform spawnLocation;
 
     // referencias a los componentes de texto de la interfaz de usuario
+    [Header("Párametros Interfaz de Usuario")]
     public Text title;
     public Text description;
     public Text navigationDetails;
