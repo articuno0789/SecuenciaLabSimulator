@@ -59,8 +59,10 @@ public class FocoCircularAzul : MonoBehaviour
     {
         particleError = new ParticlesError();
         padreTotalComponente = new GameObject();
-        plasticoCircularAzulApagado = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoCircularAzulApagado, typeof(Material));
-        plasticoCircularAzulEncendido = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoCircularAzulEncendido, typeof(Material));
+        plasticoCircularAzulApagado = AuxiliarModulos.RegresarObjetoMaterial("plasticoCircularAzulApagado");
+        plasticoCircularAzulEncendido = AuxiliarModulos.RegresarObjetoMaterial("plasticoCircularAzulEncendido");
+        //plasticoCircularAzulApagado = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoCircularAzulApagado, typeof(Material));
+        //plasticoCircularAzulEncendido = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoCircularAzulEncendido, typeof(Material));
     }
     #endregion
 
@@ -83,8 +85,9 @@ public class FocoCircularAzul : MonoBehaviour
 
             if (plugArribaCompPlug.Conectado && plugAbajoCompPlug.Conectado)
             {
+                //Correcto - Linea y neutro conectado en de manera correcta
                 if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea
-                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro)// Correcto - Linea y neutro conectado en de manera correcta
+                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro)
                 {
                     focoAveriado = false;
                     EncenderFoco();
@@ -93,8 +96,9 @@ public class FocoCircularAzul : MonoBehaviour
                         Debug.Log(padreTotalComponente.name + ") " + this.name + " - " + this.tag + " - if(plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
                     }
                 }
-                else if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro
-                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea) //Averia - Linea y neutro invertido
+                else //Averia - Linea y neutro invertido
+                if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro
+                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea) 
                 {
                     focoAveriado = false;
                     ApagarFoco();
@@ -103,8 +107,9 @@ public class FocoCircularAzul : MonoBehaviour
                         Debug.Log(padreTotalComponente.name + ") " + this.name + " - " + this.tag + " - (plugArribaCompPlug.TipoConexion == 2 && plugAbajoCompPlug.TipoConexion == 1) - Conectado - Debido a que los focos tienen polaridad, al invertir la conexión nom encienden.");
                     }
                 }
-                else if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea
-                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea) // Avaeria - Dos lineas conectadas al mismo tiempo
+                else //Avaeria - Dos lineas conectadas al mismo tiempo
+                if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea
+                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea) 
                 {
                     if (plugArribaCompPlug.Linea == plugAbajoCompPlug.Linea)
                     {
@@ -134,8 +139,9 @@ public class FocoCircularAzul : MonoBehaviour
                     }
 
                 }
-                else if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro
-                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro) // Correcto - Dos neutros conectados, no pasa nada
+                else //Correcto - Dos neutros conectados, no pasa nada
+                if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro
+                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro) 
                 {
                     focoAveriado = false;
                     ApagarFoco();
