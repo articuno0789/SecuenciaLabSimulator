@@ -29,6 +29,13 @@ public class Mod9PushButton : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log("Entra a presionar boton azul circular modulo 9--");
-        animation.Play("Mod9PresBotonCircularAzul");
+        if (animation != null)
+        {
+            animation.Play("Mod9PresBotonCircularAzul");
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. void OnMouseDown() - animation es nulo.");
+        }
     }
 }
