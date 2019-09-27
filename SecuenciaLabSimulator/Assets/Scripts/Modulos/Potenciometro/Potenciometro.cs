@@ -70,6 +70,7 @@ public class Potenciometro : MonoBehaviour
     #region Inicializacion
     private void Awake()
     {
+        //Inicialización de listas y diccionarios de elementos.
         plugsConnections = new Dictionary<string, string>();
         plugAnaranjadosDict = new Dictionary<string, GameObject>();
         plugNegrosDict = new Dictionary<string, GameObject>();
@@ -78,7 +79,7 @@ public class Potenciometro : MonoBehaviour
         plugNegros = new List<GameObject>();
         particleError = new ParticlesError();
         InicializarComponentes(gameObject);
-        CurrentTypeParticleError = 7;
+        CurrentTypeParticleError = (int)AuxiliarModulos.ParticlesErrorTypes.PlasmaExplosionEffect;
     }
 
     // Start is called before the first frame update
@@ -153,11 +154,12 @@ public class Potenciometro : MonoBehaviour
         {
             plugIzquierdoCompPlug.EstablecerPropiedadesConexionesEntrantes();
             plugDerechoCompPlug.EstablecerPropiedadesConexionesEntrantes();
-
+            //Correcto - Linea y neutro conectado en de manera correcta
             if (plugIzquierdoCompPlug.Conectado && plugDerechoCompPlug.Conectado)
             {
                 Plugs plugCentral = plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>();
-                if (plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 2)// Correcto - Linea y neutro conectado en de manera correcta
+                if (plugIzquierdoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea &&
+                    plugDerechoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro)
                 {
                     potenciometroAveriado = false;
                     float nuevoVoltaje = plugIzquierdoCompPlug.Voltaje * (valorActualPerilla / 100);
@@ -169,7 +171,9 @@ public class Potenciometro : MonoBehaviour
                         Debug.Log(name + ") " + this.name + " - POTENCIOMETRO - if(plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
                     }
                 }
-                else if (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 1) //Averia - Linea y neutro invertido
+                else //Averia - Linea y neutro invertido
+                if (plugIzquierdoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro &&
+                    plugDerechoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea)
                 {
                     potenciometroAveriado = false;
                     float nuevoVoltaje = plugDerechoCompPlug.Voltaje * (valorActualPerilla / 100);
@@ -181,7 +185,9 @@ public class Potenciometro : MonoBehaviour
                         Debug.Log(name + ") " + this.name + " - POTENCIOMETRO - (plugArribaCompPlug.TipoConexion == 2 && plugAbajoCompPlug.TipoConexion == 1) - Conectado -");
                     }
                 }
-                else if (plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 1) // Avaeria - Dos lineas conectadas al mismo tiempo
+                else //Avaeria - Dos lineas conectadas al mismo tiempo
+                if (plugIzquierdoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea &&
+                    plugDerechoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea)
                 {
                     if (plugIzquierdoCompPlug.Linea == plugDerechoCompPlug.Linea)
                     {
@@ -203,14 +209,16 @@ public class Potenciometro : MonoBehaviour
                     else
                     {
                         potenciometroAveriado = true;
-                        EliminarMaterial();
+                        AuxiliarModulos.EliminarMaterial(perilla);
                         if (DebugMode)
                         {
                             Debug.LogError(name + ") " + this.name + " - POTENCIOMETRO - NO DEBERIA ENTRAR AQUI - (plugArribaCompPlug.TipoConexion == 1 && plugAbajoCompPlug.TipoConexion == 1)");
                         }
                     }
-                }
-                else if (plugIzquierdoCompPlug.TipoConexion == 2 && plugDerechoCompPlug.TipoConexion == 2) // Correcto - Dos neutros conectados, no pasa nada
+                } //Correcto - Dos neutros conectados, no pasa nada
+                else 
+                if (plugIzquierdoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro &&
+                    plugDerechoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro) 
                 {
                     potenciometroAveriado = false;
                     plugCentral.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict["EntradaPlugAnaranjado3"]);
@@ -222,7 +230,7 @@ public class Potenciometro : MonoBehaviour
                 else
                 {
                     potenciometroAveriado = true;
-                    EliminarMaterial();
+                    AuxiliarModulos.EliminarMaterial(perilla);
                     Debug.LogError(name + ") " + this.name + " - POTENCIOMETRO - Este caso de uso todavia no esta programado - No entro a ningun caso");
                 }
             }
@@ -263,21 +271,18 @@ public class Potenciometro : MonoBehaviour
 
     public void CrearAveria()
     {
-        currentParticle = particleError.CrearParticulasError(currentTypeParticleError, perilla.transform.position, perilla.transform.rotation.eulerAngles, new Vector3(0.5f, 0.5f, 0.5f));
-        currentParticle.transform.parent = this.gameObject.transform;
-        potenciometroAveriado = true;
+        if (perilla != null)
+        {
+            currentParticle = particleError.CrearParticulasError(currentTypeParticleError, perilla.transform.position, perilla.transform.rotation.eulerAngles, new Vector3(0.5f, 0.5f, 0.5f));
+            currentParticle.transform.parent = this.gameObject.transform;
+            potenciometroAveriado = true;
+        }
     }
 
     public void QuitarAveria()
     {
         particleError.DestruirParticulasError(currentParticle);
         potenciometroAveriado = false;
-    }
-
-    void EliminarMaterial()
-    {
-        Renderer perillaRender = perilla.GetComponent<Renderer>();
-        perillaRender.material = null;
     }
 
     public void RotarPerilla()
@@ -293,7 +298,7 @@ public class Potenciometro : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Error. Modulo Potenciometro: rotarPerilla(float valorActual): El valor actual recibido sobrepasa los limites establecidos");
+                Debug.LogError(this.name + ", Error. Modulo Potenciometro: rotarPerilla(float valorActual): El valor actual recibido sobrepasa los limites establecidos");
             }
         }
     }
