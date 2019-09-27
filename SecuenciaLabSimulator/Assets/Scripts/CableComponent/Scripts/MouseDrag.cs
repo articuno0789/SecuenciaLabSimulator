@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MouseDrag : MonoBehaviour
 {
-
-    float distance = 10;
+    [Header("Distancia de Manejo")]
+    public float distance = 10;
 
     private void Awake()
     {
@@ -18,7 +18,6 @@ public class MouseDrag : MonoBehaviour
     {
         Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
         Vector3 objectPos = Camera.main.ScreenToWorldPoint(mousePos);
-
         transform.position = objectPos;
     }
 }
