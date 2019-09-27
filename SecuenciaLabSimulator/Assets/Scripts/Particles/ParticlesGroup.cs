@@ -5,6 +5,7 @@ using UnityEngine;
 public class ParticlesGroup : MonoBehaviour
 {
     #region Atributos
+    [Header("Lista de Particulas")]
     [SerializeField] public ParticlesInformation[] particlesGroup;
     #endregion
 

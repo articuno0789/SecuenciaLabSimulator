@@ -6,6 +6,7 @@ using UnityEngine;
 public class ParticlesInformation
 {
     #region Atributos
+    [Header("Atributos Particula")]
     public string title;
     public string nameModel;
     [TextArea]

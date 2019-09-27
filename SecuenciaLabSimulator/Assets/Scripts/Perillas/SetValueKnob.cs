@@ -89,7 +89,6 @@ public class SetValueKnob : MonoBehaviour
      si el valor introducido cumple con las especificaciones del componente.*/
     public void ValidateValueKnob()
     {
-
         if (debug)
         {
             Debug.Log(inputFieldCurrentValue.text + ": " + Regex.IsMatch(inputFieldCurrentValue.text, AuxiliarModulos.expreRegNumerosReales).ToString());
