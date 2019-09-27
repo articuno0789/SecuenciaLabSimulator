@@ -17,6 +17,7 @@ namespace GreatArcStudios
     /// </summary>
     public class PauseManager : MonoBehaviour
     {
+        public GameObject FirstPersonCharacterClickDetector;
         public ModulesList modulos;
         public bool menuOpen;
         public GameObject saverManager;
@@ -333,6 +334,10 @@ namespace GreatArcStudios
             if (goLevelPanel == null)
             {
                 goLevelPanel = GameObject.Find("GoLevelPanel");
+            }
+            if (FirstPersonCharacterClickDetector == null)
+            {
+                FirstPersonCharacterClickDetector = GameObject.Find("FirstPersonCharacter");
             }
             readUseSimpleTerrain = useSimpleTerrain;
             if (useSimpleTerrain)
@@ -714,7 +719,7 @@ namespace GreatArcStudios
                     textInfoLoadedFile.text = "Información: Archivo encontrado. El nombre del archivo introducido se se encuentra disponible en la ruta adecuada. Puede Realizar la carga del archivo.";
                     if (proManage.ComprobarValidezJson(dataPath))
                     {
-                        textInfoLoadedFile.text += "La cadena Json es valida.";
+                        textInfoLoadedFile.text += " La cadena Json es valida.";
                         buttoLoadFile.enabled = true;
                     }
                     else
@@ -947,6 +952,10 @@ namespace GreatArcStudios
                     {
                         MenuShowModules.GetComponent<ModelsMenu>().DesactivarBackgroundImage();
                     }
+                    if (FirstPersonCharacterClickDetector != null)
+                    {
+                        FirstPersonCharacterClickDetector.GetComponent<ClickDetector>().moduloEncendido = false;
+                    }
                     menuOpen = true;
                     uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
                     mainPanel.SetActive(true);
@@ -1000,6 +1009,10 @@ namespace GreatArcStudios
                     if (MenuShowModules != null)
                     {
                         MenuShowModules.GetComponent<ModelsMenu>().ActivarBackgroundImage();
+                    }
+                    if (FirstPersonCharacterClickDetector != null)
+                    {
+                        FirstPersonCharacterClickDetector.GetComponent<ClickDetector>().moduloEncendido = true;
                     }
                     menuOpen = false;
                     Time.timeScale = timeScale;
