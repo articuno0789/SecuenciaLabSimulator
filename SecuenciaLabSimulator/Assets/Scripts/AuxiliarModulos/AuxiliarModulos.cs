@@ -5,6 +5,7 @@ using UnityEngine;
 
 public static class AuxiliarModulos
 {
+    [Header("Colores Cables")]
     //Colores cables
     public static readonly Color startColor = new Color(0, 0, 0, 1); //Negro
     public static readonly Color endColor = new Color(0, 1, 1, 1); //Cyan
@@ -13,8 +14,7 @@ public static class AuxiliarModulos
                                                                                         //new Color(1, 0, 0, 1); //Red
                                                                                         //new Color(0, 1, 0, 1); //Green
                                                                                         //new Color(0, 0, 1, 1); //Blue
-
-
+    //*****************************************************************************************************************
     //Tipos de conexiones
     //1 - Linea, 0 - Sin conexion, 2 - Neutro
     public enum TiposConexiones
@@ -40,13 +40,29 @@ public static class AuxiliarModulos
         Intermedio = 1,
         Final = 2
     }
-
+    //0) sin tipo, 1) boton verde, 2)boton rojo
+    public enum TipoBoton
+    {
+        SinTipo = 0,
+        BotonVerde = 1,
+        BotonRojo = 2
+    }
+    //0) sin rotación, 1) Horario, 2) Antihorario
+    public enum DireccionRotacion
+    {
+        SinRotar = 0,
+        Horario = 1,
+        Antihorario = 2
+    }
+    //*****************************************************************************************************************
+    [Header("Párametros Módulos")]
+    [Header("Capa Módulo")]
     //Capa de los módulso
     public const int capaModulos = 11;//La capa 11, equivale a la capa "Modulo"
-
+    [Header("Número Máximo Simulador")]
     //Numero de módulos en el simulador
     public const int numModSimulador = 28;
-
+    [Header("Tags")]
     //Tags
     public const string tagMod1 = "1";
     public const string tagMod2 = "2";
@@ -72,7 +88,7 @@ public static class AuxiliarModulos
     public const string tagModPotenciometro = "Potenciometro";
     public const string tagPlugAnaranjado = "EntradaPlugAnaranjado";
     public const string tagPlugNegro = "EntradaPlugNegro";
-
+    [Header("Expresiones Regulares")]
     //Expresiones regulares
     public const string expreRegMod1 = @"^1_\d*$";
     public const string expreRegMod2 = @"^2_\d*$";
@@ -100,8 +116,8 @@ public static class AuxiliarModulos
     public const string expreRegPlugNegro = @"^EntradaPlugNegro\d*$";
 
     public const string expreRegNumerosReales = "^[0-9]*([.][0-9]+)?$";
-    
 
+    //*****************************************************************************************************************
     //Particulas
     public enum ParticlesErrorTypes
     {
@@ -114,7 +130,9 @@ public static class AuxiliarModulos
         RibbonSmoke = 6,
         PlasmaExplosionEffect = 7
     }
+    //*****************************************************************************************************************
 
+    //Metodos
     public static void EncenderApagarModulo(GameObject modulo, string tipoModulo, bool encendido)
     {
         if (modulo != null)
@@ -799,5 +817,113 @@ public static class AuxiliarModulos
             Debug.LogError("ObtenerPlugConnections - ProgressManager - No entra a ningun tipo, " + tipoModulo);
         }
         return diccionario;
+    }
+
+    public static GameObject RegresarObjetoModulo(string tipoModulo)
+    {
+        GameObject moduloObjetivo = null;
+        if (tipoModulo.Length != 0)
+        {
+            GameObject allModules = GameObject.Find("AllModules");
+            if (allModules != null)
+            {
+                ModuleExample[] modules = allModules.GetComponent<ModulesList>().modulesGroup;
+                int longitudLista = modules.Length;
+
+                for (int i=0; i< longitudLista; i++)
+                {
+                    if (modules[i].modelSystemGO.name.Contains(tipoModulo))
+                    {
+                        moduloObjetivo = modules[i].modelSystemGO;
+                        break;
+                    }
+                }
+                if (moduloObjetivo == null)
+                {
+                    Debug.LogError("Gameobject RegresarObjetoModulo(string tipoMaterial) - Objeto no encontrado");
+                }
+            }
+            else
+            {
+                Debug.LogError("RegresarObjetoModulo(string tipoModulo) - No se encontro allModules.");
+            }
+        }
+        else
+        {
+            Debug.LogError("RegresarObjetoModulo(string tipoModulo) - Modulo no asignado, es decir, null.");
+        }
+        return moduloObjetivo;
+    }
+
+    public static Material RegresarObjetoMaterial(string tipoMaterial)
+    {
+        Material materialObjetivo = null;
+        if (tipoMaterial.Length != 0)
+        {
+            GameObject allMaterials = GameObject.Find("AllMaterials");
+            if (allMaterials != null)
+            {
+                MaterialExample[] materials = allMaterials.GetComponent<MaterialList>().materialsGroup;
+                int longitudLista = materials.Length;
+
+                for (int i = 0; i < longitudLista; i++)
+                {
+                    if (materials[i].nameMaterial.Contains(tipoMaterial))
+                    {
+                        materialObjetivo = materials[i].materialSystemGO;
+                        break;
+                    }
+                }
+                if(materialObjetivo == null)
+                {
+                    Debug.LogError("Material RegresarObjetoMaterial(string tipoMaterial) - Material no encontrado");
+                }
+            }
+            else
+            {
+                Debug.LogError("Material RegresarObjetoMaterial(string tipoMaterial) - No se encontro allMaterials.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Material RegresarObjetoMaterial(string tipoMaterial) - Material no asignado, es decir, null.");
+        }
+        return materialObjetivo;
+    }
+
+    public static AnimationClip RegresarObjetoAnimation(string tipoAnimation)
+    {
+        AnimationClip animationObjetivo = null;
+        if (tipoAnimation.Length != 0)
+        {
+            GameObject allAnimations = GameObject.Find("AllAnimations");
+            if (allAnimations != null)
+            {
+                AnimationExample[] animations = allAnimations.GetComponent<AnimationList>().animationsGroup;
+                int longitudLista = animations.Length;
+
+                for (int i = 0; i < longitudLista; i++)
+                {
+                    if (animations[i].nameAnimation.Contains(tipoAnimation))
+                    {
+                        animationObjetivo = animations[i].animationSystemGO;
+                        break;
+                    }
+                }
+                if (animationObjetivo == null)
+                {
+                    Debug.LogError("AnimationClip RegresarObjetoAnimation(string tipoAnimation) - Animacion no encontrado");
+                }
+            }
+            else
+            {
+                Debug.LogError("AnimationClip RegresarObjetoAnimation(string tipoAnimation) - No se encontro allAnimations.");
+            }
+        }
+        else
+        {
+            Debug.LogError("AnimationClip RegresarObjetoAnimation(string tipoAnimation) - Animacion no asignado, es decir, null.");
+        }
+        return animationObjetivo;
     }
 }
