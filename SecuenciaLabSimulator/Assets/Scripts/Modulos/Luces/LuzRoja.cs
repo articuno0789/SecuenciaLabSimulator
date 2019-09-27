@@ -59,8 +59,10 @@ public class LuzRoja : MonoBehaviour
     {
         particleError = new ParticlesError();
         padreTotalComponente = new GameObject();
-        plasticoRojoApagado = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoRojoApagado, typeof(Material));
-        plasticoRojoEncendido = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoRojoEncendido, typeof(Material));
+        plasticoRojoApagado = AuxiliarModulos.RegresarObjetoMaterial("plasticoRojoApagado");
+        plasticoRojoEncendido = AuxiliarModulos.RegresarObjetoMaterial("plasticoRojoEncendido");
+        /*plasticoRojoApagado = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoRojoApagado, typeof(Material));
+        plasticoRojoEncendido = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoRojoEncendido, typeof(Material));*/
     }
     #endregion
 
@@ -84,8 +86,9 @@ public class LuzRoja : MonoBehaviour
 
             if (plugArribaCompPlug.Conectado && plugAbajoCompPlug.Conectado)
             {
+                //Correcto - Linea y neutro conectado en de manera correcta
                 if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea
-                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro)// Correcto - Linea y neutro conectado en de manera correcta
+                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro)
                 {
                     estaCorrectaConexion = true;
                     focoAveriado = false;
@@ -95,8 +98,9 @@ public class LuzRoja : MonoBehaviour
                         Debug.Log(padreTotalComponente.name + ") " + this.name + " - " + this.tag + " - if(plugIzquierdoCompPlug.TipoConexion == 1 && plugDerechoCompPlug.TipoConexion == 2) - Conectado");
                     }
                 }
-                else if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro
-                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea) //Averia - Linea y neutro invertido
+                else //Averia - Linea y neutro invertido
+                if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro
+                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea) 
                 {
                     estaCorrectaConexion = false;
                     focoAveriado = true;
@@ -106,8 +110,9 @@ public class LuzRoja : MonoBehaviour
                         Debug.Log(padreTotalComponente.name + ") " + this.name + " - " + this.tag + " - (plugArribaCompPlug.TipoConexion == 2 && plugAbajoCompPlug.TipoConexion == 1) - Conectado - Debido a que los focos tienen polaridad, al invertir la conexión nom encienden.");
                     }
                 }
-                else if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea
-                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea) // Avaeria - Dos lineas conectadas al mismo tiempo
+                else //Avaeria - Dos lineas conectadas al mismo tiempo
+                if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea
+                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Linea) 
                 {
                     if (plugArribaCompPlug.Linea == plugAbajoCompPlug.Linea)
                     {
@@ -143,8 +148,9 @@ public class LuzRoja : MonoBehaviour
                     }
 
                 }
-                else if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro
-                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro) // Correcto - Dos neutros conectados, no pasa nada
+                else //Correcto - Dos neutros conectados, no pasa nada
+                if (plugArribaCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro
+                    && plugAbajoCompPlug.TipoConexion == (int)AuxiliarModulos.TiposConexiones.Neutro) 
                 {
                     estaCorrectaConexion = false;
                     focoAveriado = false;
