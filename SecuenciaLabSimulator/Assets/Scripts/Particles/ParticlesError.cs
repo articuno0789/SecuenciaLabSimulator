@@ -5,6 +5,7 @@ using UnityEngine;
 public class ParticlesError : MonoBehaviour
 {
     #region Atributos
+    [Header("Lista de Particulas")]
     public ParticlesInformation[] particlesError;
     #endregion
 
@@ -33,12 +34,16 @@ public class ParticlesError : MonoBehaviour
     {
         //Debug.Log("INICIAR CREAR PARTICULA");
         GameObject currentParticle = null;
-        if (particlesError != null)
+        if (particlesError != null && positionParticle != null && rotationParticle != null)
         {
             currentParticle = Instantiate(particlesError[typeParticleError].modelSystemGO, positionParticle, Quaternion.Euler(particlesError[typeParticleError].modelRotation)) as GameObject;
             currentParticle.transform.localScale = particlesError[typeParticleError].modelScale;
             //Debug.Log("SE CREO PARTICULA");
-        } 
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. GameObject CrearParticulasError(int typeParticleError, Vector3 positionParticle, Vector3 rotationParticle) - No se pudo crear las particulas ya que alguno de los parametros es nulo.");
+        }
         return currentParticle;
     }
 
@@ -48,11 +53,15 @@ public class ParticlesError : MonoBehaviour
     {
         //Debug.Log("INICIAR CREAR PARTICULA");
         GameObject currentParticle = null;
-        if (particlesError != null)
+        if (particlesError != null && positionParticle != null && rotationParticle != null && scaleParticle != null)
         {
             currentParticle = Instantiate(particlesError[typeParticleError].modelSystemGO, positionParticle, Quaternion.Euler(particlesError[typeParticleError].modelRotation)) as GameObject;
             currentParticle.transform.localScale = scaleParticle;
             //Debug.Log("SE CREO PARTICULA");
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. GameObject CrearParticulasError(int typeParticleError, Vector3 positionParticle, Vector3 rotationParticle, Vector3 scaleParticle) - No se pudo crear las particulas ya que alguno de los parametros es nulo.");
         }
         return currentParticle;
     }
@@ -64,6 +73,10 @@ public class ParticlesError : MonoBehaviour
         if (currentParticle != null)
         {
             Destroy(currentParticle);
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. DestruirParticulasError(GameObject currentParticle) - No se pudo destruir el objeto ya que es nulo.");
         }
     }
     #endregion
