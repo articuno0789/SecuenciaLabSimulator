@@ -46,7 +46,7 @@ public class Modulo14_16 : MonoBehaviour
         InicializarComponentes(gameObject);
         if (moduloEncendido)
         {
-            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
+            EncenderApagarLuzRoja(true);
         }
         //Inicializar contractores
         IncializacionContractores3("EntradaPlugAnaranjado4", "EntradaPlugAnaranjado3", "EntradaPlugAnaranjado2");
@@ -117,19 +117,20 @@ public class Modulo14_16 : MonoBehaviour
         if (moduloEncendido)
         {
             //Hacer algo si el modulo esta encendido.
-            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
+            EncenderApagarLuzRoja(true);
             ComportamientoModulo();
         }
         else
         {
             //Hacer algo si el modulo esta apagado.
-            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ApagarFoco();
+            EncenderApagarLuzRoja(false);
         }
     }
 
     private void ComportamientoModulo()
     {
-        if (lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugNegrosDict["EntradaPlugNegro1"]))
+        LuzRoja luzRoja = lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>();
+        if (luzRoja != null && luzRoja.ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugNegrosDict["EntradaPlugNegro1"]))
         {
             ActivarContractorNormalmenteAbierto("EntradaPlugAnaranjado4", "EntradaPlugAnaranjado3", "EntradaPlugAnaranjado2");
             ActivarContractorNormalmenteAbierto("EntradaPlugAnaranjado7", "EntradaPlugAnaranjado6", "EntradaPlugAnaranjado5");
@@ -153,28 +154,68 @@ public class Modulo14_16 : MonoBehaviour
 
     void ActivarContractorNormalmenteCerrado(string nPlugComun, string nPlugNormalmenteAbierto, string nplugNormalmenteCerrado)
     {
-        plugAnaranjadosDict[nPlugComun].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
-        plugAnaranjadosDict[nPlugComun].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nplugNormalmenteCerrado];
-        plugAnaranjadosDict[nPlugNormalmenteAbierto].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
-        plugAnaranjadosDict[nPlugNormalmenteAbierto].GetComponent<Plugs>().plugRelacionado = null;
-        plugAnaranjadosDict[nPlugNormalmenteAbierto].GetComponent<Plugs>().EliminarPropiedadesConexionesEntradaPrueba();
-        plugAnaranjadosDict[nplugNormalmenteCerrado].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
-        plugAnaranjadosDict[nplugNormalmenteCerrado].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nPlugComun];
+        Plugs plugnComun = plugAnaranjadosDict[nPlugComun].GetComponent<Plugs>();
+        Plugs plugnNormAbier = plugAnaranjadosDict[nPlugNormalmenteAbierto].GetComponent<Plugs>();
+        Plugs plugnNormCerra = plugAnaranjadosDict[nplugNormalmenteCerrado].GetComponent<Plugs>();
+        if (plugnComun != null && plugnNormAbier != null && plugnNormCerra != null)
+        {
+            plugnComun.EstablecerRelacionCerrado(true);
+            plugnComun.plugRelacionado = plugAnaranjadosDict[nplugNormalmenteCerrado];
+            plugnNormAbier.EstablecerRelacionCerrado(false);
+            plugnNormAbier.plugRelacionado = null;
+            plugnNormAbier.EliminarPropiedadesConexionesEntradaPrueba();
+            plugnNormCerra.EstablecerRelacionCerrado(true);
+            plugnNormCerra.plugRelacionado = plugAnaranjadosDict[nPlugComun];
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. ActivarContractorNormalmenteCerrado(string nPlugComun, string nPlugNormalmenteAbierto, string nplugNormalmenteCerrado) - Alguno de los plugs es nulo.");
+        }
     }
 
     void ActivarContractorNormalmenteAbierto(string nPlugComun, string nPlugNormalmenteAbierto, string nplugNormalmenteCerrado)
     {
-        plugAnaranjadosDict[nPlugComun].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
-        plugAnaranjadosDict[nPlugComun].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nPlugNormalmenteAbierto];
-        plugAnaranjadosDict[nPlugNormalmenteAbierto].GetComponent<Plugs>().EstablecerRelacionCerrado(true);
-        plugAnaranjadosDict[nPlugNormalmenteAbierto].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nPlugComun];
-        plugAnaranjadosDict[nplugNormalmenteCerrado].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
-        plugAnaranjadosDict[nplugNormalmenteCerrado].GetComponent<Plugs>().plugRelacionado = null;
-        plugAnaranjadosDict[nplugNormalmenteCerrado].GetComponent<Plugs>().EliminarPropiedadesConexionesEntradaPrueba();
+        Plugs plugnComun = plugAnaranjadosDict[nPlugComun].GetComponent<Plugs>();
+        Plugs plugnNormAbier = plugAnaranjadosDict[nPlugNormalmenteAbierto].GetComponent<Plugs>();
+        Plugs plugnNormCerra = plugAnaranjadosDict[nplugNormalmenteCerrado].GetComponent<Plugs>();
+        if (plugnComun != null && plugnNormAbier != null && plugnNormCerra != null)
+        {
+            plugnComun.EstablecerRelacionCerrado(true);
+            plugnComun.plugRelacionado = plugAnaranjadosDict[nPlugNormalmenteAbierto];
+            plugnNormAbier.EstablecerRelacionCerrado(true);
+            plugnNormAbier.plugRelacionado = plugAnaranjadosDict[nPlugComun];
+            plugnNormCerra.EstablecerRelacionCerrado(false);
+            plugnNormCerra.plugRelacionado = null;
+            plugnNormCerra.EliminarPropiedadesConexionesEntradaPrueba();
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. ActivarContractorNormalmenteAbierto(string nPlugComun, string nPlugNormalmenteAbierto, string nplugNormalmenteCerrado) - Alguno de los plugs es nulo.");
+        }
+    }
+
+    void EncenderApagarLuzRoja(bool encendida)
+    {
+        LuzRoja luz = lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>();
+        if (luz != null)
+        {
+            if (encendida)
+            {
+                luz.EncenderFoco();
+            }
+            else
+            {
+                luz.ApagarFoco();
+            }
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. EncenderApagarLuz(bool encendida) - No se pudo obtener el componente LuzRoja.");
+        }
     }
 
     //No se usa por el momento
-    void BotonesNormalmenteCerradosYAbiertos(string nPlugPrincipal, string nPlugAbierto, string nPlugCerrado, bool botonLogicoActivo)
+    /*void BotonesNormalmenteCerradosYAbiertos(string nPlugPrincipal, string nPlugAbierto, string nPlugCerrado, bool botonLogicoActivo)
     {
         Plugs plugConexionIzquierdo = plugAnaranjadosDict[nPlugPrincipal].GetComponent<Plugs>();
         Plugs plugConexionIzquierdoAbierto = plugAnaranjadosDict[nPlugAbierto].GetComponent<Plugs>();
