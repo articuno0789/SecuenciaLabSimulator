@@ -4,6 +4,8 @@ using UnityEditor;
 
 public class ClickDetector : MonoBehaviour
 {
+    [Header("Encendido")]
+    public bool moduloEncendido = true;
     [Header("Camara")]
     public Camera camara;
     [Header("Capa")]
@@ -28,148 +30,156 @@ public class ClickDetector : MonoBehaviour
     public ColorPicker colorPicker;
     void Update()
     {
-        clickedGmObj = null;
-        bool clickedGmObjAcquired = false;
-        // Left click
-        if (HandleLeftClick && Input.GetMouseButtonDown(0))
+        if (moduloEncendido)
         {
-            if (!clickedGmObjAcquired)
+            clickedGmObj = null;
+            bool clickedGmObjAcquired = false;
+            // Left click
+            if (HandleLeftClick && Input.GetMouseButtonDown(0))
             {
-                clickedGmObj = GetClickedGameObject();
-                //lastClickedGmObj = clickedGmObj;
-                clickedGmObjAcquired = true;
-            }
-            if (clickedGmObj != null)
-            {
-                bool segundoPlug = false;
-                Debug.Log("Manda mensaje, click izquierdo: " + OnLeftClickMethodName + ", *******Objeto clic: " + clickedGmObj.name);
-                if (lastClickedGmObj != null)
+                if (!clickedGmObjAcquired)
                 {
-                    Debug.Log("lastClickedGmObj != null");
-                    if (!lastClickedGmObj.name.Contains("EntradaPlug"))
+                    clickedGmObj = GetClickedGameObject();
+                    //lastClickedGmObj = clickedGmObj;
+                    clickedGmObjAcquired = true;
+                }
+                if (clickedGmObj != null)
+                {
+                    bool segundoPlug = false;
+                    Debug.Log("Manda mensaje, click izquierdo: " + OnLeftClickMethodName + ", *******Objeto clic: " + clickedGmObj.name);
+                    if (lastClickedGmObj != null)
                     {
-                        Debug.Log("Entra !lastClickedGmObj.name.Contains(\"EntradaPlug\")");
-                        if (clickedGmObj.name.Contains("EntradaPlug"))
+                        Debug.Log("lastClickedGmObj != null");
+                        if (!lastClickedGmObj.name.Contains("EntradaPlug"))
                         {
-                            Debug.Log("NO HAY CAMBIO DE COLOR");
-                            //Fetch the Renderer from the GameObject
-                            Renderer rend = clickedGmObj.GetComponent<Renderer>();
-                            //Set the main Color of the Material to green
-                            //rend.material.shader = Shader.Find("_Color");
-                            //rend.material.SetColor("_Color", Color.green);
-                            rend.material = new Material(Shader.Find("Sprites/Default"));
-                            rend.material.color = AuxiliarModulos.colorPlugsDestacados;
+                            Debug.Log("Entra !lastClickedGmObj.name.Contains(\"EntradaPlug\")");
+                            if (clickedGmObj.name.Contains("EntradaPlug"))
+                            {
+                                Debug.Log("NO HAY CAMBIO DE COLOR");
+                                //Fetch the Renderer from the GameObject
+                                Renderer rend = clickedGmObj.GetComponent<Renderer>();
+                                //Set the main Color of the Material to green
+                                //rend.material.shader = Shader.Find("_Color");
+                                //rend.material.SetColor("_Color", Color.green);
+                                rend.material = new Material(Shader.Find("Sprites/Default"));
+                                rend.material.color = AuxiliarModulos.colorPlugsDestacados;
+                            }
+                            else
+                            {
+                                Renderer rend = clickedGmObj.GetComponent<Renderer>();
+                                //rend.material.color = Color.yellow;
+                                Debug.Log("-------CAMBIO DE COLOR");
+                                //changeOriginalColorPlug(lastClickedGmObj);
+                                //Fetch the Renderer from the GameObject
+                                //Renderer rend = clickedGmObj.GetComponent<Renderer>();
+                                //Set the main Color of the Material to green
+                                //rend.material.shader = Shader.Find("_Color");
+                                //rend.material.SetColor("_Color", Color.green);
+                            }
                         }
                         else
                         {
-                            Renderer rend = clickedGmObj.GetComponent<Renderer>();
-                            //rend.material.color = Color.yellow;
-                            Debug.Log("-------CAMBIO DE COLOR");
-                            //changeOriginalColorPlug(lastClickedGmObj);
-                            //Fetch the Renderer from the GameObject
-                            //Renderer rend = clickedGmObj.GetComponent<Renderer>();
-                            //Set the main Color of the Material to green
-                            //rend.material.shader = Shader.Find("_Color");
-                            //rend.material.SetColor("_Color", Color.green);
+                            if (clickedGmObj.name.Contains("EntradaPlug") && clickedGmObj != lastClickedGmObj)
+                            {
+                                segundoPlug = true;
+                                CrearConexionCable(clickedGmObj);
+                            }
+                            else
+                            {
+                                changeOriginalColorPlug(lastClickedGmObj);
+                                //Renderer rend = lastClickedGmObj.GetComponent<Renderer>();
+                                //rend.material.color = Color.white;
+                                segundoPlug = true;
+                            }
                         }
+                    }
+
+                    if (clickedGmObj.name.Contains("EntradaPlug") && !acabaDeCrearConexion)
+                    {
+                        Renderer rend = clickedGmObj.GetComponent<Renderer>();
+                        rend.material = new Material(Shader.Find("Sprites/Default"));
+                        rend.material.color = AuxiliarModulos.colorPlugsDestacados;
                     }
                     else
                     {
-                        if (clickedGmObj.name.Contains("EntradaPlug") && clickedGmObj != lastClickedGmObj)
-                        {
-                            segundoPlug = true;
-                            CrearConexionCable(clickedGmObj);
-                        }
-                        else
-                        {
-                            changeOriginalColorPlug(lastClickedGmObj);
-                            //Renderer rend = lastClickedGmObj.GetComponent<Renderer>();
-                            //rend.material.color = Color.white;
-                            segundoPlug = true;
-                        }
+                        acabaDeCrearConexion = false;
                     }
-                }
 
-                if (clickedGmObj.name.Contains("EntradaPlug") && !acabaDeCrearConexion)
-                {
-                    Renderer rend = clickedGmObj.GetComponent<Renderer>();
-                    rend.material = new Material(Shader.Find("Sprites/Default"));
-                    rend.material.color = AuxiliarModulos.colorPlugsDestacados;
-                }
-                else
-                {
-                    acabaDeCrearConexion = false;
-                }
-
-                lastClickedGmObj = clickedGmObj;
-                if (segundoPlug)
-                {
-                    lastClickedGmObj = GameObject.Find("Plane");
-                }
-                //clickedGmObj.SendMessage(OnLeftClickMethodName, null, SendMessageOptions.DontRequireReceiver);
-            }
-        }
-        // Right click
-        if (HandleRightClick && Input.GetMouseButtonDown(1))
-        {
-            if (!clickedGmObjAcquired)
-            {
-                clickedGmObj = GetClickedGameObject();
-                lastClickedGmObj = clickedGmObj;
-                clickedGmObjAcquired = true;
-            }
-            if (clickedGmObj != null)
-            {
-                Debug.Log("Manda mensaje clic derecho, " + OnRightClickMethodName + ", *******Objeto clic: " + clickedGmObj.name);
-                if (clickedGmObj.name.Contains("BaseModulo"))
-                {
-                    clickedGmObj.SendMessage("OpenCloseMenuChangeModule", 1, SendMessageOptions.DontRequireReceiver);
-                }
-                else
-                if (clickedGmObj.name.Contains("EntradaPlug"))
-                {
-                    clickedGmObj.SendMessage("OpenCloseMenuChangeColorCable", 1, SendMessageOptions.DontRequireReceiver);
-                    colorPicker.selectedPlug = clickedGmObj;
-                    clickedGmObj = null;
-                    lastClickedGmObj = null;
-                }
-                else if (clickedGmObj.name.Contains("Total_Perilla"))
-                {
-                    GameObject buttonSetValueKnob = GameObject.Find("ButtonSetValueKnob");
-                    GameObject inputFieldCurrentValue = GameObject.Find("InputFieldCurrentValue");
-                    clickedGmObj.SendMessage("OpenCloseMenuSetValueKnob", 1, SendMessageOptions.DontRequireReceiver);
-                    if (buttonSetValueKnob != null && inputFieldCurrentValue != null)
+                    lastClickedGmObj = clickedGmObj;
+                    if (segundoPlug)
                     {
-                        buttonSetValueKnob.GetComponent<SetValueKnob>().perillaSeleccionada = clickedGmObj;
-                        inputFieldCurrentValue.GetComponent<SetValueKnob>().perillaSeleccionada = clickedGmObj;
+                        lastClickedGmObj = GameObject.Find("Plane");
                     }
-                }
-                else if (clickedGmObj.name.Contains("PerillaPotenciometro"))
-                {
-                    GameObject buttonSetValueKnob = GameObject.Find("ButtonSetValueKnob");
-                    GameObject inputFieldCurrentValue = GameObject.Find("InputFieldCurrentValue");
-                    clickedGmObj.SendMessage("OpenCloseMenuSetValueKnob", 1, SendMessageOptions.DontRequireReceiver);
-                    if (buttonSetValueKnob != null && inputFieldCurrentValue != null)
-                    {
-                        buttonSetValueKnob.GetComponent<SetValueKnob>().perillaSeleccionada = clickedGmObj;
-                        inputFieldCurrentValue.GetComponent<SetValueKnob>().perillaSeleccionada = clickedGmObj;
-                    }
+                    //clickedGmObj.SendMessage(OnLeftClickMethodName, null, SendMessageOptions.DontRequireReceiver);
                 }
             }
-
-            //clickedGmObj.SendMessage(OnRightClickMethodName, null, SendMessageOptions.DontRequireReceiver);
-        }
-        // Middle click
-        if (HandleMiddleClick && Input.GetMouseButtonDown(2))
-        {
-            if (!clickedGmObjAcquired)
+            // Right click
+            if (HandleRightClick && Input.GetMouseButtonDown(1))
             {
-                clickedGmObj = GetClickedGameObject();
-                clickedGmObjAcquired = true;
+                if (!clickedGmObjAcquired)
+                {
+                    clickedGmObj = GetClickedGameObject();
+                    lastClickedGmObj = clickedGmObj;
+                    clickedGmObjAcquired = true;
+                }
+                if (clickedGmObj != null)
+                {
+                    Debug.Log("Manda mensaje clic derecho, " + OnRightClickMethodName + ", *******Objeto clic: " + clickedGmObj.name);
+                    if (clickedGmObj.name.Contains("BaseModulo"))
+                    {
+                        clickedGmObj.SendMessage("OpenCloseMenuChangeModule", 1, SendMessageOptions.DontRequireReceiver);
+                    }
+                    else
+                    if (clickedGmObj.name.Contains("EntradaPlug"))
+                    {
+                        clickedGmObj.SendMessage("OpenCloseMenuChangeColorCable", 1, SendMessageOptions.DontRequireReceiver);
+                        colorPicker.selectedPlug = clickedGmObj;
+                        clickedGmObj = null;
+                        lastClickedGmObj = null;
+                    }
+                    else if (clickedGmObj.name.Contains("Total_Perilla"))
+                    {
+                        GameObject buttonSetValueKnob = GameObject.Find("ButtonSetValueKnob");
+                        GameObject inputFieldCurrentValue = GameObject.Find("InputFieldCurrentValue");
+                        clickedGmObj.SendMessage("OpenCloseMenuSetValueKnob", 1, SendMessageOptions.DontRequireReceiver);
+                        if (buttonSetValueKnob != null && inputFieldCurrentValue != null)
+                        {
+                            buttonSetValueKnob.GetComponent<SetValueKnob>().perillaSeleccionada = clickedGmObj;
+                            inputFieldCurrentValue.GetComponent<SetValueKnob>().perillaSeleccionada = clickedGmObj;
+                        }
+                    }
+                    else if (clickedGmObj.name.Contains("PerillaPotenciometro"))
+                    {
+                        GameObject buttonSetValueKnob = GameObject.Find("ButtonSetValueKnob");
+                        GameObject inputFieldCurrentValue = GameObject.Find("InputFieldCurrentValue");
+                        clickedGmObj.SendMessage("OpenCloseMenuSetValueKnob", 1, SendMessageOptions.DontRequireReceiver);
+                        if (buttonSetValueKnob != null && inputFieldCurrentValue != null)
+                        {
+                            buttonSetValueKnob.GetComponent<SetValueKnob>().perillaSeleccionada = clickedGmObj;
+                            inputFieldCurrentValue.GetComponent<SetValueKnob>().perillaSeleccionada = clickedGmObj;
+                        }
+                    }
+                }
+
+                //clickedGmObj.SendMessage(OnRightClickMethodName, null, SendMessageOptions.DontRequireReceiver);
             }
-            if (clickedGmObj != null)
-                clickedGmObj.SendMessage(OnMiddleClickMethodName, null, SendMessageOptions.DontRequireReceiver);
+            // Middle click
+            if (HandleMiddleClick && Input.GetMouseButtonDown(2))
+            {
+                if (!clickedGmObjAcquired)
+                {
+                    clickedGmObj = GetClickedGameObject();
+                    clickedGmObjAcquired = true;
+                }
+                if (clickedGmObj != null)
+                    clickedGmObj.SendMessage(OnMiddleClickMethodName, null, SendMessageOptions.DontRequireReceiver);
+            }
         }
+        else
+        {
+
+        }
+        
     }
 
     GameObject GetClickedGameObject()
