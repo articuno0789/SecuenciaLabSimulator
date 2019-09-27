@@ -9,7 +9,7 @@ public class Mod3PushButton : MonoBehaviour
     [Header("Activado")]
     public bool botonActivado = false;
     [Header("Tipo Botón")]
-    public int tipo = 0; //0) sin tipo, 1) boton verde, 2)boton rojo
+    public int tipo = (int)AuxiliarModulos.TipoBoton.SinTipo; //0) sin tipo, 1) boton verde, 2)boton rojo
     [Header("Materiales")]
     [SerializeField] public string rutaPlasticoVerdeApagado = "Assets/Materials/Botones/RojoVerdeCircular/BotonVerderCircular.mat";
     [SerializeField] public string rutaPlasticoVerdeEncendido = "Assets/Materials/Botones/RojoVerdeCircular/BotonVerderCircularEncendido.mat";
@@ -30,20 +30,24 @@ public class Mod3PushButton : MonoBehaviour
     void Awake()
     {
         Animation = GetComponent<Animation>();
-        plasticoVerdeApagado = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoVerdeApagado, typeof(Material));
+        plasticoVerdeApagado = AuxiliarModulos.RegresarObjetoMaterial("BotonVerderCircular");
+        plasticoVerdeEncendido = AuxiliarModulos.RegresarObjetoMaterial("BotonVerderCircularEncendido");
+        plasticoRojoApagado = AuxiliarModulos.RegresarObjetoMaterial("BotonRojoCircular");
+        plasticoRojoEncendido = AuxiliarModulos.RegresarObjetoMaterial("BotonRojoCircularEncendido");
+        /*plasticoVerdeApagado = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoVerdeApagado, typeof(Material));
         plasticoVerdeEncendido = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoVerdeEncendido, typeof(Material));
         plasticoRojoApagado = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoRojoApagado, typeof(Material));
-        plasticoRojoEncendido = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoRojoEncendido, typeof(Material));
+        plasticoRojoEncendido = (Material)AssetDatabase.LoadAssetAtPath(rutaPlasticoRojoEncendido, typeof(Material));*/
     }
 
     public void EstablecerTipoVerde()
     {
-        tipo = 1;
+        tipo = (int)AuxiliarModulos.TipoBoton.BotonVerde;
     }
 
     public void EstablecerTipoRojo()
     {
-        tipo = 2;
+        tipo = (int)AuxiliarModulos.TipoBoton.BotonRojo;
     }
 
     public bool EstaActivado()
@@ -66,13 +70,13 @@ public class Mod3PushButton : MonoBehaviour
     public void IluminarBotonSeleccionado()
     {
         Renderer botonSeleccionado = transform.GetComponent<Renderer>();
-        if (tipo == 1)
+        if (botonSeleccionado != null && tipo == (int)AuxiliarModulos.TipoBoton.BotonVerde)
         {
             botonSeleccionado.materials[0] = plasticoVerdeEncendido;
             botonSeleccionado.material = plasticoVerdeEncendido;
             botonActivado = true;
         }
-        else if (tipo == 2)
+        else if (botonSeleccionado != null && tipo == (int)AuxiliarModulos.TipoBoton.BotonRojo)
         {
             botonSeleccionado.materials[0] = plasticoRojoEncendido;
             botonSeleccionado.material = plasticoRojoEncendido;
@@ -87,12 +91,12 @@ public class Mod3PushButton : MonoBehaviour
     public void DesiluminarBotonSeleccionado()
     {
         Renderer botonSeleccionado = transform.GetComponent<Renderer>();
-        if (tipo == 1)
+        if (botonSeleccionado != null && tipo == (int)AuxiliarModulos.TipoBoton.BotonVerde)
         {
             botonSeleccionado.material = plasticoVerdeApagado;
             botonActivado = false;
         }
-        else if (tipo == 2)
+        else if (botonSeleccionado != null && tipo == (int)AuxiliarModulos.TipoBoton.BotonRojo)
         {
             botonSeleccionado.material = plasticoRojoApagado;
             botonActivado = false;
