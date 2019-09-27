@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OpenCloseChangeColorCable : MonoBehaviour
 {
+    [Header("GUI - Cambiar Cables de Color")]
     public GameObject panelChangeColorCable;
 
     // Start is called before the first frame update
