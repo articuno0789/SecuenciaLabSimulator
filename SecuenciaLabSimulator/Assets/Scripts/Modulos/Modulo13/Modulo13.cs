@@ -33,6 +33,7 @@ public class Modulo13 : MonoBehaviour
     #region Inicializacion
     private void Awake()
     {
+        //Inicialización de listas y diccionarios de elementos.
         plugsConnections = new Dictionary<string, string>();
         plugAnaranjadosDict = new Dictionary<string, GameObject>();
         plugNegrosDict = new Dictionary<string, GameObject>();
@@ -44,7 +45,7 @@ public class Modulo13 : MonoBehaviour
         InicializarComponentes(gameObject);
         if (moduloEncendido)
         {
-            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
+            EncenderApagarLuzRoja(true);
         }
         //Contractores
         IncializacionContractores("EntradaPlugAnaranjado2", "EntradaPlugAnaranjado3", true);
@@ -122,10 +123,19 @@ public class Modulo13 : MonoBehaviour
 
     void IncializacionContractores(string nPlug1, string nPlug2, bool cerrado)
     {
-        plugAnaranjadosDict[nPlug1].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nPlug2];
-        plugAnaranjadosDict[nPlug1].GetComponent<Plugs>().relacionCerrada = cerrado;
-        plugAnaranjadosDict[nPlug2].GetComponent<Plugs>().plugRelacionado = plugAnaranjadosDict[nPlug1];
-        plugAnaranjadosDict[nPlug2].GetComponent<Plugs>().relacionCerrada = cerrado;
+        Plugs primerPlug = plugAnaranjadosDict[nPlug1].GetComponent<Plugs>();
+        Plugs segundoPlug = plugAnaranjadosDict[nPlug2].GetComponent<Plugs>();
+        if (primerPlug != null && segundoPlug != null)
+        {
+            primerPlug.plugRelacionado = plugAnaranjadosDict[nPlug2];
+            primerPlug.relacionCerrada = cerrado;
+            segundoPlug.plugRelacionado = plugAnaranjadosDict[nPlug1];
+            segundoPlug.relacionCerrada = cerrado;
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. IncializacionContractores(string nPlug1, string nPlug2, bool cerrado) - Alguno de los plugs es nulo.");
+        }
     }
 
     private void InicializarComponentes(GameObject nodo)
@@ -181,20 +191,40 @@ public class Modulo13 : MonoBehaviour
         if (moduloEncendido)
         {
             //Hacer algo si el modulo esta encendido.
-            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
+            EncenderApagarLuzRoja(true);
             ComportamientoModulo();
         }
         else
         {
             //Hacer algo si el modulo esta apagado.
-            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ApagarFoco();
+            EncenderApagarLuzRoja(false);
+        }
+    }
+
+    void EncenderApagarLuzRoja(bool encendida)
+    {
+        LuzRoja luz = lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>();
+        if (luz != null)
+        {
+            if (encendida)
+            {
+                luz.EncenderFoco();
+            }
+            else
+            {
+                luz.ApagarFoco();
+            }
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. EncenderApagarLuz(bool encendida) - No se pudo obtener el componente LuzRoja.");
         }
     }
 
     private void ComportamientoModulo()
     {
-
-        if (lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugNegrosDict["EntradaPlugNegro1"]))
+        LuzRoja luzRoja = lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>();
+        if (luzRoja != null && luzRoja.ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugNegrosDict["EntradaPlugNegro1"]))
         {
             //Normalmente cerrados
             plugAnaranjadosDict["EntradaPlugAnaranjado2"].GetComponent<Plugs>().EstablecerRelacionCerrado(false);
@@ -262,7 +292,8 @@ public class Modulo13 : MonoBehaviour
         }*/
     }
 
-    void FuncionamientoContractorRojo(string nPlugConexionArribaCerrado, string nPlugConexionAbajoCerrado, bool conexionAbierta)
+    //Por el momento no se utiliza
+    /*void FuncionamientoContractorRojo(string nPlugConexionArribaCerrado, string nPlugConexionAbajoCerrado, bool conexionAbierta)
     {
         Plugs plugConexionArribaCerrado = plugAnaranjadosDict[nPlugConexionArribaCerrado].GetComponent<Plugs>();
         Plugs plugConexionAbajoCerrado = plugAnaranjadosDict[nPlugConexionAbajoCerrado].GetComponent<Plugs>();
@@ -270,20 +301,20 @@ public class Modulo13 : MonoBehaviour
         //reiniciarTodosPlugsAnaranjados();
         //plugConexionArribaCerrado.EstablecerValoresNoConexion3(plugConexionAbajoCerrado);
         //plugConexionAbajoCerrado.EstablecerValoresNoConexion3(plugConexionArribaCerrado);
-        /*if (!plugConexionArribaCerrado.estaConectado)
+        if (!plugConexionArribaCerrado.estaConectado)
         {
             plugConexionArribaCerrado.EstablecerValoresNoConexion3(plugConexionAbajoCerrado);
         }
         if (!plugConexionAbajoCerrado.estaConectado)
         {
             plugConexionAbajoCerrado.EstablecerValoresNoConexion3(plugConexionArribaCerrado);
-        }*/
+        }
         //plugConexionArribaCerrado.EstablecerValoresNoConexion2();
         //plugConexionAbajoCerrado.EstablecerValoresNoConexion2();
         bool cortoElectrico = plugConexionArribaCerrado.ComprobarEstado(plugConexionArribaCerrado, plugConexionAbajoCerrado, conexionAbierta);
         Time.timeScale = 1.0F;
-        /*if (!conexionAbierta && !cortoElectrico) // Para comprobar cortos
-        {*/
+        if (!conexionAbierta && !cortoElectrico) // Para comprobar cortos
+        {
             plugConexionArribaCerrado.EstablecerPropiedadesConexionesEntrantes();
             plugConexionAbajoCerrado.EstablecerPropiedadesConexionesEntrantes();
             
@@ -301,9 +332,7 @@ public class Modulo13 : MonoBehaviour
                 //Debug.Log("Modulo 13: No entra a ningun caso");
             }
        // }
-    }
-
-
+    }*/
     #endregion
 
     #region Conexiones Grafo
