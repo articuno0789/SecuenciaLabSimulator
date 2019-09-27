@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ChangeColorCables : MonoBehaviour
 {
+    [Header("GUI - Cambiar Cables de Color")]
     public GameObject panelChangeColor;
     public GameObject canvasChangeColor;
     public GameObject panelChangeColorManager;
