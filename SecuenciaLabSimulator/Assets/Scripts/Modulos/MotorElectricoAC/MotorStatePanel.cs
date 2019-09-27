@@ -20,34 +20,7 @@ public class MotorStatePanel : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        /*if (player == null)
-        {
-            player = GameObject.Find("FirstPersonCharacter");
-        }
-        if (currentModuleSelected == null)
-        {
-            currentModuleSelected = GameObject.Find("CurrentModuleSelectedKnob").GetComponent<Text>();
-        }
-        if (minMaxKnobRange == null)
-        {
-            minMaxKnobRange = GameObject.Find("MinMaxValueKnob").GetComponent<Text>();
-        }
-        if (textInfoValueKnob == null)
-        {
-            textInfoValueKnob = GameObject.Find("TextInfoValueKnob").GetComponent<Text>();
-        }
-        if (panel == null)
-        {
-            panel = GameObject.Find("PanelSetValueKnob");
-        }
-        if (inputFieldCurrentValue == null)
-        {
-            inputFieldCurrentValue = GameObject.Find("InputFieldCurrentValue").GetComponent<InputField>();
-        }
-        if (buttonSetValueKnob == null)
-        {
-            buttonSetValueKnob = GameObject.Find("ButtonSetValueKnob").GetComponent<Button>();
-        }*/
+
     }
     #endregion
 
@@ -59,50 +32,83 @@ public class MotorStatePanel : MonoBehaviour
         {
             voltajeMotor.text = "Voltaje: " + voltaje + " v";
         }
+        else
+        {
+            Debug.LogError(this.name + ", Error. void EstablecerTextoVoltajeMotor(float voltaje) - voltajeMotor es nulo.");
+        }
     }
 
     public void EstablecerTextoVeloMotor(float velocidad)
     {
-        veloRotaMotor.text = "Velocidad de rotación: " + velocidad + " rpm";
+        if (veloRotaMotor != null)
+        {
+            veloRotaMotor.text = "Velocidad de rotación: " + velocidad + " rpm";
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. void EstablecerTextoVeloMotor(float velocidad) - veloRotaMotor es nulo.");
+        }
     }
 
     public void EstablecerTextoEstadoMotor(bool todoBien, string textoExplicativo = "")
     {
-        if (todoBien)
+        if (estadoMotor != null)
         {
-            estadoMotor.text = "Estado: Ok";
+            if (todoBien)
+            {
+                estadoMotor.text = "Estado: Ok";
+            }
+            else
+            {
+                estadoMotor.text = "Estado: Hay alguna falla. Descripción: " + textoExplicativo;
+            }
         }
         else
         {
-            estadoMotor.text = "Estado: Hay alguna falla. Descripción: " + textoExplicativo;
+            Debug.LogError(this.name + ", Error. void EstablecerTextoEstadoMotor(bool todoBien, string textoExplicativo) - estadoMotor es nulo.");
         }
     }
 
     public void EstablecerTextoDireccionGiroMotor(int directGiro)
     {
-        if (directGiro == 0)
+        if (direccionGiro != null)
         {
-            direccionGiro.text = "Dirección giro: -";
-        }
-        else if(directGiro == 1)
-        {
-            direccionGiro.text = "Dirección giro: Horario";
-        }else if (directGiro == 2)
-        {
-            direccionGiro.text = "Dirección giro: Antihorario";
+            if (directGiro == (int)AuxiliarModulos.DireccionRotacion.SinRotar)
+            {
+                direccionGiro.text = "Dirección giro: -";
+            }
+            else if (directGiro == (int)AuxiliarModulos.DireccionRotacion.Horario)
+            {
+                direccionGiro.text = "Dirección giro: Horario";
+            }
+            else if (directGiro == (int)AuxiliarModulos.DireccionRotacion.Antihorario)
+            {
+                direccionGiro.text = "Dirección giro: Antihorario";
+            }
+            else
+            {
+                direccionGiro.text = "Dirección giro: --";
+            }
         }
         else
         {
-            direccionGiro.text = "Dirección giro: --";
+            Debug.LogError(this.name + ", Error. void EstablecerTextoDireccionGiroMotor(int directGiro) - direccionGiro es nulo.");
         }
     }
 
     public void PararMotorTodoBien()
     {
-        voltajeMotor.text = "Votaje: 0 v";
-        veloRotaMotor.text = "Velocidad de rotación: 0 rpm";
-        estadoMotor.text = "Estado: Ok";
-        direccionGiro.text = "Dirección giro: -";
+        if(voltajeMotor!=null && veloRotaMotor!=null && estadoMotor!=null && direccionGiro != null)
+        {
+            voltajeMotor.text = "Votaje: 0 v";
+            veloRotaMotor.text = "Velocidad de rotación: 0 rpm";
+            estadoMotor.text = "Estado: Ok";
+            direccionGiro.text = "Dirección giro: -";
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. void PararMotorTodoBien() - voltajeMotor o veloRotaMotor o estadoMotor o direccionGiro es nulo.");
+        }
     }
     #endregion
 }
