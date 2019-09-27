@@ -29,6 +29,13 @@ public class Mod8_11_BotonStop : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log("Entra a presionar boton stop");
-        animation.Play("StopButton");
+        if (animation != null)
+        {
+            animation.Play("StopButton");
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. void OnMouseDown() - animation es nulo.");
+        }
     }
 }

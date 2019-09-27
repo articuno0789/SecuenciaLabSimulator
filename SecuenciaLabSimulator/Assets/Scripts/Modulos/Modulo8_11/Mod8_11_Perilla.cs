@@ -30,17 +30,24 @@ public class Mod8_11_Perilla : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (ani)
+        if (animation != null)
         {
-            Debug.Log("Entra a presionar Perilla MA");
-            animation.Play("PerillaMA");
-            ani = false;
+            if (ani)
+            {
+                Debug.Log("Entra a presionar Perilla MA");
+                animation.Play("PerillaMA");
+                ani = false;
+            }
+            else
+            {
+                Debug.Log("Entra a presionar Perilla AM");
+                animation.Play("PerillaAM");
+                ani = true;
+            }
         }
         else
         {
-            Debug.Log("Entra a presionar Perilla AM");
-            animation.Play("PerillaAM");
-            ani = true;
+            Debug.LogError(this.name + ", Error. void OnMouseDown() - animation es nulo.");
         }
     }
 }
