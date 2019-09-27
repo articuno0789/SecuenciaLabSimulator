@@ -18,6 +18,11 @@ public class Modulo22_23 : MonoBehaviour
     [Header("Modulos relacionados")]
     public GameObject modulo22;
     public GameObject modulo23;
+    [Header("Plugs de Entrada y Salida")]
+    public string plug1Entrada = "";
+    public string plug2Entrada = "";
+    public string plug1Salida = "";
+    public string plug2Salida = "";
     [Header("Parametros Plugs")]
     private string nombreTagPlugAnaranjado = "PlugAnaranjado";
     private string nombreTagPlugNegro = "PlugNegro";
@@ -32,6 +37,7 @@ public class Modulo22_23 : MonoBehaviour
     #region Inicializacion
     private void Awake()
     {
+        //Inicialización de listas y diccionarios de elementos.
         plugsConnections = new Dictionary<string, string>();
         plugAnaranjadosDict = new Dictionary<string, GameObject>();
         plugNegrosDict = new Dictionary<string, GameObject>();
@@ -111,10 +117,7 @@ public class Modulo22_23 : MonoBehaviour
         }
     }
 
-    public string plug1Entrada = "";
-    public string plug2Entrada = "";
-    public string plug1Salida = "";
-    public string plug2Salida = "";
+    
 
     void ComportamientoModulo()
     {
@@ -266,7 +269,7 @@ public class Modulo22_23 : MonoBehaviour
         }
         else
         {
-
+            //Debug.LogError(this.name + ", Error. Comportamiento - El modulo 23 es nulo.");
         }
 
         //Modulo23
@@ -280,7 +283,8 @@ public class Modulo22_23 : MonoBehaviour
             }
         }
 
-            this.plug1Entrada = plug1Entrada;
+        //Para verificar plugs en el inspector
+        this.plug1Entrada = plug1Entrada;
         this.plug2Entrada = plug2Entrada;
         this.plug1Salida = plug1Salida;
         this.plug2Salida = plug2Salida;
@@ -291,8 +295,12 @@ public class Modulo22_23 : MonoBehaviour
         int lonLista = plugAnaranjados.Count;
         for (int i = 0; i < lonLista; i++)
         {
-            plugAnaranjados[i].GetComponent<Plugs>().EstablecerValoresNoConexionVolLin();
-            plugAnaranjados[i].GetComponent<Plugs>().QuitarAveria();
+            Plugs plug = plugAnaranjados[i].GetComponent<Plugs>();
+            if(plug != null)
+            {
+                plug.EstablecerValoresNoConexionVolLin();
+                plug.QuitarAveria();
+            }
         }
     }
 
@@ -302,15 +310,16 @@ public class Modulo22_23 : MonoBehaviour
         int numeroPlusConectados = 0;
         for (int i = 0; i < lonLista; i++)
         {
-            if (plugAnaranjados[i].GetComponent<Plugs>().EstoConectado())
+            Plugs plug = plugAnaranjados[i].GetComponent<Plugs>();
+            if (plug != null && plug.EstoConectado())
             {
                 numeroPlusConectados++;
                 if(numeroPlusConectados == 1)
                 {
-                    plug1 = plugAnaranjados[i].GetComponent<Plugs>().name;
+                    plug1 = plug.name;
                 }else if (numeroPlusConectados == 2)
                 {
-                    plug2 = plugAnaranjados[i].GetComponent<Plugs>().name;
+                    plug2 = plug.name;
                 }
             }
         }
@@ -322,9 +331,13 @@ public class Modulo22_23 : MonoBehaviour
         int numeroPlusConectados = 0;
         for (int i=0; i< lonLista; i++)
         {
-            if (plugAnaranjados[i].GetComponent<Plugs>().EstoConectado())
+            Plugs plug = plugAnaranjados[i].GetComponent<Plugs>();
+            if (plug != null)
             {
-                numeroPlusConectados++;
+                if (plug.EstoConectado())
+                {
+                    numeroPlusConectados++;
+                }
             }
         }
         return numeroPlusConectados;
