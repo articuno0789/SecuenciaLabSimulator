@@ -55,6 +55,7 @@ public class Modulo7 : MonoBehaviour
     #region Inicializacion
     private void Awake()
     {
+        //Inicialización de listas y diccionarios de elementos.
         plugsConnections = new Dictionary<string, string>();
         plugAnaranjadosDict = new Dictionary<string, GameObject>();
         plugNegrosDict = new Dictionary<string, GameObject>();
@@ -66,7 +67,7 @@ public class Modulo7 : MonoBehaviour
         InicializarComponentes(gameObject);
         if (moduloEncendido)
         {
-            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
+            EncenderApagarLuzRoja(true);
         }
         //Contractores
         IncializacionContractores("EntradaPlugAnaranjado2", "EntradaPlugAnaranjado3", false);
@@ -184,15 +185,36 @@ public class Modulo7 : MonoBehaviour
             {
                 RotarPerillaPrueba();
             }
-            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().EncenderFoco();
+            EncenderApagarLuzRoja(true);
             ComportamientoModulo();
         }
         else
         {
             //Hacer algo si el modulo esta apagado.
-            lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ApagarFoco();
+            EncenderApagarLuzRoja(false);
         }
     }
+
+    void EncenderApagarLuzRoja(bool encendida)
+    {
+        LuzRoja luz = lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>();
+        if (luz != null)
+        {
+            if (encendida)
+            {
+                luz.EncenderFoco();
+            }
+            else
+            {
+                luz.ApagarFoco();
+            }
+        }
+        else
+        {
+            Debug.LogError(this.name + ", Error. EncenderApagarLuz(bool encendida) - No se pudo obtener el componente LuzRoja.");
+        }
+    }
+
 
     /*Comportamiento para timers off delay (Punta de flecha para abajo) (Retardo al desenergizar)
     significa que cambiará de estado un tiempo predeterminado despupes que
@@ -204,7 +226,8 @@ public class Modulo7 : MonoBehaviour
         {
             cuentaAtras = valorActualPerilla;
         }
-        if (lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>().ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugNegrosDict["EntradaPlugNegro1"]))
+        LuzRoja luzRoja = lucesRojasDict["LuzRoja1"].GetComponent<LuzRoja>();
+        if (luzRoja != null && luzRoja.ComprobarEstado(plugAnaranjadosDict["EntradaPlugAnaranjado1"], plugNegrosDict["EntradaPlugNegro1"]))
         {
             estadoAnteriorEnergizado = true;
             if (cuentaIniciada)
@@ -349,7 +372,8 @@ public class Modulo7 : MonoBehaviour
         couroutineStarted = false;
     }
 
-    void FuncionamientoContractorRojo(string nPlugConexionArribaCerrado, string nPlugConexionAbajoCerrado, bool conexionAbierta)
+    //Codigo viejo
+    /*void FuncionamientoContractorRojo(string nPlugConexionArribaCerrado, string nPlugConexionAbajoCerrado, bool conexionAbierta)
     {
         Plugs plugConexionArribaCerrado = plugAnaranjadosDict[nPlugConexionArribaCerrado].GetComponent<Plugs>();
         Plugs plugConexionAbajoCerrado = plugAnaranjadosDict[nPlugConexionAbajoCerrado].GetComponent<Plugs>();
@@ -364,7 +388,7 @@ public class Modulo7 : MonoBehaviour
         if (!plugConexionAbajoCerrado.estaConectado)
         {
             plugConexionAbajoCerrado.EstablecerValoresNoConexion3(plugConexionArribaCerrado);
-        }*/
+        }
         plugConexionArribaCerrado.EstablecerValoresNoConexion2();
         plugConexionAbajoCerrado.EstablecerValoresNoConexion2();
         bool cortoElectrico = plugConexionArribaCerrado.ComprobarEstado(plugConexionArribaCerrado, plugConexionAbajoCerrado, conexionAbierta);
@@ -388,7 +412,7 @@ public class Modulo7 : MonoBehaviour
                 //Debug.Log("Modulo 13: No entra a ningun caso");
             }
         }
-    }
+    }*/
 
     public void RotarPerilla()
     {
@@ -410,7 +434,7 @@ public class Modulo7 : MonoBehaviour
 
     public void RotarPerillaPrueba()
     {
-        Vector3 perillaRotation = UnityEditor.TransformUtils.GetInspectorRotation(perilla.gameObject.transform);
+        /*Vector3 perillaRotation = UnityEditor.TransformUtils.GetInspectorRotation(perilla.gameObject.transform);
         //Debug.Log("perillaRotation: " + perillaRotation);
         if (perillaRotation.z >= limiteGiroSuperiorPerilla && puederotar)
         {
@@ -433,7 +457,7 @@ public class Modulo7 : MonoBehaviour
             {
                 puederotar = true;
             }
-        }
+        }*/
     }
     #endregion
 
