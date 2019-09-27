@@ -5,16 +5,19 @@ using System.Collections;
 public class CableComponent : MonoBehaviour
 {
     #region Class members
-
+    [Header("Mostrar Render")]
     [SerializeField] public bool showRender = true;
+    [Header("Puntos de Conexión")]
     [SerializeField] public GameObject startPoint;
     [SerializeField] public GameObject endPoint;
+    [Header("Materiales")]
     [SerializeField] public Material cableMaterial;
     [SerializeField] public Color startColor = AuxiliarModulos.startColor;
     [SerializeField] public Color endColor = AuxiliarModulos.endColor;
     [SerializeField] public bool todoCableMismoColor = false;
 
     // Cable config
+    [Header("Configuración del Cable")]
     [SerializeField] private float cableLength = 0.1f;
     [SerializeField] private int totalSegments = 5;
     [SerializeField] private float segmentsPerUnit = 2f;
@@ -27,12 +30,14 @@ public class CableComponent : MonoBehaviour
     public bool diagramaSecuencial = false;
 
     // Solver config
+    [Header("Configuración del Resolvedor")]
     [SerializeField] private int verletIterations = 1;
     [SerializeField] private int solverIterations = 1;
 
-    //[Range(0,3)]
+    [Range(0,3)]
     [SerializeField] private float stiffness = 1f;
 
+    [Header("Línea y Puntos")]
     public LineRenderer line;
     private CableParticle[] points;
 
