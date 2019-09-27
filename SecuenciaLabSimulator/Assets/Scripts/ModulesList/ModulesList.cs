@@ -5,6 +5,7 @@ using UnityEngine;
 public class ModulesList : MonoBehaviour
 {
     #region Atributos
+    [Header("Lista de Modulos")]
     [SerializeField] public ModuleExample[] modulesGroup;
     #endregion
 
