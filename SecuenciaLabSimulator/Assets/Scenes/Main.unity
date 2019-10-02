@@ -13005,7 +13005,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.13
-  m_Text: Creditos
+  m_Text: "Cr\xE9ditos"
 --- !u!222 &576220352
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16657,7 +16657,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Volumen musica
+  m_Text: "Volumen m\xFAsica"
 --- !u!222 &762124593
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19766,6 +19766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6a240cb0763b0d4babe6e7db6e27bf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moduloEncendido: 1
   camara: {fileID: 940364299}
   layerMask:
     serializedVersion: 2
@@ -20380,7 +20381,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.13
-  m_Text: Detalles Modulos
+  m_Text: "Detalles M\xF3dulos"
 --- !u!222 &980815309
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23077,6 +23078,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc997a6468b3484fb1dc2380fa842f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FirstPersonCharacterClickDetector: {fileID: 0}
   modulos: {fileID: 1547033521}
   menuOpen: 0
   saverManager: {fileID: 966579342}

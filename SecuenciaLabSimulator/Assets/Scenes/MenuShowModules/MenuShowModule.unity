@@ -5762,7 +5762,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Volumen musica
+  m_Text: "Volumen m\xFAsica"
 --- !u!222 &526532770
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11689,7 +11689,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PauseMenuManager: {fileID: 1155348729}
   modelSystems:
-  - title: Modulo 1
+  - title: "M\xF3dulo 1"
     nameModel: 1
     description: "Este m\xF3dulo se encarga de suministrar energ\xEDa y neutro a los
       dem\xE1s m\xF3dulos del simulador.\r\nSuministra la L\xEDnea 1 del sistema con
@@ -11701,7 +11701,7 @@ MonoBehaviour:
     modelPosition: {x: 3, y: 3, z: 10}
     modelRotation: {x: 0, y: 0, z: 0}
     modelScale: {x: 1, y: 1, z: 1}
-  - title: Modulo 2
+  - title: "M\xF3dulo 2"
     nameModel: 2
     description: "Este m\xF3dulo est\xE1 compuesto de dos botones de paso de corriente.
       El m\xF3dulo inicia su funcionamiento encontr\xE1ndose activado el bot\xF3n
@@ -11715,7 +11715,7 @@ MonoBehaviour:
     modelPosition: {x: 3, y: 3, z: 10}
     modelRotation: {x: 0, y: 0, z: 0}
     modelScale: {x: 1, y: 1, z: 1}
-  - title: Modulo 3
+  - title: "M\U000E7DEC\xF3dulo 3"
     nameModel: 3
     description: "Este m\xF3dulo est\xE1 compuesto por un tr\xEDo de pares de contractores
       (uno normalmente cerrado y otro normalmente abierto) y su bot\xF3n de cambio
@@ -11728,7 +11728,7 @@ MonoBehaviour:
     modelPosition: {x: 3, y: 3, z: 10}
     modelRotation: {x: 0, y: 0, z: 0}
     modelScale: {x: 1, y: 1, z: 1}
-  - title: Modulo 4
+  - title: "M\xF3dulo 4"
     nameModel: 4
     description: "Este m\xF3dulo es un m\xF3dulo indicador mediante luces indicadoras.
       Este m\xF3dulo est\xE1 compuesto por un par de focos indicadores, uno de color
@@ -11743,7 +11743,7 @@ MonoBehaviour:
     modelPosition: {x: 3, y: 3, z: 10}
     modelRotation: {x: 0, y: 0, z: 0}
     modelScale: {x: 1, y: 1, z: 1}
-  - title: Modulo 5
+  - title: "M\xF3dulo 5"
     nameModel: 5
     description: "Este m\xF3dulo es un medidor de voltaje, su funci\xF3n es indicar
       la cantidad de voltaje (diferencia de voltaje) existente entre dos pares de
@@ -11754,7 +11754,7 @@ MonoBehaviour:
     modelPosition: {x: 3, y: 3, z: 10}
     modelRotation: {x: 0, y: 0, z: 0}
     modelScale: {x: 1, y: 1, z: 1}
-  - title: Modulo 6, 12
+  - title: "M\xF3dulo 6, 12"
     nameModel: 6
     description: "Este m\xF3dulo es un temporizador on-delay (Retraso de energizaci\xF3n
       a la carga). Estos son temporizadores que inicial su conteo o retardo de tiempo
@@ -11768,7 +11768,7 @@ MonoBehaviour:
     modelPosition: {x: 3, y: 3, z: 10}
     modelRotation: {x: 0, y: 0, z: 0}
     modelScale: {x: 1, y: 1, z: 1}
-  - title: Modulo 7
+  - title: "M\xF3dulo 7"
     nameModel: 7
     description: "Este m\xF3dulo es un temporizador off-delay (Retraso de desenergizaci\xF3n
       a la carga). Estos son temporizadores que inicial su conteo o retardo de tiempo
@@ -11783,7 +11783,7 @@ MonoBehaviour:
     modelPosition: {x: 3, y: 3, z: 10}
     modelRotation: {x: 0, y: 0, z: 0}
     modelScale: {x: 1, y: 1, z: 1}
-  - title: Modulo 8, 11
+  - title: "M\xF3dulo 8, 11"
     nameModel: 8, 11
     description: "Este m\xF3dulo es un guardamotor. \r\nUn guardamotor es un interruptor
       magnetot\xE9rmico, especialmente dise\xF1ado para la protecci\xF3n de motores
@@ -11799,7 +11799,7 @@ MonoBehaviour:
     modelPosition: {x: 3, y: 3, z: 10}
     modelRotation: {x: 0, y: 0, z: 0}
     modelScale: {x: 1, y: 1, z: 1}
-  - title: Modulo 9
+  - title: "M\xF3dulo 9"
     nameModel: 9
     description: "Este m\xF3dulo es un m\xF3dulo indicador mediante luces indicadoras.
       Este m\xF3dulo est\xE1 compuesto por 6 luces indicadoras de color azul.\r\nEstos
@@ -11814,7 +11814,7 @@ MonoBehaviour:
     modelPosition: {x: 3, y: 3, z: 10}
     modelRotation: {x: 0, y: 0, z: 0}
     modelScale: {x: 1, y: 1, z: 1}
-  - title: Modulo 10, 17, 18, 19
+  - title: "M\xF3dulo 10, 17, 18, 19"
     nameModel: 10, 17, 18, 19
     description: "Este m\xF3dulo est\xE1 compuesto por un tr\xEDo de pares de contractores
       (uno normalmente cerrado y otro normalmente abierto) y su bobina de cambio respectivo.\r\nCuando
@@ -11827,7 +11827,7 @@ MonoBehaviour:
     modelPosition: {x: 3, y: 3, z: 10}
     modelRotation: {x: 0, y: 0, z: 0}
     modelScale: {x: 1, y: 1, z: 1}
-  - title: Modulo 13
+  - title: "M\xF3dulo 13"
     nameModel: 13
     description: "Este m\xF3dulo es una unidad auxiliar de contractores, es decir,
       brinda la utilizaci\xF3n de 4 contractores normalmente cerrados y 4 contractores
@@ -11839,7 +11839,7 @@ MonoBehaviour:
     modelPosition: {x: 3, y: 3, z: 10}
     modelRotation: {x: 0, y: 0, z: 0}
     modelScale: {x: 1, y: 1, z: 1}
-  - title: Modulo 14, 16
+  - title: "M\xF3dulo 14, 16"
     nameModel: 14, 16
     description: "Este m\xF3dulo est\xE1 compuesto por un tr\xEDo de pares de contractores
       (uno normalmente cerrado y otro normalmente abierto) y su bobina de cambio respectivo.\r\nCuando
@@ -11852,7 +11852,7 @@ MonoBehaviour:
     modelPosition: {x: 3, y: 3, z: 10}
     modelRotation: {x: 0, y: 0, z: 0}
     modelScale: {x: 1, y: 1, z: 1}
-  - title: Modulo 15
+  - title: "M\xF3dulo 15"
     nameModel: 15
     description: "Este m\xF3dulo se encarga de suministrar energ\xEDa por medio de
       diferentes l\xEDneas. De manera puntual existen tres l\xEDneas de conexi\xF3n,
@@ -11867,7 +11867,7 @@ MonoBehaviour:
     modelPosition: {x: 3, y: 3, z: 10}
     modelRotation: {x: 0, y: 0, z: 0}
     modelScale: {x: 1, y: 1, z: 1}
-  - title: Modulo 20
+  - title: "M\xF3dulo 20"
     nameModel: 20
     description: "Este m\xF3dulo es el panel de control del motor 1. Este m\xF3dulo
       cuenta con 9 bornes de conexi\xF3n, los cuales se utilizan para controlar el
@@ -11878,7 +11878,7 @@ MonoBehaviour:
     modelPosition: {x: 3, y: 3, z: 10}
     modelRotation: {x: 0, y: 0, z: 0}
     modelScale: {x: 1, y: 1, z: 1}
-  - title: Modulo 21
+  - title: "M\xF3dulo 21"
     nameModel: 21
     description: "Este m\xF3dulo es el panel de control del motor 2. Este m\xF3dulo
       cuenta con 9 bornes de conexi\xF3n, los cuales se utilizan para controlar el
@@ -11889,7 +11889,7 @@ MonoBehaviour:
     modelPosition: {x: 3, y: 3, z: 10}
     modelRotation: {x: 0, y: 0, z: 0}
     modelScale: {x: 1, y: 1, z: 1}
-  - title: Modulo 22
+  - title: "M\xF3dulo 22"
     nameModel: 22
     description: "Este m\xF3dulo en conjunto con el m\xF3dulo 23, ejecutan la funci\xF3n
       de un transformador el\xE9ctrico.\r\nSe denomina transformador a un elemento
@@ -11905,7 +11905,7 @@ MonoBehaviour:
     modelPosition: {x: 3, y: 3, z: 10}
     modelRotation: {x: 0, y: 0, z: 0}
     modelScale: {x: 1, y: 1, z: 1}
-  - title: Modulo 23
+  - title: "M\xF3dulo 23"
     nameModel: 23
     description: "Este m\xF3dulo en conjunto con el m\xF3dulo 22, ejecutan la funci\xF3n
       de un transformador el\xE9ctrico.\r\nSe denomina transformador a un elemento
@@ -11921,7 +11921,7 @@ MonoBehaviour:
     modelPosition: {x: 3, y: 3, z: 10}
     modelRotation: {x: 0, y: 0, z: 0}
     modelScale: {x: 1, y: 1, z: 1}
-  - title: Potenciometro
+  - title: "Potenci\xF3metro"
     nameModel: Potenciometro
     description: "Este m\xF3dulo es un potenci\xF3metro. Un potenci\xF3metro es uno
       de los dos usos que posee la resistencia o resistor variable mec\xE1nica (con
@@ -11933,7 +11933,7 @@ MonoBehaviour:
     modelPosition: {x: 3, y: 3, z: 10}
     modelRotation: {x: 0, y: 0, z: 0}
     modelScale: {x: 1, y: 1, z: 1}
-  - title: MotorElectricoAC1
+  - title: Motor Electrico AC 1
     nameModel: MotorElectricoAC1
     description: "Este m\xF3dulo es un motor trif\xE1sico de corriente alterna. Este
       motor sigue las especificaciones de funcionamiento del mismo tipo de motor que
@@ -11958,7 +11958,7 @@ MonoBehaviour:
     modelPosition: {x: 5.5, y: 0.6, z: 10}
     modelRotation: {x: 0, y: 0, z: 0}
     modelScale: {x: 3.5, y: 3.5, z: 3.5}
-  - title: MotorElectricoAC2
+  - title: Motor Electrico AC 2
     nameModel: MotorElectricoAC2
     description: "Este m\xF3dulo es un motor trif\xE1sico de corriente alterna. Este
       motor sigue las especificaciones de funcionamiento del mismo tipo de motor que
@@ -11983,7 +11983,7 @@ MonoBehaviour:
     modelPosition: {x: 2.9, y: 0.6, z: 10}
     modelRotation: {x: 0, y: -116, z: 0}
     modelScale: {x: 3.5, y: 3.5, z: 3.5}
-  - title: "Estaci\U000EE8E4e control secuencial"
+  - title: "Estaci\U000EE8E4\xF3n de control secuencial"
     nameModel: V0.1 - Aparato Control Secuencial
     description: "Este modelo representa la estructura principal del simulador, en
       esta estructura es donde se encuentran cableados todos los m\xF3dulos del simulador.
@@ -14437,6 +14437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc997a6468b3484fb1dc2380fa842f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FirstPersonCharacterClickDetector: {fileID: 0}
   modulos: {fileID: 0}
   menuOpen: 0
   saverManager: {fileID: 0}
@@ -16063,7 +16064,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.13
-  m_Text: Creditos
+  m_Text: "Cr\xE9ditos"
 --- !u!222 &1230834475
 CanvasRenderer:
   m_ObjectHideFlags: 0
