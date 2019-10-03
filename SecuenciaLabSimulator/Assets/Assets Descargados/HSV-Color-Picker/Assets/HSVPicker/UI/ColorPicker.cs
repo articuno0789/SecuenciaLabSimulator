@@ -321,6 +321,8 @@ public class ColorPicker : MonoBehaviour
                 {
                     cableCompStart.startColor = AuxiliarModulos.startColor;
                     cableCompStart.endColor = CurrentColor;
+                    /*cableCompEnd.startColor = AuxiliarModulos.startColor;
+                    cableCompEnd.endColor = CurrentColor;*/
                     if (cableCompStart.line != null)
                     {
                         todoElCableMismoColor = cableCompStart.todoCableMismoColor;
@@ -343,7 +345,7 @@ public class ColorPicker : MonoBehaviour
                 {
                     todoElCableMismoColor = cableCompEnd.todoCableMismoColor;
                     cableCompEnd.startColor = AuxiliarModulos.startColor;
-                    cableCompEnd.startColor = CurrentColor;
+                    cableCompEnd.endColor = CurrentColor;
                     if (cableCompEnd.line != null)
                     {
                         if (todoElCableMismoColor)

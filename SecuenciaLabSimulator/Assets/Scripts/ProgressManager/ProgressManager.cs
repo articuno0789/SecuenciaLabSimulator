@@ -362,7 +362,7 @@ public class ProgressManager : MonoBehaviour
                                                 float.Parse(Conexiones[conexionActual]["Color"]["G"].ToString()),
                                                 float.Parse(Conexiones[conexionActual]["Color"]["B"].ToString()),
                                                 float.Parse(Conexiones[conexionActual]["Color"]["A"].ToString()));
-                                            Debug.LogError("Color leido: " + colorCable.ToString());
+                                            Debug.LogError(conexionOrigen.name + " - Color leido: " + colorCable.ToString());
                                         }
                                         CrearConexionCable(conexionOrigen, conexionDestino, colorCable);
                                         if (debug)
@@ -400,6 +400,8 @@ public class ProgressManager : MonoBehaviour
         //ComprobarEliminarConexion(cableCompEnd, conexionDestino);
         if (true)
         {
+            Debug.LogError(conexionOrigen.name + " - Color leido 2: " + colorCable.ToString());
+
             cableCompStart.startPoint = conexionOrigen;
             cableCompStart.endPoint = conexionDestino;
 
@@ -416,6 +418,7 @@ public class ProgressManager : MonoBehaviour
                 cableCompStart.endColor = colorCable;
             }
             //cableCompStart.startColor = colorCable;
+            //cableCompStart.endColor = colorCable;
             cableCompStart.cableMaterial = cableMaterial;
             cableCompStart.InitCableParticles();
             cableCompStart.InitLineRenderer();
@@ -434,8 +437,9 @@ public class ProgressManager : MonoBehaviour
                     cableCompStart.startColor = AuxiliarModulos.startColor;
                     cableCompStart.endColor = colorCable;
                 }
-                cableCompStart.line.SetColors(cableCompStart.line.startColor, cableCompStart.line.endColor);
+                cableCompStart.line.SetColors(cableCompStart.startColor, cableCompStart.endColor);
             }
+            Debug.LogError(conexionOrigen.name + " - Color leido 3 - cableCompStart.startColor: " + cableCompStart.startColor.ToString() + ", cableCompStart.endColor: " + cableCompStart.endColor);
 
             //Segundo conector en eser seleccionado
             if (cableCompEnd.todoCableMismoColor)
@@ -448,15 +452,16 @@ public class ProgressManager : MonoBehaviour
                 cableCompEnd.startColor = AuxiliarModulos.startColor;
                 cableCompEnd.endColor = colorCable;
             }
-            cableCompEnd.startColor = colorCable;
+            //cableCompEnd.startColor = colorCable;
+            //cableCompEnd.endColor = colorCable;
             cableCompEnd.startPoint = conexionDestino;
             cableCompEnd.endPoint = conexionOrigen;
             cableCompEnd.cableMaterial = cableMaterial;
 
             if (cableCompEnd.line != null)
             {
-                //cableCompStart.line.endColor = colorCable;
-                //cableCompStart.line.startColor = colorCable;
+                //cableCompEnd.line.endColor = colorCable;
+                //cableCompEnd.line.startColor = colorCable;
                 if (cableCompEnd.todoCableMismoColor)
                 {
                     cableCompEnd.startColor = colorCable;
@@ -467,8 +472,9 @@ public class ProgressManager : MonoBehaviour
                     cableCompEnd.startColor = AuxiliarModulos.startColor;
                     cableCompEnd.endColor = colorCable;
                 }
-                cableCompEnd.line.SetColors(cableCompStart.line.startColor, cableCompStart.line.endColor);
+                cableCompEnd.line.SetColors(cableCompEnd.startColor, cableCompEnd.endColor);
             }
+            Debug.LogError(conexionOrigen.name + " - Color leido 4 - cableCompEnd.startColor: " + cableCompEnd.startColor.ToString() + ", cableCompEnd.endColor: " + cableCompEnd.endColor);
 
             //lastClickedGmObj.GetComponent<Renderer>().material.color = Color.white;
             //clickedGmObj.GetComponent<Renderer>().material.color = Color.white;
