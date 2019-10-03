@@ -103,6 +103,13 @@ public class SetValueKnob : MonoBehaviour
          * comprobar si esta dentro de los límites de cada perilla.*/
         else
         {
+            GameObject module = perillaSeleccionada;
+            if (debug)
+            {
+                Debug.Log("void SetValueKnop() - Nombre de la perilla: " + perillaSeleccionada.name);
+                Debug.Log(this.name + " - inputFieldCurrentValue.text: " + inputFieldCurrentValue.text);
+            }
+            EncontrarPadreTotal(perillaSeleccionada);
             float limiteMinimo = 0.0f;
             float limiteMaximo = 0.0f;
             float valorCampoTexto = float.Parse(inputFieldCurrentValue.text);
@@ -144,10 +151,15 @@ public class SetValueKnob : MonoBehaviour
                 textInfoValueKnob.text = "Información: Error. El valor introducido es mayor al limite máximo de la perilla.";
                 buttonSetValueKnob.enabled = false;
             }
-            else // El valor esta dentro de los límites adecuados.
+            else if(padreTotal != null) // El valor esta dentro de los límites adecuados.
             {
                 textInfoValueKnob.text = "Información: OK";
                 buttonSetValueKnob.enabled = true;
+            }
+            else
+            {
+                textInfoValueKnob.text = "Información: No entro a ningun caso. Padre total es nulo.";
+                buttonSetValueKnob.enabled = false;
             }
         }
     }
