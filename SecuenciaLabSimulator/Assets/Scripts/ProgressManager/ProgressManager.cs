@@ -25,7 +25,7 @@ public class ProgressManager : MonoBehaviour
     public string nombreArchivoGuardado = "";
     //Cifrado
     [Header("Parametros de cifrado")]
-    public bool cifrar = false;
+    public bool cifrar = true;
     private readonly string palabraClave = "ProyectoModular";
     //Debug
     [Header("Debug")]

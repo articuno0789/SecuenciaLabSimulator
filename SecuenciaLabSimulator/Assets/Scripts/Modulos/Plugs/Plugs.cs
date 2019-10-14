@@ -427,8 +427,9 @@ public class Plugs : MonoBehaviour
         if (plugDefinido != null)
         {
             Plugs plugDef = plugDefinido.GetComponent<Plugs>();
-            //Conectado = false;
-            //TipoConexion = (int)AuxiliarModulos.TiposConexiones.SinConexion;
+        //Conectado = false;
+        //TipoConexion = (int)AuxiliarModulos.TiposConexiones.SinConexion;
+        //Debug.Log("plugDef.Voltaje: " + plugDef.Voltaje + ", multiplicador: " + multiplicador + ", valorOriginal: " + valorOriginal);
             Voltaje = (plugDef.Voltaje * multiplicador * valorOriginal);
             Linea = plugDef.Linea;
         }

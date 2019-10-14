@@ -226,7 +226,7 @@ public class Modulo22_23 : MonoBehaviour
                                         Debug.LogError(this.name + ", -Hay conectados dos plugs, pero no son el 0 y otro. plug1Salida: " + plug1Salida + ", plug2Salida: " + plug2Salida);
                                         break;
                                 }
-
+                                //Debug.LogError("proporcionSalida: " + proporcionSalida + ", multiplicadorEntrada: " + multiplicadorEntrada + ", plugInteresMod23: "+ plugInteresMod23);
                                 //Fijar valores
                                 modulo23.GetComponent<Modulo22_23>().plugAnaranjadosDict[plugInteresMod23].GetComponent<Plugs>().EstablecerValoresPlugDefinido(plugAnaranjadosDict[plugInteresMod22], proporcionSalida, multiplicadorEntrada);
                                 //modulo23.GetComponent<Modulo22_23>().plugAnaranjadosDict["EntradaPlugAnaranjado65_"].GetComponent<Plugs>().EstablecerPropiedadesConexionesEntrantesPrueba();
@@ -235,11 +235,11 @@ public class Modulo22_23 : MonoBehaviour
                                     modulo23.GetComponent<Modulo22_23>().plugAnaranjadosDict[plugInteresMod23].GetComponent<CableComponent>().EndPoint.GetComponent<Plugs>().EstablecerPropiedadesConexionesEntrantesPrueba();
                                     modulo23.GetComponent<Modulo22_23>().plugAnaranjadosDict[plugInteresMod23].GetComponent<Plugs>().TipoConexion = (int)AuxiliarModulos.TiposConexiones.Linea;
                                     modulo23.GetComponent<Modulo22_23>().plugAnaranjadosDict[plugInteresMod23].GetComponent<Plugs>().ComprobarCorto(modulo23.GetComponent<Modulo22_23>().plugAnaranjadosDict[plugInteresMod23].GetComponent<Plugs>(),
-                                        modulo23.GetComponent<Modulo22_23>().plugAnaranjadosDict[plugInteresMod23].GetComponent<CableComponent>().EndPoint.GetComponent<Plugs>());
+                                    modulo23.GetComponent<Modulo22_23>().plugAnaranjadosDict[plugInteresMod23].GetComponent<CableComponent>().EndPoint.GetComponent<Plugs>());
                                 }
                                 modulo23.GetComponent<Modulo22_23>().plugAnaranjadosDict["EntradaPlugAnaranjado0_"].GetComponent<Plugs>().EstablecerValoresPlugDefinido(plugAnaranjadosDict["EntradaPlugAnaranjado0_"], 1.0f, multiplicadorEntrada);
                                 modulo23.GetComponent<Modulo22_23>().plugAnaranjadosDict["EntradaPlugAnaranjado0_"].GetComponent<Plugs>().ComprobarCorto(modulo23.GetComponent<Modulo22_23>().plugAnaranjadosDict["EntradaPlugAnaranjado0_"].GetComponent<Plugs>(),
-                                        modulo23.GetComponent<Modulo22_23>().plugAnaranjadosDict["EntradaPlugAnaranjado0_"].GetComponent<CableComponent>().EndPoint.GetComponent<Plugs>());
+                                modulo23.GetComponent<Modulo22_23>().plugAnaranjadosDict["EntradaPlugAnaranjado0_"].GetComponent<CableComponent>().EndPoint.GetComponent<Plugs>());
                             }
                             else
                             {
@@ -254,8 +254,8 @@ public class Modulo22_23 : MonoBehaviour
                     else
                     {
                         Debug.LogError(this.name + ", Hay conectados dos plugs, pero no son el 0 y otro. plug1Entrada: " + plug1Entrada + ", plug2Entrada: " + plug2Entrada);
+                        modulo23.GetComponent<Modulo22_23>().RetsablecerTodosPlugs();
                     }
-                    modulo23.GetComponent<Modulo22_23>().RetsablecerTodosPlugs();
                 }
                 else
                 {

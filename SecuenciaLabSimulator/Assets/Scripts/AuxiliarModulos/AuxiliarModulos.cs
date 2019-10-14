@@ -8,7 +8,7 @@ public static class AuxiliarModulos
     [Header("Colores Cables")]
     //Colores cables
     public static readonly Color startColor = new Color(0, 0, 0, 1); //Negro
-    public static readonly Color endColor = new Color(0, 1, 1, 1); //Cyan
+    public static readonly Color endColor = new Color(0, 0, 0, 1); //Negro //new Color(0, 1, 1, 1); //Cyan
     public static readonly Color colorPlugsDestacados = new Color(0, 1, 0, 1); //Green
     public static readonly Color colorPlugMultipleSeleccionado = new Color(0, 1, 1, 1); //Cyan
                                                                                         //new Color(1, 0, 0, 1); //Red

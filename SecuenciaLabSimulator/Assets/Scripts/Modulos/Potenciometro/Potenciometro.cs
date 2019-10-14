@@ -165,6 +165,7 @@ public class Potenciometro : MonoBehaviour
                     float nuevoVoltaje = plugIzquierdoCompPlug.Voltaje * (valorActualPerilla / 100);
                     plugCentral.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict["EntradaPlugAnaranjado1"]);
                     plugCentral.Voltaje = nuevoVoltaje;
+                    Debug.LogError("nuevoVoltaje: " + nuevoVoltaje + ", plugIzquierdoCompPlug.Voltaje: " + plugIzquierdoCompPlug.Voltaje + ", valorActualPerilla: " + valorActualPerilla);
                     plugCentral.EstoConectado();
                     if (DebugMode)
                     {
@@ -180,6 +181,7 @@ public class Potenciometro : MonoBehaviour
                     plugCentral.EstablecerPropiedadesConexionesEntrantes(plugAnaranjadosDict["EntradaPlugAnaranjado3"]);
                     plugCentral.Voltaje = nuevoVoltaje;
                     plugCentral.EstoConectado();
+                    Debug.LogError("nuevoVoltaje: " + nuevoVoltaje + ", plugIzquierdoCompPlug.Voltaje: " + plugIzquierdoCompPlug.Voltaje + ", valorActualPerilla: " + valorActualPerilla);
                     if (DebugMode)
                     {
                         Debug.Log(name + ") " + this.name + " - POTENCIOMETRO - (plugArribaCompPlug.TipoConexion == 2 && plugAbajoCompPlug.TipoConexion == 1) - Conectado -");
